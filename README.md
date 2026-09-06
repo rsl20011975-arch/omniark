@@ -31,6 +31,22 @@ klangguide와 같은 방식입니다. `site/` 폴더에서:
 vercel deploy --prod --yes
 ```
 
+현재 주소: https://omniark-site.vercel.app (2026-09-06 배포)
+
+## ⚠️ 정식 공개 전에 반드시 지울 것 — `site/vercel.json`
+
+지금 `site/vercel.json`이 **모든 페이지에 `X-Robots-Tag: noindex, nofollow`를 걸고 있습니다.**
+아직 다듬는 중이라 검색에 안 잡히게 막아둔 것입니다.
+
+**정식으로 공개하는 날 이 파일을 지우고 다시 배포해야 합니다.**
+안 지우면 구글이 이 사이트를 영원히 무시합니다 — 검색 유입 0이 됩니다.
+
+```
+rm site/vercel.json
+cd site && vercel deploy --prod --yes
+curl -sI https://<주소>/ | grep -i x-robots-tag   # 아무것도 안 나와야 정상
+```
+
 ## 규칙 (klangguide 사이트에서 그대로 상속)
 
 - **프레임워크·빌드 도구를 넣지 않습니다.** 순수 HTML/CSS/바닐라 JS. 유지보수자는 비개발자입니다.
