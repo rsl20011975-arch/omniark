@@ -27,7 +27,7 @@ window.OMNIARK_PRODUCTS = [
   },
   {
     id: "jjocoach",
-    name: { ko: "쪼코치", en: "JJO Coach" },
+    name: { ko: "쪼코치", en: "TakeCoach" },
     tagline: {
       ko: "대본을 읽으면 어절마다 표준 발음이 붙고, 문장 위에 내 억양 곡선이 그려집니다. 어느 음절이 안 맞았는지 짚어줍니다.",
       en: "Read a script aloud. Standard pronunciation appears beside each word, your pitch is drawn over the sentence, and it marks the syllables that missed."
@@ -38,7 +38,7 @@ window.OMNIARK_PRODUCTS = [
     stage: 4,
     statusNote: { ko: "Google Play 출시중", en: "On Google Play" },
     lastWork: "2026-09-03",
-    url: "https://play.google.com/store",
+    url: "https://play.google.com/store/apps/details?id=com.jjocoach.jjo_coach",
     art: "jade"
   },
   {
@@ -123,10 +123,10 @@ window.OMNIARK_PRODUCTS = [
   },
   {
     id: "jjoweb",
-    name: { ko: "쪼코치 웹", en: "JJO Coach Web" },
+    name: { ko: "쪼코치 웹", en: "TakeCoach Web" },
     tagline: {
       ko: "설치 없이 브라우저에서 바로 녹음하고 평가받습니다.",
-      en: "Record and get the same feedback in a browser. Nothing to install."
+      en: "The same Pronunciation Report and Pitch Monitor in a browser. Nothing to install."
     },
     audience: { ko: "앱 설치가 부담스러운 사람", en: "People who would rather not install an app" },
     group: "sound",
