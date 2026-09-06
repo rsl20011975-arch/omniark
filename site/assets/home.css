@@ -72,6 +72,14 @@
   padding-bottom: var(--s-12);
   scrollbar-width: thin; scrollbar-color: var(--line) transparent;
 }
+/* 카드가 4장 이하면 늘려서 줄을 채웁니다 — 오른쪽에 죽은 공간을 남기지 않습니다. */
+.tiles[data-fill] {
+  grid-auto-flow: row;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  grid-auto-columns: auto;
+  overflow-x: visible;
+  padding-bottom: 0;
+}
 .tiles::-webkit-scrollbar { height: 8px; }
 .tiles::-webkit-scrollbar-thumb { background: var(--line); border-radius: var(--r-full); }
 .tiles::-webkit-scrollbar-track { background: transparent; }
@@ -124,6 +132,11 @@
 @media (max-width: 900px) {
   .hero .wrap { grid-template-columns: 1fr; gap: var(--s-32); }
   .hero-poster { display: none; }
+  /* 좁아지면 늘린 카드도 다시 가로로 밀어서 봅니다 — 눌러 담으면 글자가 무너집니다. */
+  .tiles[data-fill] {
+    grid-auto-flow: column; grid-template-columns: none;
+    grid-auto-columns: 264px; overflow-x: auto; padding-bottom: var(--s-12);
+  }
 }
 @media (max-width: 760px) {
   .hero .wrap { padding-top: var(--s-48); padding-bottom: var(--s-48); }

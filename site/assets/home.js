@@ -87,7 +87,11 @@
         '<div class="row-head"><h2>' + t(g.title) + "</h2>" +
         '<span class="count mono">' + items.length + "</span>" +
         '<span class="note">' + t(g.note) + "</span></div>" +
-        '<div class="tiles">' + items.map(tileHTML).join("") + "</div>" +
+        // 4개 이하면 줄을 꽉 채우고, 5개 이상이면 가로로 밀어서 봅니다.
+        // 그래야 그룹을 화면 폭에 맞추려고 억지로 쪼개지 않아도 됩니다.
+        '<div class="tiles"' +
+        (items.length <= 4 ? ' data-fill style="--cols:' + items.length + '"' : "") +
+        ">" + items.map(tileHTML).join("") + "</div>" +
         "</section>"
       );
     }).join("");

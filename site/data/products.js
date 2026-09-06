@@ -17,7 +17,7 @@ window.OMNIARK_PRODUCTS = [
       en: "A Korean dictionary that teaches how a word is used, not just what it means. Over 1,000 nuance cards with audio."
     },
     audience: { ko: "한국어를 배우는 외국인", en: "People learning Korean" },
-    group: "korean",
+    group: "meaning",
     status: "live",
     stage: 4,
     statusNote: { ko: "운영중", en: "Live" },
@@ -29,11 +29,11 @@ window.OMNIARK_PRODUCTS = [
     id: "jjocoach",
     name: { ko: "쪼코치", en: "JJO Coach" },
     tagline: {
-      ko: "녹음 한 번에 발성·속도·끊어읽기를 짚어주는 낭독 코치.",
-      en: "Record once and hear what to fix — projection, pace, and where you break the line."
+      ko: "대본을 읽으면 어절마다 표준 발음이 붙고, 문장 위에 내 억양 곡선이 그려집니다. 어느 음절이 안 맞았는지 짚어줍니다.",
+      en: "Read a script aloud. Standard pronunciation appears beside each word, your pitch is drawn over the sentence, and it marks the syllables that missed."
     },
-    audience: { ko: "목소리로 먹고사는 사람", en: "People who work with their voice" },
-    group: "maker",
+    audience: { ko: "발음과 억양을 다듬는 사람", en: "People working on pronunciation and delivery" },
+    group: "sound",
     status: "live",
     stage: 4,
     statusNote: { ko: "Google Play 출시중", en: "On Google Play" },
@@ -49,7 +49,7 @@ window.OMNIARK_PRODUCTS = [
       en: "Watch it once, cut it once. Video editing that never asks you to rewind."
     },
     audience: { ko: "영상을 매주 올리는 사람", en: "People who publish video every week" },
-    group: "maker",
+    group: "other",
     status: "beta",
     stage: 3,
     statusNote: { ko: "이번 달 진수 예정", en: "Shipping this month" },
@@ -65,7 +65,7 @@ window.OMNIARK_PRODUCTS = [
       en: "Grades TOPIK II Writing Task 54 against the three official criteria — instantly, and tells you why."
     },
     audience: { ko: "TOPIK II를 준비하는 학습자", en: "People sitting TOPIK II" },
-    group: "korean",
+    group: "other",
     status: "dev",
     stage: 2,
     statusNote: { ko: "0단계 구현 완료", en: "Stage 0 complete" },
@@ -81,7 +81,7 @@ window.OMNIARK_PRODUCTS = [
       en: "Shows how the same Korean sentence lands differently depending on who you say it to."
     },
     audience: { ko: "말의 온도를 알고 싶은 학습자", en: "Learners who want to hear tone" },
-    group: "korean",
+    group: "meaning",
     status: "dev",
     stage: 2,
     statusNote: { ko: "P1 화용 유형 확정 완료", en: "Pragmatic types locked" },
@@ -97,7 +97,7 @@ window.OMNIARK_PRODUCTS = [
       en: "Turns the subtitles you were already watching into study material."
     },
     audience: { ko: "드라마로 한국어를 배우는 사람", en: "People learning Korean from drama" },
-    group: "korean",
+    group: "meaning",
     status: "dev",
     stage: 2,
     statusNote: { ko: "자막 파싱까지 완료", en: "Subtitle parsing done" },
@@ -113,7 +113,7 @@ window.OMNIARK_PRODUCTS = [
       en: "Korean pronunciation rules you practice by ear, built on Korea's public pronunciation data."
     },
     audience: { ko: "발음에서 막힌 학습자", en: "Learners stuck on pronunciation" },
-    group: "korean",
+    group: "sound",
     status: "design",
     stage: 1,
     statusNote: { ko: "착공 준비", en: "Ready to start" },
@@ -129,7 +129,7 @@ window.OMNIARK_PRODUCTS = [
       en: "Record and get the same feedback in a browser. Nothing to install."
     },
     audience: { ko: "앱 설치가 부담스러운 사람", en: "People who would rather not install an app" },
-    group: "maker",
+    group: "sound",
     status: "design",
     stage: 1,
     statusNote: { ko: "설계 중", en: "In design" },
@@ -145,7 +145,7 @@ window.OMNIARK_PRODUCTS = [
       en: "Memorize scripture by repetition, shaped like a game rather than a drill."
     },
     audience: { ko: "매일 한 구절씩 외우려는 사람", en: "People memorizing a verse a day" },
-    group: "maker",
+    group: "other",
     status: "idea",
     stage: 0,
     statusNote: { ko: "구상", en: "Concept" },
@@ -161,7 +161,7 @@ window.OMNIARK_PRODUCTS = [
       en: "Nuance notes and pronunciation rules layered straight onto video subtitles."
     },
     audience: { ko: "영상으로 공부하는 학습자", en: "People who study from video" },
-    group: "korean",
+    group: "meaning",
     status: "idea",
     stage: 0,
     statusNote: { ko: "구상", en: "Concept" },
@@ -171,18 +171,23 @@ window.OMNIARK_PRODUCTS = [
   }
 ];
 
-/* 진열대 그룹. 카드가 줄을 채우도록 두 갈래로만 나눕니다 —
-   줄이 안 차면 카드 하나가 덩그러니 남아 초라해 보입니다. */
+/* 진열대 그룹. 학습자가 막히는 자리를 기준으로 나눕니다 —
+   소리에서 막히느냐, 뜻에서 막히느냐. 그 밖의 것은 솔직하게 "그 밖에"로 둡니다. */
 window.OMNIARK_GROUPS = [
   {
-    id: "korean",
-    title: { ko: "한국어를 배우는 사람에게", en: "For people learning Korean" },
-    note:  { ko: "뜻이 아니라 쓰임을 가르치는 도구", en: "Tools that teach usage, not definitions" }
+    id: "sound",
+    title: { ko: "소리에서 막힐 때", en: "When the sound is the problem" },
+    note:  { ko: "표준 발음과 내 억양을 눈으로 보게 하는 도구", en: "Tools that show you your own pronunciation and pitch" }
   },
   {
-    id: "maker",
-    title: { ko: "말하고 만드는 사람에게", en: "For people who speak and make" },
-    note:  { ko: "목소리와 영상을 다루는 시간을 줄이는 도구", en: "Tools that cut the hours voice and video take" }
+    id: "meaning",
+    title: { ko: "뜻에서 막힐 때", en: "When the meaning is the problem" },
+    note:  { ko: "사전이 안 알려주는 쓰임과 뉘앙스", en: "The usage and nuance a dictionary leaves out" }
+  },
+  {
+    id: "other",
+    title: { ko: "시험 준비와 그 밖에", en: "Exam prep, and everything else" },
+    note:  { ko: "한국어 밖에서 만들고 있는 것들", en: "What else this studio is building" }
   }
 ];
 

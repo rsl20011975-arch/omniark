@@ -57,7 +57,8 @@
   background-image: var(--grain); opacity: .16; mix-blend-mode: overlay;
 }
 .art-jade   { background: radial-gradient(112% 100% at 20% 0%, #2c6f5d, #0f2a24 68%), linear-gradient(#0f2a24, #0a1a16); }
-.art-teal   { background: radial-gradient(112% 100% at 88% 88%, #2f5f6b, #102127 68%), linear-gradient(#102127, #0a1519); }
+/* 광원은 위쪽에 둡니다 — 아래에 두면 어두운 스크림에 가려 색이 죽습니다. */
+.art-teal   { background: radial-gradient(112% 100% at 24% 6%, #3a7a88, #102127 68%), linear-gradient(#102127, #0a1519); }
 .art-steel  { background: radial-gradient(112% 100% at 80% 8%, #37566f, #101d27 68%), linear-gradient(#101d27, #0a1218); }
 .art-ochre  { background: radial-gradient(112% 100% at 30% 100%, #7d5327, #231708 68%), linear-gradient(#231708, #150e05); }
 .art-violet { background: radial-gradient(112% 100% at 58% 0%, #4a3f6e, #171429 68%), linear-gradient(#171429, #0f0d1a); }
