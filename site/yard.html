@@ -1,17 +1,21 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>공정판 — OMNIARK</title>
-<meta name="description" content="OMNIARK가 만들고 있는 모든 것이 지금 어디까지 왔는지 그대로 공개합니다. 구상부터 출항까지 다섯 단계, 정박 중인 것도 숨기지 않습니다.">
+<title>The Yard — OMNIARK</title>
+<meta name="description" content="Every OMNIARK build and exactly how far along it is — concept, design, building, testing, launched. Nothing stalled is hidden.">
+
 <link rel="canonical" href="https://omniark.io/yard.html">
+<link rel="alternate" hreflang="en" href="https://omniark.io/yard.html">
+<link rel="alternate" hreflang="ko" href="https://omniark.io/ko/yard.html">
+<link rel="alternate" hreflang="x-default" href="https://omniark.io/yard.html">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="OMNIARK">
-<meta property="og:title" content="공정판 — OMNIARK">
-<meta property="og:description" content="다 짓고 나서 보여주는 대신, 짓는 과정을 그대로 걸어둡니다.">
-<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="The Yard — OMNIARK">
+<meta property="og:description" content="Instead of showing the work once it is done, the work stays on the wall while it is being done.">
+<meta property="og:locale" content="en_US">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0e12'/%3E%3Cpath d='M4 21 L16 4 L28 21 L22.5 21 L16 11 L9.5 21 Z' fill='%234fa88b'/%3E%3Cpath d='M6 24 Q16 30 26 24 L23 22 Q16 25.5 9 22 Z' fill='%234fa88b' opacity='0.7'/%3E%3C/svg%3E">
 
@@ -26,7 +30,7 @@
 <link rel="stylesheet" href="assets/yard.css">
 </head>
 <body>
-<a class="skip" href="#main">본문으로 건너뛰기</a>
+<a class="skip" href="#main">Skip to content</a>
 
 <main id="main" class="yard">
   <div class="yard-grid"></div>
@@ -34,9 +38,9 @@
     <div class="wrap">
       <section class="yard-top">
         <div>
-          <p class="label">OMNIARK 조선소</p>
-          <h1>짓고 있는 배 <span id="total" class="mono">0</span>척.<br>이번 달엔 하나를 띄웁니다.</h1>
-          <p class="lede">다 짓고 나서 보여주는 대신, 짓는 과정을 그대로 걸어둡니다. 여기 걸린 배는 반드시 물에 띄웁니다.</p>
+          <p class="label" id="yard-kicker">The OMNIARK yard</p>
+          <h1 id="yard-head">8 unfinished builds.<br>One of them ships this month.</h1>
+          <p class="lede" id="yard-lede">Instead of showing the work once it is done, the work stays on the wall while it is being done.</p>
         </div>
         <div id="launch"></div>
       </section>
@@ -45,8 +49,8 @@
 
       <section class="board">
         <div class="board-head">
-          <h2>공정판</h2>
-          <span class="label">마지막 작업일 기준 · 30일 넘게 손 안 대면 정박으로 표시됩니다</span>
+          <h2 id="board-title">The board</h2>
+          <span class="label" id="board-note">By last worked date</span>
         </div>
         <div class="lanes" id="lanes"></div>
       </section>
@@ -54,7 +58,9 @@
   </div>
 </main>
 
+<script>window.OMNIARK_LANG = "en";</script>
 <script src="data/products.js"></script>
+<script src="data/strings.js"></script>
 <script src="assets/shell.js"></script>
 <script src="assets/yard.js"></script>
 </body>

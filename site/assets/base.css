@@ -75,6 +75,17 @@ a { color: inherit; }
 }
 .site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--ink); }
 
+/* 언어 전환 — 메뉴가 아니라 도구라서 메뉴와 떼어 놓습니다. */
+.lang-switch {
+  margin-left: var(--s-16);
+  padding: 7px 12px; border-radius: var(--r-full);
+  border: 1px solid var(--line); background: rgba(255,255,255,.04);
+  color: var(--dim); text-decoration: none;
+  font-size: var(--t-12); font-weight: 600; white-space: nowrap;
+  transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+.lang-switch:hover { color: var(--ink); border-color: var(--jade); }
+
 /* ---------- 꼬리말 ---------- */
 .site-foot {
   border-top: 1px solid var(--line);
@@ -93,6 +104,11 @@ a { color: inherit; }
   .site-nav { gap: var(--s-16); }
   .site-nav a { font-size: var(--t-12); }
 }
-@media (max-width: 520px) {
-  .site-nav a.opt { display: none; }
+/* 좁은 화면에서는 메뉴가 머리말을 넘칩니다 — 영어는 한글보다 길어서 먼저 넘칩니다.
+   로고가 홈으로 가는 길이므로 "서비스"는 지우고, 남은 것만 좁혀서 넣습니다. */
+@media (max-width: 560px) {
+  .site-head .wrap { gap: var(--s-12); }
+  .site-nav a.opt, .site-nav a.nav-home { display: none; }
+  .brand-name { font-size: var(--t-14); letter-spacing: .1em; }
+  .lang-switch { margin-left: 0; padding: 6px 10px; }
 }

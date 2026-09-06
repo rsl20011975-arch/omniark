@@ -88,6 +88,12 @@
   position: relative; font-size: var(--t-24); font-weight: 800;
   text-shadow: 0 2px 14px rgba(0,0,0,.65);
 }
+/* 반대편 언어의 이름. 비어 있어도 자리를 차지해야 카드마다 제목 높이가 어긋나지 않습니다. */
+.tile-art h3 .roman {
+  display: block; margin-top: 2px; min-height: 1.35em;
+  font-size: var(--t-12); font-weight: 600; letter-spacing: .02em;
+  color: rgba(255,255,255,.6); text-shadow: 0 1px 8px rgba(0,0,0,.7);
+}
 .tile-body { padding: var(--s-16); display: flex; flex-direction: column; gap: var(--s-12); flex: 1; }
 .tile-audience { color: var(--faint); font-size: var(--t-12); }
 .tile-tagline { color: var(--dim); font-size: var(--t-14); line-height: 1.6; flex: 1; }

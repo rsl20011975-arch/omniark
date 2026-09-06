@@ -1,17 +1,22 @@
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>OMNIARK — 한국어와 목소리를 다루는 스튜디오</title>
-<meta name="description" content="OMNIARK는 한국어 학습과 목소리 훈련을 위한 도구를 만드는 1인 스튜디오입니다. 뉘앙스 사전 klangguide, 낭독 코치 쪼코치, TOPIK 채점기 PassGate를 만들고 있습니다.">
+<title>OMNIARK — Tools for Korean and the human voice</title>
+<meta name="description" content="OMNIARK is a one-person studio building tools for people learning Korean and people who work with their voice: klangguide's nuance dictionary, JJO Coach, and the TOPIK writing grader PassGate.">
+
 <link rel="canonical" href="https://omniark.io/">
+<link rel="alternate" hreflang="en" href="https://omniark.io/">
+<link rel="alternate" hreflang="ko" href="https://omniark.io/ko/">
+<link rel="alternate" hreflang="x-default" href="https://omniark.io/">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="OMNIARK">
-<meta property="og:title" content="OMNIARK — 한국어와 목소리를 다루는 스튜디오">
-<meta property="og:description" content="한국어 학습과 목소리 훈련 도구를 하나씩 끝까지 만듭니다. 지금 무엇이 어디까지 왔는지 전부 공개합니다.">
-<meta property="og:locale" content="ko_KR">
+<meta property="og:title" content="OMNIARK — Tools for Korean and the human voice">
+<meta property="og:description" content="Tools for people learning Korean, built one at a time and shown while they are still being built.">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ko_KR">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0e12'/%3E%3Cpath d='M4 21 L16 4 L28 21 L22.5 21 L16 11 L9.5 21 Z' fill='%234fa88b'/%3E%3Cpath d='M6 24 Q16 30 26 24 L23 22 Q16 25.5 9 22 Z' fill='%234fa88b' opacity='0.7'/%3E%3C/svg%3E">
@@ -32,14 +37,13 @@
   "@type": "Organization",
   "name": "OMNIARK",
   "url": "https://omniark.io/",
-  "description": "한국어 학습과 목소리 훈련을 위한 도구를 만드는 1인 스튜디오",
-  "founder": { "@type": "Person", "name": "OMNIARK" },
+  "description": "A one-person studio building tools for Korean language learning and voice training",
   "sameAs": ["https://klangguide.com"]
 }
 </script>
 </head>
 <body>
-<a class="skip" href="#main">본문으로 건너뛰기</a>
+<a class="skip" href="#main">Skip to content</a>
 
 <main id="main">
   <section class="hero" id="hero"></section>
@@ -49,15 +53,17 @@
 
     <section class="strip">
       <div class="strip-text">
-        <h2>먼저 아는 사람이 되세요</h2>
-        <p>여기 있는 도구는 하나씩 완성돼서 나옵니다. 이메일을 남겨두시면 새로 나오는 날 딱 한 번 알려드립니다. 광고는 보내지 않습니다.</p>
+        <h2 id="strip-title">Hear about it first</h2>
+        <p id="strip-body">These tools ship one at a time. Leave an email and you get exactly one message on the day a new one is ready. No newsletters, no ads.</p>
       </div>
-      <button class="btn btn-primary" type="button" data-notify="OMNIARK의 새 도구">이메일 남기기</button>
+      <button class="btn btn-primary" type="button" id="strip-cta">Leave an email</button>
     </section>
   </div>
 </main>
 
+<script>window.OMNIARK_LANG = "en";</script>
 <script src="data/products.js"></script>
+<script src="data/strings.js"></script>
 <script src="assets/shell.js"></script>
 <script src="assets/home.js"></script>
 </body>
