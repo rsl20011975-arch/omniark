@@ -1,0 +1,681 @@
+<title>옴니아크 사이트 시안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Nanum+Myeongjo:wght@400;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+/* ============ 공통 셸 ============ */
+:root{
+  --sh-bg:#f4f5f7; --sh-panel:#ffffff; --sh-ink:#12161b; --sh-muted:#5d6672;
+  --sh-line:#dfe3e8; --sh-accent:#1f5f52;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --sh-bg:#0d1014; --sh-panel:#151a20; --sh-ink:#eef1f4; --sh-muted:#98a2ae;
+    --sh-line:#252c34; --sh-accent:#6fc2ae;
+  }
+}
+:root[data-theme="dark"]{
+  --sh-bg:#0d1014; --sh-panel:#151a20; --sh-ink:#eef1f4; --sh-muted:#98a2ae;
+  --sh-line:#252c34; --sh-accent:#6fc2ae;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--sh-bg); color:var(--sh-ink);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",system-ui,sans-serif;
+  line-height:1.7; -webkit-font-smoothing:antialiased;
+}
+.shell{max-width:1240px; margin:0 auto; padding:32px 24px 8px}
+.shell-top{display:flex; flex-wrap:wrap; align-items:flex-end; gap:16px 24px; justify-content:space-between}
+.shell-eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--sh-muted); margin:0 0 8px
+}
+.shell h1{
+  font-family:"Gothic A1","Malgun Gothic",sans-serif; font-weight:800;
+  font-size:32px; line-height:1.2; letter-spacing:-0.02em; margin:0; text-wrap:balance;
+}
+.shell p.lede{margin:12px 0 0; max-width:56ch; color:var(--sh-muted); font-size:16px}
+.tabs{display:flex; flex-wrap:wrap; gap:8px; margin:24px 0 0; padding:0; list-style:none}
+.tab{
+  appearance:none; cursor:pointer; border:1px solid var(--sh-line);
+  background:var(--sh-panel); color:var(--sh-muted);
+  font:600 14px/1 "IBM Plex Sans KR",sans-serif; padding:12px 16px; border-radius:10px;
+  display:flex; align-items:baseline; gap:8px;
+  transition:border-color .18s ease-out, color .18s ease-out, transform .18s ease-out;
+}
+.tab:hover{transform:translateY(-1px); color:var(--sh-ink)}
+.tab:focus-visible{outline:2px solid var(--sh-accent); outline-offset:2px}
+.tab .no{font-family:"IBM Plex Mono",monospace; font-size:12px; opacity:.65}
+.tab[aria-selected="true"]{
+  color:var(--sh-ink); border-color:var(--sh-accent);
+  box-shadow:inset 0 0 0 1px var(--sh-accent);
+}
+.stage{max-width:1240px; margin:24px auto 64px; padding:0 24px}
+.stage-note{
+  display:flex; gap:12px; align-items:flex-start; margin:0 0 16px;
+  padding:14px 16px; border-radius:10px; background:var(--sh-panel);
+  border:1px solid var(--sh-line); font-size:14px; color:var(--sh-muted);
+}
+.stage-note b{color:var(--sh-ink); font-weight:600}
+.frame{
+  border:1px solid var(--sh-line); border-radius:14px; overflow:hidden;
+  box-shadow:0 1px 2px rgba(10,14,20,.06), 0 8px 24px rgba(10,14,20,.08);
+}
+
+/* ============ 시안 A · 진열장 ============ */
+#a{
+  --bg:#0b0e12; --deep:#070a0d; --panel:#141a21; --ink:#f0f3f6; --dim:#98a4b2;
+  --line:#222b34; --jade:#4fa88b; --ochre:#c9873a;
+  background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",sans-serif;
+}
+#a .nav{
+  display:flex; align-items:center; gap:24px; padding:16px 32px;
+  border-bottom:1px solid var(--line); background:linear-gradient(180deg,#0d1116,#0b0e12);
+}
+#a .brand{display:flex; align-items:center; gap:10px; margin-right:auto}
+#a .brand-name{
+  font-family:"Gothic A1",sans-serif; font-weight:800; font-size:16px;
+  letter-spacing:.16em; text-transform:uppercase;
+}
+#a .nav a{color:var(--dim); text-decoration:none; font-size:14px; font-weight:500}
+#a .nav a:hover{color:var(--ink)}
+#a .hero{position:relative; padding:64px 32px 48px; overflow:hidden}
+#a .hero-art{
+  position:absolute; inset:0; pointer-events:none;
+  background:
+    radial-gradient(120% 90% at 78% 18%, rgba(79,168,139,.34), transparent 62%),
+    radial-gradient(70% 70% at 92% 62%, rgba(201,135,58,.22), transparent 60%),
+    radial-gradient(90% 120% at 8% 100%, rgba(28,44,58,.9), transparent 70%),
+    linear-gradient(160deg,#101720,#070a0d);
+}
+#a .hero-grain{position:absolute; inset:0; background-image:var(--grain); opacity:.14; mix-blend-mode:overlay; pointer-events:none}
+#a .hero-inner{position:relative; max-width:600px}
+#a .badge-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px}
+#a .badge{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; padding:6px 10px; border-radius:999px;
+  border:1px solid rgba(79,168,139,.5); color:#8fd8c1;
+  background:rgba(79,168,139,.1);
+}
+#a .badge.dev{border-color:rgba(201,135,58,.5); color:#e6b477; background:rgba(201,135,58,.1)}
+#a .badge.plan{border-color:var(--line); color:var(--dim); background:rgba(255,255,255,.03)}
+#a h2{
+  font-family:"Gothic A1",sans-serif; font-weight:800; font-size:48px; line-height:1.14;
+  letter-spacing:-0.03em; margin:0 0 16px; text-wrap:balance;
+}
+#a .hero p{margin:0 0 32px; color:#c3ccd6; font-size:17px; max-width:40ch}
+#a .cta-row{display:flex; flex-wrap:wrap; gap:12px}
+#a .btn{
+  cursor:pointer; border:0; border-radius:10px; padding:14px 24px;
+  font:700 15px/1 "IBM Plex Sans KR",sans-serif; text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px;
+  transition:transform .18s cubic-bezier(.2,.8,.3,1), box-shadow .18s ease-out;
+}
+#a .btn:hover{transform:translateY(-2px)}
+#a .btn:focus-visible{outline:2px solid #8fd8c1; outline-offset:3px}
+#a .btn-1{
+  background:linear-gradient(180deg,#5fbd9d,#3d8f76); color:#04150f;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 6px 18px rgba(63,143,118,.4);
+}
+#a .btn-2{background:rgba(255,255,255,.07); color:var(--ink); box-shadow:inset 0 0 0 1px var(--line)}
+#a .rows{padding:8px 32px 48px}
+#a .row-head{display:flex; align-items:baseline; gap:12px; margin:32px 0 16px}
+#a .row-head h3{font-family:"Gothic A1",sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.01em; margin:0}
+#a .row-head span{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--dim)}
+#a .tiles{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:16px}
+#a .tile{
+  position:relative; border-radius:12px; overflow:hidden; border:1px solid var(--line);
+  background:var(--panel); text-decoration:none; color:inherit; display:block;
+  transition:transform .2s cubic-bezier(.2,.8,.3,1), border-color .2s ease-out;
+}
+#a .tile:hover{transform:translateY(-4px); border-color:rgba(79,168,139,.55)}
+#a .tile:focus-visible{outline:2px solid #8fd8c1; outline-offset:3px}
+#a .poster{position:relative; aspect-ratio:16/10; display:flex; align-items:flex-end; padding:14px}
+#a .poster::after{
+  content:""; position:absolute; inset:0; background-image:var(--grain);
+  opacity:.16; mix-blend-mode:overlay;
+}
+#a .poster::before{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg,transparent 40%,rgba(4,7,10,.82));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14);
+}
+#a .p1{background:radial-gradient(110% 100% at 20% 0%,#2c6f5d,#0f2a24 70%),linear-gradient(#0f2a24,#0a1a16)}
+#a .p2{background:radial-gradient(110% 100% at 80% 10%,#37566f,#101d27 70%),linear-gradient(#101d27,#0a1218)}
+#a .p3{background:radial-gradient(110% 100% at 30% 100%,#7d5327,#231708 70%),linear-gradient(#231708,#150e05)}
+#a .p4{background:radial-gradient(110% 100% at 60% 0%,#4a3f6e,#171429 70%),linear-gradient(#171429,#0f0d1a)}
+#a .p5{background:radial-gradient(110% 100% at 10% 40%,#6b2f3c,#241016 70%),linear-gradient(#241016,#170a0e)}
+#a .p6{background:radial-gradient(110% 100% at 90% 90%,#2f5f6b,#102127 70%),linear-gradient(#102127,#0a1519)}
+#a .poster-title{
+  position:relative; font-family:"Gothic A1",sans-serif; font-weight:800;
+  font-size:24px; letter-spacing:-0.02em; line-height:1.15; text-shadow:0 2px 12px rgba(0,0,0,.6);
+}
+#a .tile-body{padding:14px 14px 16px; display:flex; flex-direction:column; gap:10px}
+#a .tile-desc{font-size:13px; color:var(--dim); line-height:1.6; margin:0}
+#a .tile-foot{display:flex; align-items:center; justify-content:space-between; gap:8px}
+#a .mini{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
+  text-transform:uppercase; padding:4px 8px; border-radius:6px;
+}
+#a .mini.live{color:#8fd8c1; background:rgba(79,168,139,.14)}
+#a .mini.dev{color:#e6b477; background:rgba(201,135,58,.14)}
+#a .mini.plan{color:var(--dim); background:rgba(255,255,255,.05)}
+#a .notify{
+  font-size:12px; font-weight:600; color:var(--dim); background:none; border:0;
+  cursor:pointer; padding:4px 0; border-bottom:1px solid transparent;
+}
+#a .notify:hover{color:var(--ink); border-bottom-color:var(--jade)}
+#a .notify:focus-visible{outline:2px solid #8fd8c1; outline-offset:2px}
+
+/* ============ 시안 B · 선언 ============ */
+#b{
+  --paper:#f2f3f1; --paper2:#ffffff; --ink:#0f1418; --dim:#5a6470;
+  --line:#d9dcd8; --pine:#1e4a3c; --seal:#a8362b;
+  background:var(--paper); color:var(--ink);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",sans-serif;
+}
+#b .nav{display:flex; align-items:center; gap:32px; padding:24px 48px; border-bottom:1px solid var(--line)}
+#b .brand{display:flex; align-items:center; gap:10px; margin-right:auto}
+#b .brand-name{font-family:"Nanum Myeongjo",serif; font-weight:800; font-size:17px; letter-spacing:.1em}
+#b .nav a{color:var(--dim); text-decoration:none; font-size:14px}
+#b .nav a:hover{color:var(--pine)}
+#b .thesis{padding:80px 48px 64px; max-width:900px}
+#b .kicker{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--pine); margin:0 0 24px;
+}
+#b h2{
+  font-family:"Nanum Myeongjo",serif; font-weight:800;
+  font-size:56px; line-height:1.24; letter-spacing:-0.02em; margin:0 0 32px;
+  text-wrap:balance; word-break:keep-all;
+}
+#b .thesis p{margin:0; font-size:18px; line-height:1.8; max-width:38ch; color:#39424c}
+#b .thesis p + p{margin-top:16px}
+#b .band{
+  border-top:1px solid var(--line); padding:48px;
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:48px; align-items:center;
+}
+#b .band-text h3{
+  font-family:"Nanum Myeongjo",serif; font-weight:700; font-size:32px;
+  letter-spacing:-0.02em; margin:0 0 12px; word-break:keep-all;
+}
+#b .status{
+  display:inline-flex; align-items:center; gap:8px; margin:0 0 20px;
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--pine);
+}
+#b .status .dot{width:7px; height:7px; border-radius:999px; background:var(--pine); box-shadow:0 0 0 3px rgba(30,74,60,.16)}
+#b .status.wip{color:#8a6a1f}
+#b .status.wip .dot{background:#a37d24; box-shadow:0 0 0 3px rgba(163,125,36,.16)}
+#b .band-text p{margin:0 0 24px; color:#39424c; font-size:16px; max-width:34ch; word-break:keep-all}
+#b .link{
+  font-weight:600; font-size:15px; color:var(--pine); text-decoration:none;
+  border-bottom:1px solid rgba(30,74,60,.35); padding-bottom:2px;
+}
+#b .link:hover{border-bottom-color:var(--pine)}
+#b .shot{
+  border-radius:10px; overflow:hidden; background:var(--paper2);
+  border:1px solid var(--line);
+  box-shadow:0 1px 2px rgba(15,20,24,.05), 0 12px 32px rgba(15,20,24,.09);
+}
+#b .shot-bar{display:flex; gap:6px; padding:10px 12px; border-bottom:1px solid var(--line); background:#fafbfa}
+#b .shot-bar i{width:9px; height:9px; border-radius:999px; background:#d3d7d2; display:block}
+#b .shot-body{padding:24px; display:flex; flex-direction:column; gap:12px}
+#b .wave{display:flex; align-items:flex-end; gap:3px; height:64px}
+#b .wave i{flex:1; display:block; border-radius:2px; background:linear-gradient(180deg,#2f6b57,#1e4a3c)}
+#b .shot-line{height:9px; border-radius:4px; background:#e6e9e5}
+#b .shot-line.s{width:56%}
+#b .shot-line.m{width:78%}
+#b .score{display:flex; align-items:baseline; gap:10px; font-family:"Nanum Myeongjo",serif}
+#b .score b{font-size:44px; font-weight:800; letter-spacing:-0.03em; color:var(--pine); font-variant-numeric:tabular-nums}
+#b .score span{font-size:13px; color:var(--dim); font-family:"IBM Plex Mono",monospace}
+#b .chips{display:flex; flex-wrap:wrap; gap:8px}
+#b .chip{
+  font-size:12px; padding:6px 10px; border-radius:999px;
+  background:#e9ece8; color:#39424c; font-weight:500;
+}
+#b .chip.on{background:var(--pine); color:#f2f3f1}
+#b .slate{border-top:1px solid var(--line); padding:48px}
+#b .slate h4{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--dim); margin:0 0 24px; font-weight:500;
+}
+#b .slate-list{list-style:none; margin:0; padding:0; border-top:1px solid var(--line)}
+#b .slate-list li{
+  display:grid; grid-template-columns:minmax(0,1fr) auto; gap:16px; align-items:baseline;
+  padding:18px 0; border-bottom:1px solid var(--line);
+}
+#b .slate-list strong{font-family:"Nanum Myeongjo",serif; font-size:19px; font-weight:700}
+#b .slate-list em{font-style:normal; color:var(--dim); font-size:14px; margin-left:12px}
+#b .slate-list span{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--dim); white-space:nowrap;
+}
+#b .seal{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:40px; height:40px; border-radius:6px; border:1.5px solid var(--seal);
+  color:var(--seal); font-family:"Nanum Myeongjo",serif; font-weight:800; font-size:15px;
+  letter-spacing:-0.04em;
+}
+
+/* ============ 시안 C · 공정판 ============ */
+#c{
+  --bp:#0c1f2e; --bp2:#0f2637; --panel:rgba(255,255,255,.045); --ink:#e2edf4;
+  --dim:#8fa8ba; --line:rgba(127,212,232,.18); --cyan:#7fd4e8;
+  --ok:#5fcf9e; --warn:#e6b25f; --stall:#e0777a;
+  background:var(--bp); color:var(--ink);
+  font-family:"IBM Plex Sans KR","Malgun Gothic",sans-serif;
+  position:relative;
+}
+#c .grid-bg{
+  position:absolute; inset:0; pointer-events:none; opacity:.5;
+  background-image:
+    linear-gradient(rgba(127,212,232,.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(127,212,232,.075) 1px, transparent 1px);
+  background-size:32px 32px;
+}
+#c .wrap{position:relative}
+#c .nav{
+  display:flex; align-items:center; gap:24px; padding:16px 32px;
+  border-bottom:1px solid var(--line); background:rgba(9,24,35,.7);
+}
+#c .brand{display:flex; align-items:center; gap:10px; margin-right:auto}
+#c .brand-name{
+  font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:15px;
+  letter-spacing:.2em; text-transform:uppercase;
+}
+#c .nav a{color:var(--dim); text-decoration:none; font-size:14px}
+#c .nav a:hover{color:var(--cyan)}
+#c .top{padding:48px 32px 32px; display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:32px; align-items:start}
+#c .kicker{
+  font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--cyan); margin:0 0 16px;
+}
+#c h2{
+  font-family:"Gothic A1",sans-serif; font-weight:800; font-size:42px; line-height:1.18;
+  letter-spacing:-0.03em; margin:0 0 16px; text-wrap:balance; word-break:keep-all;
+}
+#c .top p{margin:0; color:#b6c9d6; font-size:16px; max-width:40ch; word-break:keep-all}
+#c .launch{
+  margin-top:24px; padding:20px; border-radius:12px;
+  background:linear-gradient(180deg,rgba(127,212,232,.13),rgba(127,212,232,.04));
+  border:1px solid rgba(127,212,232,.34);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1), 0 10px 30px rgba(3,14,22,.5);
+}
+#c .launch-top{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:14px}
+#c .launch-top strong{font-family:"Gothic A1",sans-serif; font-size:22px; font-weight:800; letter-spacing:-0.02em}
+#c .launch-top em{
+  font-style:normal; font-family:"IBM Plex Mono",monospace; font-size:11px;
+  letter-spacing:.12em; text-transform:uppercase; color:var(--cyan);
+}
+#c .steps{display:flex; gap:6px; margin-bottom:12px}
+#c .steps i{
+  flex:1; height:6px; border-radius:999px; display:block;
+  background:rgba(255,255,255,.1);
+}
+#c .steps i.done{background:linear-gradient(90deg,#5fcf9e,#7fd4e8)}
+#c .steps i.now{background:linear-gradient(90deg,#7fd4e8,rgba(127,212,232,.25))}
+#c .step-labels{
+  display:flex; justify-content:space-between; font-family:"IBM Plex Mono",monospace;
+  font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--dim);
+}
+#c .meters{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px}
+#c .meter{
+  padding:16px; border-radius:10px; background:var(--panel);
+  border:1px solid var(--line);
+}
+#c .meter b{
+  display:block; font-family:"Gothic A1",sans-serif; font-weight:800; font-size:32px;
+  letter-spacing:-0.03em; font-variant-numeric:tabular-nums; line-height:1.1;
+}
+#c .meter span{
+  display:block; margin-top:6px; font-family:"IBM Plex Mono",monospace; font-size:11px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--dim);
+}
+#c .meter.ok b{color:var(--ok)} #c .meter.warn b{color:var(--warn)} #c .meter.stall b{color:var(--stall)}
+#c .board{padding:8px 32px 48px}
+#c .board-head{display:flex; align-items:baseline; gap:12px; margin:0 0 16px}
+#c .board-head h3{font-family:"Gothic A1",sans-serif; font-weight:700; font-size:20px; margin:0; letter-spacing:-0.01em}
+#c .board-head span{font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--dim)}
+#c .lanes{display:grid; grid-template-columns:repeat(auto-fit,minmax(184px,1fr)); gap:12px}
+#c .lane{display:flex; flex-direction:column; gap:10px; min-width:0}
+#c .lane-title{
+  display:flex; align-items:center; justify-content:space-between; gap:8px;
+  padding-bottom:10px; border-bottom:1px solid var(--line);
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--dim);
+}
+#c .lane-title b{color:var(--ink); font-weight:500; font-variant-numeric:tabular-nums}
+#c .job{
+  padding:12px; border-radius:10px; background:rgba(255,255,255,.05);
+  border:1px solid var(--line); border-left:2px solid var(--cyan);
+  display:flex; flex-direction:column; gap:6px;
+  transition:transform .18s cubic-bezier(.2,.8,.3,1), background .18s ease-out;
+}
+#c .job:hover{transform:translateX(2px); background:rgba(255,255,255,.08)}
+#c .job.ok{border-left-color:var(--ok)}
+#c .job.warn{border-left-color:var(--warn)}
+#c .job.stall{border-left-color:var(--stall)}
+#c .job strong{font-size:15px; font-weight:600; letter-spacing:-0.01em}
+#c .job p{margin:0; font-size:12px; color:var(--dim); line-height:1.55; word-break:keep-all}
+#c .job time{
+  font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em;
+  color:var(--dim); opacity:.8;
+}
+#c .empty{
+  padding:16px 12px; border-radius:10px; border:1px dashed var(--line);
+  font-size:12px; color:var(--dim); text-align:center;
+}
+
+/* ============ 반응형 ============ */
+@media (max-width:860px){
+  .shell h1{font-size:24px}
+  #a h2{font-size:32px} #a .hero{padding:40px 20px 32px} #a .rows{padding:8px 20px 32px}
+  #a .nav{padding:14px 20px; gap:16px}
+  #b h2{font-size:34px} #b .thesis{padding:48px 20px 40px}
+  #b .band{grid-template-columns:1fr; gap:24px; padding:32px 20px}
+  #b .slate{padding:32px 20px} #b .nav{padding:16px 20px; gap:16px}
+  #c h2{font-size:28px} #c .top{grid-template-columns:1fr; padding:32px 20px 24px}
+  #c .board{padding:8px 20px 32px} #c .nav{padding:14px 20px; gap:16px}
+}
+@media (max-width:560px){
+  #a .nav a, #b .nav a, #c .nav a{display:none}
+  #b .slate-list li{grid-template-columns:1fr}
+  #c .meters{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important; animation:none !important}
+}
+</style>
+
+<div class="shell">
+  <div class="shell-top">
+    <div>
+      <p class="shell-eyebrow">OMNIARK · 착공 게이트 · 2026-09-06</p>
+      <h1>홈페이지 방향 시안 3장</h1>
+      <p class="lede">D 드라이브 전수 조사 결과를 그대로 넣은 실물 시안입니다. 가짜 이름·더미 텍스트 없음. 세 방향은 서로 다른 문제를 풉니다 — 하나 고르시면 그걸로 착공합니다.</p>
+    </div>
+    <div class="seal" style="font-family:'Nanum Myeongjo',serif; font-weight:800; font-size:15px; width:40px; height:40px; border:1.5px solid var(--sh-accent); color:var(--sh-accent); border-radius:6px; display:flex; align-items:center; justify-content:center;">舟</div>
+  </div>
+  <div class="tabs" role="tablist" aria-label="시안 선택">
+    <button class="tab" role="tab" aria-selected="true" aria-controls="a" id="t-a"><span class="no">01</span>진열장형</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="b" id="t-b"><span class="no">02</span>선언형</button>
+    <button class="tab" role="tab" aria-selected="false" aria-controls="c" id="t-c"><span class="no">03</span>공정판형</button>
+  </div>
+</div>
+
+<!-- ============================== 시안 A ============================== -->
+<section class="stage" id="s-a" role="tabpanel" aria-labelledby="t-a">
+  <p class="stage-note"><b>01 · 진열장형</b> — 넷플릭스·게임포털 방식. 강점: 서비스가 많아 보이고 둘러보기 재미가 있다. 약점: 지금 출시작이 1개뿐이라 "개발중" 배지가 다수가 된다 — 정직하되 초라해 보일 위험이 있고, 카드 아트를 계속 만들어야 한다.</p>
+  <div class="frame">
+  <div id="a">
+    <nav class="nav">
+      <div class="brand">
+        <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+          <defs>
+            <linearGradient id="ag" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#6fd0b3"/><stop offset="1" stop-color="#2c7761"/>
+            </linearGradient>
+          </defs>
+          <path d="M4 21 L16 4 L28 21 L22.5 21 L16 11 L9.5 21 Z" fill="url(#ag)"/>
+          <path d="M6 24 Q16 30 26 24 L23 22 Q16 25.5 9 22 Z" fill="#4fa88b" opacity="0.75"/>
+        </svg>
+        <span class="brand-name">Omniark</span>
+      </div>
+      <a href="#">서비스</a><a href="#">개발 로드맵</a><a href="#">스튜디오</a><a href="#">문의</a>
+    </nav>
+
+    <div class="hero">
+      <div class="hero-art"></div><div class="hero-grain"></div>
+      <div class="hero-inner">
+        <div class="badge-row">
+          <span class="badge">Google Play 출시중</span>
+          <span class="badge plan">성우 · 발성 훈련</span>
+        </div>
+        <h2>쪼코치</h2>
+        <p>목소리로 먹고사는 사람을 위한 발성·낭독 훈련 코치. 녹음하면 바로 짚어줍니다.</p>
+        <div class="cta-row">
+          <a class="btn btn-1" href="#">설치하기</a>
+          <a class="btn btn-2" href="#">자세히 보기</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="rows">
+      <div class="row-head"><h3>한국어 학습</h3><span>4</span></div>
+      <div class="tiles">
+        <a class="tile" href="#">
+          <div class="poster p1"><span class="poster-title">klangguide</span></div>
+          <div class="tile-body">
+            <p class="tile-desc">한국어 단어를 뜻·쓰임·뉘앙스까지 묶어 보여주는 가이드 사이트.</p>
+            <div class="tile-foot"><span class="mini live">운영중</span><span class="notify" role="text">애드센스 심사</span></div>
+          </div>
+        </a>
+        <a class="tile" href="#">
+          <div class="poster p2"><span class="poster-title">PassGate</span></div>
+          <div class="tile-body">
+            <p class="tile-desc">TOPIK II 쓰기 54번 답안을 공식 3범주로 즉시 채점.</p>
+            <div class="tile-foot"><span class="mini dev">프로토타입</span><button class="notify" type="button">알림받기</button></div>
+          </div>
+        </a>
+        <a class="tile" href="#">
+          <div class="poster p4"><span class="poster-title">말결</span></div>
+          <div class="tile-body">
+            <p class="tile-desc">같은 문장이 사람과 상황에 따라 어떻게 다르게 도착하는지 보여준다.</p>
+            <div class="tile-foot"><span class="mini dev">개발중</span><button class="notify" type="button">알림받기</button></div>
+          </div>
+        </a>
+        <a class="tile" href="#">
+          <div class="poster p6"><span class="poster-title">소리다리</span></div>
+          <div class="tile-body">
+            <p class="tile-desc">한국어 발음 규칙을 소리로 건너가게 만드는 연습 도구.</p>
+            <div class="tile-foot"><span class="mini plan">착공 준비</span><button class="notify" type="button">알림받기</button></div>
+          </div>
+        </a>
+      </div>
+
+      <div class="row-head"><h3>만드는 사람을 위한 도구</h3><span>3</span></div>
+      <div class="tiles">
+        <a class="tile" href="#">
+          <div class="poster p3"><span class="poster-title">원패스컷</span></div>
+          <div class="tile-body">
+            <p class="tile-desc">한 번에 훑고 한 번에 자르는 영상 컷 편집 도구.</p>
+            <div class="tile-foot"><span class="mini dev">개발중</span><button class="notify" type="button">알림받기</button></div>
+          </div>
+        </a>
+        <a class="tile" href="#">
+          <div class="poster p5"><span class="poster-title">자막 추출기</span></div>
+          <div class="tile-body">
+            <p class="tile-desc">보던 영상의 자막을 학습 자료로 바꿔주는 추출기.</p>
+            <div class="tile-foot"><span class="mini dev">개발중</span><button class="notify" type="button">알림받기</button></div>
+          </div>
+        </a>
+        <a class="tile" href="#">
+          <div class="poster p1"><span class="poster-title">성경암송</span></div>
+          <div class="tile-body">
+            <p class="tile-desc">구절을 게임처럼 반복해 외우게 하는 암송 트레이너.</p>
+            <div class="tile-foot"><span class="mini plan">예정</span><button class="notify" type="button">알림받기</button></div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ============================== 시안 B ============================== -->
+<section class="stage" id="s-b" role="tabpanel" aria-labelledby="t-b" hidden>
+  <p class="stage-note"><b>02 · 선언형</b> — Panic·37signals 계열. 강점: 제품이 적어도 격이 살고, 카드 아트가 필요 없다(스크린샷 하나면 됨). "왜 만드는가"가 앞에 서기 때문에 개발중이 흠이 아니다. 약점: 둘러보는 재미는 01보다 적다.</p>
+  <div class="frame">
+  <div id="b">
+    <nav class="nav">
+      <div class="brand">
+        <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M4 21 L16 4 L28 21 L22.5 21 L16 11 L9.5 21 Z" fill="#1e4a3c"/>
+          <path d="M6 24 Q16 30 26 24 L23 22 Q16 25.5 9 22 Z" fill="#1e4a3c" opacity="0.6"/>
+        </svg>
+        <span class="brand-name">OMNIARK</span>
+      </div>
+      <a href="#">만든 것</a><a href="#">만들고 있는 것</a><a href="#">스튜디오</a><a href="#">문의</a>
+    </nav>
+
+    <div class="thesis">
+      <p class="kicker">1인 스튜디오 · 서울</p>
+      <h2>한국어를 가르치는 도구는<br>아직 대부분 비어 있습니다.</h2>
+      <p>단어의 뜻은 사전이 알려주지만, 그 말이 <em style="font-style:normal; border-bottom:2px solid rgba(30,74,60,.3)">누구에게 어떻게 도착하는지</em>는 아무도 알려주지 않습니다.</p>
+      <p>OMNIARK는 그 빈칸을 하나씩 메꿉니다. 발음 하나, 뉘앙스 하나, 문장 하나씩. 크게 짓지 않고 끝까지 짓습니다.</p>
+    </div>
+
+    <div class="band">
+      <div class="band-text">
+        <p class="status"><span class="dot"></span>Google Play 출시중</p>
+        <h3>쪼코치</h3>
+        <p>녹음 한 번에 발성·속도·끊어읽기를 짚어주는 낭독 코치. 성우 준비생이 매일 여는 앱을 목표로 만들었습니다.</p>
+        <a class="link" href="#">Google Play에서 보기</a>
+      </div>
+      <div class="shot">
+        <div class="shot-bar"><i></i><i></i><i></i></div>
+        <div class="shot-body">
+          <div class="wave">
+            <i style="height:22%"></i><i style="height:48%"></i><i style="height:71%"></i><i style="height:96%"></i>
+            <i style="height:64%"></i><i style="height:38%"></i><i style="height:82%"></i><i style="height:55%"></i>
+            <i style="height:29%"></i><i style="height:74%"></i><i style="height:44%"></i><i style="height:17%"></i>
+            <i style="height:61%"></i><i style="height:88%"></i><i style="height:35%"></i><i style="height:24%"></i>
+          </div>
+          <div class="chips">
+            <span class="chip on">끊어읽기 양호</span><span class="chip">속도 +12%</span><span class="chip">비음 주의</span>
+          </div>
+          <div class="shot-line m"></div><div class="shot-line s"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="band">
+      <div class="band-text">
+        <p class="status wip"><span class="dot"></span>프로토타입 · 0단계 완료</p>
+        <h3>PassGate</h3>
+        <p>TOPIK II 쓰기 54번은 사람이 채점합니다. 그래서 연습할 방법이 없습니다. 공식 3범주 기준을 그대로 적용해, 쓴 즉시 점수와 근거를 돌려줍니다.</p>
+        <a class="link" href="#">채점 기준 보기</a>
+      </div>
+      <div class="shot">
+        <div class="shot-bar"><i></i><i></i><i></i></div>
+        <div class="shot-body">
+          <div class="score"><b>21</b><span>/ 30 · 내용 및 과제수행 7 · 전개구조 7 · 언어사용 7</span></div>
+          <div class="shot-line m"></div><div class="shot-line"></div><div class="shot-line s"></div>
+          <div class="chips"><span class="chip on">문단 구분 있음</span><span class="chip">접속 표현 반복 3회</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slate">
+      <h4>만들고 있는 것</h4>
+      <ul class="slate-list">
+        <li><div><strong>klangguide.com</strong><em>한국어 단어 가이드</em></div><span>운영중 · 심사 대기</span></li>
+        <li><div><strong>말결</strong><em>같은 문장, 다른 도착</em></div><span>개발중 · P1 완료</span></li>
+        <li><div><strong>원패스컷</strong><em>영상 컷 편집 도구</em></div><span>개발중</span></li>
+        <li><div><strong>자막 추출기</strong><em>자막에서 학습 자료로</em></div><span>개발중</span></li>
+        <li><div><strong>소리다리</strong><em>한국어 발음 규칙 연습</em></div><span>착공 준비</span></li>
+        <li><div><strong>성경암송</strong><em>구절 반복 암송 트레이너</em></div><span>예정</span></li>
+      </ul>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ============================== 시안 C ============================== -->
+<section class="stage" id="s-c" role="tabpanel" aria-labelledby="t-c" hidden>
+  <p class="stage-note"><b>03 · 공정판형</b> — 드림님이 말씀하신 <b>"맨날 만들다가 말아"</b>를 정면으로 다루는 안. 사이트가 홍보물이 아니라 <b>조선소 공정판</b>이 됩니다. 재고 전체가 한 판에 서열로 보이고, 맨 위에 "이번 달 진수할 것 딱 하나"가 못박힙니다. 공개된 곳에 걸리면 끝낼 이유가 생깁니다. 강점: 우리만 할 수 있고, 방치된 것도 자산이 됨. 약점: 미완성을 드러내는 안이라 배짱이 필요합니다.</p>
+  <div class="frame">
+  <div id="c">
+    <div class="grid-bg"></div>
+    <div class="wrap">
+      <nav class="nav">
+        <div class="brand">
+          <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true">
+            <defs>
+              <linearGradient id="cg" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#a8e6f4"/><stop offset="1" stop-color="#3f92ab"/>
+              </linearGradient>
+            </defs>
+            <path d="M4 21 L16 4 L28 21 L22.5 21 L16 11 L9.5 21 Z" fill="url(#cg)"/>
+            <path d="M6 24 Q16 30 26 24 L23 22 Q16 25.5 9 22 Z" fill="#7fd4e8" opacity="0.7"/>
+          </svg>
+          <span class="brand-name">Omniark</span>
+        </div>
+        <a href="#">공정판</a><a href="#">출항한 것</a><a href="#">설계도</a><a href="#">문의</a>
+      </nav>
+
+      <div class="top">
+        <div>
+          <p class="kicker">Omniark 조선소 · 2026년 9월</p>
+          <h2>만들다 만 것 서른 개.<br>이번 달엔 하나를 띄웁니다.</h2>
+          <p>다 짓고 나서 보여주는 대신, 짓는 과정을 그대로 걸어둡니다. 여기 걸린 배는 반드시 물에 띄웁니다.</p>
+          <div class="launch">
+            <div class="launch-top"><strong>원패스컷</strong><em>이번 달 진수 예정</em></div>
+            <div class="steps"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
+            <div class="step-labels"><span>설계</span><span>착공</span><span>내장</span><span>시운전</span><span>진수</span></div>
+          </div>
+        </div>
+        <div class="meters">
+          <div class="meter ok"><b>2</b><span>출항 완료</span></div>
+          <div class="meter"><b>8</b><span>선대에 올림</span></div>
+          <div class="meter warn"><b>10</b><span>설계만 있음</span></div>
+          <div class="meter stall"><b>10</b><span>90일 이상 정박</span></div>
+        </div>
+      </div>
+
+      <div class="board">
+        <div class="board-head"><h3>공정판</h3><span>D 드라이브 전수 조사 2026-09-06 · 최종 작업일 기준</span></div>
+        <div class="lanes">
+          <div class="lane">
+            <div class="lane-title">구상 <b>2</b></div>
+            <div class="job"><strong>리액터+</strong><p>뉘앙스 해석과 발음 규칙을 영상 자막 위에 얹는다</p><time>아이디어</time></div>
+            <div class="job"><strong>성경암송</strong><p>구절을 게임처럼 반복해 외우게 한다</p><time>아이디어</time></div>
+          </div>
+          <div class="lane">
+            <div class="lane-title">설계 <b>2</b></div>
+            <div class="job warn"><strong>소리다리</strong><p>한국어 발음 규칙 연습. 공공 발음 데이터 확보 완료</p><time>2026-08-26</time></div>
+            <div class="job warn"><strong>쪼코치 웹</strong><p>앱을 브라우저에서 — 설치 없이 녹음·평가</p><time>2026-09-03</time></div>
+          </div>
+          <div class="lane">
+            <div class="lane-title">착공 <b>3</b></div>
+            <div class="job"><strong>말결</strong><p>같은 문장, 다른 도착. P1 화용 유형 확정 완료</p><time>2026-08-23</time></div>
+            <div class="job"><strong>PassGate</strong><p>TOPIK II 쓰기 54번 채점. 0단계 구현 완료</p><time>2026-08-26</time></div>
+            <div class="job stall"><strong>자막 추출기</strong><p>자막에서 학습 자료로. 3주째 정박</p><time>2026-08-15</time></div>
+          </div>
+          <div class="lane">
+            <div class="lane-title">시운전 <b>1</b></div>
+            <div class="job"><strong>원패스컷</strong><p>한 번에 훑고 한 번에 자른다. 이번 달 진수 목표</p><time>2026-09-02</time></div>
+            <div class="empty">여기는 한 척만 올립니다</div>
+          </div>
+          <div class="lane">
+            <div class="lane-title">출항 <b>2</b></div>
+            <div class="job ok"><strong>쪼코치</strong><p>Google Play 출시중 · 발성·낭독 훈련 코치</p><time>운영중</time></div>
+            <div class="job ok"><strong>klangguide.com</strong><p>한국어 단어 가이드 · 애드센스 심사 대기</p><time>운영중</time></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".tab"));
+  var panels = { "a": document.getElementById("s-a"), "b": document.getElementById("s-b"), "c": document.getElementById("s-c") };
+  function show(key){
+    tabs.forEach(function(t){
+      var on = t.getAttribute("aria-controls") === key;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    Object.keys(panels).forEach(function(k){ panels[k].hidden = (k !== key); });
+  }
+  tabs.forEach(function(t){
+    t.addEventListener("click", function(){ show(t.getAttribute("aria-controls")); });
+  });
+})();
+</script>
