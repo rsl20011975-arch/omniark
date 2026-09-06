@@ -1,0 +1,129 @@
+/* 첫 화면 — 히어로와 제품 진열 */
+
+/* ---------- 히어로 ---------- */
+.hero { position: relative; overflow: hidden; border-bottom: 1px solid var(--line); }
+.hero-art { position: absolute; inset: 0; pointer-events: none; }
+.hero-art::before {
+  content: ""; position: absolute; inset: 0;
+  background:
+    radial-gradient(120% 92% at 76% 16%, rgba(79,168,139,.32), transparent 62%),
+    radial-gradient(72% 72% at 94% 64%, rgba(201,135,58,.18), transparent 60%),
+    radial-gradient(92% 120% at 6% 100%, rgba(28,44,58,.9), transparent 70%),
+    linear-gradient(160deg, #101720, var(--deep));
+}
+.hero-art::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: var(--grain); opacity: .13; mix-blend-mode: overlay;
+}
+.hero .wrap {
+  position: relative;
+  padding-top: var(--s-64); padding-bottom: var(--s-64);
+  display: grid; gap: var(--s-48); align-items: center;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+}
+.hero-inner { display: flex; flex-direction: column; align-items: flex-start; gap: var(--s-24); }
+.hero-badges { display: flex; flex-wrap: wrap; gap: var(--s-8); }
+.hero h1 { font-size: var(--t-48); font-weight: 800; }
+.hero-lede { color: #c3ccd6; font-size: var(--t-20); max-width: 46ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--s-12); }
+
+/* 히어로 오른쪽 앵커 — 대표 제품의 표지를 크게 세웁니다 */
+.hero-poster {
+  position: relative; aspect-ratio: 4 / 5;
+  width: 100%; max-width: 340px; justify-self: end;
+  border-radius: var(--r-14); overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: var(--lift-3);
+  display: flex; flex-direction: column;
+  padding: var(--s-24); gap: var(--s-12);
+  transform: rotate(-1.2deg);
+}
+.hero-poster > * { position: relative; }
+.hero-poster .pen {
+  color: var(--jade-lit); font-size: var(--t-12); font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.hero-poster .pname {
+  margin-top: auto;
+  font-size: var(--t-32); font-weight: 800; letter-spacing: -0.03em;
+  text-shadow: 0 2px 16px rgba(0,0,0,.7);
+}
+.hero-poster .prule { height: 1px; background: rgba(255,255,255,.24); }
+.hero-poster .ptag {
+  color: #cfd8e0; font-size: var(--t-14); line-height: 1.6;
+  text-shadow: 0 1px 10px rgba(0,0,0,.7);
+}
+
+/* ---------- 제품 진열 ---------- */
+.rows { padding-top: var(--s-48); }
+.row + .row { margin-top: var(--s-64); }
+.row-head { display: flex; align-items: baseline; gap: var(--s-12); margin-bottom: var(--s-16); }
+.row-head h2 { font-size: var(--t-24); font-weight: 700; }
+.row-head .count { color: var(--faint); }
+.row-head .note { color: var(--dim); font-size: var(--t-14); margin-left: auto; }
+
+/* 카드 폭을 고정합니다 — 줄을 채우려고 카드를 늘이면 빈칸과 외톨이 줄이 생깁니다.
+   개수가 넘치면 가로로 밀어서 봅니다(넷플릭스와 같은 방식). */
+.tiles {
+  display: grid; gap: var(--s-16);
+  grid-auto-flow: column; grid-auto-columns: 264px;
+  overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  padding-bottom: var(--s-12);
+  scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+}
+.tiles::-webkit-scrollbar { height: 8px; }
+.tiles::-webkit-scrollbar-thumb { background: var(--line); border-radius: var(--r-full); }
+.tiles::-webkit-scrollbar-track { background: transparent; }
+.tile {
+  scroll-snap-align: start;
+  display: flex; flex-direction: column;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-14); overflow: hidden; text-decoration: none; color: inherit;
+  transition: transform var(--slow) var(--ease), border-color var(--fast) var(--ease), box-shadow var(--slow) var(--ease);
+}
+.tile:hover { transform: translateY(-5px); border-color: rgba(79,168,139,.5); box-shadow: var(--lift-2); }
+.tile-art { aspect-ratio: 16 / 10; display: flex; align-items: flex-end; padding: var(--s-16); }
+.tile-art h3 {
+  position: relative; font-size: var(--t-24); font-weight: 800;
+  text-shadow: 0 2px 14px rgba(0,0,0,.65);
+}
+.tile-body { padding: var(--s-16); display: flex; flex-direction: column; gap: var(--s-12); flex: 1; }
+.tile-audience { color: var(--faint); font-size: var(--t-12); }
+.tile-tagline { color: var(--dim); font-size: var(--t-14); line-height: 1.6; flex: 1; }
+.tile-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s-8); }
+.tile-action {
+  background: none; border: 0; cursor: pointer; padding: var(--s-4) 0;
+  font: 600 var(--t-14)/1.4 Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+  color: var(--dim); border-bottom: 1px solid transparent;
+  transition: color var(--fast) var(--ease), border-color var(--fast) var(--ease);
+}
+.tile-action:hover { color: var(--ink); border-bottom-color: var(--jade); }
+.tile-action[disabled] { cursor: default; color: var(--faint); }
+
+/* ---------- 아래 띠 ---------- */
+.strip {
+  margin-top: var(--s-96);
+  background: linear-gradient(180deg, rgba(79,168,139,.1), rgba(79,168,139,.03));
+  border: 1px solid rgba(79,168,139,.28);
+  border-radius: var(--r-14);
+  padding: var(--s-48);
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-24);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+.strip-text { flex: 1 1 520px; display: flex; flex-direction: column; gap: var(--s-12); }
+.strip-text h2 { font-size: var(--t-32); font-weight: 800; }
+.strip-text p { color: var(--dim); max-width: 56ch; }
+
+@media (max-width: 900px) {
+  .hero .wrap { grid-template-columns: 1fr; gap: var(--s-32); }
+  .hero-poster { display: none; }
+}
+@media (max-width: 760px) {
+  .hero .wrap { padding-top: var(--s-48); padding-bottom: var(--s-48); }
+  .hero h1 { font-size: var(--t-32); }
+  .hero-lede { font-size: var(--t-16); }
+  .row-head .note { display: none; }
+  .strip { padding: var(--s-24); margin-top: var(--s-64); }
+  .strip-text h2 { font-size: var(--t-24); }
+}

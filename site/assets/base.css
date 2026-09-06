@@ -1,0 +1,98 @@
+/* 바탕·타이포그래피·머리말·꼬리말 — 모든 화면이 공유합니다. */
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: Pretendard, "Pretendard Variable", -apple-system, "Malgun Gothic", sans-serif;
+  font-size: var(--t-16);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { margin: 0; line-height: 1.2; letter-spacing: -0.025em; text-wrap: balance; word-break: keep-all; }
+p { margin: 0; }
+a { color: inherit; }
+
+.mono {
+  font-family: "IBM Plex Mono", ui-monospace, "Consolas", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 한글에는 영문용 자간·대문자를 걸지 않습니다 — 걸면 "설 계 중"처럼 벌어집니다. */
+.label {
+  font-size: var(--t-12);
+  font-weight: 600;
+  letter-spacing: .01em;
+  color: var(--dim);
+}
+/* 라틴 문자만 들어가는 라벨에만 자간과 대문자를 씁니다. */
+.label-en {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: var(--t-12);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+:focus-visible {
+  outline: 2px solid var(--jade-lit);
+  outline-offset: 3px;
+  border-radius: var(--r-6);
+}
+
+.wrap { max-width: var(--page); margin: 0 auto; padding: 0 var(--s-32); }
+
+.skip {
+  position: absolute; left: -9999px; top: var(--s-8);
+  background: var(--jade); color: var(--deep); padding: var(--s-8) var(--s-16);
+  border-radius: var(--r-6); font-weight: 700; z-index: 50;
+}
+.skip:focus { left: var(--s-16); }
+
+/* ---------- 머리말 ---------- */
+.site-head {
+  position: sticky; top: 0; z-index: 40;
+  background: rgba(11,14,18,.82);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.site-head .wrap { display: flex; align-items: center; gap: var(--s-24); height: 64px; }
+.brand { display: flex; align-items: center; gap: var(--s-12); margin-right: auto; text-decoration: none; }
+.brand-name {
+  font-weight: 800; font-size: var(--t-16);
+  letter-spacing: .18em; text-transform: uppercase;
+}
+.site-nav { display: flex; gap: var(--s-24); }
+.site-nav a {
+  color: var(--dim); text-decoration: none; font-size: var(--t-14); font-weight: 500;
+  transition: color var(--fast) var(--ease);
+}
+.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--ink); }
+
+/* ---------- 꼬리말 ---------- */
+.site-foot {
+  border-top: 1px solid var(--line);
+  margin-top: var(--s-96);
+  padding: var(--s-48) 0 var(--s-64);
+  color: var(--faint);
+  font-size: var(--t-14);
+}
+.site-foot .wrap { display: flex; flex-wrap: wrap; gap: var(--s-24); justify-content: space-between; }
+.site-foot a { color: var(--dim); text-decoration: none; }
+.site-foot a:hover { color: var(--ink); }
+.foot-links { display: flex; flex-wrap: wrap; gap: var(--s-24); }
+
+@media (max-width: 760px) {
+  .wrap { padding: 0 var(--s-20, 20px); }
+  .site-nav { gap: var(--s-16); }
+  .site-nav a { font-size: var(--t-12); }
+}
+@media (max-width: 520px) {
+  .site-nav a.opt { display: none; }
+}

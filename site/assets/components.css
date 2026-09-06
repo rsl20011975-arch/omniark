@@ -1,0 +1,96 @@
+/* 여러 화면에서 반복해서 쓰는 부품 — 버튼·배지·카드 아트·알림받기 창 */
+
+/* ---------- 버튼 ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s-8);
+  border: 0; border-radius: var(--r-10); cursor: pointer;
+  padding: 14px var(--s-24); text-decoration: none;
+  font: 700 var(--t-16)/1 Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+  transition: transform var(--fast) var(--ease), box-shadow var(--fast) var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+.btn-primary {
+  background: linear-gradient(180deg, #5fbd9d, var(--jade-deep));
+  color: #04150f;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 6px 18px rgba(44,119,97,.45);
+}
+.btn-primary:hover { box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 10px 26px rgba(44,119,97,.55); }
+.btn-ghost {
+  background: rgba(255,255,255,.06); color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.btn-ghost:hover { background: rgba(255,255,255,.1); }
+.btn-sm { padding: 10px var(--s-16); font-size: var(--t-14); }
+
+/* ---------- 상태 배지 ---------- */
+.badge {
+  display: inline-flex; align-items: center; gap: var(--s-8);
+  font-size: var(--t-12); font-weight: 600; letter-spacing: .01em;
+  padding: 7px 12px; border-radius: var(--r-full);
+  border: 1px solid var(--line); color: var(--dim);
+  background: rgba(255,255,255,.03);
+}
+.badge .dot { width: 6px; height: 6px; border-radius: var(--r-full); background: currentColor; }
+.badge.ok   { color: var(--ok);    border-color: rgba(95,207,158,.42); background: rgba(95,207,158,.1); }
+.badge.beta { color: var(--beta);  border-color: rgba(127,212,232,.42); background: rgba(127,212,232,.1); }
+.badge.dev  { color: var(--dev);   border-color: rgba(230,178,95,.42); background: rgba(230,178,95,.1); }
+
+.chip {
+  font-size: 11px; font-weight: 600; letter-spacing: .01em;
+  padding: 5px 9px; border-radius: var(--r-6);
+  color: var(--dim); background: rgba(255,255,255,.05);
+}
+.chip.ok   { color: var(--ok);   background: rgba(95,207,158,.14); }
+.chip.beta { color: var(--beta); background: rgba(127,212,232,.14); }
+.chip.dev  { color: var(--dev);  background: rgba(230,178,95,.14); }
+
+/* ---------- 카드 아트 (이미지 없이 만든 표지) ---------- */
+.art { position: relative; overflow: hidden; }
+.art::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 38%, rgba(4,7,10,.86));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14);
+}
+.art::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: var(--grain); opacity: .16; mix-blend-mode: overlay;
+}
+.art-jade   { background: radial-gradient(112% 100% at 20% 0%, #2c6f5d, #0f2a24 68%), linear-gradient(#0f2a24, #0a1a16); }
+.art-teal   { background: radial-gradient(112% 100% at 88% 88%, #2f5f6b, #102127 68%), linear-gradient(#102127, #0a1519); }
+.art-steel  { background: radial-gradient(112% 100% at 80% 8%, #37566f, #101d27 68%), linear-gradient(#101d27, #0a1218); }
+.art-ochre  { background: radial-gradient(112% 100% at 30% 100%, #7d5327, #231708 68%), linear-gradient(#231708, #150e05); }
+.art-violet { background: radial-gradient(112% 100% at 58% 0%, #4a3f6e, #171429 68%), linear-gradient(#171429, #0f0d1a); }
+.art-wine   { background: radial-gradient(112% 100% at 10% 42%, #6b2f3c, #241016 68%), linear-gradient(#241016, #170a0e); }
+
+/* ---------- 알림받기 창 ---------- */
+.sheet[hidden] { display: none !important; }
+.sheet {
+  position: fixed; inset: 0; z-index: 60;
+  display: grid; place-items: center; padding: var(--s-24);
+  background: rgba(4,7,10,.72); backdrop-filter: blur(6px);
+  animation: sheet-in var(--fast) var(--ease);
+}
+.sheet-card {
+  width: min(440px, 100%);
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--r-14); padding: var(--s-32);
+  box-shadow: var(--lift-3);
+  display: flex; flex-direction: column; gap: var(--s-16);
+  animation: card-in var(--slow) var(--ease);
+}
+.sheet-card h3 { font-size: var(--t-24); font-weight: 800; }
+.sheet-card p { color: var(--dim); font-size: var(--t-14); }
+.sheet-actions { display: flex; gap: var(--s-12); margin-top: var(--s-8); }
+.sheet-close {
+  background: none; border: 0; color: var(--dim); cursor: pointer;
+  font-size: var(--t-14); padding: var(--s-8);
+}
+.sheet-close:hover { color: var(--ink); }
+
+@keyframes sheet-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes card-in {
+  0%   { opacity: 0; transform: translateY(14px) scale(.97); }
+  70%  { opacity: 1; transform: translateY(-3px) scale(1.006); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}

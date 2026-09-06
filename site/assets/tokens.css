@@ -1,0 +1,64 @@
+/* OMNIARK 디자인 토큰 — 색·글자크기·여백의 유일한 출처.
+   화면 파일에서는 절대 색상값을 직접 쓰지 않고 여기 이름만 부릅니다. */
+
+:root {
+  color-scheme: dark;
+
+  /* 바탕 — 푸른기 도는 먹색. 순검정(#000)은 쓰지 않습니다. */
+  --ground:    #0b0e12;
+  --deep:      #070a0d;
+  --surface:   #141a21;
+  --raised:    #1a222b;
+  --line:      #222b34;
+  --line-soft: rgba(255,255,255,.07);
+
+  /* 글자 */
+  --ink:   #f0f3f6;
+  --dim:   #98a4b2;
+  --faint: #6b7885;
+
+  /* 브랜드 — 옥빛 하나만 씁니다. 색은 아낄수록 비싸 보입니다. */
+  --jade:      #4fa88b;
+  --jade-lit:  #8fd8c1;
+  --jade-deep: #2c7761;
+
+  /* 상태색 — 브랜드색과 역할이 다릅니다 */
+  --ok:    #5fcf9e;
+  --beta:  #7fd4e8;
+  --dev:   #e6b25f;
+  --stall: #e0777a;
+
+  /* 글자 크기 — 이 스케일 밖의 값은 쓰지 않습니다 */
+  --t-12: 0.75rem;  --t-14: 0.875rem; --t-16: 1rem;    --t-20: 1.25rem;
+  --t-24: 1.5rem;   --t-32: 2rem;     --t-40: 2.5rem;  --t-48: 3rem;
+  --t-64: 4rem;
+
+  /* 여백 — 4의 배수만 */
+  --s-4: 4px;   --s-8: 8px;   --s-12: 12px; --s-16: 16px;
+  --s-24: 24px; --s-32: 32px; --s-48: 48px; --s-64: 64px; --s-96: 96px;
+
+  /* 모서리 */
+  --r-6: 6px; --r-10: 10px; --r-14: 14px; --r-full: 999px;
+
+  /* 그림자 — 얇게 여러 겹 */
+  --lift-1: 0 1px 2px rgba(0,0,0,.35);
+  --lift-2: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4);
+  --lift-3: 0 1px 2px rgba(0,0,0,.4), 0 12px 32px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.3);
+
+  /* 그라디언트 밴딩을 없애는 그레인 */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+
+  /* 움직임 — 등속 금지 */
+  --ease: cubic-bezier(.2,.8,.3,1);
+  --fast: 180ms;
+  --slow: 280ms;
+
+  --page: 1200px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
