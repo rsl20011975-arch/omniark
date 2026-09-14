@@ -1,85 +1,36 @@
-# OMNIARK 회사 사이트
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-OMNIARK가 만드는 것들을 한 주소에 모으고, 다음에 끝낼 것 하나를 화면이 지정하게 하는 사이트.
+## Getting Started
 
-- `site/index.html` — 진열장(영어). 레딧·디스코드·SNS에 링크를 던졌을 때 사람이 떨어지는 착륙장.
-- `site/yard.html` — 공정판(영어). 만들고 있는 것 전부가 어느 단계에 있는지 그대로 공개.
-- `site/ko/index.html`, `site/ko/yard.html` — 같은 두 화면의 한국어판.
-- `mockups/directions.html` — 착공 전 방향 시안 3종 (기록용, 배포 대상 아님).
+First, run the development server:
 
-## 언어 — 병기하지 않고 주소를 나눕니다
-
-타겟이 글로벌이라 **영어가 기본**이고 한국어가 `/ko/`입니다.
-
-```
-/            영어 (기본)
-/ko/         한국어
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-**한 페이지에 영어와 한글을 같이 쓰지 않습니다.** 구글은 한 페이지에 한 언어를 기대해서,
-섞으면 영어로도 한국어로도 제대로 안 잡힙니다. 대신 `hreflang` 태그로 "같은 페이지의 다른 언어판"이라고
-알려주면 한 번 만들고 두 언어권 검색에 다 잡힙니다.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-**단 제품 이름은 예외입니다.** 카드 제목 밑에 반대편 언어의 이름이 작게 붙습니다
-(영어판: `JJO Coach` 밑에 `쪼코치`). 외국인이 원래 이름을 모르면 스토어에서 못 찾습니다.
-이름이 양쪽 같으면(klangguide, PassGate) 빈 자리로 두어 카드 제목 높이를 맞춥니다.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-문구를 고치려면 `site/data/strings.js`, 제품 내용은 `site/data/products.js`입니다.
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## 제품을 추가·수정하려면
+## Learn More
 
-**`site/data/products.js` 이 파일 하나만 고칩니다.** 다른 파일은 건드릴 필요가 없습니다.
+To learn more about Next.js, take a look at the following resources:
 
-배열 안의 `{ ... }` 덩어리 하나를 통째로 복사해 붙이고 값만 바꾸면, 진열장과 공정판이 동시에 바뀝니다.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-| 칸 | 뭘 적나 |
-|---|---|
-| `status` | `live` 출항 / `beta` 시운전 / `dev` 착공 / `design` 설계 / `idea` 구상 |
-| `stage` | 0~4. 설계·착공·내장·시운전·진수 중 지금 어디인지 |
-| `lastWork` | 마지막으로 손댄 날 `2026-09-06` 형식. **비워두면 "아직 손대지 않음"으로 표시됩니다** |
-| `url` | 실제로 쓸 수 있는 주소. 비어 있으면 버튼이 "알림받기"로 바뀝니다 |
-| `art` | 카드 배경색 이름 — `jade` `teal` `steel` `ochre` `violet` `wine` |
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-**30일 넘게 `lastWork`를 안 고치면 그 카드는 공정판에서 붉게 "정박"으로 표시됩니다.**
-이건 버그가 아니라 이 사이트를 만든 이유입니다. 방치하면 화면이 스스로 그렇게 됩니다.
+## Deploy on Vercel
 
-## 배포
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-klangguide와 같은 방식입니다. `site/` 폴더에서:
-
-```
-vercel deploy --prod --yes
-```
-
-현재 주소: https://omniark-site.vercel.app (2026-09-06 배포)
-
-## ⚠️ 정식 공개 전에 반드시 지울 것 — `site/vercel.json`
-
-지금 `site/vercel.json`이 **모든 페이지에 `X-Robots-Tag: noindex, nofollow`를 걸고 있습니다.**
-아직 다듬는 중이라 검색에 안 잡히게 막아둔 것입니다.
-
-**정식으로 공개하는 날 이 파일을 지우고 다시 배포해야 합니다.**
-안 지우면 구글이 이 사이트를 영원히 무시합니다 — 검색 유입 0이 됩니다.
-
-```
-rm site/vercel.json
-cd site && vercel deploy --prod --yes
-curl -sI https://<주소>/ | grep -i x-robots-tag   # 아무것도 안 나와야 정상
-```
-
-## 규칙 (klangguide 사이트에서 그대로 상속)
-
-- **프레임워크·빌드 도구를 넣지 않습니다.** 순수 HTML/CSS/바닐라 JS. 유지보수자는 비개발자입니다.
-- **색·글자크기·여백은 `site/assets/tokens.css`에서만 정합니다.** 화면 파일에 색상값을 직접 쓰지 않습니다.
-- **한글에 영문용 자간(`letter-spacing`)과 대문자를 걸지 않습니다.** "설 계 중"처럼 벌어져 초보작으로 읽힙니다. 라틴 전용 라벨에만 `.label-en`을 씁니다.
-- **klangguide.com은 이 저장소에서 건드리지 않습니다.** 애드센스 심사 중이고, 실제 매출이 나오는 곳입니다.
-
-## 화면 검수
-
-바꾼 뒤에는 눈으로만 믿지 말고 실제로 렌더해서 확인합니다.
-
-```
-python tools/shoot.py 결과폴더
-```
-
-세 폭(320/768/1440)을 찍고 가로 스크롤·JS 오류를 함께 잽니다.
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
