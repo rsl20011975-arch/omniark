@@ -37,38 +37,38 @@ const featuredArticles = [
   },
   {
     category: "Technology",
-    title: "What Is an Operating System? A Practical Guide",
-    description:
-      "Learn what an operating system does and how it manages hardware and software.",
-    href: "/technology/articles/what-is-an-operating-system",
-  },
-  {
-    category: "Technology",
-    title: "How Does Computer Memory Work? A Practical Guide",
-    description:
-      "Understand computer memory, RAM, storage, and why memory matters.",
-    href: "/technology/articles/how-does-computer-memory-work",
-  },
-  {
-    category: "Technology",
     title: "What Is Cloud Computing? A Practical Guide",
     description:
-      "Learn what cloud computing means and how cloud services work.",
+      "Learn what cloud computing means, how cloud services work, and why cloud technology is widely used.",
     href: "/technology/articles/what-is-cloud-computing",
   },
   {
     category: "AI & Digital Tools",
     title: "What Is Generative AI? A Practical Guide",
     description:
-      "Understand what generative AI is and how it is used to create digital content.",
+      "Understand what generative AI is, how it works at a high level, and how it is used to create digital content.",
     href: "/ai-digital-tools/articles/what-is-generative-ai",
+  },
+  {
+    category: "AI & Digital Tools",
+    title: "What Is an AI Model? A Practical Guide",
+    description:
+      "Learn what an AI model is, how it learns patterns from data, and how models are used in AI applications.",
+    href: "/ai-digital-tools/articles/what-is-an-ai-model",
   },
   {
     category: "Productivity",
     title: "What Is Digital Task Management? A Practical Guide",
     description:
-      "Learn how digital task management helps organize everyday work.",
+      "Learn how digital task management can help organize, prioritize, and review everyday work.",
     href: "/productivity/articles/digital-task-management",
+  },
+  {
+    category: "Productivity",
+    title: "What Is Digital Note-Taking? A Practical Guide",
+    description:
+      "Learn what digital note-taking is, how it works, and how to organize digital notes for easier access and review.",
+    href: "/productivity/articles/what-is-digital-note-taking",
   },
   {
     category: "Web & Internet",
@@ -76,6 +76,13 @@ const featuredArticles = [
     description:
       "Learn how browsers, servers, domains, DNS, and web technologies work together.",
     href: "/web-internet/articles/how-do-websites-work",
+  },
+  {
+    category: "Web & Internet",
+    title: "What Is a Web Browser? A Practical Guide",
+    description:
+      "Learn what a web browser is, how browsers retrieve and display websites, and what common browser features do.",
+    href: "/web-internet/articles/what-is-a-web-browser",
   },
 ];
 

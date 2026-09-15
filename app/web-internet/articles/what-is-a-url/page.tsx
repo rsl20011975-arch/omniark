@@ -6,7 +6,7 @@ export const metadata = {
   description:
     "Learn what a URL is, what its main parts mean, and how web addresses are used to locate resources online.",
   alternates: {
-    canonical: "https://omniark.co/web-internet/articles/what-is-a-url",
+    canonical: "/web-internet/articles/what-is-a-url",
   },
 };
 
@@ -20,98 +20,52 @@ export default function URLPage() {
       description="Learn what a URL is, what its main parts mean, and how web addresses are used to locate resources online."
     >
       <p>
-        A URL, or Uniform Resource Locator, is an address used to identify the
-        location of a resource on the internet.
+        A URL (Uniform Resource Locator) is the exact digital address of a specific file, page, or resource on the <Link href="/web-internet/articles/what-is-the-internet">internet</Link>. Just as a postal address tells the mail carrier exactly which street and apartment to visit, a URL tells your <Link href="/web-internet/articles/what-is-a-web-browser">web browser</Link> exactly where to look for a <Link href="/web-internet/articles/how-do-websites-work">website's</Link> content.
       </p>
 
-      <h2>What Does a URL Do?</h2>
-
+      <h2>Deconstructing a URL</h2>
       <p>
-        A URL gives software information about where a particular web resource
-        can be requested. Web pages, images, files, and other resources can
-        have their own URLs.
+        By understanding the anatomy of a URL, you can navigate the web more safely and troubleshoot errors. Consider this realistic example:
       </p>
-
-      <h2>Main Parts of a URL</h2>
-
       <p>
-        A URL can contain several components. A simple example is:
+        <code>https://example.com/products?category=shoes#reviews</code>
       </p>
-
       <p>
-        <strong>https://example.com/articles/example</strong>
+        This address is broken down into five distinct parts:
       </p>
 
+      <h3>1. The Scheme: <code>https://</code></h3>
       <p>
-        In this example, <strong>https</strong> is the scheme,
-        <strong> example.com</strong> is the domain name, and the remaining
-        portion identifies a particular path on that website.
+        The scheme tells the browser which protocol to use. Today, you will almost exclusively see <strong>HTTP</strong> or <strong>HTTPS</strong>. The "S" stands for Secure, meaning the connection between your computer and the server is encrypted. You should never enter passwords or credit card information on a site that only uses HTTP.
       </p>
 
-      <h2>What Is HTTPS?</h2>
-
+      <h3>2. The Domain: <code>example.com</code></h3>
       <p>
-        HTTPS is the secure version of HTTP commonly used for communication
-        between a browser and a website.
+        The domain is the main name of the website. It is the human-readable identifier for the server. While the URL is the complete, specific address of a single page, the domain is just the name of the overall building.
       </p>
 
+      <h3>3. The Path: <code>/products</code></h3>
       <p>
-        HTTPS helps protect information while it is being transmitted between
-        the browser and the server by using encryption.
+        The path directs the browser to a specific folder or page within the domain. Just like opening a folder on your computer to find a specific document, the path tells the server exactly which page to load.
       </p>
 
-      <h2>What Is a Domain Name?</h2>
-
+      <h3>4. The Query Parameter: <code>?category=shoes</code></h3>
       <p>
-        A domain name is a human-readable name used to identify an internet
-        location. It is easier for people to remember than a numerical IP
-        address.
+        Query parameters begin with a question mark (<code>?</code>) and pass specific variables or instructions to the server. They are heavily used for search results, filtering, or tracking. In this example, it tells the server to only show products in the "shoes" category.
       </p>
 
-      <h2>What Is a URL Path?</h2>
-
+      <h3>5. The Fragment: <code>#reviews</code></h3>
       <p>
-        The path identifies a particular location or resource within a
-        website. For example, a website may use different paths for articles,
-        categories, products, or other resources.
+        The fragment starts with a hash (<code>#</code>) and directs the browser to scroll down to a specific section on that exact page—in this case, jumping straight down to the "reviews" section.
       </p>
 
-      <h2>URLs Can Contain Additional Information</h2>
-
+      <h2>URL Length and Safety</h2>
       <p>
-        Some URLs contain query parameters or fragments. These can provide
-        additional information to a website or identify a particular location
-        within a page.
+        A very long URL with dozens of confusing query parameters is not inherently dangerous; it usually just means the website is tracking where you clicked from or applying complex search filters.
       </p>
-
       <p>
-        Not every URL uses these additional components.
+        When evaluating safety, the most critical part is the domain. A link that says <code>https://secure-login.com/example</code> is completely different from <code>https://example.com/secure-login</code>. Always verify that the domain itself (the part immediately before the first single slash) exactly matches the organization you intend to visit.
       </p>
-
-      <h2>Why Are URLs Important?</h2>
-
-      <p>
-        URLs allow users and software to identify and access specific web
-        resources. They are fundamental to navigation across the web.
-      </p>
-
-      <div className="article-related">
-        <h2>Related Guides</h2>
-
-        <ul>
-          <li>
-            <Link href="/web-internet/articles/what-is-a-web-browser">
-              What Is a Web Browser?
-            </Link>
-          </li>
-
-          <li>
-            <Link href="/web-internet/articles/how-do-websites-work">
-              How Do Websites Work?
-            </Link>
-          </li>
-        </ul>
-      </div>
     </ArticleLayout>
   );
 }

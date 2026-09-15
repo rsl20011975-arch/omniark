@@ -6,7 +6,7 @@ export const metadata = {
   description:
     "Learn what a web browser is, how browsers retrieve and display websites, and what common browser features do.",
   alternates: {
-    canonical: "https://omniark.co/web-internet/articles/what-is-a-web-browser",
+    canonical: "/web-internet/articles/what-is-a-web-browser",
   },
 };
 
@@ -20,95 +20,44 @@ export default function WebBrowserPage() {
       description="Learn what a web browser is, how browsers retrieve and display websites, and what common browser features do."
     >
       <p>
-        A web browser is software that allows people to access and interact
-        with websites and other resources available through the web.
+        A web browser is the software application that acts as your window to the internet. It translates complex computer code into the visual websites you interact with every day.
       </p>
 
-      <h2>What Does a Web Browser Do?</h2>
-
+      <h2>Browser vs. Search Engine</h2>
       <p>
-        When a user enters a web address or selects a link, the browser
-        requests information from a web server and processes the returned
-        resources so that the website can be displayed.
+        Many people confuse a browser with a <Link href="/web-internet/articles/what-is-a-search-engine">search engine</Link> (like Google or Bing). 
       </p>
-
       <p>
-        Modern browsers can process HTML, CSS, JavaScript, images, video, and
-        other resources used by websites.
+        The <strong>browser</strong> is the actual program installed on your device. The <strong>search engine</strong> is simply a <Link href="/web-internet/articles/how-do-websites-work">website</Link> that you visit <em>using</em> your browser to look up information. You need a browser to access a search engine, but they are not the same thing.
       </p>
 
-      <h2>What Is a Web Address?</h2>
-
+      <h2>How a Browser Displays a Page</h2>
       <p>
-        A web address, commonly called a URL, identifies the location of a
-        resource on the web. A browser uses the address to determine where a
-        request should be sent.
+        When you enter a <Link href="/web-internet/articles/what-is-a-url">URL</Link> (web address) into the address bar, the browser performs a specific sequence of actions:
+      </p>
+      <ol>
+        <li><strong>Request:</strong> The browser sends a message across the internet asking the website's server for its files.</li>
+        <li><strong>Download:</strong> The server sends back raw code files (HTML, CSS, and JavaScript).</li>
+        <li><strong>Rendering:</strong> The browser acts as a translator. It reads the HTML to build the structure (paragraphs, images), applies the CSS to style it (colors, fonts), and executes the JavaScript to make it interactive (buttons, animations).</li>
+        <li><strong>Display:</strong> The fully assembled page appears on your screen.</li>
+      </ol>
+
+      <h2>Why Websites Look Different Across Browsers</h2>
+      <p>
+        Sometimes a website looks slightly broken on one browser but works perfectly on another. This happens because each browser has its own unique "rendering engine" (the translator). While there are global web standards, different engines interpret complex CSS or new JavaScript features in slightly different ways.
       </p>
 
-      <h2>Common Web Browser Features</h2>
-
+      <h2>Essential Browser Features</h2>
       <ul>
-        <li>Tabs for opening multiple pages.</li>
-        <li>Bookmarks for saving frequently used pages.</li>
-        <li>History for viewing previously visited pages.</li>
-        <li>Private browsing modes offered by many browsers.</li>
-        <li>Extensions that add additional functionality.</li>
-        <li>Security warnings for certain potentially unsafe situations.</li>
+        <li><strong>Cache and Cookies:</strong> The cache stores images and files so a website loads faster the next time you visit. Cookies are small text files that remember your session, keeping you logged into your accounts.</li>
+        <li><strong>Extensions:</strong> Small add-on programs that give the browser new abilities, like blocking ads or translating text. However, malicious extensions can steal your data, so only install them from trusted sources.</li>
+        <li><strong>Private Browsing:</strong> Often called "Incognito mode," this feature simply tells your browser not to save your local history, cookies, or form data. It <strong>does not</strong> hide your activity from your internet service provider, your employer, or the websites you visit.</li>
       </ul>
 
-      <h2>Browser and Search Engine Are Different</h2>
-
+      <h2>Security and Updates</h2>
       <p>
-        A browser and a search engine are different types of software. A
-        browser is used to access web resources, while a search engine helps
-        users find information by searching an index of web pages and other
-        resources.
+        Because the browser is your primary connection to the outside world, it is the most common target for cyberattacks. Browser updates are critical—not just for new features, but because they patch security vulnerabilities. If your browser displays a bright red warning that a site is "Unsafe" or its certificate is invalid, do not ignore it.
       </p>
-
-      <p>
-        A search engine can be used through a web browser, but the two are not
-        the same thing.
-      </p>
-
-      <h2>Why Do Websites Look Different in Different Browsers?</h2>
-
-      <p>
-        Browsers may implement web technologies differently or support
-        different features. Websites can also use features that are available
-        only in certain environments.
-      </p>
-
-      <p>
-        Modern web standards help improve compatibility, but differences can
-        still occur.
-      </p>
-
-      <h2>Keeping a Browser Secure</h2>
-
-      <p>
-        Keeping browser software updated is an important part of maintaining a
-        secure computing environment. Users should also be careful when
-        installing extensions and when entering sensitive information on
-        unfamiliar websites.
-      </p>
-
-      <div className="article-related">
-        <h2>Related Guides</h2>
-
-        <ul>
-          <li>
-            <Link href="/web-internet/articles/what-is-a-url">
-              What Is a URL?
-            </Link>
-          </li>
-
-          <li>
-            <Link href="/web-internet/articles/how-do-websites-work">
-              How Do Websites Work?
-            </Link>
-          </li>
-        </ul>
-      </div>
     </ArticleLayout>
   );
 }

@@ -6,7 +6,7 @@ export const metadata = {
   description:
     "Learn what search engines do, how web pages are discovered and indexed, and how search results are presented.",
   alternates: {
-    canonical: "https://omniark.co/web-internet/articles/what-is-a-search-engine",
+    canonical: "/web-internet/articles/what-is-a-search-engine",
   },
 };
 
@@ -20,99 +20,42 @@ export default function SearchEnginePage() {
       description="Learn what search engines do, how web pages are discovered and indexed, and how search results are presented."
     >
       <p>
-        A search engine is a system designed to help users find information
-        available on the web. Search engines collect information about web
-        pages and use that information to provide results for search queries.
+        A search engine is not a live map of the entire internet. It is a highly complex sorting system that crawls the web, reads pages, stores them in a massive catalog, and attempts to guess exactly what you mean when you type a question.
       </p>
 
-      <h2>What Does a Search Engine Do?</h2>
-
+      <h2>How Search Engines Build Their Results</h2>
       <p>
-        A search engine generally performs several major functions. It
-        discovers web content, processes information about that content, and
-        uses an index to help return relevant results when users search.
+        When you search for something, you are not actually searching the live internet. You are searching the engine's saved copy of the internet. This copy is built in four stages:
       </p>
+      <ol>
+        <li><strong>Crawling:</strong> Automated programs (called bots or spiders) constantly navigate from <Link href="/web-internet/articles/how-do-websites-work">website</Link> to website by following <Link href="/web-internet/articles/what-is-a-url">URLs</Link> and links, downloading the text and code they find.</li>
+        <li><strong>Indexing:</strong> The search engine analyzes the downloaded text, categorizes the topics, and stores it in a massive database known as the Index. If a page is not indexed, it will never show up in search results.</li>
+        <li><strong>Query Processing:</strong> When you type a search, the engine analyzes your words, corrects spelling, and determines your "Search Intent"—whether you want to buy a product, find a quick fact, or read a long tutorial.</li>
+        <li><strong>Ranking:</strong> The engine instantly sorts millions of indexed pages using a complex algorithm. It looks at keywords, page speed, mobile-friendliness, and how many reputable sites link to the page, attempting to put the most helpful result at the very top.</li>
+      </ol>
 
-      <h2>How Are Web Pages Discovered?</h2>
-
+      <h2>Browser vs. Search Engine</h2>
       <p>
-        Search engines can discover web pages through links, submitted
-        information, and other mechanisms. Automated programs commonly called
-        crawlers or bots can visit publicly accessible web resources.
+        A <Link href="/web-internet/articles/what-is-a-web-browser">web browser</Link> is the software installed on your computer (like Safari or Chrome) that displays websites. A search engine (like Google or DuckDuckGo) is a specific website you visit <em>using</em> your browser to find other websites. 
       </p>
 
-      <h2>What Is Indexing?</h2>
-
+      <h2>Why Results Are Not Always Instant or True</h2>
       <p>
-        Indexing is the process of processing and storing information about
-        discovered content so that it can be retrieved when appropriate.
+        Because crawling takes time, a brand new website will not appear in search results the moment it is published. The crawler must first find it and the engine must index it.
       </p>
-
       <p>
-        Being discovered and being indexed are related but are not necessarily
-        identical events.
+        Furthermore, ranking high on a search engine is a measure of popularity and relevance, not necessarily truth. A highly optimized blog post might rank above an official government document simply because it loads faster and uses better keywords. When researching critical information, always look past the top results to find the official, primary source.
       </p>
 
-      <h2>How Are Search Results Selected?</h2>
-
+      <h2>How to Search More Effectively</h2>
       <p>
-        Search engines use automated systems to determine which results may be
-        useful for a particular query. Many factors can influence the results,
-        and the exact systems used by search engines can change over time.
+        You can drastically improve your results by aligning with how the engine processes text:
       </p>
-
-      <h2>Why Is Search Intent Important?</h2>
-
-      <p>
-        A search query can have different meanings depending on what the user
-        is trying to accomplish.
-      </p>
-
-      <p>
-        Someone searching for a definition may want an explanation, while
-        someone searching for a specific product may be looking for a page
-        where that product can be purchased.
-      </p>
-
-      <h2>Search Engines and Websites</h2>
-
-      <p>
-        A website can be accessible directly through its URL without appearing
-        prominently in search results. Search visibility and direct
-        accessibility are therefore different concepts.
-      </p>
-
-      <h2>Why Clear Website Structure Helps</h2>
-
-      <p>
-        Clear navigation, descriptive page titles, meaningful links, and
-        understandable content can make a website easier for both users and
-        automated systems to understand.
-      </p>
-
-      <p>
-        A website should primarily be designed to provide useful information
-        to visitors rather than simply attempting to manipulate search
-        results.
-      </p>
-
-      <div className="article-related">
-        <h2>Related Guides</h2>
-
-        <ul>
-          <li>
-            <Link href="/web-internet/articles/how-do-websites-work">
-              How Do Websites Work?
-            </Link>
-          </li>
-
-          <li>
-            <Link href="/web-internet/articles/what-is-a-web-browser">
-              What Is a Web Browser?
-            </Link>
-          </li>
-        </ul>
-      </div>
+      <ul>
+        <li><strong>Use exact phrases:</strong> Put quotes around your search (e.g., <code>"error code 404"</code>) to force the engine to find that exact wording.</li>
+        <li><strong>Search a specific site:</strong> Add <code>site:example.com</code> to your query to only see results from that specific domain.</li>
+        <li><strong>Exclude words:</strong> Use a minus sign (e.g., <code>laptop -gaming</code>) to filter out results you don't want.</li>
+      </ul>
     </ArticleLayout>
   );
 }

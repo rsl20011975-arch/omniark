@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Learn what the internet is, how devices communicate through networks, and how websites, servers, and online services work together.",
   alternates: {
-    canonical: "https://omniark.co/web-internet/articles/what-is-the-internet",
+    canonical: "/web-internet/articles/what-is-the-internet",
   },
 };
 
@@ -21,164 +21,41 @@ export default function WhatIsTheInternetPage() {
       description="A clear introduction to the internet, networks, connected devices, and the systems that make online services possible."
     >
       <p>
-        The internet is a worldwide system of interconnected computer networks.
-        It allows computers, smartphones, servers, and other devices to
-        communicate and exchange information.
+        The internet is the physical and digital infrastructure that allows computers across the globe to talk to each other. It is not a single entity or a magical cloud; it is millions of miles of physical cables under oceans and underground, connecting local networks together based on a shared set of rules.
       </p>
 
+      <h2>The Internet vs. The Web</h2>
       <p>
-        When you open a website, send a message, watch a video, or use an
-        online service, your device communicates with other systems through
-        networks that are connected to the internet.
+        A common misconception is treating the "Internet" and the "World Wide Web" as the same thing. 
       </p>
-
-      <h2>How Does the Internet Work?</h2>
-
       <p>
-        The internet does not operate as a single computer or a single
-        network. Instead, many different networks are connected and
-        communicate using shared technical standards.
+        The <strong>Internet</strong> is the underlying highway system. The <strong>Web</strong> (which consists of <Link href="/web-internet/articles/how-do-websites-work">websites</Link> and web pages accessed via a <Link href="/web-internet/articles/what-is-a-web-browser">web browser</Link>) is just one type of traffic driving on that highway. When you send an email, stream a movie on a smart TV, or play a multiplayer video game, you are using the Internet, but you are not using the Web.
       </p>
 
+      <h2>The Hierarchy of Connection</h2>
       <p>
-        When you request information from an online service, your device sends
-        data through a series of network connections until it reaches the
-        appropriate server or service.
+        To understand how information travels, it helps to view the internet as a chain of connections:
       </p>
+      <ul>
+        <li><strong>Device (Client):</strong> Your laptop or smartphone.</li>
+        <li><strong>Network & Router:</strong> Your device connects wirelessly to your home router. The router acts as a traffic director, managing your local network and plugging it into your Internet Service Provider's (ISP) network.</li>
+        <li><strong>The Internet:</strong> Your ISP routes your signal through massive regional hubs and undersea cables to reach the destination country and city.</li>
+        <li><strong>Server:</strong> The signal arrives at a high-powered computer (server) that holds the data you want.</li>
+        <li><strong>Service:</strong> The server replies with the specific service data—like an email, a <Link href="/web-internet/articles/what-is-a-search-engine">search engine</Link> result, or a video stream.</li>
+      </ul>
 
+      <h2>How Data Travels: Packets and IP Addresses</h2>
       <p>
-        The requested information is then sent back through the network so
-        that your device can display or process it.
+        When you request a file or enter a <Link href="/web-internet/articles/what-is-a-url">URL</Link>, the server does not send the file to you as one giant chunk. Using Internet Protocols (rules for communication), the file is chopped into thousands of tiny pieces called <strong>packets</strong>.
       </p>
-
-      <h2>What Is a Network?</h2>
-
       <p>
-        A network is a group of connected devices that can communicate with
-        one another. A home Wi-Fi network is a simple example.
+        Each packet is stamped with an <strong>IP Address</strong> (a numerical address unique to your device). These packets travel across the internet taking completely different routes based on traffic conditions. Once they all arrive at your device, your system reassembles them in the correct order. The Domain Name System (DNS) acts as the phone book, automatically translating human words into the numerical IP addresses the packets need to navigate.
       </p>
 
+      <h2>What Happens When the Internet Goes Down?</h2>
       <p>
-        Your phone, computer, printer, and other devices can communicate
-        through the local network. The internet connects many such networks
-        together on a much larger scale.
+        If your internet connection drops, you lose access to the global highway. However, your local network still exists. You might not be able to load a website or send an email, but you could still use your home network to print a document on a wireless printer or cast a downloaded video from your phone to your TV, because those devices are still connected to your local router.
       </p>
-
-      <h2>What Is a Server?</h2>
-
-      <p>
-        A server is a computer system designed to provide information,
-        resources, or services to other computers.
-      </p>
-
-      <p>
-        Websites are commonly hosted on servers. When you visit a website,
-        your browser requests information from the server hosting that
-        website.
-      </p>
-
-      <h2>How Does a Website Use the Internet?</h2>
-
-      <p>
-        A website normally involves several components working together. A
-        browser on your device requests a website, the request travels through
-        the internet, and a server responds with the resources needed to
-        display the page.
-      </p>
-
-      <p>
-        Those resources can include HTML, CSS, JavaScript, images, and other
-        files.
-      </p>
-
-      <p>
-        The browser processes these resources and turns them into the webpage
-        that you see.
-      </p>
-
-      <h2>What Is the Difference Between the Internet and the Web?</h2>
-
-      <p>
-        The internet and the World Wide Web are related, but they are not the
-        same thing.
-      </p>
-
-      <p>
-        The internet is the underlying global network infrastructure that
-        allows connected systems to communicate. The web is one of the major
-        services that operates over that infrastructure.
-      </p>
-
-      <p>
-        Email, online games, file transfers, messaging services, and other
-        systems can also use the internet without being the same thing as the
-        web.
-      </p>
-
-      <h2>Why Does the Internet Need Addresses?</h2>
-
-      <p>
-        Connected systems need ways to identify where information should be
-        sent. Internet protocols use addressing systems to help devices
-        communicate with the correct destination.
-      </p>
-
-      <p>
-        Websites also use human-readable domain names so that people can
-        access online resources more easily.
-      </p>
-
-      <h2>What Happens When You Visit a Website?</h2>
-
-      <ol>
-        <li>You enter a web address or select a link.</li>
-        <li>Your browser determines where the request should go.</li>
-        <li>The request travels through connected networks.</li>
-        <li>A web server receives the request.</li>
-        <li>The server sends the requested resources back.</li>
-        <li>Your browser processes the resources and displays the page.</li>
-      </ol>
-
-      <h2>Why Is Understanding the Internet Useful?</h2>
-
-      <p>
-        Understanding the basic structure of the internet makes many everyday
-        digital activities easier to understand.
-      </p>
-
-      <p>
-        It can help explain why websites sometimes load slowly, why a domain
-        name is different from a server, why browsers are different from
-        search engines, and how online services communicate with your device.
-      </p>
-
-      <h2>Related Guides</h2>
-
-      <div className="article-related">
-        <p>
-          <Link href="/web-internet/articles/what-is-a-web-browser">
-            What Is a Web Browser?
-          </Link>
-        </p>
-
-        <p>
-          <Link href="/web-internet/articles/what-is-a-url">
-            What Is a URL?
-          </Link>
-        </p>
-
-        <p>
-          <Link href="/web-internet/articles/how-do-websites-work">
-            How Do Websites Work?
-          </Link>
-        </p>
-
-        <p>
-          <Link href="/web-internet/articles/what-is-a-search-engine">
-            What Is a Search Engine?
-          </Link>
-        </p>
-      </div>
     </ArticleLayout>
   );
 }

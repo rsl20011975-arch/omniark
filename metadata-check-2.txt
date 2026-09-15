@@ -1,0 +1,114 @@
+﻿
+===== D:\omniark\app\ai-digital-tools\articles\how-do-ai-assistants-work\page.tsx =====
+D:\omniark\app\ai-digital-tools\articles\how-do-ai-assistants-work\page.tsx:3:export const metadata = {
+D:\omniark\app\ai-digital-tools\articles\how-do-ai-assistants-work\page.tsx:4:  title: "How Do AI Assistants Work? A Practical Guide",
+D:\omniark\app\ai-digital-tools\articles\how-do-ai-assistants-work\page.tsx:5:  description:
+D:\omniark\app\ai-digital-tools\articles\how-do-ai-assistants-work\page.tsx:8:    canonical: "/ai-digital-tools/articles/how-do-ai-assistants-work",
+
+===== D:\omniark\app\ai-digital-tools\articles\how-to-evaluate-ai-generated-information\page.tsx =====
+D:\omniark\app\ai-digital-tools\articles\how-to-evaluate-ai-generated-information\page.tsx:3:export const metadata = {
+D:\omniark\app\ai-digital-tools\articles\how-to-evaluate-ai-generated-information\page.tsx:4:  title: "How to Evaluate AI-Generated Information",
+D:\omniark\app\ai-digital-tools\articles\how-to-evaluate-ai-generated-information\page.tsx:5:  description:
+D:\omniark\app\ai-digital-tools\articles\how-to-evaluate-ai-generated-information\page.tsx:8:    canonical:
+
+===== D:\omniark\app\ai-digital-tools\articles\what-is-a-prompt\page.tsx =====
+D:\omniark\app\ai-digital-tools\articles\what-is-a-prompt\page.tsx:3:export const metadata = {
+D:\omniark\app\ai-digital-tools\articles\what-is-a-prompt\page.tsx:4:  title: "What Is a Prompt? A Practical Guide",
+D:\omniark\app\ai-digital-tools\articles\what-is-a-prompt\page.tsx:5:  description:
+D:\omniark\app\ai-digital-tools\articles\what-is-a-prompt\page.tsx:8:    canonical: "/ai-digital-tools/articles/what-is-a-prompt",
+
+===== D:\omniark\app\ai-digital-tools\articles\what-is-an-ai-model\page.tsx =====
+D:\omniark\app\ai-digital-tools\articles\what-is-an-ai-model\page.tsx:3:export const metadata = {
+D:\omniark\app\ai-digital-tools\articles\what-is-an-ai-model\page.tsx:4:  title: "What Is an AI Model? A Practical Guide",
+D:\omniark\app\ai-digital-tools\articles\what-is-an-ai-model\page.tsx:5:  description:
+D:\omniark\app\ai-digital-tools\articles\what-is-an-ai-model\page.tsx:8:    canonical: "/ai-digital-tools/articles/what-is-an-ai-model",
+
+===== D:\omniark\app\ai-digital-tools\articles\what-is-generative-ai\page.tsx =====
+D:\omniark\app\ai-digital-tools\articles\what-is-generative-ai\page.tsx:5:export const metadata: Metadata = {
+D:\omniark\app\ai-digital-tools\articles\what-is-generative-ai\page.tsx:6:  title: "What Is Generative AI? A Practical Guide",
+D:\omniark\app\ai-digital-tools\articles\what-is-generative-ai\page.tsx:7:  description:
+D:\omniark\app\ai-digital-tools\articles\what-is-generative-ai\page.tsx:10:    canonical: "/ai-digital-tools/articles/what-is-generative-ai",
+
+===== D:\omniark\app\productivity\articles\digital-task-management\page.tsx =====
+D:\omniark\app\productivity\articles\digital-task-management\page.tsx:5:export const metadata: Metadata = {
+D:\omniark\app\productivity\articles\digital-task-management\page.tsx:6:  title: "What Is Digital Task Management? A Practical Guide",
+D:\omniark\app\productivity\articles\digital-task-management\page.tsx:7:  description:
+D:\omniark\app\productivity\articles\digital-task-management\page.tsx:10:    canonical: "/productivity/articles/digital-task-management",
+
+===== D:\omniark\app\productivity\articles\how-does-digital-calendar-management-work\page.tsx =====
+D:\omniark\app\productivity\articles\how-does-digital-calendar-management-work\page.tsx:4:export const metadata = {
+D:\omniark\app\productivity\articles\how-does-digital-calendar-management-work\page.tsx:5:  title: "How Does Digital Calendar Management Work? A Practical Guide",
+D:\omniark\app\productivity\articles\how-does-digital-calendar-management-work\page.tsx:6:  description:
+D:\omniark\app\productivity\articles\how-does-digital-calendar-management-work\page.tsx:9:    canonical:
+
+===== D:\omniark\app\productivity\articles\how-to-organize-digital-files\page.tsx =====
+D:\omniark\app\productivity\articles\how-to-organize-digital-files\page.tsx:4:export const metadata = {
+D:\omniark\app\productivity\articles\how-to-organize-digital-files\page.tsx:5:  title: "How to Organize Digital Files: A Practical Guide",
+D:\omniark\app\productivity\articles\how-to-organize-digital-files\page.tsx:6:  description:
+D:\omniark\app\productivity\articles\how-to-organize-digital-files\page.tsx:9:    canonical: "https://omniark.co/productivity/articles/how-to-organize-digital-files",
+
+===== D:\omniark\app\productivity\articles\what-is-digital-note-taking\page.tsx =====
+D:\omniark\app\productivity\articles\what-is-digital-note-taking\page.tsx:4:export const metadata = {
+D:\omniark\app\productivity\articles\what-is-digital-note-taking\page.tsx:5:  title: "What Is Digital Note-Taking? A Practical Guide",
+D:\omniark\app\productivity\articles\what-is-digital-note-taking\page.tsx:6:  description:
+D:\omniark\app\productivity\articles\what-is-digital-note-taking\page.tsx:9:    canonical: "https://omniark.co/productivity/articles/what-is-digital-note-taking",
+
+===== D:\omniark\app\productivity\articles\what-is-information-overload\page.tsx =====
+D:\omniark\app\productivity\articles\what-is-information-overload\page.tsx:4:export const metadata = {
+D:\omniark\app\productivity\articles\what-is-information-overload\page.tsx:5:  title: "What Is Information Overload? A Practical Guide",
+D:\omniark\app\productivity\articles\what-is-information-overload\page.tsx:6:  description:
+D:\omniark\app\productivity\articles\what-is-information-overload\page.tsx:9:    canonical:
+
+===== D:\omniark\app\technology\articles\how-does-computer-memory-work\page.tsx =====
+D:\omniark\app\technology\articles\how-does-computer-memory-work\page.tsx:5:export const metadata: Metadata = {
+D:\omniark\app\technology\articles\how-does-computer-memory-work\page.tsx:6:  title: "How Does Computer Memory Work? A Practical Guide",
+D:\omniark\app\technology\articles\how-does-computer-memory-work\page.tsx:7:  description:
+D:\omniark\app\technology\articles\how-does-computer-memory-work\page.tsx:10:    canonical: "/technology/articles/how-does-computer-memory-work",
+
+===== D:\omniark\app\technology\articles\what-is-a-cpu\page.tsx =====
+D:\omniark\app\technology\articles\what-is-a-cpu\page.tsx:5:export const metadata: Metadata = {
+D:\omniark\app\technology\articles\what-is-a-cpu\page.tsx:6:  title: "What Is a CPU? A Practical Guide",
+D:\omniark\app\technology\articles\what-is-a-cpu\page.tsx:7:  description:
+D:\omniark\app\technology\articles\what-is-a-cpu\page.tsx:10:    canonical: "/technology/articles/what-is-a-cpu",
+
+===== D:\omniark\app\technology\articles\what-is-an-operating-system\page.tsx =====
+D:\omniark\app\technology\articles\what-is-an-operating-system\page.tsx:5:export const metadata: Metadata = {
+D:\omniark\app\technology\articles\what-is-an-operating-system\page.tsx:6:  title: "What Is an Operating System? A Practical Guide",
+D:\omniark\app\technology\articles\what-is-an-operating-system\page.tsx:7:  description:
+D:\omniark\app\technology\articles\what-is-an-operating-system\page.tsx:10:    canonical: "/technology/articles/what-is-an-operating-system",
+
+===== D:\omniark\app\technology\articles\what-is-cloud-computing\page.tsx =====
+D:\omniark\app\technology\articles\what-is-cloud-computing\page.tsx:5:export const metadata: Metadata = {
+D:\omniark\app\technology\articles\what-is-cloud-computing\page.tsx:6:  title: "What Is Cloud Computing? A Practical Guide",
+D:\omniark\app\technology\articles\what-is-cloud-computing\page.tsx:7:  description:
+D:\omniark\app\technology\articles\what-is-cloud-computing\page.tsx:10:    canonical: "/technology/articles/what-is-cloud-computing",
+
+===== D:\omniark\app\web-internet\articles\how-do-websites-work\page.tsx =====
+D:\omniark\app\web-internet\articles\how-do-websites-work\page.tsx:5:export const metadata: Metadata = {
+D:\omniark\app\web-internet\articles\how-do-websites-work\page.tsx:6:  title: "How Do Websites Work? A Practical Guide",
+D:\omniark\app\web-internet\articles\how-do-websites-work\page.tsx:7:  description:
+D:\omniark\app\web-internet\articles\how-do-websites-work\page.tsx:10:    canonical: "/web-internet/articles/how-do-websites-work",
+
+===== D:\omniark\app\web-internet\articles\what-is-a-search-engine\page.tsx =====
+D:\omniark\app\web-internet\articles\what-is-a-search-engine\page.tsx:4:export const metadata = {
+D:\omniark\app\web-internet\articles\what-is-a-search-engine\page.tsx:5:  title: "What Is a Search Engine? A Practical Guide",
+D:\omniark\app\web-internet\articles\what-is-a-search-engine\page.tsx:6:  description:
+D:\omniark\app\web-internet\articles\what-is-a-search-engine\page.tsx:9:    canonical: "https://omniark.co/web-internet/articles/what-is-a-search-engine",
+
+===== D:\omniark\app\web-internet\articles\what-is-a-url\page.tsx =====
+D:\omniark\app\web-internet\articles\what-is-a-url\page.tsx:4:export const metadata = {
+D:\omniark\app\web-internet\articles\what-is-a-url\page.tsx:5:  title: "What Is a URL? A Practical Guide",
+D:\omniark\app\web-internet\articles\what-is-a-url\page.tsx:6:  description:
+D:\omniark\app\web-internet\articles\what-is-a-url\page.tsx:9:    canonical: "https://omniark.co/web-internet/articles/what-is-a-url",
+
+===== D:\omniark\app\web-internet\articles\what-is-a-web-browser\page.tsx =====
+D:\omniark\app\web-internet\articles\what-is-a-web-browser\page.tsx:4:export const metadata = {
+D:\omniark\app\web-internet\articles\what-is-a-web-browser\page.tsx:5:  title: "What Is a Web Browser? A Practical Guide",
+D:\omniark\app\web-internet\articles\what-is-a-web-browser\page.tsx:6:  description:
+D:\omniark\app\web-internet\articles\what-is-a-web-browser\page.tsx:9:    canonical: "https://omniark.co/web-internet/articles/what-is-a-web-browser",
+
+===== D:\omniark\app\web-internet\articles\what-is-the-internet\page.tsx =====
+D:\omniark\app\web-internet\articles\what-is-the-internet\page.tsx:5:export const metadata: Metadata = {
+D:\omniark\app\web-internet\articles\what-is-the-internet\page.tsx:6:  title: "What Is the Internet? A Practical Guide",
+D:\omniark\app\web-internet\articles\what-is-the-internet\page.tsx:7:  description:
+D:\omniark\app\web-internet\articles\what-is-the-internet\page.tsx:10:    canonical: "https://omniark.co/web-internet/articles/what-is-the-internet",

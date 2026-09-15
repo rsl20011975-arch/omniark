@@ -20,9 +20,11 @@ export default function ArticleLayout({
   const siteUrl = "https://omniark.co";
 
   const categoryUrl = `${siteUrl}${categoryHref}`;
+  const articleFullUrl = `${siteUrl}${articleUrl}`;
 
   return (
     <article className="article-content">
+      {/* Article structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -41,12 +43,13 @@ export default function ArticleLayout({
               name: "OMNIARK",
               url: siteUrl,
             },
-            mainEntityOfPage: `${siteUrl}${articleUrl}`,
+            mainEntityOfPage: articleFullUrl,
             articleSection: category,
           }),
         }}
       />
 
+      {/* Breadcrumb structured data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -66,17 +69,25 @@ export default function ArticleLayout({
                 name: category,
                 item: categoryUrl,
               },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: title,
+                item: articleFullUrl,
+              },
             ],
           }),
         }}
       />
 
+      {/* Visible breadcrumb */}
       <div className="article-breadcrumb">
         <Link href="/">Home</Link>
         <span> / </span>
         <Link href={categoryHref}>{category}</Link>
       </div>
 
+      {/* Article header */}
       <header className="article-header">
         <p className="article-category">{category}</p>
 
@@ -85,6 +96,7 @@ export default function ArticleLayout({
         <p className="article-description">{description}</p>
       </header>
 
+      {/* Article content */}
       <div className="article-body">{children}</div>
     </article>
   );

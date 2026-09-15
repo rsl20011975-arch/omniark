@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ArticleLayout from "@/app/components/ArticleLayout";
 
 export const metadata = {
@@ -19,105 +20,63 @@ export default function PromptArticle() {
       description="Learn what a prompt is, why instructions matter, and how prompts affect the responses produced by AI systems."
     >
       <p>
-        A prompt is the input or instruction given to an AI system. It tells
-        the system what the user wants it to process, generate, explain, or
-        transform.
+        A prompt is the instruction or input you provide to an <Link href="/ai-digital-tools/articles/how-do-ai-assistants-work">AI assistant</Link> to tell it what you want it to do. Because AI systems do not have intuition or mind-reading capabilities, the quality of the output you receive is directly tied to the clarity and structure of your prompt.
       </p>
 
-      <h2>What Does a Prompt Contain?</h2>
-
+      <h2>Why Vague Prompts Produce Unstable Results</h2>
       <p>
-        A prompt can be very simple or relatively detailed. It may contain a
-        question, a request, background information, examples, constraints, or
-        instructions about the desired output.
+        When you submit a short, vague request, the <Link href="/ai-digital-tools/articles/what-is-an-ai-model">AI model</Link> has to guess your intentions. If you type "Write about marketing," the AI does not know if you want a 5-page academic essay, a casual blog post, or a bulleted list for a presentation. As a result, it will generate a generic, average response that likely misses your specific needs.
       </p>
-
+      
+      <h2>The Anatomy of a Structured Prompt</h2>
       <p>
-        The exact structure depends on the AI tool and the task being
-        performed.
+        A highly effective prompt leaves no room for guessing. While you don't need to use every element every time, a structured prompt generally includes up to five components:
       </p>
-
-      <h2>Why Do Prompts Matter?</h2>
-
-      <p>
-        The information provided in a prompt gives an AI system context for
-        producing its response. A clearer prompt can make it easier to
-        communicate the intended task.
-      </p>
-
-      <p>
-        For example, asking an AI system to explain a topic and asking it to
-        explain the same topic to a beginner can lead to different responses
-        because the instructions provide different context.
-      </p>
-
-      <h2>Simple Prompts and Detailed Prompts</h2>
-
-      <p>
-        A simple prompt may contain only a short question. A more detailed
-        prompt can specify the purpose, audience, format, length, and other
-        requirements.
-      </p>
-
-      <p>
-        More detail is not always better. The useful level of detail depends on
-        the task and the AI tool being used.
-      </p>
-
-      <h2>Examples of Prompt Structure</h2>
-
       <ul>
-        <li>The task: what should the AI do?</li>
-        <li>The context: what information does it need?</li>
-        <li>The audience: who is the result for?</li>
-        <li>The format: how should the result be presented?</li>
-        <li>The constraints: what should the result include or avoid?</li>
+        <li><strong>Goal:</strong> The specific task you want accomplished (e.g., "Summarize this article").</li>
+        <li><strong>Context:</strong> Background information the AI needs (e.g., "I am preparing for a meeting with investors").</li>
+        <li><strong>Audience:</strong> Who the output is intended for (e.g., "Explain it to a beginner with no technical background").</li>
+        <li><strong>Format:</strong> How the output should be structured (e.g., "Provide a bulleted list," or "Create a table").</li>
+        <li><strong>Constraints:</strong> What the AI should avoid doing (e.g., "Do not use jargon," or "Keep it under 300 words").</li>
       </ul>
 
-      <h2>Why Can the Same Prompt Produce Different Results?</h2>
-
+      <h2>Before & After: Transforming Your Prompts</h2>
       <p>
-        AI systems can produce different outputs depending on the model,
-        available context, system settings, and other factors. Therefore, a
-        prompt should not be treated as a command that guarantees one specific
-        result.
+        Applying these components can drastically change how <Link href="/ai-digital-tools/articles/what-is-generative-ai">generative AI</Link> responds. Consider these practical transformations:
       </p>
 
-      <h2>How to Write a Useful Prompt</h2>
-
+      <h3>Scenario 1: Drafting an Email</h3>
       <p>
-        Start by clearly describing the task. Then add only the context and
-        requirements that are useful for completing that task.
+        <strong>Poor Prompt:</strong> "Write an email to my boss asking for a deadline extension."<br/>
+        <em>Result: The AI writes a generic, overly formal, and excessively long email.</em>
+      </p>
+      <p>
+        <strong>Improved Prompt:</strong> "Act as a software developer. Write a concise, polite email to my manager asking to extend the project deadline from Friday to next Tuesday. Explain that we need the extra time to run security tests. Keep the tone professional but not overly formal."
       </p>
 
+      <h3>Scenario 2: Summarizing Information</h3>
       <p>
-        If the result is not useful, the prompt can be refined by clarifying
-        the goal, adding missing context, or specifying the desired format.
+        <strong>Poor Prompt:</strong> "Summarize this report."<br/>
+        <em>Result: The AI provides a dense paragraph that might miss the specific metrics you care about.</em>
+      </p>
+      <p>
+        <strong>Improved Prompt:</strong> "Summarize the key findings of this report in exactly 5 bullet points. Focus specifically on the financial risks and budget recommendations. Ignore the historical background section."
       </p>
 
-      <h2>Prompts Are Part of AI Interaction</h2>
-
+      <h2>Task-Specific Prompting Strategies</h2>
       <p>
-        Understanding prompts helps users communicate more effectively with AI
-        tools. It also helps explain why the quality and relevance of an AI
-        response can depend partly on the information supplied by the user.
+        A good prompt is not necessarily a long prompt—it is simply a precise one. Tailor your approach based on the task:
       </p>
+      <ul>
+        <li><strong>For Idea Generation:</strong> Ask for volume. "Give me 10 different title ideas for a blog post about remote work, ranging from professional to humorous."</li>
+        <li><strong>For Data Extraction:</strong> Define the exact format. "Extract all the company names and dates mentioned in the text below and format them as a two-column markdown table."</li>
+        <li><strong>For Learning:</strong> Use personas. "Explain the concept of quantum computing as if you are a high school physics teacher using a simple real-world analogy."</li>
+      </ul>
 
-      <div className="article-related">
-        <h2>Related Guide</h2>
-
-        <p>
-          <a href="/ai-digital-tools/articles/what-is-an-ai-model">
-            What Is an AI Model? A Practical Guide →
-          </a>
-        </p>
-
-        <p>
-          <a href="/ai-digital-tools/articles/what-is-generative-ai">
-            What Is Generative AI? A Practical Guide →
-          </a>
-        </p>
-      </div>
+      <h2>Key Takeaways</h2>
+      <p>
+        Treat the AI like a highly capable intern who lacks context. By explicitly defining the goal, providing background context, and setting strict constraints on the format, you eliminate guesswork and drastically improve the usefulness of the AI's output.
+      </p>
     </ArticleLayout>
   );
 }
