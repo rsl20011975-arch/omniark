@@ -5,6 +5,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
+      url: `${baseUrl}/tools/omnipdf`,
+    },
+    {
+      url: `${baseUrl}/tools/omnipdf/releases`,
+    },
+    {
+      url: `${baseUrl}/tools/omnipdf/terms`,
+    },
+    {
       url: baseUrl,
     },
 

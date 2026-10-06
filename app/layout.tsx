@@ -43,6 +43,10 @@ export const metadata: Metadata = {
 
 const navigation = [
   {
+    name: "OmniPDF",
+    href: "/tools/omnipdf",
+  },
+  {
     name: "Technology",
     href: "/technology",
   },

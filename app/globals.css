@@ -74,6 +74,12 @@ a:hover {
   flex: 1;
 }
 
+.site-main:has(> [data-product-page]) {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+}
+
 main {
   width: min(900px, calc(100% - 40px));
   margin: 0 auto;
