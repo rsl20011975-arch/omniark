@@ -1,0 +1,355 @@
+/* Long-form reading styles for /blog, /guides and /about.
+   Everything is scoped under .omni-studio .journal so it can never leak into
+   the product pages. Colour variables come from .omni-studio (studio.css). */
+
+.omni-studio .journal {
+  width: min(780px, calc(100% - 48px));
+  margin: 0 auto;
+  padding: 56px 0 120px;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.omni-studio .journal.journal-wide {
+  width: min(1100px, calc(100% - 48px));
+}
+
+.omni-studio .journal .crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 36px;
+  font-size: 12px;
+  color: #a99abb;
+}
+
+.omni-studio .journal .crumbs a:hover {
+  color: #c4b5fd;
+}
+
+.omni-studio .journal .post-kind {
+  margin: 0 0 18px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 2px;
+  color: #bca5ff;
+}
+
+.omni-studio .journal h1 {
+  margin: 0 0 22px;
+  font-size: clamp(30px, 5vw, 46px);
+  line-height: 1.25;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.omni-studio .journal .post-lead {
+  margin: 0 0 22px;
+  font-size: 18px;
+  line-height: 1.75;
+  color: #c9c2d8;
+}
+
+.omni-studio .journal .post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0;
+  padding-bottom: 34px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  color: #a09aaf;
+}
+
+.omni-studio .journal .post-meta span + span::before {
+  content: "·";
+  margin-right: 18px;
+  color: #6f6683;
+}
+
+.omni-studio .journal .post-body {
+  padding-top: 8px;
+  font-size: 17px;
+  line-height: 1.95;
+  color: #ddd6ec;
+}
+
+.omni-studio .journal .post-body h2 {
+  margin: 64px 0 20px;
+  font-size: 26px;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.omni-studio .journal .post-body h3 {
+  margin: 38px 0 12px;
+  font-size: 20px;
+  line-height: 1.4;
+  color: #ece6f8;
+}
+
+.omni-studio .journal .post-body p {
+  margin: 0 0 22px;
+}
+
+.omni-studio .journal .post-body ul,
+.omni-studio .journal .post-body ol {
+  margin: 0 0 26px;
+  padding-left: 24px;
+}
+
+.omni-studio .journal .post-body ul {
+  list-style: disc;
+}
+
+.omni-studio .journal .post-body ol {
+  list-style: decimal;
+}
+
+.omni-studio .journal .post-body li {
+  margin-bottom: 10px;
+  padding-left: 4px;
+}
+
+.omni-studio .journal .post-body li::marker {
+  color: #a78bfa;
+}
+
+.omni-studio .journal .post-body strong {
+  color: #f6f2ff;
+}
+
+.omni-studio .journal .post-body a {
+  color: #c4b5fd;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: #c4b5fd66;
+}
+
+.omni-studio .journal .post-body a:hover {
+  text-decoration-color: #c4b5fd;
+}
+
+.omni-studio .journal .post-body code {
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: #ffffff12;
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 0.88em;
+  color: #e6dcff;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.omni-studio .journal .post-body pre {
+  margin: 0 0 26px;
+  padding: 18px 20px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #100d19;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.omni-studio .journal .post-body pre code {
+  padding: 0;
+  background: none;
+  white-space: pre;
+}
+
+.omni-studio .journal .table-wrap {
+  margin: 0 0 28px;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.omni-studio .journal .post-body table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.omni-studio .journal .post-body th,
+.omni-studio .journal .post-body td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.omni-studio .journal .post-body tr:last-child td {
+  border-bottom: 0;
+}
+
+.omni-studio .journal .post-body th {
+  background: #1a1626;
+  font-weight: 650;
+  color: #f1ecfb;
+  white-space: nowrap;
+}
+
+.omni-studio .journal .callout {
+  margin: 0 0 28px;
+  padding: 18px 22px;
+  border: 1px solid #a78bfa44;
+  border-left: 3px solid #a78bfa;
+  border-radius: 10px;
+  background: #1a1430;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.omni-studio .journal .callout p:last-child {
+  margin-bottom: 0;
+}
+
+.omni-studio .journal .callout-title {
+  margin: 0 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #bca5ff;
+}
+
+.omni-studio .journal .post-after {
+  margin-top: 72px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.omni-studio .journal .post-after h2 {
+  margin: 0 0 16px;
+  font-size: 15px;
+  letter-spacing: 1px;
+  color: #a99abb;
+}
+
+.omni-studio .journal .post-after ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.omni-studio .journal .post-after li {
+  margin: 0 0 10px;
+}
+
+.omni-studio .journal .post-after a {
+  font-weight: 600;
+  color: #d9ccff;
+}
+
+.omni-studio .journal .post-after a:hover {
+  color: #ffffff;
+}
+
+/* Index pages */
+.omni-studio .journal .index-head {
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.omni-studio .journal .index-head p:last-child {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.75;
+  color: #c9c2d8;
+}
+
+.omni-studio .journal .post-list {
+  display: grid;
+  gap: 18px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.omni-studio .journal .post-card {
+  display: block;
+  padding: 26px 28px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #14111e;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.omni-studio .journal .post-card:hover {
+  border-color: #a78bfa88;
+  background: #181327;
+  transform: translateY(-2px);
+}
+
+.omni-studio .journal .post-card:focus-visible {
+  outline-offset: 4px;
+}
+
+.omni-studio .journal .post-card h2 {
+  margin: 0 0 10px;
+  font-size: 21px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.omni-studio .journal .post-card p {
+  margin: 0 0 14px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: #b9b2c9;
+}
+
+.omni-studio .journal .post-card .post-card-meta {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-size: 12px;
+  color: #8f86a3;
+}
+
+.omni-studio .journal .post-card .tag {
+  color: #bca5ff;
+}
+
+.omni-studio .journal .empty-note {
+  margin: 40px 0 0;
+  color: #a09aaf;
+}
+
+@media (max-width: 760px) {
+  .omni-studio .journal {
+    padding: 36px 0 90px;
+  }
+
+  .omni-studio .journal .post-body {
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  .omni-studio .journal .post-body h2 {
+    margin-top: 50px;
+    font-size: 23px;
+  }
+
+  .omni-studio .journal .post-card {
+    padding: 22px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .omni-studio .journal .post-card {
+    transition: none;
+  }
+
+  .omni-studio .journal .post-card:hover {
+    transform: none;
+  }
+}

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
+import "./studio.css";
+
+
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://omniark.co"),
@@ -42,22 +45,8 @@ export const metadata: Metadata = {
 };
 
 const navigation = [
-  {
-    name: "Technology",
-    href: "/technology",
-  },
-  {
-    name: "AI & Digital Tools",
-    href: "/ai-digital-tools",
-  },
-  {
-    name: "Productivity",
-    href: "/productivity",
-  },
-  {
-    name: "Web & Internet",
-    href: "/web-internet",
-  },
+  { name: "제품·서비스", href: "/products" },
+  { name: "소개", href: "/about" },
 ];
 
 export default function RootLayout({
@@ -68,11 +57,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <meta name="google-adsense-account" content="ca-pub-2615575361893703" />
         <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2615575361893703"
           crossOrigin="anonymous"
-        ></script>
+        />
       </head>
       <body>
         <div className="site-shell">
@@ -107,6 +97,7 @@ export default function RootLayout({
               </div>
 
               <nav className="footer-navigation" aria-label="Footer navigation">
+                <Link href="/products">Products</Link>
                 <Link href="/about">About</Link>
                 <Link href="/contact">Contact</Link>
                 <Link href="/privacy">Privacy Policy</Link>

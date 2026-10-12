@@ -1,0 +1,7 @@
+'use client';
+import {useEffect} from 'react';
+import {startGalaxy} from './studio-galaxy';
+export default function StudioEffects({kind}:{kind:string}){useEffect(()=>{if(kind==='home')return startGalaxy();if(kind!=='catalog')return;
+const buttons=Array.from(document.querySelectorAll<HTMLButtonElement>('.omni-studio [data-filter]')),groups=Array.from(document.querySelectorAll<HTMLElement>('.omni-studio [data-group]')),cards=Array.from(document.querySelectorAll<HTMLElement>('.omni-studio [data-category]'));
+const select=(value:string|null)=>{const key=value==='korean'||value==='everyday'?value:'all';buttons.forEach(b=>{const active=b.dataset.filter===key;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});groups.forEach(g=>g.hidden=key!=='all'&&g.dataset.group!==key);const count=document.querySelector('.catalog-count');if(count)count.textContent=cards.filter(c=>key==='all'||c.dataset.category===key).length+'개의 제품·서비스';};
+const click=(e:Event)=>{const value=(e.currentTarget as HTMLElement).dataset.filter||'all';const url=new URL(location.href);if(value==='all')url.searchParams.delete('category');else url.searchParams.set('category',value);history.pushState(null,'',url);select(value);};const pop=()=>select(new URLSearchParams(location.search).get('category'));buttons.forEach(b=>b.addEventListener('click',click));addEventListener('popstate',pop);pop();return()=>{buttons.forEach(b=>b.removeEventListener('click',click));removeEventListener('popstate',pop);};},[kind]);return null;}

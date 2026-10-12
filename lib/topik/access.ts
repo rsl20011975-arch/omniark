@@ -1,0 +1,3 @@
+export function configured(){return Boolean(process.env.SSEUGI_GEMINI_API_KEY&&process.env.BLOB_READ_WRITE_TOKEN);}
+export function sameOrigin(r:Request){return r.headers.get('origin')===new URL(r.url).origin&&r.headers.get('content-type')?.startsWith('application/json')&&r.headers.get('x-sseugi-token')==='topik-test';}
+export async function boundedBody(r:Request){const reader=r.body?.getReader();if(!reader)throw Error('INPUT');let size=0;const chunks:Uint8Array[]=[];for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>24000){await reader.cancel();throw Error('INPUT');}chunks.push(value);}return JSON.parse(Buffer.concat(chunks).toString());}

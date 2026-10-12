@@ -337,3 +337,54 @@ article section,
   margin-bottom: 10px;
   font-weight: 600;
 }
+
+.product-feature {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 36px;
+  margin: 48px 0 64px;
+  padding: 34px;
+  border: 1px solid #bfd2c9;
+  border-radius: 18px;
+  background: #f2f7f3;
+}
+
+.product-feature h2 {
+  margin: 4px 0 14px;
+}
+
+.product-feature a {
+  color: #245543;
+  font-weight: 700;
+}
+
+.product-feature .product-eyebrow,
+.product-feature .product-feature-note {
+  color: #34604e;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.product-feature-note {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 760px) {
+  .product-feature {
+    display: block;
+    padding: 24px;
+  }
+}
+
+/* Product pages share the existing editorial shell. */
+.site-main:has([data-product-page]){min-width:0;width:100%;padding:0}
+.product-directory{width:min(900px,calc(100% - 40px));margin:0 auto;padding:65px 0 90px}
+.omnizip-feature{background:#f4f0fa;border-color:#ddd2ee}
+.omnizip-feature a,.omnizip-feature .product-eyebrow,.omnizip-feature .product-feature-note{color:#6345ad}
+.product-directory .product-feature-note{white-space:normal;max-width:190px}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Keep explanatory addresses readable on narrow screens. */
+.article-body code { overflow-wrap: anywhere; }

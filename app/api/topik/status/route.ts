@@ -1,0 +1,1 @@
+import {NextResponse} from 'next/server';import {configured} from '@/lib/topik/access';export function GET(){return NextResponse.json({invitationAvailable:false,configured:configured(),verified:false,provider:'gemini',csrf:'topik-test',phase:'testing'},{headers:{'Cache-Control':'no-store'}});}
