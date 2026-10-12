@@ -574,6 +574,130 @@
   background: #ffffff05;
 }
 
+/* Personal developer narratives use a warmer, colourful reading rhythm while
+   keeping the studio's dark canvas. Images mark actual turns in the story;
+   they are captioned as conceptual illustrations rather than evidence. */
+.omni-studio .journal--origin-story {
+  width: min(1120px, calc(100% - 48px));
+}
+
+.omni-studio .journal--origin-story .post-head {
+  max-width: 870px;
+}
+
+.omni-studio .journal--origin-story .post-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 12px;
+  border: 1px solid #e6a3ff62;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #371d4a, #1b294a);
+  color: #f0c7ff;
+}
+
+.omni-studio .journal--origin-story .post-kind::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #efa7ff;
+  box-shadow: 0 0 18px #efa7ff;
+  content: "";
+}
+
+.omni-studio .journal--origin-story .post-lead {
+  max-width: 760px;
+  color: #ded7ef;
+}
+
+.omni-studio .journal--origin-story .post-body {
+  max-width: 860px;
+  color: #e0e0ec;
+}
+
+.omni-studio .journal--origin-story .post-body > p:first-child {
+  margin: 34px 0 30px;
+  color: #d2c6ef;
+  font-size: 20px;
+  line-height: 1.7;
+}
+
+.omni-studio .journal--origin-story .post-body > p:first-child em {
+  font-style: normal;
+}
+
+.omni-studio .journal--origin-story .post-body figure {
+  margin: 46px 0 56px;
+  overflow: hidden;
+  border: 1px solid #91a9ff42;
+  border-radius: 20px;
+  background: #0b1120;
+  box-shadow: 0 26px 68px #00000052, inset 0 1px #ffffff14;
+}
+
+.omni-studio .journal--origin-story .post-body > figure:first-of-type {
+  width: min(1060px, 100%);
+  border-color: #eeaaef54;
+  box-shadow: 0 30px 82px #00000069, 0 0 0 1px #7c78ff12;
+}
+
+.omni-studio .journal--origin-story .post-body figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.omni-studio .journal--origin-story .post-body figure figcaption {
+  margin: 0;
+  padding: 13px 18px 15px;
+  border-top: 1px solid #ffffff12;
+  background: linear-gradient(90deg, #10172a, #131126);
+  color: #b5b8cd;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.omni-studio .journal--origin-story .post-body h2 {
+  --section-accent: #b993ff;
+  position: relative;
+  margin-top: 80px;
+  padding: 3px 0 3px 19px;
+  color: #f7f6ff;
+}
+
+.omni-studio .journal--origin-story .post-body h2::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 5px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, var(--section-accent), transparent);
+  box-shadow: 0 0 19px var(--section-accent);
+  content: "";
+}
+
+.omni-studio .journal--origin-story .post-body h2:nth-of-type(4n + 2) {
+  --section-accent: #66b6ff;
+}
+
+.omni-studio .journal--origin-story .post-body h2:nth-of-type(4n + 3) {
+  --section-accent: #54d6c7;
+}
+
+.omni-studio .journal--origin-story .post-body h2:nth-of-type(4n) {
+  --section-accent: #f1b45b;
+}
+
+.omni-studio .journal--origin-story .post-body strong {
+  color: #fbf8ff;
+}
+
+.omni-studio .journal--origin-story .post-body hr {
+  height: 1px;
+  margin: 64px 0 26px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, #b790ff89 18%, #64c5ff84 82%, transparent);
+}
+
 @media (max-width: 760px) {
   .omni-studio .journal {
     padding: 36px 0 90px;
@@ -622,6 +746,26 @@
   .omni-studio .journal--incident-lab .note-evidence li,
   .omni-studio .journal--incident-lab .note-checklist li {
     padding: 14px 14px 14px 46px;
+  }
+
+  .omni-studio .journal--origin-story {
+    width: min(100% - 32px, 760px);
+  }
+
+  .omni-studio .journal--origin-story .post-body > p:first-child {
+    margin: 28px 0 26px;
+    font-size: 18px;
+  }
+
+  .omni-studio .journal--origin-story .post-body figure,
+  .omni-studio .journal--origin-story .post-body > figure:first-of-type {
+    margin: 34px 0 42px;
+    border-radius: 15px;
+  }
+
+  .omni-studio .journal--origin-story .post-body h2 {
+    margin-top: 58px;
+    padding-left: 15px;
   }
 }
 

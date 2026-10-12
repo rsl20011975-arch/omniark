@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="title desc">
+  <title id="title">바이브 코딩을 시작해 OMNIARK 개발 노트를 만들기까지의 흐름</title>
+  <desc id="desc">오래 품어 온 생각, AI와의 첫 시도, 아이디어의 확장, 완성의 기준을 배우는 과정을 거쳐 개발 노트로 이어지는 다섯 단계의 흐름도</desc>
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#10172a"/><stop offset="1" stop-color="#070b15"/></linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#b891ff"/><stop offset=".5" stop-color="#62c8ff"/><stop offset="1" stop-color="#f3b764"/></linearGradient>
+    <filter id="glow" x="-30%" y="-80%" width="160%" height="260%"><feGaussianBlur stdDeviation="14" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".75" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .045 0"/></filter>
+  </defs>
+  <rect width="1600" height="760" rx="34" fill="url(#base)"/>
+  <rect width="1600" height="760" rx="34" filter="url(#grain)" opacity=".35"/>
+  <circle cx="177" cy="104" r="280" fill="#7e58ea" opacity=".11"/>
+  <circle cx="1390" cy="646" r="330" fill="#0ec8bf" opacity=".08"/>
+  <path d="M194 381 C310 381 320 236 469 236 S614 499 765 499 S929 254 1080 254 S1223 438 1391 438" fill="none" stroke="url(#line)" stroke-width="5" opacity=".85"/>
+  <path d="M194 381 C310 381 320 236 469 236 S614 499 765 499 S929 254 1080 254 S1223 438 1391 438" fill="none" stroke="#bfcfff" stroke-width="1.5" opacity=".8" stroke-dasharray="5 12"/>
+  <g font-family="Pretendard, Arial, sans-serif">
+    <g transform="translate(76 259)">
+      <rect width="238" height="245" rx="22" fill="#1a1830" stroke="#b991ff" stroke-opacity=".68"/>
+      <circle cx="42" cy="45" r="15" fill="#ba8fff" filter="url(#glow)"/>
+      <text x="36" y="104" fill="#f5f1ff" font-size="29" font-weight="700">오래 품어 온 생각</text>
+      <text x="36" y="147" fill="#bbb7d3" font-size="21">직접 만들 수 있을까?</text>
+      <path d="M36 190h166" stroke="#b991ff" stroke-opacity=".35"/>
+      <text x="36" y="221" fill="#cbb9f2" font-size="17">시작점</text>
+    </g>
+    <g transform="translate(351 112)">
+      <rect width="238" height="245" rx="22" fill="#14263e" stroke="#67bbff" stroke-opacity=".68"/>
+      <circle cx="42" cy="45" r="15" fill="#67bbff" filter="url(#glow)"/>
+      <text x="36" y="104" fill="#f0f7ff" font-size="29" font-weight="700">AI와의 첫 시도</text>
+      <text x="36" y="147" fill="#b7cce0" font-size="21">남편 회사 홈페이지</text>
+      <path d="M36 190h166" stroke="#67bbff" stroke-opacity=".35"/>
+      <text x="36" y="221" fill="#a7d6ff" font-size="17">처음 만든 프로그램</text>
+    </g>
+    <g transform="translate(647 375)">
+      <rect width="238" height="245" rx="22" fill="#123a3d" stroke="#59dac8" stroke-opacity=".68"/>
+      <circle cx="42" cy="45" r="15" fill="#59dac8" filter="url(#glow)"/>
+      <text x="36" y="104" fill="#edfffb" font-size="29" font-weight="700">아이디어가 확장됨</text>
+      <text x="36" y="147" fill="#b5ddd8" font-size="21">연결되는 더 많은 시도</text>
+      <path d="M36 190h166" stroke="#59dac8" stroke-opacity=".35"/>
+      <text x="36" y="221" fill="#91e7d8" font-size="17">8개월의 흐름</text>
+    </g>
+    <g transform="translate(963 130)">
+      <rect width="238" height="245" rx="22" fill="#48331b" stroke="#f3b764" stroke-opacity=".73"/>
+      <circle cx="42" cy="45" r="15" fill="#f3b764" filter="url(#glow)"/>
+      <text x="36" y="104" fill="#fff8eb" font-size="29" font-weight="700">완성의 기준 재학습</text>
+      <text x="36" y="147" fill="#ecd2ad" font-size="21">만듦과 완성은 다르다</text>
+      <path d="M36 190h166" stroke="#f3b764" stroke-opacity=".38"/>
+      <text x="36" y="221" fill="#f8cc8d" font-size="17">시행착오의 배움</text>
+    </g>
+    <g transform="translate(1270 315)">
+      <rect width="254" height="245" rx="22" fill="#392043" stroke="#e8a4ff" stroke-opacity=".75"/>
+      <circle cx="42" cy="45" r="15" fill="#e8a4ff" filter="url(#glow)"/>
+      <text x="36" y="98" fill="#fff1ff" font-size="28" font-weight="700">OMNIARK</text>
+      <text x="36" y="135" fill="#fff1ff" font-size="28" font-weight="700">개발 노트</text>
+      <text x="36" y="172" fill="#e3c6e8" font-size="20">과정을 솔직하게 기록</text>
+      <path d="M36 202h174" stroke="#e8a4ff" stroke-opacity=".38"/>
+      <text x="36" y="229" fill="#f0bdff" font-size="17">지금 여기</text>
+    </g>
+  </g>
+</svg>

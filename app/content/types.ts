@@ -5,7 +5,7 @@ export type PostKind = "blog" | "guide";
 export type RelatedLink = { href: string; label: string };
 
 /** Controlled visual treatments for evidence-led Developer Notes. */
-export type PostPresentation = "incident-lab";
+export type PostPresentation = "incident-lab" | "origin-story";
 
 export type Post = {
   slug: string;
