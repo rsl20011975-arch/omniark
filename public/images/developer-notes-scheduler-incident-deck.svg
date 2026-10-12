@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 850" role="img" aria-labelledby="title desc">
+  <title id="title">예약 장부와 실제 실행 데몬을 분리한 스케줄러 장애 도식</title>
+  <desc id="desc">등록된 예약, 없는 실행 데몬, 비어 있는 다음 실행 시각을 확인하고 시작 경로와 PID 생존 확인으로 고친 흐름.</desc>
+  <defs>
+    <linearGradient id="surface" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#221748"/><stop offset=".52" stop-color="#102b56"/><stop offset="1" stop-color="#071d31"/>
+    </linearGradient>
+    <linearGradient id="fix" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0d645f"/><stop offset="1" stop-color="#133d58"/>
+    </linearGradient>
+    <linearGradient id="warning" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#54293e"/><stop offset="1" stop-color="#27213d"/>
+    </linearGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="16"/></filter>
+    <filter id="grain" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .045 0"/></filter>
+    <style>
+      .k { font-family: Pretendard, Arial, sans-serif; fill: #f5f4ff; }
+      .muted { font-family: Pretendard, Arial, sans-serif; fill: #b8bfd3; }
+      .eyebrow { font-family: Arial, sans-serif; font-weight: 700; letter-spacing: 2px; fill: #aebaff; }
+      .flow { stroke-dasharray: 12 14; animation: trace 3.4s linear infinite; }
+      .pulse { animation: pulse 2.8s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+      @keyframes trace { to { stroke-dashoffset: -104; } }
+      @keyframes pulse { 0%,100% { opacity: .58; transform: scale(.96); } 50% { opacity: 1; transform: scale(1.04); } }
+      @media (prefers-reduced-motion: reduce) { .flow,.pulse { animation: none; } }
+    </style>
+  </defs>
+  <rect width="1600" height="850" rx="40" fill="#070b17"/>
+  <rect x="20" y="20" width="1560" height="810" rx="28" fill="url(#surface)"/>
+  <circle cx="218" cy="122" r="196" fill="#8967ff" opacity=".19" filter="url(#soft)"/>
+  <circle cx="1285" cy="737" r="310" fill="#00cfbb" opacity=".12" filter="url(#soft)"/>
+  <rect x="20" y="20" width="1560" height="810" rx="28" filter="url(#grain)" opacity=".72"/>
+
+  <text x="86" y="107" class="eyebrow" font-size="18">SCHEDULER INCIDENT · OBSERVED STATE</text>
+  <text x="86" y="166" class="k" font-weight="700" font-size="46">등록은 되어 있었지만, 실행자는 없었다</text>
+  <text x="86" y="207" class="muted" font-size="22">문제는 예약 장부가 아니라, 장부를 읽을 별도 데몬이 시작되지 않은 경로에 있었다.</text>
+
+  <g transform="translate(86 282)">
+    <rect width="330" height="226" rx="22" fill="#172d62" stroke="#749aff" stroke-opacity=".76"/>
+    <rect x="24" y="24" width="46" height="30" rx="9" fill="#7898ff" opacity=".18"/>
+    <path d="M36 42h22M40 35v14M54 35v14" stroke="#b9c8ff" stroke-width="3" stroke-linecap="round"/>
+    <text x="24" y="91" class="muted" font-size="16">확인된 신호 01</text>
+    <text x="24" y="128" class="k" font-weight="700" font-size="28">예약 장부</text>
+    <text x="24" y="164" class="k" font-size="20">목록에 작업이 있었다</text>
+    <rect x="24" y="183" width="154" height="24" rx="12" fill="#607dff" opacity=".22"/>
+    <text x="38" y="202" class="muted" font-size="14">저장 상태: 있음</text>
+  </g>
+  <g transform="translate(451 282)">
+    <rect width="330" height="226" rx="22" fill="url(#warning)" stroke="#f17da2" stroke-opacity=".7"/>
+    <rect x="24" y="24" width="46" height="30" rx="9" fill="#ff6996" opacity=".18"/>
+    <path d="M36 47l10-16 10 16M46 38v5M46 48h.1" fill="none" stroke="#ffb4ca" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="24" y="91" class="muted" font-size="16">확인된 신호 02</text>
+    <text x="24" y="128" class="k" font-weight="700" font-size="28">실행 데몬</text>
+    <text x="24" y="164" class="k" font-size="20">프로세스 목록에 없었다</text>
+    <rect x="24" y="183" width="154" height="24" rx="12" fill="#ff6e9b" opacity=".2"/>
+    <text x="38" y="202" class="muted" font-size="14">실행 상태: 없음</text>
+  </g>
+  <g transform="translate(816 282)">
+    <rect width="330" height="226" rx="22" fill="#18385e" stroke="#6fb7ff" stroke-opacity=".62"/>
+    <rect x="24" y="24" width="46" height="30" rx="9" fill="#5fb7ff" opacity=".18"/>
+    <circle cx="47" cy="40" r="11" fill="none" stroke="#b4dbff" stroke-width="3"/><path d="M47 33v8l6 4" stroke="#b4dbff" stroke-width="3" stroke-linecap="round"/>
+    <text x="24" y="91" class="muted" font-size="16">확인된 신호 03</text>
+    <text x="24" y="128" class="k" font-weight="700" font-size="28">다음 실행 시각</text>
+    <text x="24" y="164" class="k" font-size="20">표시할 값이 비어 있었다</text>
+    <rect x="24" y="183" width="166" height="24" rx="12" fill="#5db6ff" opacity=".18"/>
+    <text x="38" y="202" class="muted" font-size="14">상태 신호: 비어 있음</text>
+  </g>
+
+  <path class="flow" d="M1148 395h96" stroke="#57e6d3" stroke-width="5" stroke-linecap="round"/>
+  <path d="M1233 383l19 12-19 12" fill="none" stroke="#57e6d3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <g transform="translate(1270 282)">
+    <rect width="224" height="226" rx="22" fill="url(#fix)" stroke="#4ae0ce" stroke-opacity=".9"/>
+    <circle class="pulse" cx="46" cy="42" r="19" fill="#48e4d0" opacity=".18"/>
+    <path d="M38 42l6 6 12-15" fill="none" stroke="#a7fff2" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="24" y="91" class="muted" font-size="16">수정 후 확인</text>
+    <text x="24" y="128" class="k" font-weight="700" font-size="27">시작 경로</text>
+    <text x="24" y="162" class="k" font-size="19">데몬 기동을 추가</text>
+    <text x="24" y="199" class="muted" font-size="15">PID 생존 확인 뒤</text>
+    <text x="24" y="220" class="muted" font-size="15">하나만 유지</text>
+  </g>
+
+  <g transform="translate(86 585)">
+    <rect width="1408" height="161" rx="22" fill="#0d2d39" fill-opacity=".78" stroke="#39d9c6" stroke-opacity=".45"/>
+    <text x="34" y="47" class="eyebrow" font-size="16">OPERATIONAL LESSON</text>
+    <text x="34" y="92" class="k" font-weight="700" font-size="30">예약 기능은 세 번 확인해야 한다: 저장 · 기동 · 발화</text>
+    <text x="34" y="130" class="muted" font-size="20">장부에 남았는지, 실행자가 살아 있는지, 약속한 시각에 정확히 한 번 실행됐는지는 서로 다른 사실이다.</text>
+  </g>
+</svg>

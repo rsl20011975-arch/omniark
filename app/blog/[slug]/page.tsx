@@ -35,7 +35,13 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <StudioShell current="/blog">
-      <article className="journal">
+      <article
+        className={
+          post.presentation === "incident-lab"
+            ? "journal journal--incident-lab"
+            : "journal"
+        }
+      >
         <div className="post-head">
           <div className="crumbs">
             <Link href="/blog">개발 노트</Link>

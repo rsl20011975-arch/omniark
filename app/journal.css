@@ -324,6 +324,256 @@
   color: #a09aaf;
 }
 
+/* Evidence-led Developer Notes. The deep studio background stays in place; the
+   lesson changes surface and colour by meaning, rather than switching to a
+   bright paper article or another undifferentiated black card. */
+.omni-studio .journal--incident-lab {
+  width: min(1060px, calc(100% - 48px));
+}
+
+.omni-studio .journal--incident-lab .post-head {
+  max-width: 820px;
+}
+
+.omni-studio .journal--incident-lab .post-kind {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 11px;
+  border: 1px solid #9b8cff5c;
+  border-radius: 999px;
+  background: #7161de1c;
+  color: #cfc8ff;
+}
+
+.omni-studio .journal--incident-lab .post-kind::before {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #8d8aff;
+  box-shadow: 0 0 14px #8d8aff;
+  content: "";
+}
+
+.omni-studio .journal--incident-lab .post-lead {
+  max-width: 760px;
+  color: #d6d9ee;
+}
+
+.omni-studio .journal--incident-lab .post-body {
+  max-width: 820px;
+  color: #e2e3ee;
+}
+
+.omni-studio .journal--incident-lab .post-body > figure:first-child {
+  width: min(1060px, 100%);
+  margin: 42px 0 54px;
+  overflow: hidden;
+  border: 1px solid #9b9dfb40;
+  border-radius: 20px;
+  background: #090e1c;
+  box-shadow: 0 28px 70px #0000004d, inset 0 1px #ffffff12;
+}
+
+.omni-studio .journal--incident-lab .post-body figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.omni-studio .journal--incident-lab .post-body figure figcaption {
+  margin: 0;
+  padding: 12px 17px 14px;
+  border-top: 1px solid #ffffff10;
+  background: #0e1322;
+  color: #9fa6bd;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.omni-studio .journal--incident-lab .post-body h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 72px;
+  color: #f5f4fb;
+}
+
+.omni-studio .journal--incident-lab .post-body h2::before {
+  width: 4px;
+  height: 31px;
+  border-radius: 99px;
+  background: linear-gradient(180deg, #a996ff, #598fff);
+  box-shadow: 0 0 20px #8f7cff99;
+  content: "";
+}
+
+.omni-studio .journal--incident-lab .note-callout,
+.omni-studio .journal--incident-lab .note-evidence,
+.omni-studio .journal--incident-lab .note-checklist {
+  --note-accent: #ad9aff;
+  --note-line: #ad9aff69;
+  --note-surface: #241a4a;
+  position: relative;
+  margin: 32px 0;
+  padding: 26px 28px 28px;
+  overflow: hidden;
+  border: 1px solid var(--note-line);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 96% 0%, color-mix(in srgb, var(--note-accent) 20%, transparent), transparent 38%),
+    linear-gradient(135deg, var(--note-surface), #11192c 100%);
+  box-shadow: inset 0 1px #ffffff14, 0 18px 42px #0000002b;
+}
+
+.omni-studio .journal--incident-lab .note-callout::after,
+.omni-studio .journal--incident-lab .note-evidence::after,
+.omni-studio .journal--incident-lab .note-checklist::after {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--note-accent);
+  box-shadow: 0 0 20px var(--note-accent);
+  content: "";
+}
+
+.omni-studio .journal--incident-lab .note-callout--plum,
+.omni-studio .journal--incident-lab .note-evidence--plum,
+.omni-studio .journal--incident-lab .note-checklist--plum {
+  --note-accent: #c58aff;
+  --note-line: #c58aff70;
+  --note-surface: #2c1a55;
+}
+
+.omni-studio .journal--incident-lab .note-callout--blue,
+.omni-studio .journal--incident-lab .note-evidence--blue,
+.omni-studio .journal--incident-lab .note-checklist--blue {
+  --note-accent: #65a4ff;
+  --note-line: #65a4ff70;
+  --note-surface: #102f5d;
+}
+
+.omni-studio .journal--incident-lab .note-callout--teal,
+.omni-studio .journal--incident-lab .note-evidence--teal,
+.omni-studio .journal--incident-lab .note-checklist--teal {
+  --note-accent: #46d9c6;
+  --note-line: #46d9c670;
+  --note-surface: #0d4d57;
+}
+
+.omni-studio .journal--incident-lab .note-callout--amber,
+.omni-studio .journal--incident-lab .note-evidence--amber,
+.omni-studio .journal--incident-lab .note-checklist--amber {
+  --note-accent: #f2b458;
+  --note-line: #f2b4586e;
+  --note-surface: #4e341b;
+}
+
+.omni-studio .journal--incident-lab .note-block-label {
+  margin: 0 0 12px;
+  color: var(--note-accent);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: 0.11em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.omni-studio .journal--incident-lab .note-callout p:last-child,
+.omni-studio .journal--incident-lab .note-evidence p:last-child,
+.omni-studio .journal--incident-lab .note-checklist p:last-child {
+  margin-bottom: 0;
+}
+
+.omni-studio .journal--incident-lab .note-callout {
+  font-size: 18px;
+  line-height: 1.85;
+}
+
+.omni-studio .journal--incident-lab .note-evidence ul,
+.omni-studio .journal--incident-lab .note-checklist ol {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.omni-studio .journal--incident-lab .note-evidence li,
+.omni-studio .journal--incident-lab .note-checklist li {
+  position: relative;
+  min-height: 52px;
+  margin: 0;
+  padding: 15px 17px 15px 50px;
+  border: 1px solid #ffffff19;
+  border-radius: 12px;
+  background: #07122252;
+  color: #e7edff;
+}
+
+.omni-studio .journal--incident-lab .note-evidence li::before {
+  position: absolute;
+  top: 20px;
+  left: 19px;
+  width: 15px;
+  height: 15px;
+  border: 2px solid var(--note-accent);
+  border-radius: 4px;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--note-accent) 64%, transparent);
+  content: "";
+}
+
+.omni-studio .journal--incident-lab .note-checklist ol {
+  counter-reset: lesson-step;
+}
+
+.omni-studio .journal--incident-lab .note-checklist li {
+  counter-increment: lesson-step;
+}
+
+.omni-studio .journal--incident-lab .note-checklist li::before {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  border: 1px solid var(--note-line);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--note-accent) 16%, #0e1728);
+  color: var(--note-accent);
+  content: counter(lesson-step);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.omni-studio .journal--incident-lab .table-wrap {
+  margin: 30px 0 34px;
+  border: 1px solid #639cff4a;
+  border-radius: 16px;
+  background: #0b1a32;
+  box-shadow: 0 18px 42px #00000024;
+}
+
+.omni-studio .journal--incident-lab .post-body th,
+.omni-studio .journal--incident-lab .post-body td {
+  border-color: #8badff22;
+}
+
+.omni-studio .journal--incident-lab .post-body th {
+  background: #183560;
+  color: #eaf1ff;
+}
+
+.omni-studio .journal--incident-lab .post-body td {
+  color: #d2ddef;
+}
+
+.omni-studio .journal--incident-lab .post-body tr:nth-child(even) td {
+  background: #ffffff05;
+}
+
 @media (max-width: 760px) {
   .omni-studio .journal {
     padding: 36px 0 90px;
@@ -341,6 +591,37 @@
 
   .omni-studio .journal .post-card {
     padding: 22px 20px;
+  }
+
+  .omni-studio .journal--incident-lab {
+    width: min(100% - 32px, 680px);
+  }
+
+  .omni-studio .journal--incident-lab .post-body > figure:first-child {
+    margin: 30px 0 40px;
+    border-radius: 14px;
+  }
+
+  .omni-studio .journal--incident-lab .post-body h2 {
+    gap: 10px;
+    margin-top: 54px;
+  }
+
+  .omni-studio .journal--incident-lab .note-callout,
+  .omni-studio .journal--incident-lab .note-evidence,
+  .omni-studio .journal--incident-lab .note-checklist {
+    margin: 24px 0;
+    padding: 21px 20px 22px;
+    border-radius: 15px;
+  }
+
+  .omni-studio .journal--incident-lab .note-callout {
+    font-size: 17px;
+  }
+
+  .omni-studio .journal--incident-lab .note-evidence li,
+  .omni-studio .journal--incident-lab .note-checklist li {
+    padding: 14px 14px 14px 46px;
   }
 }
 
