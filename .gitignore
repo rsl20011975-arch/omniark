@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local recovery copies and superseded installers
+.backups/
+public/downloads/omniplayer/OmniPlayer-0.3.[0-7]-dev-windows-x64.zip
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
