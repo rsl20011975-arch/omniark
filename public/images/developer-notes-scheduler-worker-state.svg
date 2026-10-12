@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">예약 등록과 실제 실행을 분리한 스케줄러 구조</title>
+  <desc id="desc">웹 서버의 예약 장부, 별도 실행 데몬, 실제 발화 결과와 상태 확인을 따로 보여 주는 도식이다.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#101228"/><stop offset="1" stop-color="#2c1840"/></linearGradient>
+    <linearGradient id="violet" x1="0" x2="1"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#f472b6"/></linearGradient>
+    <linearGradient id="mint" x1="0" x2="1"><stop stop-color="#65e6c8"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#080210" flood-opacity=".45"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1380" cy="116" r="230" fill="#7c3aed" opacity=".13"/><circle cx="180" cy="790" r="250" fill="#38bdf8" opacity=".11"/>
+  <text x="100" y="118" fill="#fcf7ff" font-family="Pretendard, Arial, sans-serif" font-size="52" font-weight="700">예약이 등록됐다고 실행되는 것은 아니다</text>
+  <text x="102" y="166" fill="#cfc6df" font-family="Pretendard, Arial, sans-serif" font-size="24">장부 · 실행자 · 발화 기록을 각각 확인해야, 조용한 미실행을 잡을 수 있다.</text>
+  <g filter="url(#s)">
+    <rect x="100" y="258" width="380" height="392" rx="28" fill="#242443" stroke="#a78bfa" stroke-opacity=".55"/>
+    <rect x="136" y="296" width="142" height="38" rx="19" fill="url(#violet)"/><text x="162" y="322" fill="#250d2a" font-family="Pretendard, Arial, sans-serif" font-size="17" font-weight="700">1. 예약 장부</text>
+    <text x="136" y="386" fill="#fff" font-family="Pretendard, Arial, sans-serif" font-size="31" font-weight="700">웹 서버</text>
+    <text x="136" y="425" fill="#d5d0e9" font-family="Pretendard, Arial, sans-serif" font-size="20">예약 정보 저장 · 목록 표시</text>
+    <rect x="136" y="472" width="308" height="104" rx="16" fill="#323257"/>
+    <text x="162" y="512" fill="#f2efff" font-family="Pretendard, Arial, sans-serif" font-size="21" font-weight="600">작업은 등록됨</text>
+    <text x="162" y="546" fill="#b9b3d4" font-family="Pretendard, Arial, sans-serif" font-size="18">하지만 실행자 생존은 모름</text>
+    <text x="136" y="618" fill="#ffce9d" font-family="Pretendard, Arial, sans-serif" font-size="18" font-weight="600">건강 확인 정상 = 실행 정상 아님</text>
+    <rect x="610" y="258" width="380" height="392" rx="28" fill="#183747" stroke="#65e6c8" stroke-opacity=".58"/>
+    <rect x="646" y="296" width="160" height="38" rx="19" fill="url(#mint)"/><text x="673" y="322" fill="#062720" font-family="Pretendard, Arial, sans-serif" font-size="17" font-weight="700">2. 실제 실행자</text>
+    <text x="646" y="386" fill="#fff" font-family="Pretendard, Arial, sans-serif" font-size="31" font-weight="700">별도 데몬</text>
+    <text x="646" y="425" fill="#c3e8e3" font-family="Pretendard, Arial, sans-serif" font-size="20">시각 도달 · 작업 시작 · 중복 방지</text>
+    <rect x="646" y="472" width="308" height="104" rx="16" fill="#245263"/>
+    <text x="672" y="512" fill="#eefffb" font-family="Pretendard, Arial, sans-serif" font-size="21" font-weight="600">살아 있는가?</text>
+    <text x="672" y="546" fill="#b9ddd8" font-family="Pretendard, Arial, sans-serif" font-size="18">PID · 심장박동 · 다음 실행</text>
+    <text x="646" y="618" fill="#9cf0da" font-family="Pretendard, Arial, sans-serif" font-size="18" font-weight="600">시작 경로가 이 프로세스를 확인해야 함</text>
+    <rect x="1120" y="258" width="380" height="392" rx="28" fill="#3d2939" stroke="#f0a4c5" stroke-opacity=".55"/>
+    <rect x="1156" y="296" width="142" height="38" rx="19" fill="#f8b4d2"/><text x="1184" y="322" fill="#3b1026" font-family="Pretendard, Arial, sans-serif" font-size="17" font-weight="700">3. 실제 발화</text>
+    <text x="1156" y="386" fill="#fff" font-family="Pretendard, Arial, sans-serif" font-size="31" font-weight="700">작업 결과</text>
+    <text x="1156" y="425" fill="#edd5e1" font-family="Pretendard, Arial, sans-serif" font-size="20">한 번만 시작 · 산출물·오류 기록</text>
+    <rect x="1156" y="472" width="308" height="104" rx="16" fill="#563747"/>
+    <text x="1182" y="512" fill="#fff5f9" font-family="Pretendard, Arial, sans-serif" font-size="21" font-weight="600">발화했는가?</text>
+    <text x="1182" y="546" fill="#e3bdcf" font-family="Pretendard, Arial, sans-serif" font-size="18">중복 없이 끝났는가?</text>
+    <text x="1156" y="618" fill="#ffbed8" font-family="Pretendard, Arial, sans-serif" font-size="18" font-weight="600">이력은 결과를 증명하는 마지막 관문</text>
+  </g>
+  <g stroke="#e9e3ff" stroke-width="4" stroke-linecap="round" fill="none"><path d="M492 454h89"/><path d="M569 438l22 16-22 16"/><path d="M1002 454h89"/><path d="M1079 438l22 16-22 16"/></g>
+  <rect x="100" y="722" width="1400" height="84" rx="22" fill="#17182e" stroke="#716b99" stroke-opacity=".5"/>
+  <text x="140" y="774" fill="#f5f1ff" font-family="Pretendard, Arial, sans-serif" font-size="25" font-weight="600">수리의 기준: 경고 문구를 더하지 말고, 시작 경로가 데몬을 기동·중복 방지·상태 기록까지 하게 만든다.</text>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">제목 유사성과 본문 중복 판단의 차이</title>
+  <desc id="desc">비슷한 제목은 후보를 모으는 경보이며, 본문 유사도와 사람 검토를 거쳐야 중복을 판단할 수 있음을 보여 준다.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#1c1917"/><stop offset="1" stop-color="#2b2436"/></linearGradient>
+    <linearGradient id="line" x1="0" x2="1"><stop stop-color="#fbbf24"/><stop offset=".55" stop-color="#a78bfa"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="16" stdDeviation="16" flood-color="#09060a" flood-opacity=".5"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><text x="100" y="116" fill="#fffaf5" font-family="Pretendard, Arial, sans-serif" font-size="52" font-weight="700">제목이 비슷하다고, 본문까지 같은 것은 아니다</text>
+  <text x="102" y="164" fill="#decfc3" font-family="Pretendard, Arial, sans-serif" font-size="24">제목은 후보를 모으는 신호. 삭제·병합은 본문 측정과 사람이 읽은 근거 뒤에만 가능하다.</text>
+  <g filter="url(#s)" font-family="Pretendard, Arial, sans-serif">
+    <rect x="100" y="268" width="410" height="402" rx="30" fill="#4a3625" stroke="#fbbf24" stroke-opacity=".65"/><text x="140" y="332" fill="#ffe59a" font-size="19" font-weight="700">1 · 표면 신호</text><text x="140" y="389" fill="#fffaf0" font-size="32" font-weight="700">비슷한 제목</text><rect x="140" y="434" width="330" height="58" rx="14" fill="#654a2d"/><text x="165" y="471" fill="#ffe9be" font-size="20">같은 단어 · 같은 큰 주제</text><rect x="140" y="512" width="330" height="58" rx="14" fill="#654a2d"/><text x="165" y="549" fill="#ffe9be" font-size="20">비슷해 보인다는 인상</text><text x="140" y="625" fill="#f8cc74" font-size="19" font-weight="600">할 수 있는 일: 후보로 모으기</text>
+    <rect x="595" y="268" width="410" height="402" rx="30" fill="#3c334d" stroke="#c4b5fd" stroke-opacity=".68"/><text x="635" y="332" fill="#dfd8ff" font-size="19" font-weight="700">2 · 본문 측정</text><text x="635" y="389" fill="#fcfbff" font-size="32" font-weight="700">두 개의 렌즈</text><rect x="635" y="434" width="330" height="58" rx="14" fill="#514366"/><text x="660" y="471" fill="#eeeaff" font-size="20">단어집합 겹침</text><rect x="635" y="512" width="330" height="58" rx="14" fill="#514366"/><text x="660" y="549" fill="#eeeaff" font-size="20">문장 순서 유사도</text><text x="635" y="625" fill="#d3c7ff" font-size="19" font-weight="600">할 수 있는 일: 근거를 늘리기</text>
+    <rect x="1090" y="268" width="410" height="402" rx="30" fill="#28463b" stroke="#6ee7b7" stroke-opacity=".68"/><text x="1130" y="332" fill="#aef2d0" font-size="19" font-weight="700">3 · 판단</text><text x="1130" y="389" fill="#f3fff8" font-size="32" font-weight="700">사람이 읽기</text><rect x="1130" y="434" width="330" height="58" rx="14" fill="#365e50"/><text x="1155" y="471" fill="#d5f8e4" font-size="20">질문 · 결론 · 독자 가치</text><rect x="1130" y="512" width="330" height="58" rx="14" fill="#365e50"/><text x="1155" y="549" fill="#d5f8e4" font-size="20">복구 계획이 있는가</text><text x="1130" y="625" fill="#a7edc9" font-size="19" font-weight="600">할 수 있는 일: 병합·삭제 결정</text>
+  </g>
+  <path d="M522 469h50M1017 469h50" stroke="url(#line)" stroke-width="5" stroke-linecap="round"/><path d="M556 451l26 18-26 18M1051 451l26 18-26 18" fill="none" stroke="#dcd4ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="100" y="760" width="1400" height="78" rx="22" fill="#2c2535" stroke="#746783" stroke-opacity=".65"/>
+  <text x="140" y="810" fill="#f2eafe" font-family="Pretendard, Arial, sans-serif" font-size="24" font-weight="600">해당 사건에서 낮은 본문 유사도는 ‘즉시 병합·삭제하지 말라’는 근거였다. 모든 언어·문서에 적용되는 절대선은 아니다.</text>
+</svg>
