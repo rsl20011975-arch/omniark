@@ -408,6 +408,39 @@
   content: "";
 }
 
+.omni-studio .journal--incident-lab .post-body blockquote {
+  position: relative;
+  margin: 32px 0;
+  padding: 28px 32px 28px 36px;
+  overflow: hidden;
+  border: 1px solid #6ea9ff48;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 100% 0%, #7661d72b, transparent 42%),
+    linear-gradient(135deg, #121e35, #11182b 72%, #171533);
+  box-shadow: inset 0 1px #ffffff12, 0 18px 42px #0000002b;
+}
+
+.omni-studio .journal--incident-lab .post-body blockquote::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, #6be5d8, #78a9ff 52%, #c591ff);
+  box-shadow: 0 0 22px #78a9ff;
+  content: "";
+}
+
+.omni-studio .journal--incident-lab .post-body blockquote p {
+  margin: 0;
+  color: #dce9ff;
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.omni-studio .journal--incident-lab .post-body blockquote p + p {
+  margin-top: 15px;
+}
+
 .omni-studio .journal--incident-lab .note-callout,
 .omni-studio .journal--incident-lab .note-evidence,
 .omni-studio .journal--incident-lab .note-checklist {
