@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata: Metadata = { title: "OmniPDF 무료 이용 조건", description: "OmniPDF 0.7.1의 무료 사용 범위, 데이터 처리와 재배포 조건.", alternates: { canonical: "https://omniark.co/tools/omnipdf/terms" } };
+export const metadata: Metadata = { title: "OmniPDF 무료 이용 조건", description: "OmniPDF 0.7.2의 무료 사용 범위, 데이터 처리와 재배포 조건.", alternates: { canonical: "https://omniark.co/tools/omnipdf/terms" } };
 
-export default function TermsPage(){return <article className="article-page" lang="ko"><p><Link href="/tools/omnipdf">← OmniPDF 소개 및 다운로드</Link></p><h1>OmniPDF 소프트웨어 이용 조건</h1><p>적용일: 2026년 10월 14일 · 적용 대상: OMNIARK가 배포하는 OmniPDF 0.7.1</p>
+export default function TermsPage(){return <article className="article-page" lang="ko"><p><Link href="/tools/omnipdf">← OmniPDF 소개 및 다운로드</Link></p><h1>OmniPDF 소프트웨어 이용 조건</h1><p>적용일: 2026년 10월 14일 · 적용 대상: OMNIARK가 배포하는 OmniPDF 0.7.2</p>
   <h2>사용 범위와 비용</h2><p>개인과 조직은 개인용·업무용으로 이 버전을 무료로 사용할 수 있습니다. 계정 가입, 구독 결제, 자동 갱신, 기능별 추가 결제가 없습니다. 이 버전의 무료 사용 허락을 나중에 소급하여 유료로 바꾸지 않습니다.</p>
   <h2>권리와 재배포</h2><p>OmniPDF 자체의 권리는 OMNIARK에 있습니다. 공식 제품 페이지 링크는 자유롭게 공유할 수 있습니다. 프로그램을 재판매하거나 수정본 또는 다른 설치 묶음으로 재배포하려면 먼저 허락을 받아 주세요. 법과 제3자 구성요소 라이선스가 허용하는 권리는 제한하지 않습니다.</p>
   <h2>데이터 처리</h2><p>웹과 데스크톱 버전은 PDF와 이미지를 사용자의 기기에서 처리합니다. 앱에는 문서 업로드, 로그인, 사용 분석 전송 기능이 없습니다. 웹사이트 접속과 다운로드에는 호스팅 서비스의 통상적인 요청 처리가 적용되며 자세한 내용은 <Link href="/privacy">개인정보 안내</Link>를 따릅니다.</p>
