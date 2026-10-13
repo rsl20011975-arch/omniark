@@ -8,6 +8,10 @@ import "./studio.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://omniark.co"),
 
+  verification: {
+    google: "Cz9GASrTO3jWMSsvfR_yiie1JN5x5H5daEntUcrrFEI",
+  },
+
   title: {
     default: "OMNIARK | 필요한 것을 직접 만드는 개발 스튜디오",
     template: "%s | OMNIARK",
