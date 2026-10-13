@@ -1,9 +1,11 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import StudioShell from "../components/StudioShell";
 
-export const metadata = {
-  title: "개인정보 처리방침 | OMNIARK",
+export const metadata: Metadata = {
+  title: "개인정보 처리방침",
   description: "옴니아크의 개인정보 처리방침과 수집 정보에 대한 안내입니다.",
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

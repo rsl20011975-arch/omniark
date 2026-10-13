@@ -3,7 +3,7 @@ import StudioShell from "../components/StudioShell";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "이용약관 | OMNIARK",
+  title: "이용약관",
   description: "옴니아크 웹사이트 및 서비스 이용약관입니다.",
   alternates: {
     canonical: "https://omniark.co/terms",

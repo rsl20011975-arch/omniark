@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import StudioShell from "../components/StudioShell";
 
 export const metadata: Metadata = {
-  title: "쿠키 정책 | OMNIARK",
+  title: "쿠키 정책",
   description: "옴니아크 웹사이트의 쿠키 및 유사 기술 사용에 대한 안내입니다.",
   alternates: {
     canonical: "https://omniark.co/cookie-policy",

@@ -1,10 +1,19 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import StudioShell from "../components/StudioShell";
 import { getPostsByKind } from "../content";
 
-export const metadata = {
-  title: "활용 가이드 | OMNIARK",
+export const metadata: Metadata = {
+  title: "활용 가이드",
   description: "옴니아크에서 만든 소프트웨어 도구들을 200% 활용하는 방법을 알려드립니다.",
+  alternates: { canonical: "/guides" },
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "/guides",
+    title: "활용 가이드 | OMNIARK",
+    description: "OMNIARK 도구를 실제로 사용하는 방법을 안내합니다.",
+  },
 };
 
 export default function GuidesIndex() {

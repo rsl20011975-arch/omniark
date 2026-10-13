@@ -1,9 +1,11 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import StudioShell from "../components/StudioShell";
 
-export const metadata = {
-  title: "소개 | OMNIARK",
+export const metadata: Metadata = {
+  title: "소개",
   description: "일상에 쓸모를 더하는 소프트웨어 스튜디오 옴니아크를 소개합니다.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

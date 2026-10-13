@@ -1,8 +1,10 @@
+import type { Metadata } from "next";
 import StudioShell from "../components/StudioShell";
 
-export const metadata = {
-  title: "문의 | OMNIARK",
+export const metadata: Metadata = {
+  title: "문의",
   description: "옴니아크 서비스와 관련된 질문, 피드백 및 제휴 문의를 남겨주세요.",
+  alternates: { canonical: "/contact" },
 };
 
 export default function ContactPage() {
