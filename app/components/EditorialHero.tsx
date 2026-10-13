@@ -4,7 +4,13 @@ import type { Post } from "../content/types";
 
 type EditorialHeroPost = Pick<
   Post,
-  "title" | "description" | "eventDate" | "tags" | "heroImage" | "heroAlt"
+  | "title"
+  | "description"
+  | "date"
+  | "eventDate"
+  | "tags"
+  | "heroImage"
+  | "heroAlt"
 >;
 
 export default function EditorialHero({ post }: { post: EditorialHeroPost }) {
@@ -32,6 +38,7 @@ export default function EditorialHero({ post }: { post: EditorialHeroPost }) {
         <h1>{post.title}</h1>
         <p className="editorial-hero-lead">{post.description}</p>
         <p className="editorial-hero-meta">
+          <time dateTime={post.date}>최초 공개 {post.date}</time>
           {post.eventDate && <span>{post.eventDate}의 개발 기록</span>}
           {format && <span>{format}</span>}
         </p>

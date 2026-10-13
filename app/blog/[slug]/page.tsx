@@ -1,22 +1,24 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 import StudioShell from "../../components/StudioShell";
+import ArticleSearchData from "../../components/ArticleSearchData";
 import EditorialHero from "../../components/EditorialHero";
 import { getPostBySlug, getPostsByKind } from "../../content";
+import { articleMetadata } from "../../seo/article";
 
 interface Props {
   params: Promise<{ slug: string }>;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) return { title: "페이지를 찾을 수 없습니다" };
+  if (!post || post.kind !== "blog") {
+    return { title: "페이지를 찾을 수 없습니다", robots: { index: false } };
+  }
 
-  return {
-    title: `${post.title} | 개발 노트 | OMNIARK`,
-    description: post.description,
-  };
+  return articleMetadata(post);
 }
 
 export async function generateStaticParams() {
@@ -43,6 +45,7 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <StudioShell current="/blog">
       <article className={journalClass}>
+        <ArticleSearchData post={post} />
         {isEditorialEssay ? (
           <EditorialHero post={post} />
         ) : (
@@ -56,7 +59,7 @@ export default async function BlogPostPage({ params }: Props) {
             <h1>{post.title}</h1>
             <p className="post-lead">{post.description}</p>
             <p className="post-meta">
-              <span>{post.date}</span>
+              <time dateTime={post.date}>{post.date}</time>
               {post.tags.map((tag) => (
                 <span key={tag}>#{tag}</span>
               ))}

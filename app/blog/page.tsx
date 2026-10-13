@@ -1,10 +1,19 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import StudioShell from "../components/StudioShell";
 import { getPostsByKind } from "../content";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "개발 노트 | OMNIARK",
   description: "소프트웨어 스튜디오 옴니아크의 개발 노트입니다. 제품을 만들며 겪은 이야기와 기술적 고민들을 공유합니다.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: "/blog",
+    title: "개발 노트 | OMNIARK",
+    description: "실제 개발 경험과 시행착오를 기록하는 OMNIARK 개발 노트입니다.",
+  },
 };
 
 export default function BlogIndex() {

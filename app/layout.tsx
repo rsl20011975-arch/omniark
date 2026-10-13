@@ -9,12 +9,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://omniark.co"),
 
   title: {
-    default: "OMNIARK | Digital Knowledge & Practical Guides",
+    default: "OMNIARK | 필요한 것을 직접 만드는 개발 스튜디오",
     template: "%s | OMNIARK",
   },
 
   description:
-    "OMNIARK provides practical and accessible guides about technology, AI and digital tools, productivity, and the web.",
+    "직접 만든 소프트웨어와 실제 개발 시행착오를 기록하는 OMNIARK 개발 스튜디오입니다.",
 
   keywords: [
     "technology",
@@ -33,9 +33,10 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "OMNIARK",
-    title: "OMNIARK | Digital Knowledge & Practical Guides",
+    locale: "ko_KR",
+    title: "OMNIARK | 필요한 것을 직접 만드는 개발 스튜디오",
     description:
-      "Practical guides about technology, AI and digital tools, productivity, and the web.",
+      "직접 만든 소프트웨어와 실제 개발 시행착오를 기록합니다.",
   },
 
   robots: {
@@ -55,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <head>
         <meta name="google-adsense-account" content="ca-pub-2615575361893703" />
         <script

@@ -1,9 +1,9 @@
 import type { MetadataRoute } from "next";
 import { getPostsByKind } from "./content";
+import { articlePath } from "./seo/article";
+import { absoluteUrl } from "./seo/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://omniark.co";
-
   const staticPaths = [
     "",
     "/products",
@@ -26,10 +26,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/guides",
   ];
 
-  const blogPosts = getPostsByKind("blog").map((post) => `/blog/${post.slug}`);
-  const guidePosts = getPostsByKind("guide").map((post) => `/guides/${post.slug}`);
+  const staticEntries = staticPaths.map((path) => ({ url: absoluteUrl(path) }));
+  const articleEntries = [...getPostsByKind("blog"), ...getPostsByKind("guide")].map(
+    (post) => ({
+      url: absoluteUrl(articlePath(post)),
+      lastModified: post.date,
+      ...(post.heroImage && { images: [absoluteUrl(post.heroImage)] }),
+    }),
+  );
 
-  const paths = [...staticPaths, ...blogPosts, ...guidePosts];
-
-  return paths.map((path) => ({ url: `${baseUrl}${path}` }));
+  return [...staticEntries, ...articleEntries];
 }
