@@ -1,5 +1,6 @@
 import Link from "next/link";
 import "../journal.css";
+import "../editorial-essay.css";
 
 const navigation = [
   { href: "/products", label: "제품·서비스" },

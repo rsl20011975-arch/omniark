@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import StudioShell from "../../components/StudioShell";
+import EditorialHero from "../../components/EditorialHero";
 import { getPostBySlug, getPostsByKind } from "../../content";
 
 interface Props {
@@ -36,26 +37,32 @@ export default async function BlogPostPage({ params }: Props) {
   const journalClass = post.presentation
     ? "journal journal--" + post.presentation
     : "journal";
+  const isEditorialEssay =
+    post.presentation === "editorial-essay" && Boolean(post.heroImage);
 
   return (
     <StudioShell current="/blog">
       <article className={journalClass}>
-        <div className="post-head">
-          <div className="crumbs">
-            <Link href="/blog">개발 노트</Link>
-            <span>›</span>
-            <span>{post.title}</span>
+        {isEditorialEssay ? (
+          <EditorialHero post={post} />
+        ) : (
+          <div className="post-head">
+            <div className="crumbs">
+              <Link href="/blog">개발 노트</Link>
+              <span>›</span>
+              <span>{post.title}</span>
+            </div>
+            <p className="post-kind">DEV NOTE</p>
+            <h1>{post.title}</h1>
+            <p className="post-lead">{post.description}</p>
+            <p className="post-meta">
+              <span>{post.date}</span>
+              {post.tags.map((tag) => (
+                <span key={tag}>#{tag}</span>
+              ))}
+            </p>
           </div>
-          <p className="post-kind">DEV NOTE</p>
-          <h1>{post.title}</h1>
-          <p className="post-lead">{post.description}</p>
-          <p className="post-meta">
-            <span>{post.date}</span>
-            {post.tags.map((tag) => (
-              <span key={tag}>#{tag}</span>
-            ))}
-          </p>
-        </div>
+        )}
 
         <div className="post-body" dangerouslySetInnerHTML={{ __html: post.html }} />
 
