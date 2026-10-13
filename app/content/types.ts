@@ -17,12 +17,17 @@ export type Post = {
   description: string;
   /** ISO date (YYYY-MM-DD) of first publication. */
   date: string;
+  /** ISO date (YYYY-MM-DD) of the latest public revision, when applicable. */
+  updatedAt?: string;
   tags: string[];
   /** Original incident period when it differs from the first publication date. */
   eventDate?: string;
   /** Optional image treatment used by the editorial-essay presentation. */
   heroImage?: string;
   heroAlt?: string;
+  /** Optional 1.91:1 editorial social image when it differs from the on-page cover. */
+  socialImage?: string;
+  socialAlt?: string;
   /** Product pages or other posts worth reading next. */
   related?: RelatedLink[];
   presentation?: PostPresentation;

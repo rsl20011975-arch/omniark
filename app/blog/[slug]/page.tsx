@@ -60,6 +60,7 @@ export default async function BlogPostPage({ params }: Props) {
             <p className="post-lead">{post.description}</p>
             <p className="post-meta">
               <time dateTime={post.date}>{post.date}</time>
+              {post.updatedAt && <time dateTime={post.updatedAt}>업데이트 {post.updatedAt}</time>}
               {post.tags.map((tag) => (
                 <span key={tag}>#{tag}</span>
               ))}

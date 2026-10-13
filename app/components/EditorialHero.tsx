@@ -7,6 +7,7 @@ type EditorialHeroPost = Pick<
   | "title"
   | "description"
   | "date"
+  | "updatedAt"
   | "eventDate"
   | "tags"
   | "heroImage"
@@ -39,6 +40,7 @@ export default function EditorialHero({ post }: { post: EditorialHeroPost }) {
         <p className="editorial-hero-lead">{post.description}</p>
         <p className="editorial-hero-meta">
           <time dateTime={post.date}>최초 공개 {post.date}</time>
+          {post.updatedAt && <time dateTime={post.updatedAt}>업데이트 {post.updatedAt}</time>}
           {post.eventDate && <span>{post.eventDate}의 개발 기록</span>}
           {format && <span>{format}</span>}
         </p>

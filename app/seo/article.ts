@@ -13,10 +13,11 @@ export function articleCategory(post: Pick<Post, "kind">) {
 
 export function articleMetadata(post: Post): Metadata {
   const path = articlePath(post);
-  const image = post.heroImage
+  const imagePath = post.socialImage ?? post.heroImage;
+  const image = imagePath
     ? {
-        url: absoluteUrl(post.heroImage),
-        alt: post.heroAlt ?? post.title,
+        url: absoluteUrl(imagePath),
+        alt: post.socialAlt ?? post.heroAlt ?? post.title,
       }
     : undefined;
 
@@ -47,7 +48,8 @@ export function articleStructuredData(post: Post) {
   const path = articlePath(post);
   const url = absoluteUrl(path);
   const category = articleCategory(post);
-  const image = post.heroImage ? absoluteUrl(post.heroImage) : undefined;
+  const imagePath = post.socialImage ?? post.heroImage;
+  const image = imagePath ? absoluteUrl(imagePath) : undefined;
 
   return {
     "@context": "https://schema.org",
@@ -58,6 +60,7 @@ export function articleStructuredData(post: Post) {
     keywords: post.tags.join(", "),
     inLanguage: "ko-KR",
     datePublished: post.date,
+    ...(post.updatedAt && { dateModified: post.updatedAt }),
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
     author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
     publisher: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },

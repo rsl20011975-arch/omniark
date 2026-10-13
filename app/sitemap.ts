@@ -30,8 +30,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const articleEntries = [...getPostsByKind("blog"), ...getPostsByKind("guide")].map(
     (post) => ({
       url: absoluteUrl(articlePath(post)),
-      lastModified: post.date,
-      ...(post.heroImage && { images: [absoluteUrl(post.heroImage)] }),
+      lastModified: post.updatedAt ?? post.date,
+      ...(post.socialImage || post.heroImage
+        ? { images: [absoluteUrl(post.socialImage ?? post.heroImage!)] }
+        : {}),
     }),
   );
 
