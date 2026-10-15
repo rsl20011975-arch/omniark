@@ -19,6 +19,8 @@ export type Post = {
   date: string;
   /** ISO date (YYYY-MM-DD) of the latest public revision, when applicable. */
   updatedAt?: string;
+  /** Internal editorial ordering; never displayed as a publication date. */
+  sortOrder?: number;
   tags: string[];
   /** Original incident period when it differs from the first publication date. */
   eventDate?: string;

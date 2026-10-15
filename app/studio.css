@@ -198,6 +198,10 @@
 .site-shell:has(.omni-studio)>.site-main{width:100%;max-width:none;margin:0;padding:0}.omni-studio{overflow-x:clip}
 .omni-studio{display:flow-root}
 
+/* Keep article headings legible while they pass beneath the persistent navigation. */
+.omni-studio header { background: #0d0c16; }
+.omni-studio header.scrolled { background: #101019; }
+
 /* OmniZip 2026 product identity */
 .omni-studio .omnizip-page{--purple:#bca7ff;--ink:#faf8ff;--muted:#b9b0c8;--line:#382d49;width:min(1180px,calc(100% - 48px));padding-top:18px}
 .omni-studio .omnizip-page .zip-breadcrumb{color:#9e93ae;margin:10px 0 16px}

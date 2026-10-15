@@ -14,7 +14,10 @@ export function getAllPosts(): Post[] {
         const fileContents = fs.readFileSync(fullPath, "utf8");
         return JSON.parse(fileContents) as Post;
       });
-    return posts.sort((a, b) => (a.date < b.date ? 1 : -1));
+    return posts.sort((a, b) => {
+      const order = (b.sortOrder ?? 0) - (a.sortOrder ?? 0);
+      return order || (a.date < b.date ? 1 : -1);
+    });
   } catch (error) {
     console.error("Error loading posts:", error);
     return [];
