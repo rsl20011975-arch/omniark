@@ -1,9 +1,11 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d02. 직접 고치지 않는다
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d02. 직접 고치지 않는다
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, E, el } from "./helpers.js";
+
 const demo = {
-  dur: 4.2, rest: 3.2, noCompare: false,
+  dur: 4.2, rest: 3.2, noCompare: false, levels: 0,
   mount(sp){
     sp.style.background='#0e1117';
     const word=el('div','mr-word',sp,'MOTION');

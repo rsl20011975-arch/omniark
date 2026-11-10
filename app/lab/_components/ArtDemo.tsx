@@ -8,14 +8,31 @@ type Demo = {
   rest: number;
   noCompare: boolean;
   mount: (stage: HTMLElement) => unknown;
-  render: (state: unknown, t: number, after: boolean) => void;
+  /** level: 만드는 순서 1~level 단계까지만 적용(없으면 전부). 단계별 보기가 있는 데모만 쓴다 */
+  render: (state: unknown, t: number, after: boolean, level?: number | null) => void;
 };
 type Loader = () => Promise<{ default: Demo }>;
 
 const FONTS =
   "https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap";
 
-export default function ArtDemo({ load, label }: { load: Loader; label: string }) {
+/** 3D 데모의 WebGL 화면을 돌려준다. 브라우저는 동시에 열 수 있는 수가 정해져 있어서, 페이지를 오가다 보면 막힌다. */
+function releaseGl(s: unknown) {
+  const seen = new Set<unknown>();
+  const walk = (o: unknown, depth: number) => {
+    if (!o || typeof o !== "object" || seen.has(o) || depth > 2) return;
+    seen.add(o);
+    const rr = (o as { renderer?: { dispose?: () => void; forceContextLoss?: () => void } }).renderer;
+    if (rr?.forceContextLoss) {
+      rr.dispose?.();
+      rr.forceContextLoss();
+    }
+    for (const v of Object.values(o)) walk(v, depth + 1);
+  };
+  walk(s, 0);
+}
+
+export default function ArtDemo({ load, label, level = null }: { load: Loader; label: string; level?: number | null }) {
   const stage = useRef<HTMLDivElement>(null);
   const sp = useRef<HTMLDivElement>(null);
   const badge = useRef<HTMLDivElement>(null);
@@ -23,6 +40,7 @@ export default function ArtDemo({ load, label }: { load: Loader; label: string }
   const timeEl = useRef<HTMLSpanElement>(null);
   const run = useRef({
     demo: null as Demo | null, s: null as unknown, t: 0, playing: true, speed: 1, after: true, visible: true, reduce: false,
+    level: null as number | null,
   });
   const [after, setAfter] = useState(true);
   const [speed, setSpeed] = useState(1);
@@ -32,11 +50,11 @@ export default function ArtDemo({ load, label }: { load: Loader; label: string }
   const draw = useCallback(() => {
     const r = run.current;
     if (!r.demo || !scrub.current || !timeEl.current || !badge.current) return;
-    r.demo.render(r.s, r.t, r.after);
+    r.demo.render(r.s, r.t, r.after, r.level);
     scrub.current.value = String(r.t);
     timeEl.current.textContent = `${r.t.toFixed(2)}초 / ${r.demo.dur.toFixed(1)}초`;
     badge.current.className = r.demo.noCompare ? "artbadge off" : r.after ? "artbadge after" : "artbadge";
-    badge.current.textContent = r.after ? "연출 후" : "연출 전 · 흔한 첫 결과";
+    badge.current.textContent = !r.after ? "연출 전 · 흔한 첫 결과" : r.level != null ? `만드는 순서 1~${r.level}단계까지 적용` : "연출 후";
   }, []);
 
   useEffect(() => {
@@ -45,6 +63,7 @@ export default function ArtDemo({ load, label }: { load: Loader; label: string }
     let ro: ResizeObserver | undefined;
     let io: IntersectionObserver | undefined;
     const r = run.current;
+    r.level = level; // 단계가 바뀌면 부모가 key 를 바꿔 새로 시작하므로, 처음 한 번만 읽는다.
     const spEl = sp.current;
     load().then((m) => {
       if (!alive || !sp.current || !stage.current) return;
@@ -87,10 +106,11 @@ export default function ArtDemo({ load, label }: { load: Loader; label: string }
       cancelAnimationFrame(raf);
       ro?.disconnect();
       io?.disconnect();
+      releaseGl(r.s);
       if (spEl) spEl.textContent = "";
       r.demo = null;
     };
-  }, [load, draw]);
+  }, [load, draw, level]);
 
   function pickMode(v: boolean) {
     run.current.after = v;

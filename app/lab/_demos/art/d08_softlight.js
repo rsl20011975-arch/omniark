@@ -1,9 +1,11 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d08. 직접 고치지 않는다 — 응용 팁 'softlight' 적용본
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d08. 직접 고치지 않는다 — 응용 팁 'softlight' 적용본
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, lerp, E, rng, canvas, rr } from "./helpers.js";
+
 const demo = {
-  dur: 5.2, rest: 4.4, noCompare: false,
+  dur: 5.2, rest: 4.4, noCompare: false, levels: 0,
   mount(sp){
     const ctx=canvas(sp);const r=rng(42);
     const dust=[];for(let i=0;i<40;i++)dust.push({x:280+r()*240,y:r()*360,s:.6+r()*1.6,v:5+r()*10,ph:r()*6.28});

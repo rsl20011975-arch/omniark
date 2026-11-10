@@ -1,9 +1,11 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d00. 직접 고치지 않는다
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d00. 직접 고치지 않는다
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, E, el } from "./helpers.js";
+
 const demo = {
-  dur: 2.4, rest: 1.6, noCompare: true,
+  dur: 2.4, rest: 1.6, noCompare: true, levels: 0,
   mount(sp){
     sp.style.background='#0b0e12';
     const rows=[['직선','linear',E.lin],['감속','ease-out',E.outC],['가속→감속','ease-in-out',E.inOutC],['살짝 넘쳤다 복귀','back-out',E.outBack]];

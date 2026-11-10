@@ -1,9 +1,11 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d09. 직접 고치지 않는다
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d09. 직접 고치지 않는다
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, lerp, E, el, rng, canvas } from "./helpers.js";
+
 const demo = {
-  dur: 7, rest: 4.4, noCompare: false,
+  dur: 7, rest: 4.4, noCompare: false, levels: 0,
   mount(sp){
     const ctx=canvas(sp);
     const off=document.createElement('canvas');off.width=128;off.height=72;const o=off.getContext('2d');

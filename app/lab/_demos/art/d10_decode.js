@@ -1,9 +1,12 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d10. 직접 고치지 않는다 — 응용 팁 'decode' 적용본
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d10. 직접 고치지 않는다 — 응용 팁 'decode' 적용본
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, lerp, E, canvas } from "./helpers.js";
+import { TAU } from "./shared/common.js";
+
 const demo = {
-  dur: 5.6, rest: 4.4, noCompare: false,
+  dur: 5.6, rest: 4.4, noCompare: false, levels: 0,
   mount(sp){return {ctx:canvas(sp)};},
   render(s,t,a){
     const c=s.ctx;c.setTransform(2,0,0,2,0,0);

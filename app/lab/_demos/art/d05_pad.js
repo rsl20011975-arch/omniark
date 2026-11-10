@@ -1,9 +1,11 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d05. 직접 고치지 않는다 — 응용 팁 'pad' 적용본
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d05. 직접 고치지 않는다 — 응용 팁 'pad' 적용본
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, lerp, E, el, box } from "./helpers.js";
+
 const demo = {
-  dur: 5.6, rest: 4.6, noCompare: false,
+  dur: 5.6, rest: 4.6, noCompare: false, levels: 0,
   mount(sp){
     const db=el('div','db',sp);
     box(db,'bx side',0,0,120,360);

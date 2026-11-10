@@ -5,6 +5,11 @@ export type Ref = { state: "확인" | "추정" | "원본 없음"; text: string; 
 /** 응용 팁: 지시문을 한 줄만 고쳤을 때 달라지는 것. 팁마다 값만 바꾼 데모(적용본)가 따로 있다. */
 export type Tip = { id: string; title: string; situation: string; from: string; to: string; effect: string };
 
+/** 만드는 순서 한 단계. code 는 있을 때만 */
+export type Step = { t: string; d: string; code?: string };
+/** 전문용어 풀이: 그 말을 AI에게 어떻게 써서 지시하는지까지 */
+export type Jargon = { w: string; en: string; m: string; say: string };
+
 export type Detail = {
   demo: string;
   prompt: string;
@@ -14,8 +19,13 @@ export type Detail = {
   refs: Ref[];
   related: { name: string; note: string }[];
   episode?: { no: string; title: string; slug: string };
-  vs: { bad: string; badResult: string; good: string; goodResult: string };
+  /** 응용 팁과 같이 쓰는 ‘대충 시킴 vs 이름으로 시킴’ 비교. 팁을 쓰기 전에는 없다 */
+  vs?: { bad: string; badResult: string; good: string; goodResult: string };
   tips: Tip[];
+  steps: Step[];
+  terms: Jargon[];
+  /** 0 이면 단계별 보기 없음. 2 이상이면 ‘N단계까지 적용한 모습’을 데모에서 볼 수 있다 */
+  levels: number;
 };
 
 export type Term = {

@@ -1,9 +1,11 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d06. 직접 고치지 않는다 — 응용 팁 'haze' 적용본
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d06. 직접 고치지 않는다 — 응용 팁 'haze' 적용본
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, E, rng, canvas } from "./helpers.js";
+
 const demo = {
-  dur: 5.4, rest: 4.6, noCompare: false,
+  dur: 5.4, rest: 4.6, noCompare: false, levels: 0,
   mount(sp){
     const ctx=canvas(sp);
     const ridge=(seed,base,amp,f)=>{const r=rng(seed);const ph=[r()*6.28,r()*6.28,r()*6.28];const pts=[];for(let x=-320;x<=1120;x+=8)pts.push([x,base-amp*(.55*Math.sin(x*f+ph[0])+.3*Math.sin(x*f*2.3+ph[1])+.15*Math.sin(x*f*5.1+ph[2]))]);return pts;};

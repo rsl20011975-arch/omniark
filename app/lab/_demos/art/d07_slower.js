@@ -1,9 +1,11 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d07. 직접 고치지 않는다 — 응용 팁 'slower' 적용본
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d07. 직접 고치지 않는다 — 응용 팁 'slower' 적용본
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, lerp, E, el } from "./helpers.js";
+
 const demo = {
-  dur: 5.4, rest: 2.8, noCompare: false,
+  dur: 5.4, rest: 2.8, noCompare: false, levels: 0,
   mount(sp){
     sp.style.background='#0f141b';
     const hd=el('div','ct-h',sp,'추천 상품');

@@ -1,9 +1,11 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d04. 직접 고치지 않는다
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d04. 직접 고치지 않는다
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, lerp, E, el } from "./helpers.js";
+
 const demo = {
-  dur: 4.6, rest: 3.6, noCompare: false,
+  dur: 4.6, rest: 3.6, noCompare: false, levels: 0,
   mount(sp){
     const A=el('div','wp-a',sp,'<h4>2026 3분기 실적</h4><ul><li>매출이 증가함 (38%)</li><li>신규 고객이 늘어남</li><li>비용 절감 진행 중</li></ul>');
     const B=el('div','wp-b',sp,'<div class="e">2026 · Q3 매출 성장</div><div class="big">+38%</div><div class="cap">전년 같은 분기 대비 · 예시 데이터</div><svg width="200" height="90" viewBox="0 0 200 90" aria-hidden="true"><polyline points="0,80 30,72 60,74 90,58 120,52 150,34 180,20 200,8" fill="none" stroke="#ff8a3d" stroke-width="3" stroke-linejoin="round"/><circle cx="200" cy="8" r="0" fill="#ff8a3d"/></svg>');

@@ -1,0 +1,165 @@
+{
+  "order": 51,
+  "slug": "color-grading",
+  "name": "컬러 그레이딩",
+  "en": "Color Grading",
+  "field": "color",
+  "level": "중급",
+  "purposes": [
+    "분위기",
+    "시선 집중",
+    "제품 소개"
+  ],
+  "media": [
+    "영상"
+  ],
+  "oneLine": "같은 장면을 따뜻하게, 차갑게, 영화처럼 바꾸는 컬러 그레이딩",
+  "preview": null,
+  "keywords": [
+    "색감",
+    "보정",
+    "따뜻",
+    "차가",
+    "영화 같은",
+    "톤",
+    "필터",
+    "컬러 그레이딩",
+    "색온도",
+    "듀오톤",
+    "합성 모드",
+    "color grading",
+    "color temperature",
+    "duotone",
+    "blend mode"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d50",
+    "prompt": "캔버스(2D)로 해 질 녘 거리 풍경을 한 번 그려 두고(하늘 그라디언트, 건물, 노을, 가로수, 주황 재킷 사람, 붉은 차), 그 오른쪽 절반에만 \"색 보정 룩\" 5가지를 6.2초 동안 차례로 입혀 왼쪽 원본과 비교하는 애니메이션을 만들어줘. 외부 라이브러리 없이 HTML 한 파일.\n\n- 색 보정은 캔버스 합성 모드(globalCompositeOperation)로 한다. 원본을 먼저 그리고, 오른쪽 절반을 잘라(clip) 그 위에 색 사각형이나 장면 자신을 합성 모드로 덧칠한다.\n- 룩 1 골든 아워: overlay로 주황(#FFAA50) 35%, multiply로 연한 살구(#FFECD2) 25%.\n- 룩 2 블루 아워: overlay로 파랑(#4682FF) 40%, multiply로 연한 하늘(#CDDEFF) 22%, saturation으로 회색을 15% 덧칠해 채도를 낮춘다.\n- 룩 3 틸 & 오렌지: overlay로 틸(#007882) 45%(어두운 곳이 청록빛), soft-light로 주황(#FF963C) 55%(밝은 곳이 주황빛), overlay로 장면 자신을 25%(대비 올림).\n- 룩 4 듀오톤: saturation으로 회색 100%(흑백), multiply로 살구(#FFD6AA) 100%(밝은 곳 색), lighten으로 짙은 남색(#181C5A) 100%(어두운 곳 색).\n- 룩 5 흑백 + 높은 대비: saturation으로 회색 100%, overlay로 장면 자신을 60%.\n- 0.5초에 원본에서 시작해 룩마다 1.1초씩 보여 주고, 룩 사이는 이전 룩의 강도를 낮추고 다음 룩의 강도를 올리는 식으로 0.25초 동안 부드럽게 이어 준다.\n- 가운데에 흰 분할선과 손잡이, 왼쪽 위에 \"ORIGINAL\", 오른쪽 위에 현재 룩 이름, 오른쪽 아래에 그 룩의 만드는 법(합성 모드와 색)을 작은 글씨로 보여 준다.\n- 금지: 장면마다 다른 룩, 한 가지 색조만 전체에 칠해 얼굴이 퍼렇게 되기(주황 피부색이 살아 있어야 함), 룩이 갑자기 바뀌기.",
+    "check": [
+      "같은 장면이 룩에 따라 시간대·감정이 다르게 읽힌다",
+      "피부색·핵심 피사체가 색에 묻히지 않고 구분된다",
+      "룩이 바뀔 때 깜박이지 않고 부드럽게 이어진다",
+      "왼쪽 원본과 오른쪽 결과의 밝기 구조(어둡고 밝은 곳)가 같다"
+    ],
+    "use": [
+      "영상 전체의 분위기(따뜻함·차가움·영화 같음)를 한 번에 정할 때",
+      "여러 장면의 색을 하나의 룩으로 통일",
+      "썸네일·광고에서 색으로 감정 정하기"
+    ],
+    "tech": [
+      "Canvas globalCompositeOperation: overlay · multiply · soft-light · saturation · lighten",
+      "clip으로 한쪽 절반에만 적용",
+      "룩 강도 교차 혼합",
+      "DaVinci Resolve · Premiere Lumetri · LUT"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "Adobe와 Pixflow의 틸&오렌지 해설은 청록과 주황이 색상환에서 반대편이라 대비가 강하고, 그레이딩에서 그림자는 청록 쪽, 하이라이트는 주황 쪽으로 밀며, 피부색이 주황~황색 범위라 얼굴이 배경에서 돋보인다고 설명합니다(블로그 수준의 글이며 표준 규격이 아닙니다).",
+        "title": "Adobe — Why you should use orange and teal color grading",
+        "url": "https://www.adobe.com/creativecloud/video/hub/features/why-use-orange-teal-grading.html"
+      },
+      {
+        "state": "확인",
+        "text": "Pixflow는 틸&오렌지를 짙은 피부색에 강하게 적용하면 피부가 과포화되고 어두운 곳의 디테일이 줄 수 있다는 주의도 함께 적고 있습니다.",
+        "title": "Pixflow — Teal and Orange Color Grading: Why It Works and When ...",
+        "url": "https://pixflow.net/blog/teal-and-orange-color-grading/"
+      },
+      {
+        "state": "추정",
+        "text": "35%, 45% 같은 강도와 색 값은 이 장면에서 보기 좋도록 제가 정한 시작값입니다. 합성 모드를 겹치는 방식은 색 보정 프로그램(리프트·감마·게인)의 계산과 같지 않은 근사입니다.",
+        "title": null,
+        "url": null
+      }
+    ],
+    "related": [
+      {
+        "name": "음악 층 쌓기",
+        "note": "소리 · 같은 목적: 분위기"
+      },
+      {
+        "name": "제품 히어로·라이트 스윕",
+        "note": "시네마틱 제품 · 같은 목적: 분위기"
+      },
+      {
+        "name": "입자 모핑",
+        "note": "이펙트·파티클 · 같은 목적: 시선 집중"
+      }
+    ],
+    "vs": {
+      "bad": "사진 분위기 좀 따뜻하게 바꿔줘",
+      "badResult": "화면 전체가 주황색 한 겹으로 덮여서 피부와 하늘이 한꺼번에 누렇게 되기 쉽습니다",
+      "good": "overlay로 주황(#FFAA50) 35%, multiply로 연한 살구(#FFECD2) 25%를 오른쪽 절반에만 덧칠",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "golden",
+        "title": "따뜻한 느낌이 너무 약해요",
+        "situation": "골든 아워 룩을 입혔는데 원본과 차이가 잘 안 보일 때",
+        "from": "룩 1 골든 아워: overlay로 주황(#FFAA50) 35%",
+        "to": "룩 1 골든 아워: overlay로 주황(#FFAA50) 100%",
+        "effect": "오른쪽 절반의 하늘, 건물, 도로가 모두 진한 노란 주황빛으로 변합니다. 대신 색이 너무 진해져서 붉은 차가 배경에 묻히기 시작하고 원래 색을 알아보기 어렵습니다."
+      },
+      {
+        "id": "teal",
+        "title": "영화 같은 푸른 그늘이 약해요",
+        "situation": "틸 & 오렌지 룩인데 어두운 곳이 청록으로 잘 안 넘어갈 때",
+        "from": "룩 3 틸 & 오렌지: overlay로 틸(#007882) 45%",
+        "to": "룩 3 틸 & 오렌지: overlay로 틸(#007882) 100%",
+        "effect": "오른쪽 절반의 건물과 도로 같은 어두운 곳이 짙은 청록으로 바뀌고 나무는 형광 초록처럼 변합니다. 대신 청록이 너무 퍼져 전체가 한 가지 색조로 보입니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "원본을 먼저 그리고 한쪽만 잘라내기",
+        "d": "비교하려면 같은 장면을 한 번만 그려 두고 한쪽 절반에만 보정을 겹칩니다. 분할선은 두 상태의 차이를 눈에 보이게 하는 장치입니다.",
+        "code": "drawImage(scene);  ctx.save(); ctx.rect(320,0,320,360); ctx.clip();"
+      },
+      {
+        "t": "합성 모드로 색 입히기",
+        "d": "overlay는 어두운 곳은 더 어둡게, 밝은 곳은 더 밝게 하며 색을 입히고, multiply는 전체를 그 색으로 물들이고, soft-light는 부드럽게 입힙니다.",
+        "code": "ctx.globalCompositeOperation = 'overlay'; ctx.globalAlpha = .35;\nctx.fillStyle = '#FFAA50'; ctx.fillRect(320,0,320,360);"
+      },
+      {
+        "t": "듀오톤 만들기",
+        "d": "먼저 채도를 0으로 만들고(회색을 saturation으로 덧칠), multiply로 밝은 곳 색을 정하고, lighten으로 어두운 곳 색을 정합니다.",
+        "code": "saturation: gray 100%;  multiply: #FFD6AA;  lighten: #181C5A;"
+      },
+      {
+        "t": "룩 사이를 부드럽게",
+        "d": "이전 룩의 강도를 줄이면서 다음 룩의 강도를 올립니다. 한 번에 바꾸면 화면이 번쩍입니다.",
+        "code": "wn = smoothstep(.74, 1, frac);\napply(cur, 1 - wn);  apply(next, wn);"
+      }
+    ],
+    "terms": [
+      {
+        "w": "컬러 그레이딩",
+        "en": "Color grading",
+        "m": "영상의 색을 일부러 조절해 분위기와 감정을 정하는 작업.",
+        "say": "“틸 & 오렌지 영화 룩으로 컬러 그레이딩”"
+      },
+      {
+        "w": "색온도",
+        "en": "Color temperature",
+        "m": "빛이 따뜻한지(주황) 차가운지(파랑)를 나타내는 값.",
+        "say": "“골든 아워처럼 색온도를 따뜻하게”"
+      },
+      {
+        "w": "듀오톤",
+        "en": "Duotone",
+        "m": "두 가지 색만으로 이미지를 표현하는 것. 어두운 곳 색과 밝은 곳 색을 정합니다.",
+        "say": "“남색에서 살구색으로 가는 듀오톤”"
+      },
+      {
+        "w": "합성 모드",
+        "en": "Blend mode",
+        "m": "위에 얹는 색이 아래 색과 섞이는 방식(overlay, multiply, soft-light 등).",
+        "say": "“overlay 합성으로 주황을 35% 입혀줘”"
+      }
+    ],
+    "levels": 0
+  },
+  "poster": "/lab/posters/color-grading.jpg"
+}

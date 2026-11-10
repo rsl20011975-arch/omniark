@@ -38,3 +38,9 @@
 - 라이브 사이트는 `claude/blog-lab` 기반이고, 커밋되지 않은 파일(글 003 릴 3개, OmniPDF 앱 조각 151개)에도 의존한다. 깨끗한 체크아웃으로 배포하면 이것들이 조용히 빠지거나 옛 버전으로 되돌아간다.
 - 그래서 **배포 후보 폴더 `D:\omniark-lab-candidate`** 를 따로 만들었다: 라이브와 대응하는 폴더(`D:\omniark-blog`)를 복사하고 `/lab` 파일만 얹은 것이다. Vercel 의 라이브 배포(dpl_9DoX2hbWL1aDewtgo3y54u1eiq1d) 파일 목록과 해시를 하나씩 대조했다: 라이브에만 있는 파일 0개, 내용이 바뀐 기존 파일은 `app/sitemap.ts` 하나뿐.
 - `/lab` 데이터를 고친 뒤 배포하려면: 이 브랜치에서 내보내기 → 커밋 → 후보 폴더의 `app/lab`·`public/lab/posters`·`docs/LAB_SECTION.md` 를 교체 → 후보에서 빌드·점검 → 배포 순서로 한다.
+
+## 2026-11-10 저녁: 「시각 연출 사전」 92개 이식 (결정기록 #66)
+- 데모 92개·용어 92개·분야 21개. 용어 페이지에 '만드는 순서'(단계별 보기)·'전문용어 풀이' 구역이 있다. 원본은 `D:\visual-lab\lab-site`(여기 `_content`·`_demos` 는 만들어진 사본).
+- **새 의존성**(package.json): `three@0.128.0`(3D 데모 d17~d20, 정확히 이 판이어야 원본과 같게 그려진다), `d3-geo@3.1.1`, `topojson-client@3.1.0`(지도 d21~d25). 원본은 CDN 이었으나 사이트에서는 npm 으로 묶어 외부 요청이 없다. 각 데모 페이지에서만 내려받는다(분야별 모듈로 나뉨).
+- **배포할 때**: 배포 후보 폴더(`D:\omniark-lab-candidate`)의 `package.json`·`package-lock.json` 에도 위 세 개를 같은 판으로 넣고 `npm ci` 를 해야 한다(안 하면 빌드 실패). 이 브랜치의 package-lock 은 `npm ci` 가 맞지 않는 상태여서(기존) `npm install` 로 갱신했다.
+- 3D 데모는 페이지를 떠날 때 WebGL 화면을 돌려준다(`ArtDemo.releaseGl`) — 브라우저의 동시 WebGL 수 제한 때문.

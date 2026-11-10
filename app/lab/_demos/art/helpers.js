@@ -1,4 +1,4 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트의 helpers. 직접 고치지 않는다
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트의 helpers. 직접 고치지 않는다
 /* eslint-disable */
 // @ts-nocheck
 const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
@@ -21,4 +21,5 @@ const fmt=n=>Math.round(n).toLocaleString('ko-KR');
 const reduce=typeof window!=='undefined'&&window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 
+E.inOutExpo=E.inOutExpo||(x=>x<=0?0:(x>=1?1:(x<.5?Math.pow(2,20*x-10)/2:(2-Math.pow(2,-20*x+10))/2)));
 export { cl, seg, lerp, E, el, box, rng, canvas, rr, fmt, reduce };

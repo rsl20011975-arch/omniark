@@ -5,6 +5,7 @@ import CodeBlock from "../../_components/CodeBlock";
 import { DemoWorkbench } from "../../_components/DemoWorkbench";
 import DemoSlot from "../../_components/DemoSlot";
 import TipsPanel from "../../_components/TipsPanel";
+import StepsPanel from "../../_components/StepsPanel";
 import Rail from "../../_components/Rail";
 import { CheckIcon } from "../../_components/icons";
 import { LAB_INDEXABLE } from "../../_lib/config";
@@ -41,6 +42,14 @@ export default async function TermPage({ params }: Props) {
   const f = getField(field);
   if (!t || !f || !t.detail) notFound();
   const d = t.detail;
+  const hasSteps = d.steps.length > 0;
+  const hasTerms = d.terms.length > 0;
+  let no = 2;
+  const n = () => String(++no).padStart(2, "0");
+  const nTips = d.tips.length > 0 ? n() : "";
+  const nSteps = hasSteps ? n() : "";
+  const nTerms = hasTerms ? n() : "";
+  const nCheck = n(), nUse = n(), nRel = n(), nSrc = n();
 
   const siblings = termsOfField(field);
   const at = siblings.findIndex((x) => x.slug === t.slug);
@@ -88,33 +97,61 @@ export default async function TermPage({ params }: Props) {
             <section className="blk" id="prompt">
               <h2><i>02</i>이름으로 시키는 지시문</h2>
               <p className="sub">같은 장면을 이렇게 다르게 말하면 결과가 달라집니다.</p>
-              <div className="vs">
-                <div className="bad"><b>대충 시킴</b><q>{d.vs.bad}</q>→ {d.vs.badResult}</div>
-                <div className="good"><b>이름으로 시킴</b><q>{d.vs.good}</q>→ {d.vs.goodResult}</div>
-              </div>
+              {d.vs && (
+                <div className="vs">
+                  <div className="bad"><b>대충 시킴</b><q>{d.vs.bad}</q>→ {d.vs.badResult}</div>
+                  <div className="good"><b>이름으로 시킴</b><q>{d.vs.good}</q>→ {d.vs.goodResult}</div>
+                </div>
+              )}
               <CodeBlock text={d.prompt} />
               <p className="note">구현에 쓰이는 기술: {d.tech.map((x) => <span key={x} className="chip line">{x}</span>)}</p>
             </section>
 
+            {d.tips.length > 0 && (
             <section className="blk" id="tips">
-              <h2><i>03</i>응용 팁</h2>
+              <h2><i>{nTips}</i>응용 팁</h2>
               <p className="sub">지시문을 한 줄만 고쳐서 다른 느낌을 만드는 법입니다. ‘이 팁 적용해서 보기’를 누르면 위의 데모가 그 값으로 바뀝니다. 데모에서 값만 바꿔 확인한 것이고, AI가 같은 결과를 만드는지는 직접 해 보셔야 합니다.</p>
               <TipsPanel tips={d.tips} />
             </section>
+            )}
+
+            {hasSteps && (
+              <section className="blk" id="steps">
+                <h2><i>{nSteps}</i>만드는 순서</h2>
+                <p className="sub">{d.levels > 0 ? "한 단계씩 쌓아 가며 만듭니다. ‘여기까지 적용한 모습 보기’를 누르면 위의 데모가 그 단계까지의 모습으로 바뀝니다." : "처음 만들 때 이 순서로 하면 덜 헤맵니다."}</p>
+                <StepsPanel steps={d.steps} levels={d.levels} />
+              </section>
+            )}
             </DemoWorkbench>
 
+            {hasTerms && (
+              <section className="blk" id="words">
+                <h2><i>{nTerms}</i>전문용어 풀이</h2>
+                <p className="sub">AI에게 이 말로 지시하면 결과가 정확해집니다. 아래 ‘AI에게’ 줄은 그대로 가져다 써도 됩니다.</p>
+                <div className="term-grid">
+                  {d.terms.map((w) => (
+                    <div className="term" key={w.w}>
+                      <div className="term-h"><b>{w.w}</b><span>{w.en}</span></div>
+                      <p>{w.m}</p>
+                      <div className="say"><i>AI에게</i>{w.say}</div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
             <section className="blk" id="check">
-              <h2><i>04</i>결과를 받으면 이것부터 확인</h2>
+              <h2><i>{nCheck}</i>결과를 받으면 이것부터 확인</h2>
               <ul className="cklist">{d.check.map((c) => <li key={c}><CheckIcon /><span>{c}</span></li>)}</ul>
             </section>
 
             <section className="blk" id="use">
-              <h2><i>05</i>이럴 때 쓰세요</h2>
+              <h2><i>{nUse}</i>이럴 때 쓰세요</h2>
               <ul className="uselist">{d.use.map((u) => <li key={u}>{u}</li>)}</ul>
             </section>
 
             <section className="blk" id="rel">
-              <h2><i>06</i>같이 쓰는 용어</h2>
+              <h2><i>{nRel}</i>같이 쓰는 용어</h2>
               {d.episode && (
                 <p className="sub">이 용어가 나온 편: <Link href={`/blog/${d.episode.slug}`} style={{ color: "var(--accent)", textDecoration: "underline" }}>{d.episode.no} {d.episode.title}</Link></p>
               )}
@@ -128,7 +165,7 @@ export default async function TermPage({ params }: Props) {
             </section>
 
             <section className="blk" id="src">
-              <h2><i>07</i>근거와 확인 범위</h2>
+              <h2><i>{nSrc}</i>근거와 확인 범위</h2>
               <p className="sub">‘확인’은 출처 문서에서 사실로 확인한 내용, ‘추정’은 결과물을 보고 추론한 내용, ‘원본 없음’은 흔히 쓰이지만 대표 원본 사례를 확인하지 못해 성공 사례로 제시하지 않은 기법입니다.</p>
               <ul className="refs">
                 {d.refs.map((r) => (
@@ -152,7 +189,7 @@ export default async function TermPage({ params }: Props) {
           </div>
           <nav className="toc" aria-label="이 페이지">
             <b>이 페이지</b>
-            <a href="#demo">데모</a><a href="#prompt">지시문</a><a href="#tips">응용 팁</a><a href="#check">확인 목록</a><a href="#use">쓰는 곳</a><a href="#rel">같이 쓰는 용어</a><a href="#src">근거</a>
+            <a href="#demo">데모</a><a href="#prompt">지시문</a>{d.tips.length > 0 && <a href="#tips">응용 팁</a>}{hasSteps && <a href="#steps">만드는 순서</a>}{hasTerms && <a href="#words">용어 풀이</a>}<a href="#check">확인 목록</a><a href="#use">쓰는 곳</a><a href="#rel">같이 쓰는 용어</a><a href="#src">근거</a>
           </nav>
         </div>
       </div>

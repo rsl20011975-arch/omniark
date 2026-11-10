@@ -1,9 +1,11 @@
-// 만들어진 파일 — 원본: 모션 연출 실습 사전 아티팩트 d03. 직접 고치지 않는다 — 응용 팁 'countslow' 적용본
+// 만들어진 파일 — 원본: 시각 연출 사전 아티팩트 d03. 직접 고치지 않는다 — 응용 팁 'countslow' 적용본
 /* eslint-disable */
 // @ts-nocheck
+
 import { seg, E, el, fmt } from "./helpers.js";
+
 const demo = {
-  dur: 4.6, rest: 3.6, noCompare: false,
+  dur: 4.6, rest: 3.6, noCompare: false, levels: 0,
   mount(sp){
     sp.style.background='#0d1015';
     const D=[['7월',1200],['8월',2100],['9월',3400],['10월',6100],['11월',12800]];
