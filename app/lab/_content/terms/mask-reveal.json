@@ -1,0 +1,94 @@
+{
+  "slug": "mask-reveal",
+  "name": "마스크 리빌",
+  "en": "Mask Reveal",
+  "field": "motion",
+  "level": "기본",
+  "purposes": [
+    "시선 집중",
+    "장면 연결"
+  ],
+  "media": [
+    "영상",
+    "웹·앱"
+  ],
+  "oneLine": "가려 둔 글자를 막대가 지나가며 드러내 기대감을 만든다",
+  "preview": "mask",
+  "keywords": [
+    "글자",
+    "올라",
+    "드러",
+    "가려",
+    "막대",
+    "지나가",
+    "줄씩",
+    "공개",
+    "제목"
+  ],
+  "status": "published",
+  "detail": {
+    "prompt": "\"MOTION\" 단어를 마스크 리빌로 등장시켜줘.\n\n- 시작: 글자는 완전히 가려져 있고, 높이 140px·폭 6px의 민트색(#6FD3FF) 세로 막대만 보인다. 막대는 0.25초 동안 위아래로 자라며 등장.\n- 0.4~1.6초: 막대가 왼쪽→오른쪽으로 이동하고, 막대가 지나간 자리만 글자가 보인다(clip-path: inset 사용, easeInOutCubic). 막대 위치와 드러나는 경계가 정확히 일치해야 함.\n- 1.6~1.9초: 막대는 위아래로 줄어들며 사라진다.\n- 1.8초부터: 아래 문장 \"가렸다가 드러내면, 시선이 따라온다\"가 보이지 않는 틀(overflow:hidden) 안에서 아래→위로 올라온다. 0.7초, easeOutExpo.\n- 2.4~3.0초: 문장 아래 주황 밑줄이 왼쪽→오른쪽으로 그려짐.\n- 금지: 단순 페이드 인으로 대체하지 말 것.",
+    "check": [
+      "막대 위치와 드러나는 경계가 정확히 붙어 있다",
+      "드러나는 속도가 처음과 끝에서 느려진다",
+      "리빌이 끝나면 막대 같은 보조 요소가 정리된다",
+      "두 번째 줄이 첫 줄을 방해하지 않고 순서대로 나온다"
+    ],
+    "use": [
+      "영상 제목, 챕터 제목이 처음 나올 때",
+      "브랜드명·로고 공개",
+      "‘정답 공개’처럼 기대감을 주는 순간"
+    ],
+    "tech": [
+      "CSS clip-path: inset()",
+      "overflow:hidden 줄 마스크",
+      "AE 트랙 매트",
+      "CapCut 마스크 키프레임"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "Criterion 에세이는 평범하게 조판된 글자 위로 세로 띠가 가로질러 지나가는 Saul Bass 타이틀을 분석하며, 큰 효과 없이 애니메이션·타이포·리듬만으로 역동성을 만든다고 설명합니다.",
+        "title": "Criterion — Credit Where It’s Due",
+        "url": "https://www.criterion.com/current/posts/6937-credit-where-it-s-due-the-father-of-the-title-sequence"
+      },
+      {
+        "state": "확인",
+        "text": "Codrops는 무료가 된 GSAP 플러그인(SplitText 등)으로 만든 텍스트 연출 데모 5개를 공개했습니다.",
+        "title": "Codrops — From SplitText to MorphSVG",
+        "url": "https://tympanus.net/codrops/2025/05/14/from-splittext-to-morphsvg-5-creative-demos-using-free-gsap-plugins/"
+      },
+      {
+        "state": "추정",
+        "text": "원본 영화 타이틀은 광학 합성 방식이었습니다. 이 예제의 clip-path 구현은 같은 시각 효과를 웹에서 재현하는 방법 중 하나입니다.",
+        "title": null,
+        "url": null
+      }
+    ],
+    "related": [
+      {
+        "name": "키네틱 자막",
+        "note": "움직임 · 같이 쓰면 좋음"
+      },
+      {
+        "name": "이징",
+        "note": "움직임 · 모든 연출의 바탕"
+      },
+      {
+        "name": "스포트라이트",
+        "note": "움직임"
+      }
+    ],
+    "episode": {
+      "no": "003",
+      "title": "홈페이지 스크롤 애니메이션, 클로드에 이렇게 시키세요",
+      "slug": "homepage-scroll-animation-prompt"
+    },
+    "vs": {
+      "bad": "제목이 멋지게 나오게 해줘",
+      "badResult": "그냥 페이드 인으로 나타남",
+      "good": "마스크 리빌로 등장시켜줘 … 막대가 지나간 자리만 보이게",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    }
+  }
+}

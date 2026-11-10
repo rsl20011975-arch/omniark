@@ -1,0 +1,18 @@
+[
+  {
+    "feel": "글자가 한 줄씩 아래에서 올라와요",
+    "term": "mask-reveal"
+  },
+  {
+    "feel": "단어가 하나씩 차례로 나타나요",
+    "term": "kinetic-words"
+  },
+  {
+    "feel": "화면 한 곳만 밝고 나머지는 어두워요",
+    "term": "spotlight"
+  },
+  {
+    "feel": "경계선이 지나가며 전·후가 바뀌어요",
+    "term": "before-after-wipe"
+  }
+]

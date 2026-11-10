@@ -1,0 +1,26 @@
+{
+  "slug": "kinetic-words",
+  "name": "키네틱 자막",
+  "en": "Kinetic Typography",
+  "field": "motion",
+  "level": "기본",
+  "purposes": [
+    "시선 집중",
+    "설명"
+  ],
+  "media": [
+    "영상"
+  ],
+  "oneLine": "단어가 박자에 맞춰 하나씩 등장해 말과 화면의 순서를 맞춘다",
+  "preview": "stagger",
+  "keywords": [
+    "단어",
+    "차례",
+    "하나씩",
+    "박자",
+    "자막",
+    "타이포",
+    "순서"
+  ],
+  "status": "planned"
+}

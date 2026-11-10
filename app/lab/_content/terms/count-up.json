@@ -1,0 +1,25 @@
+{
+  "slug": "count-up",
+  "name": "카운트업·막대 성장",
+  "en": "Count-up · Bar Grow",
+  "field": "info",
+  "level": "기본",
+  "purposes": [
+    "변화와 비교"
+  ],
+  "media": [
+    "발표·문서",
+    "영상"
+  ],
+  "oneLine": "숫자가 올라가고 막대가 자라며 크기와 변화를 보여 준다",
+  "preview": null,
+  "keywords": [
+    "숫자",
+    "올라가",
+    "막대",
+    "그래프",
+    "차트",
+    "성장"
+  ],
+  "status": "planned"
+}

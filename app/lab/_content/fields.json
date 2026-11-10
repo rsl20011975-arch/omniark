@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "layout",
+    "name": "배치",
+    "group": "기초",
+    "desc": "여백·정렬·그리드·위계"
+  },
+  {
+    "slug": "type",
+    "name": "글자",
+    "group": "기초",
+    "desc": "글꼴 짝짓기·크기 위계·줄간격"
+  },
+  {
+    "slug": "color",
+    "name": "색",
+    "group": "기초",
+    "desc": "팔레트·대비·다크모드"
+  },
+  {
+    "slug": "image",
+    "name": "이미지·아이콘",
+    "group": "기초",
+    "desc": "아이콘 세트·사진 톤·AI 이미지"
+  },
+  {
+    "slug": "depth",
+    "name": "깊이·질감",
+    "group": "기초",
+    "desc": "그림자·둥근 모서리·글래스·그레인"
+  },
+  {
+    "slug": "motion",
+    "name": "움직임",
+    "group": "기초",
+    "desc": "이징·스태거·전환·마이크로인터랙션"
+  },
+  {
+    "slug": "info",
+    "name": "정보 표현",
+    "group": "기초",
+    "desc": "차트·표·인포그래픽"
+  },
+  {
+    "slug": "brand",
+    "name": "브랜드",
+    "group": "기초",
+    "desc": "로고·톤 앤 매너"
+  },
+  {
+    "slug": "web",
+    "name": "인터랙티브 웹",
+    "group": "연출",
+    "desc": "스크롤리텔링·패럴랙스·페이지 전환"
+  },
+  {
+    "slug": "mograph",
+    "name": "모션그래픽",
+    "group": "연출",
+    "desc": "키네틱 타이포·로고 리빌·타이틀 시퀀스"
+  },
+  {
+    "slug": "webgl",
+    "name": "3D·WebGL",
+    "group": "연출",
+    "desc": "three.js·셰이더·파티클"
+  },
+  {
+    "slug": "fui",
+    "name": "FUI·HUD·홀로그램",
+    "group": "연출",
+    "desc": "레티클·레이더 스윕·스캔라인"
+  },
+  {
+    "slug": "cinema",
+    "name": "시네마틱 제품",
+    "group": "연출",
+    "desc": "히어로 샷·라이트 스윕·피처 콜아웃"
+  },
+  {
+    "slug": "gen",
+    "name": "제너레이티브",
+    "group": "연출",
+    "desc": "플로우 필드·오디오 비주얼라이저"
+  },
+  {
+    "slug": "ai",
+    "name": "AI 생성·합성",
+    "group": "연출",
+    "desc": "AI 이미지·AI 영상·영상 위 합성"
+  }
+]

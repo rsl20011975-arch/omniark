@@ -1,0 +1,28 @@
+{
+  "slug": "easing",
+  "name": "이징",
+  "en": "Easing",
+  "field": "motion",
+  "level": "기본",
+  "purposes": [
+    "타이밍과 리듬"
+  ],
+  "media": [
+    "영상",
+    "웹·앱"
+  ],
+  "oneLine": "같은 거리를 가도 속도 곡선에 따라 기계처럼도, 살아 있는 것처럼도 보인다",
+  "preview": "ease",
+  "keywords": [
+    "속도",
+    "빠르",
+    "느리",
+    "부드럽",
+    "가속",
+    "감속",
+    "곡선",
+    "기계",
+    "딱딱"
+  ],
+  "status": "planned"
+}

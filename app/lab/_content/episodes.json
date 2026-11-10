@@ -1,0 +1,20 @@
+[
+  {
+    "no": "001",
+    "title": "AI 티 나는 홈페이지, 단어 5개로 고급스럽게",
+    "frame": "변신",
+    "slug": "ai-look-homepage-five-words"
+  },
+  {
+    "no": "002",
+    "title": "AI 설명 영상이 PPT처럼 멈춰 있을 때, 연출 지시어 5개",
+    "frame": "단어 묶음",
+    "slug": "video-narration-sync-five-words"
+  },
+  {
+    "no": "003",
+    "title": "홈페이지 스크롤 애니메이션, 클로드에 이렇게 시키세요",
+    "frame": "단어 묶음",
+    "slug": "homepage-scroll-animation-prompt"
+  }
+]

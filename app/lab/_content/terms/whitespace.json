@@ -1,0 +1,27 @@
+{
+  "slug": "whitespace",
+  "name": "여백",
+  "en": "Whitespace",
+  "field": "layout",
+  "level": "기본",
+  "purposes": [
+    "시선 집중"
+  ],
+  "media": [
+    "웹·앱",
+    "발표·문서"
+  ],
+  "oneLine": "요소 사이를 일부러 비워 읽는 순서와 고급스러움을 만든다",
+  "preview": null,
+  "keywords": [
+    "답답",
+    "빽빽",
+    "간격",
+    "비어",
+    "여유",
+    "정돈",
+    "고급",
+    "숨"
+  ],
+  "status": "planned"
+}

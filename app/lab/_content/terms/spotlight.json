@@ -1,0 +1,28 @@
+{
+  "slug": "spotlight",
+  "name": "스포트라이트",
+  "en": "Spotlight Focus",
+  "field": "motion",
+  "level": "중급",
+  "purposes": [
+    "설명",
+    "시선 집중"
+  ],
+  "media": [
+    "영상",
+    "발표·문서"
+  ],
+  "oneLine": "화면 한 곳만 밝혀 지금 볼 곳을 안내한다",
+  "preview": "spot",
+  "keywords": [
+    "밝고",
+    "어두",
+    "한곳",
+    "집중",
+    "가리키",
+    "안내",
+    "강조",
+    "조명"
+  ],
+  "status": "planned"
+}

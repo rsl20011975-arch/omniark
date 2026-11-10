@@ -1,0 +1,26 @@
+{
+  "slug": "parallax-2-5d",
+  "name": "2.5D 패럴랙스",
+  "en": "2.5D Parallax Camera",
+  "field": "web",
+  "level": "중급",
+  "purposes": [
+    "분위기",
+    "공간감"
+  ],
+  "media": [
+    "영상",
+    "웹·앱"
+  ],
+  "oneLine": "사진 한 장을 층으로 나눠 입체 공간처럼 움직인다",
+  "preview": null,
+  "keywords": [
+    "입체",
+    "깊이",
+    "사진",
+    "층",
+    "공간",
+    "스크롤"
+  ],
+  "status": "planned"
+}

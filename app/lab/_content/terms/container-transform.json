@@ -1,0 +1,22 @@
+{
+  "slug": "container-transform",
+  "name": "컨테이너 트랜스폼",
+  "en": "Container Transform",
+  "field": "web",
+  "level": "중급",
+  "purposes": [
+    "장면 연결"
+  ],
+  "media": [
+    "웹·앱"
+  ],
+  "oneLine": "카드가 그대로 펼쳐져 상세 화면이 되는 전환",
+  "preview": null,
+  "keywords": [
+    "카드",
+    "펼쳐",
+    "상세",
+    "열리"
+  ],
+  "status": "planned"
+}

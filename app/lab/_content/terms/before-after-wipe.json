@@ -1,0 +1,28 @@
+{
+  "slug": "before-after-wipe",
+  "name": "전후 비교 와이프",
+  "en": "Before / After Wipe",
+  "field": "motion",
+  "level": "중급",
+  "purposes": [
+    "변화와 비교",
+    "장면 연결"
+  ],
+  "media": [
+    "영상",
+    "발표·문서"
+  ],
+  "oneLine": "경계선이 지나가며 같은 자리의 두 상태를 비교해 보여 준다",
+  "preview": "wipe",
+  "keywords": [
+    "전후",
+    "비교",
+    "경계",
+    "슬라이더",
+    "바뀌",
+    "before",
+    "after",
+    "변화"
+  ],
+  "status": "planned"
+}

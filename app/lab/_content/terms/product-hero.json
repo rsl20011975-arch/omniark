@@ -1,0 +1,25 @@
+{
+  "slug": "product-hero",
+  "name": "제품 히어로·라이트 스윕",
+  "en": "Product Hero · Light Sweep",
+  "field": "cinema",
+  "level": "중급",
+  "purposes": [
+    "분위기",
+    "제품 소개"
+  ],
+  "media": [
+    "영상",
+    "웹·앱"
+  ],
+  "oneLine": "제품 사진 한 장에 빛을 훑어 광고 컷으로 만든다",
+  "preview": null,
+  "keywords": [
+    "제품",
+    "광고",
+    "빛",
+    "반짝",
+    "쇼케이스"
+  ],
+  "status": "planned"
+}

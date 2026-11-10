@@ -1,0 +1,25 @@
+{
+  "slug": "hud-scan",
+  "name": "HUD 스캔",
+  "en": "FUI · HUD Scan",
+  "field": "fui",
+  "level": "고급",
+  "purposes": [
+    "미래형 인터페이스"
+  ],
+  "media": [
+    "영상",
+    "웹·앱"
+  ],
+  "oneLine": "SF 영화 같은 스캔·잠금 표시 인터페이스",
+  "preview": null,
+  "keywords": [
+    "미래",
+    "sf",
+    "영화",
+    "스캔",
+    "인터페이스",
+    "홀로그램"
+  ],
+  "status": "planned"
+}
