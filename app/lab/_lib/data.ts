@@ -19,7 +19,8 @@ function load(): Store {
     fields: readJson<Field[]>("fields.json"),
     episodes: readJson<Episode[]>("episodes.json"),
     lookup: readJson<LookupRow[]>("lookup.json"),
-    terms: termFiles.map((f) => readJson<Term>(`terms/${f}`)),
+    // 파일 이름순이 아니라 원본(data.py)에 적은 순서로 보여 준다
+    terms: termFiles.map((f) => readJson<Term>(`terms/${f}`)).sort((a, b) => a.order - b.order),
   };
   return store;
 }

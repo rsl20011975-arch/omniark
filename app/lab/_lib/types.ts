@@ -1,8 +1,12 @@
 export type Field = { slug: string; name: string; group: "기초" | "연출"; desc: string };
 
-export type Ref = { state: "확인" | "추정"; text: string; title: string | null; url: string | null };
+export type Ref = { state: "확인" | "추정" | "원본 없음"; text: string; title: string | null; url: string | null };
+
+/** 응용 팁: 지시문을 한 줄만 고쳤을 때 달라지는 것. 팁마다 값만 바꾼 데모(적용본)가 따로 있다. */
+export type Tip = { id: string; title: string; situation: string; from: string; to: string; effect: string };
 
 export type Detail = {
+  demo: string;
   prompt: string;
   check: string[];
   use: string[];
@@ -11,9 +15,11 @@ export type Detail = {
   related: { name: string; note: string }[];
   episode?: { no: string; title: string; slug: string };
   vs: { bad: string; badResult: string; good: string; goodResult: string };
+  tips: Tip[];
 };
 
 export type Term = {
+  order: number;
   slug: string;
   name: string;
   en: string;
@@ -23,6 +29,7 @@ export type Term = {
   media: string[];
   oneLine: string;
   preview: string | null;
+  poster?: string;
   keywords: string[];
   status: "published" | "planned";
   detail?: Detail;

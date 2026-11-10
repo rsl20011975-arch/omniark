@@ -1,4 +1,5 @@
 {
+  "order": 3,
   "slug": "mask-reveal",
   "name": "마스크 리빌",
   "en": "Mask Reveal",
@@ -27,6 +28,7 @@
   ],
   "status": "published",
   "detail": {
+    "demo": "d02",
     "prompt": "\"MOTION\" 단어를 마스크 리빌로 등장시켜줘.\n\n- 시작: 글자는 완전히 가려져 있고, 높이 140px·폭 6px의 민트색(#6FD3FF) 세로 막대만 보인다. 막대는 0.25초 동안 위아래로 자라며 등장.\n- 0.4~1.6초: 막대가 왼쪽→오른쪽으로 이동하고, 막대가 지나간 자리만 글자가 보인다(clip-path: inset 사용, easeInOutCubic). 막대 위치와 드러나는 경계가 정확히 일치해야 함.\n- 1.6~1.9초: 막대는 위아래로 줄어들며 사라진다.\n- 1.8초부터: 아래 문장 \"가렸다가 드러내면, 시선이 따라온다\"가 보이지 않는 틀(overflow:hidden) 안에서 아래→위로 올라온다. 0.7초, easeOutExpo.\n- 2.4~3.0초: 문장 아래 주황 밑줄이 왼쪽→오른쪽으로 그려짐.\n- 금지: 단순 페이드 인으로 대체하지 말 것.",
     "check": [
       "막대 위치와 드러나는 경계가 정확히 붙어 있다",
@@ -49,13 +51,13 @@
       {
         "state": "확인",
         "text": "Criterion 에세이는 평범하게 조판된 글자 위로 세로 띠가 가로질러 지나가는 Saul Bass 타이틀을 분석하며, 큰 효과 없이 애니메이션·타이포·리듬만으로 역동성을 만든다고 설명합니다.",
-        "title": "Criterion — Credit Where It’s Due",
+        "title": "Criterion — Credit Where It’s Due: The Father of the Title Sequence",
         "url": "https://www.criterion.com/current/posts/6937-credit-where-it-s-due-the-father-of-the-title-sequence"
       },
       {
         "state": "확인",
         "text": "Codrops는 무료가 된 GSAP 플러그인(SplitText 등)으로 만든 텍스트 연출 데모 5개를 공개했습니다.",
-        "title": "Codrops — From SplitText to MorphSVG",
+        "title": "Codrops — From SplitText to MorphSVG: 5 Creative Demos (2025.05.14)",
         "url": "https://tympanus.net/codrops/2025/05/14/from-splittext-to-morphsvg-5-creative-demos-using-free-gsap-plugins/"
       },
       {
@@ -68,27 +70,45 @@
     "related": [
       {
         "name": "키네틱 자막",
-        "note": "움직임 · 같이 쓰면 좋음"
+        "note": "움직임 · 같은 목적: 시선 집중"
       },
       {
-        "name": "이징",
-        "note": "움직임 · 모든 연출의 바탕"
+        "name": "전후 비교 와이프",
+        "note": "움직임 · 같은 목적: 장면 연결"
       },
       {
         "name": "스포트라이트",
-        "note": "움직임"
+        "note": "움직임 · 같은 목적: 시선 집중"
+      }
+    ],
+    "vs": {
+      "bad": "제목이 멋지게 나오게 해줘",
+      "badResult": "그냥 페이드 인으로 나타남",
+      "good": "마스크 리빌로 등장시켜줘 … 막대가 지나간 자리만 보이게",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "slower",
+        "title": "드러나는 게 너무 빨라요",
+        "situation": "막대가 순식간에 지나가서 글자를 읽기도 전에 끝날 때",
+        "from": "0.4~1.6초: 막대가 왼쪽→오른쪽으로 이동하고",
+        "to": "0.4~2.4초: 막대가 왼쪽→오른쪽으로 이동하고 (뒤 순서도 0.8초씩 늦춰줘)",
+        "effect": "글자가 드러나는 시간이 1.2초에서 2초로 길어집니다. 막대가 사라지는 때와 아래 문장, 밑줄도 같이 늦춰야 순서가 어긋나지 않습니다."
+      },
+      {
+        "id": "nobar",
+        "title": "막대가 거슬려요",
+        "situation": "깔끔하게 글자만 드러나게 하고 싶을 때",
+        "from": "높이 140px·폭 6px의 민트색 세로 막대만 보인다 … 막대는 위아래로 줄어들며 사라진다",
+        "to": "막대 없이 글자만 가려진 부분이 왼쪽→오른쪽으로 드러나게 해줘",
+        "effect": "막대가 없어지고 글자 경계만 지나갑니다. 가리는 방식(clip-path)은 같고 막대라는 보조 장식만 빠집니다."
       }
     ],
     "episode": {
       "no": "003",
       "title": "홈페이지 스크롤 애니메이션, 클로드에 이렇게 시키세요",
       "slug": "homepage-scroll-animation-prompt"
-    },
-    "vs": {
-      "bad": "제목이 멋지게 나오게 해줘",
-      "badResult": "그냥 페이드 인으로 나타남",
-      "good": "마스크 리빌로 등장시켜줘 … 막대가 지나간 자리만 보이게",
-      "goodResult": "아래 지시문 전체를 붙여 넣기"
     }
   }
 }

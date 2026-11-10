@@ -2,7 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import CodeBlock from "../../_components/CodeBlock";
+import { DemoWorkbench } from "../../_components/DemoWorkbench";
 import DemoSlot from "../../_components/DemoSlot";
+import TipsPanel from "../../_components/TipsPanel";
 import Rail from "../../_components/Rail";
 import { CheckIcon } from "../../_components/icons";
 import { LAB_INDEXABLE } from "../../_lib/config";
@@ -76,10 +78,11 @@ export default async function TermPage({ params }: Props) {
               {t.media.map((m) => <span key={m} className="chip line">{m}</span>)}
             </div>
 
+            <DemoWorkbench>
             <section className="blk" id="demo">
               <h2><i>01</i>직접 돌려 보기</h2>
-              <p className="sub">‘연출 전’은 AI에게 대충 시켰을 때 흔히 나오는 결과입니다. 두 상태를 눌러 바꿔 보고, 슬라이더를 끌어 중간 장면에서 멈춰 보세요.</p>
-              <DemoSlot slug={t.slug} />
+              <p className="sub">‘연출 전’은 AI에게 대충 시켰을 때 흔히 나올 법한 결과를 가정해 만든 화면입니다(실제 AI 결과가 늘 이렇지는 않습니다). 두 상태를 눌러 바꿔 보고, 슬라이더를 끌어 중간 장면에서 멈춰 보세요.</p>
+              <DemoSlot demo={d.demo} label={t.name} tipTitle={Object.fromEntries(d.tips.map((x) => [x.id, x.title]))} />
             </section>
 
             <section className="blk" id="prompt">
@@ -93,18 +96,25 @@ export default async function TermPage({ params }: Props) {
               <p className="note">구현에 쓰이는 기술: {d.tech.map((x) => <span key={x} className="chip line">{x}</span>)}</p>
             </section>
 
+            <section className="blk" id="tips">
+              <h2><i>03</i>응용 팁</h2>
+              <p className="sub">지시문을 한 줄만 고쳐서 다른 느낌을 만드는 법입니다. ‘이 팁 적용해서 보기’를 누르면 위의 데모가 그 값으로 바뀝니다. 데모에서 값만 바꿔 확인한 것이고, AI가 같은 결과를 만드는지는 직접 해 보셔야 합니다.</p>
+              <TipsPanel tips={d.tips} />
+            </section>
+            </DemoWorkbench>
+
             <section className="blk" id="check">
-              <h2><i>03</i>결과를 받으면 이것부터 확인</h2>
+              <h2><i>04</i>결과를 받으면 이것부터 확인</h2>
               <ul className="cklist">{d.check.map((c) => <li key={c}><CheckIcon /><span>{c}</span></li>)}</ul>
             </section>
 
             <section className="blk" id="use">
-              <h2><i>04</i>이럴 때 쓰세요</h2>
+              <h2><i>05</i>이럴 때 쓰세요</h2>
               <ul className="uselist">{d.use.map((u) => <li key={u}>{u}</li>)}</ul>
             </section>
 
             <section className="blk" id="rel">
-              <h2><i>05</i>같이 쓰는 용어</h2>
+              <h2><i>06</i>같이 쓰는 용어</h2>
               {d.episode && (
                 <p className="sub">이 용어가 나온 편: <Link href={`/blog/${d.episode.slug}`} style={{ color: "var(--accent)", textDecoration: "underline" }}>{d.episode.no} {d.episode.title}</Link></p>
               )}
@@ -118,12 +128,12 @@ export default async function TermPage({ params }: Props) {
             </section>
 
             <section className="blk" id="src">
-              <h2><i>06</i>근거와 확인 범위</h2>
-              <p className="sub">‘확인’은 출처 문서에서 사실로 확인한 내용, ‘추정’은 결과물을 보고 추론한 내용입니다.</p>
+              <h2><i>07</i>근거와 확인 범위</h2>
+              <p className="sub">‘확인’은 출처 문서에서 사실로 확인한 내용, ‘추정’은 결과물을 보고 추론한 내용, ‘원본 없음’은 흔히 쓰이지만 대표 원본 사례를 확인하지 못해 성공 사례로 제시하지 않은 기법입니다.</p>
               <ul className="refs">
                 {d.refs.map((r) => (
                   <li key={r.text}>
-                    <span className={`badge ${r.state === "확인" ? "ok" : "guess"}`}>{r.state}</span>
+                    <span className={`badge ${r.state === "확인" ? "ok" : r.state === "추정" ? "guess" : "none"}`}>{r.state}</span>
                     <span>
                       {r.text}
                       {r.url && r.title && <> <a className="ext" href={r.url} rel="noopener noreferrer" target="_blank">{r.title}</a></>}
@@ -142,7 +152,7 @@ export default async function TermPage({ params }: Props) {
           </div>
           <nav className="toc" aria-label="이 페이지">
             <b>이 페이지</b>
-            <a href="#demo">데모</a><a href="#prompt">지시문</a><a href="#check">확인 목록</a><a href="#use">쓰는 곳</a><a href="#rel">같이 쓰는 용어</a><a href="#src">근거</a>
+            <a href="#demo">데모</a><a href="#prompt">지시문</a><a href="#tips">응용 팁</a><a href="#check">확인 목록</a><a href="#use">쓰는 곳</a><a href="#rel">같이 쓰는 용어</a><a href="#src">근거</a>
           </nav>
         </div>
       </div>

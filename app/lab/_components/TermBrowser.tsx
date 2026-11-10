@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import type { Term } from "../_lib/types";
-import Pv from "./Pv";
+import Thumb from "./Thumb";
 
 type Key = "level" | "purposes" | "media";
 const LABEL: Record<Key, string> = { level: "난이도", purposes: "목적", media: "매체" };
@@ -69,7 +69,7 @@ export default function TermBrowser({ terms }: { terms: Term[] }) {
       <div className="items" data-view={view}>
         {shown.map((t) => (
           <Link key={t.slug} className="item" href={`/lab/${t.field}/${t.slug}`}>
-            <Pv kind={t.preview} />
+            <Thumb term={t} />
             <div className="bd">
               <h3>{t.name}</h3>
               <p className="en">{t.en}</p>

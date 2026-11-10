@@ -1,4 +1,5 @@
 {
+  "order": 7,
   "slug": "mesh-gradient",
   "name": "움직이는 색 분위기",
   "en": "Mesh Gradient Mood",
@@ -20,5 +21,81 @@
     "분위기",
     "그라데이션"
   ],
-  "status": "planned"
+  "status": "published",
+  "detail": {
+    "demo": "d09",
+    "prompt": "텍스트 뒤에 깔리는 움직이는 메시 그라디언트 배경을 만들어줘. 7초 반복(이음새 없이).\n\n- 크고 부드러운 색 덩어리 4개가 서로 다른 속도의 원·8자 궤도로 떠다닌다. 128×72 저해상도로 그린 뒤 화면 크기로 확대해 자연스럽게 번지게(성능 절약).\n- 0~2.2초: '차분함' 팔레트(남색 #1B3B6F, 청록 #2A9D8F, 보라 #5E60CE), 느린 속도.\n- 2.2~3.4초: '에너지' 팔레트(주황 #FF6B35, 마젠타 #F72585, 노랑 #FFD166)로 전환하며 움직임이 약 3배 빨라진다.\n- 5.8~7초: 다시 차분함으로 돌아와 반복 지점이 끊기지 않게.\n- 필름 그레인을 아주 옅게(약 7%) 덮어 색 띠(banding)를 줄인다. 위에 흰 글자가 항상 읽혀야 한다.",
+    "check": [
+      "어떤 순간에도 글자가 읽힌다",
+      "색 전환이 갑작스럽지 않다",
+      "반복 지점이 끊겨 보이지 않는다",
+      "노트북 팬이 돌 만큼 무겁지 않다"
+    ],
+    "use": [
+      "브랜드 인트로, 배경 화면",
+      "텍스트 중심 쇼츠의 배경",
+      "음악·명상 채널의 루프 영상"
+    ],
+    "tech": [
+      "Canvas 2D radialGradient",
+      "저해상도 렌더 후 확대",
+      "WebGL 셰이더(고급)",
+      "CSS @property 그라디언트(간단판)"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "Bram.us는 Kevin Hufnagl이 Stripe 웹사이트 그라디언트를 역분석한 결과를 소개합니다. 작은 WebGL 래퍼(minigl)와 Gradient 클래스로 구성되어 있다고 합니다. Stripe의 공식 해설은 아닙니다.",
+        "title": "Bram.us — How to create the Stripe Website Gradient Effect",
+        "url": "https://www.bram.us/2021/10/13/how-to-create-the-stripe-website-gradient-effect"
+      },
+      {
+        "state": "확인",
+        "text": "Alex Harri는 흐르는 WebGL 그라디언트를 셰이더로 만드는 과정을 단계별로 해설합니다.",
+        "title": "Alex Harri — A flowing WebGL gradient, deconstructed",
+        "url": "https://alexharri.com/blog/webgl-gradients"
+      },
+      {
+        "state": "추정",
+        "text": "이 예제는 WebGL 대신 Canvas 2D로 단순화했습니다. 이 색이 차분함, 저 색이 에너지라는 연결은 일반적인 색채 관습에 따른 것이며 문화권마다 다를 수 있습니다.",
+        "title": null,
+        "url": null
+      }
+    ],
+    "related": [
+      {
+        "name": "2.5D 패럴랙스",
+        "note": "인터랙티브 웹 · 같은 목적: 분위기"
+      },
+      {
+        "name": "제품 히어로·라이트 스윕",
+        "note": "시네마틱 제품 · 같은 목적: 분위기"
+      }
+    ],
+    "vs": {
+      "bad": "배경 색 바꿔줘",
+      "badResult": "정지한 그라데이션이 중간에 갑자기 다른 색으로 바뀐다",
+      "good": "큰 색 덩어리 4개가 떠다니는 메시 그라데이션 배경을 만들어줘",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "calm",
+        "title": "색이 너무 정신없이 흘러요",
+        "situation": "움직임 때문에 글자에 집중이 안 될 때",
+        "from": "움직임이 약 3배 빨라진다",
+        "to": "움직임 속도를 전체적으로 절반으로 줄여줘",
+        "effect": "색 덩어리가 떠다니는 속도가 절반이 됩니다. 분위기가 바뀌는 구간은 그대로입니다."
+      },
+      {
+        "id": "scrim",
+        "title": "글자가 잘 안 읽혀요",
+        "situation": "밝은 색 덩어리 위에서 흰 글자가 묻힐 때",
+        "from": "(지시문 맨 아래에 이 문장을 더하세요)",
+        "to": "배경 위에 검은 막을 40% 덮어서 흰 글자가 항상 읽히게 해줘",
+        "effect": "배경이 전체적으로 어두워지고 흰 글자가 또렷해집니다. 대신 색이 덜 선명해집니다."
+      }
+    ]
+  },
+  "poster": "/lab/posters/mesh-gradient.jpg"
 }
