@@ -5,9 +5,9 @@
 ## 원본은 이 저장소가 아니다
 - 용어·분야·지시문·응용 팁의 **원본은 `D:\visual-lab`**(`lab-site/tools/data.py`, `lab-site/source/`)이다.
 - 이 저장소의 `app/lab/_content/`, `app/lab/_demos/art/`, `app/lab/lab.css`, `public/lab/posters/` 는 거기서 **만들어진 사본**이다. 여기서 직접 고치지 않는다.
-  - 내용·데모: `python lab-site/tools/export_content.py D:/omniark/app/lab`
-  - 스타일: `python lab-site/tools/port_css.py D:/omniark/app/lab/lab.css`
-  - 목록 카드 대표 이미지: `python lab-site/tools/make_posters.py D:/omniark/public/lab/posters`
+  - 내용·데모: `python lab-site/tools/export_content.py D:/omniark-lab/app/lab`
+  - 스타일: `python lab-site/tools/port_css.py D:/omniark-lab/app/lab/lab.css`
+  - 목록 카드 대표 이미지: `python lab-site/tools/make_posters.py D:/omniark-lab/public/lab/posters`
   - 데모 코드 추출(아티팩트 → `lab-site/source/extracted`): `node lab-site/tools/extract_demos.mjs lab-site/source/motion-dictionary-artifact-2026-11-07.html lab-site/source/extracted`
 - 스타일은 모두 `.lab-root` 아래로 가둔다. 옴니아크 전역 `globals.css` 의 `h1·h2·h3·p·a:hover·main` 규칙이 새어 들어오는 것도 같은 변환 파일에서 막는다(다크 테마에서 제목이 검정으로 고정돼 안 보이던 결함을 실제 사이트에서 측정해 잡았다).
 
@@ -32,3 +32,9 @@
 - 검색은 공개된 용어만 담은 `/lab/search-index.json`(정적)을 처음 입력할 때 불러와 브라우저에서 찾는다.
 - 상단 공통 메뉴(`StudioShell`)에는 아직 Visual Lab 링크를 넣지 않았다. 배포·메뉴 노출은 승인 뒤에 한다.
 - `_demos/art/*.js` 는 아티팩트 코드를 그대로 가져온 파일이라 타입·린트 검사를 끈다(맨 위 주석 참고).
+
+## 배포 전에 알아야 할 것 (2026-11-10 점검)
+- **이 브랜치(`claude/lab-section`, 작업 폴더 `D:\omniark-lab`)를 그대로 배포하면 안 된다.** 이 브랜치는 `master` 에서 갈라져 나와서 라이브 사이트와 다른 코드(개발 중인 변경)와, 라이브에 올라가 있는 개발 노트 글 4개가 없는 상태다.
+- 라이브 사이트는 `claude/blog-lab` 기반이고, 커밋되지 않은 파일(글 003 릴 3개, OmniPDF 앱 조각 151개)에도 의존한다. 깨끗한 체크아웃으로 배포하면 이것들이 조용히 빠지거나 옛 버전으로 되돌아간다.
+- 그래서 **배포 후보 폴더 `D:\omniark-lab-candidate`** 를 따로 만들었다: 라이브와 대응하는 폴더(`D:\omniark-blog`)를 복사하고 `/lab` 파일만 얹은 것이다. Vercel 의 라이브 배포(dpl_9DoX2hbWL1aDewtgo3y54u1eiq1d) 파일 목록과 해시를 하나씩 대조했다: 라이브에만 있는 파일 0개, 내용이 바뀐 기존 파일은 `app/sitemap.ts` 하나뿐.
+- `/lab` 데이터를 고친 뒤 배포하려면: 이 브랜치에서 내보내기 → 커밋 → 후보 폴더의 `app/lab`·`public/lab/posters`·`docs/LAB_SECTION.md` 를 교체 → 후보에서 빌드·점검 → 배포 순서로 한다.
