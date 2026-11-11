@@ -21,6 +21,11 @@ export default function Rail({ fields, terms }: Props) {
   return (
     <aside className="rail" aria-label="사전 목차">
       <LabSearch placeholder="용어 찾기" />
+      <nav className="rtabs" aria-label="사전 종류">
+        <Link href="/lab/elements">요소 사전</Link>
+        <Link href="/lab/prompts">지시 문장</Link>
+        <Link href="/lab/clips">예시 영상</Link>
+      </nav>
       <details className="tree" open ref={tree}>
         <summary>분야 목차</summary>
         {(["기초", "연출"] as const).map((g) => (

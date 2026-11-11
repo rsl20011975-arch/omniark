@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import LabSearch from "./_components/LabSearch";
 import Pv from "./_components/Pv";
 import { ArrowIcon } from "./_components/icons";
+import { clips, elements, prompts, unconfirmed } from "./_lib/catalog";
 import { allFields, episodes, hangulInitial, lookupRows, publishedTerms, termPath, termsOfField, fieldName } from "./_lib/data";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default function LabHubPage() {
     const k = hangulInitial(t.name);
     groups.set(k, [...(groups.get(k) ?? []), t]);
   }
+  const el = elements().counts;
   const initials = Array.from(groups.keys()).sort((a, b) => (a === "A–Z" ? 1 : b === "A–Z" ? -1 : a.localeCompare(b, "ko")));
 
   return (
@@ -63,6 +65,30 @@ export default function LabHubPage() {
           </div>
         </section>
       )}
+
+      <section className="sec">
+        <div className="sec-h">
+          <div><span className="kicker ko">더 깊이</span><h2>용어 말고도 이렇게 찾아보세요</h2></div>
+          <p>용어 사전에 들어가기 전에, 시킬 수 있는 요소 전체를 훑거나 바로 붙여 넣을 문장·영상부터 가져갈 수 있습니다.</p>
+        </div>
+        <div className="fgrid three">
+          <Link href="/lab/elements" className="fcard">
+            <h3>요소 사전</h3>
+            <p className="d">AI에게 이름으로 시킬 수 있는 연출 요소 {el.chips}개를 {el.cats}개 분류로 나눴습니다. 직접 확인한 것 {el.ok}개, 아직 확인하지 않은 것 {unconfirmed(el)}개를 구분해 적었습니다.</p>
+            <div className="ct"><span>요소 {el.chips}개 보기</span><ArrowIcon /></div>
+          </Link>
+          <Link href="/lab/prompts" className="fcard">
+            <h3>지시 문장</h3>
+            <p className="d">길이·장면·등장 순서·강조·카메라·리듬·금지·검수까지, 그대로 복사해 붙여 넣는 문장 {prompts().items.length}개입니다.</p>
+            <div className="ct"><span>문장 {prompts().items.length}개 보기</span><ArrowIcon /></div>
+          </Link>
+          <Link href="/lab/clips" className="fcard">
+            <h3>예시 영상</h3>
+            <p className="d">실제로 만든 롱폼에서 요소 하나씩 잘라 낸 4~9초 영상 {clips().items.length}개와 58초 완성 영상입니다.</p>
+            <div className="ct"><span>영상 {clips().items.length}개 보기</span><ArrowIcon /></div>
+          </Link>
+        </div>
+      </section>
 
       <section className="sec">
         <div className="sec-h">

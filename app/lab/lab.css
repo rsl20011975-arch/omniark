@@ -351,6 +351,90 @@
 .lab-root .note .chip{max-width:100%;height:auto;min-height:24px;padding-block:var(--s1);white-space:normal;line-height:1.4}
 @media(max-width:1100px){.lab-root .doc{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:640px){.lab-root .steps li{padding-left:var(--s4);padding-top:calc(var(--s4) + 40px)}}
+/* ── 2단계: 요소 사전 · 지시 문장 · 예시 영상 ── */
+.lab-root .fgrid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:860px){.lab-root .fgrid.three{grid-template-columns:1fr}}
+.lab-root .ech .ect{min-width:0}
+.lab-root .rtabs{display:flex;flex-wrap:wrap;gap:var(--s1) var(--s3);margin:0 0 var(--s4);font-size:var(--t14)}
+.lab-root .rtabs a{color:var(--accent);font-weight:600}
+.lab-root .rtabs a:hover{color:var(--ink)}
+.lab-root .cat-page{padding-top:var(--s7)}
+.lab-root .cat-page .crumb{margin-bottom:var(--s4)}
+.lab-root .ltabs{display:flex;gap:var(--s1);flex-wrap:wrap;margin-bottom:var(--s6);border-bottom:1px solid var(--line)}
+.lab-root .ltabs a{position:relative;padding:var(--s3) var(--s4);font-size:var(--t14);color:var(--muted);white-space:nowrap;transition:color .2s ease-out}
+.lab-root .ltabs a:hover{color:var(--ink)}
+.lab-root .ltabs a[aria-current=page]{color:var(--ink);font-weight:600}
+.lab-root .ltabs a[aria-current=page]::after{content:"";position:absolute;left:var(--s4);right:var(--s4);bottom:-1px;height:2px;background:var(--accent)}
+.lab-root .cat-h h1{font-size:var(--t48);line-height:1.25;margin:var(--s2) 0 var(--s4);max-width:20em}
+.lab-root .cat-h .lead{max-width:40em}
+.lab-root .cstats{display:flex;flex-wrap:wrap;gap:var(--s6);margin:var(--s6) 0 0;padding:0}
+.lab-root .cstats div{display:flex;flex-direction:column-reverse;gap:var(--s1)}
+.lab-root .cstats dt{font-size:var(--t14);color:var(--faint)}
+.lab-root .cstats dd{margin:0;font-family:var(--serif);font-size:var(--t48);line-height:1;color:var(--ink)}
+.lab-root .cstats dd.ok{color:var(--ok)}
+.lab-root .cjump{margin-top:var(--s7);padding:var(--s5);border:1px solid var(--line);border-radius:var(--r-m);background:var(--panel)}
+.lab-root .cjump h2{font-size:var(--t14);font-weight:700;color:var(--faint);margin-bottom:var(--s3);letter-spacing:0}
+.lab-root .cjump ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr));gap:var(--s1) var(--s4)}
+.lab-root .cjump a{display:flex;align-items:baseline;gap:var(--s2);padding:var(--s1) 0;font-size:var(--t14);color:var(--ink)}
+.lab-root .cjump a:hover{color:var(--accent)}
+.lab-root .cjump .no{font-size:var(--t14)}
+.lab-root .cjump em{margin-left:auto;font-style:normal;font-size:var(--t12);color:var(--faint)}
+.lab-root .etools{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap;margin:var(--s7) 0 var(--s4)}
+.lab-root .ebox{flex:1 1 280px;max-width:440px}
+.lab-root .ebox input{width:100%;height:44px;padding:0 var(--s4);border:1px solid var(--line);border-radius:var(--r-m);background:var(--panel);color:var(--ink);font:inherit;font-size:var(--t14)}
+.lab-root .ebox input:focus-visible,.lab-root .eseg button:focus-visible,.lab-root .ech-ref a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lab-root .eseg{display:inline-flex;border:1px solid var(--line);border-radius:var(--r-m);overflow:hidden;background:var(--panel)}
+.lab-root .eseg button{min-height:44px;padding:0 var(--s4);border:0;background:none;color:var(--muted);font:inherit;font-size:var(--t14);cursor:pointer;transition:background-color .2s ease-out,color .2s ease-out}
+.lab-root .eseg button+button{border-left:1px solid var(--line)}
+.lab-root .eseg button[aria-pressed=true]{background:var(--chip);color:var(--chip-ink);font-weight:600}
+.lab-root .ecount{margin:0 0 var(--s4);font-size:var(--t14);color:var(--muted)}
+.lab-root .ecount.inline{margin:0}
+.lab-root .ecat{margin-top:var(--s7);scroll-margin-top:96px}
+.lab-root .ecat header{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s4);padding-bottom:var(--s3);border-bottom:1px solid var(--line)}
+.lab-root .ecat h2{font-size:var(--t24)}
+.lab-root .ecat .no{font-size:var(--t20)}
+.lab-root .ecnt{margin-left:auto;font-size:var(--t14);color:var(--faint)}
+.lab-root .echips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s2)}
+.lab-root .ech{display:inline-flex;align-items:center;gap:var(--s2);max-width:100%;padding:var(--s1) var(--s3);min-height:32px;border:1px dashed var(--line);border-radius:var(--r-s);font-size:var(--t14);line-height:1.5;color:var(--muted)}
+.lab-root .ech.ok{border-style:solid;border-color:color-mix(in srgb,var(--ok) 45%,transparent);background:var(--ok-bg);color:var(--ink)}
+.lab-root .ech svg{width:12px;height:12px;flex:none;color:var(--ok)}
+.lab-root .ech-ref a{color:var(--accent);font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.lab-root .ech-ref a:hover{color:var(--ink)}
+.lab-root .enote{margin-top:var(--s3);font-size:var(--t14);color:var(--muted);line-height:1.7}
+.lab-root .eclips{margin-top:var(--s3);display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);font-size:var(--t14);color:var(--faint)}
+.lab-root .eclips a{color:var(--accent);font-weight:600}
+.lab-root .climits{margin-top:var(--s8);padding:var(--s5);border:1px solid var(--line);border-radius:var(--r-m);background:var(--panel)}
+.lab-root .climits h2{font-size:var(--t20);margin-bottom:var(--s2)}
+.lab-root .climits p{font-size:var(--t14);color:var(--muted);margin-bottom:var(--s3)}
+.lab-root .climits ul{margin:0;padding-left:var(--s5);display:grid;gap:var(--s2);font-size:var(--t14);line-height:1.7;color:var(--muted)}
+.lab-root .pgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(420px,100%),1fr));gap:var(--s4)}
+.lab-root .pcard{min-width:0;display:flex;flex-direction:column;gap:var(--s3);padding:var(--s5);border:1px solid var(--line);border-radius:var(--r-m);background:var(--panel)}
+.lab-root .pcard.ok{border-color:color-mix(in srgb,var(--ok) 40%,var(--line))}
+.lab-root .pcard .ph{display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
+.lab-root .pcard .ph b{font-size:var(--t16);margin-right:auto}
+.lab-root .pcard .badge{gap:var(--s1)}
+.lab-root .pcard .badge svg{width:12px;height:12px}
+.lab-root .pcard p{margin:0;padding:var(--s3) var(--s4);border-radius:var(--r-s);background:var(--chip);font-size:var(--t14);line-height:1.8;color:var(--ink)}
+.lab-root .cfoot{margin-top:var(--s6);font-size:var(--t14);color:var(--faint)}
+.lab-root .cv{position:relative;aspect-ratio:16/9;background:#14112a;overflow:hidden}
+.lab-root .cv video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.lab-root .cfull{margin-top:var(--s7);display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:var(--s6);align-items:center}
+.lab-root .cfull .cv{border-radius:var(--r-m);border:1px solid var(--line)}
+.lab-root .cfull h2{font-size:var(--t24);margin:var(--s2) 0 var(--s3)}
+.lab-root .cfull p{font-size:var(--t14);line-height:1.8;color:var(--muted);margin-bottom:var(--s3)}
+.lab-root .cfull .cmute{color:var(--faint)}
+.lab-root .cgrid{list-style:none;margin:var(--s7) 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr));gap:var(--s5)}
+.lab-root .cclip{min-width:0;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r-m);background:var(--panel);overflow:hidden;scroll-margin-top:96px}
+.lab-root .cclip:target{border-color:var(--accent)}
+.lab-root .cb{display:flex;flex-direction:column;gap:var(--s3);padding:var(--s4) var(--s5) var(--s5);flex:1}
+.lab-root .cb h2{font-size:var(--t20)}
+.lab-root .cwhat{font-size:var(--t14);color:var(--muted);line-height:1.6}
+.lab-root .ccmd{display:flex;align-items:flex-start;gap:var(--s3);padding:var(--s3);border-radius:var(--r-s);background:var(--chip)}
+.lab-root .ccmd code{flex:1;min-width:0;font-family:var(--font);font-size:var(--t14);line-height:1.7;color:var(--ink);overflow-wrap:anywhere}
+.lab-root .ccmd .btn{flex:none}
+.lab-root .csrc{margin-top:auto;font-size:var(--t12);color:var(--faint)}
+@media(max-width:860px){.lab-root .cfull{grid-template-columns:1fr}.lab-root .cat-h h1{font-size:var(--t32)}.lab-root .cstats dd{font-size:var(--t32)}}
+@media(prefers-reduced-motion:reduce){.lab-root .eseg button,.lab-root .ltabs a{transition:none}}
 .site-shell:has(.lab-root)>.site-header,.site-shell:has(.lab-root)>.site-footer{display:none}
 .site-shell:has(.lab-root)>.site-main{width:100%;max-width:none;margin:0;padding:0}
 

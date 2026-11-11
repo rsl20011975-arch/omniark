@@ -21,6 +21,12 @@
 - 팁은 `lab-site/source/tips.json` 에 적는다. 팁마다 `patches`(데모 코드에서 바꿀 값)가 있고, 추출 도구가 그 값만 바꾼 데모(`dNN_<팁>.js`)를 만든다. **찾는 값이 없거나 여러 곳이면 만들다 멈춘다**(조용히 틀어지지 않게).
 - ‘확인’ 표시는 `lab-site/tools/verify_tips.py` 로 원본 데모와 팁 적용 데모를 같은 시각의 장면으로 나란히 렌더해 눈으로 보고 픽셀 차이를 잰 뒤에만 단다. AI가 같은 결과를 만드는지는 이 확인에 들어 있지 않다(페이지에도 그렇게 적혀 있다).
 
+## 요소 사전 · 지시 문장 · 예시 영상 (2단계, 결정 #68)
+- 주소 3개: `/lab/elements`(요소 448개·21분류), `/lab/prompts`(복사용 문장 25개), `/lab/clips`(예시 영상 20개 + 완성 영상 58초). 분야 주소(`/lab/<분야>`)보다 정적 경로가 먼저 잡히므로 **분야 slug 를 `elements`·`prompts`·`clips` 로 만들면 안 된다**(`_lib/catalog.ts` 의 `CATALOG_PATHS`).
+- 데이터는 `_content/elements.json`·`prompts.json`·`clips.json`, 영상·포스터는 `public/lab/media/`(42개, 4.3MB). 모두 `export_content.py` 가 만든 사본이다(원본: `lab-site/source/visual-dictionary-*.html` → `extract_catalog.py` → `catalog.json`, 영상은 `lab-site/source/media/`).
+- 요소 칩의 `실습 74` 같은 번호는 내보낼 때 공개된 용어 페이지 주소로 풀린다(없는 번호면 내보내기가 멈춘다). sitemap 에는 위 3개가 들어간다.
+- 영상은 `preload="none"` + 포스터라 재생을 누르기 전에는 내려받지 않는다. 자막 파일은 없다(완성 영상의 목소리 대본이 저장소에 없어 지어내지 않았다).
+
 ## 용어를 하나 더하는 법
 1. `data.py` 의 `TERMS` 에 줄을 더하고(느낌 키워드는 `KEYWORDS`).
 2. 데모가 있으면 아티팩트 원본에 두고 `DEMO_OF` 에 연결, 팁은 `tips.json` 에 적고 `verify_tips.py` 로 확인.
@@ -30,7 +36,6 @@
 - 입문 코스·"이 용어가 나온 편" 링크는 `/blog/<slug>` 이다. 이 저장소 사본에는 해당 글이 없어서 로컬에서는 404 이고, 글이 들어 있는 소스로 배포하면 정상이다.
 - 글꼴을 외부에서 불러온다: Wanted Sans(jsDelivr)·Instrument Serif(Google Fonts)는 모든 /lab 페이지, 데모 글꼴(Black Han Sans·IBM Plex Sans KR·JetBrains Mono, Google Fonts)은 데모 페이지에서만. 개인정보·쿠키 문서에 제3자 요청 안내가 필요한지는 확인하지 않았다.
 - 검색은 공개된 용어만 담은 `/lab/search-index.json`(정적)을 처음 입력할 때 불러와 브라우저에서 찾는다.
-- 상단 공통 메뉴(`StudioShell`)에는 아직 Visual Lab 링크를 넣지 않았다. 배포·메뉴 노출은 승인 뒤에 한다.
 - `_demos/art/*.js` 는 아티팩트 코드를 그대로 가져온 파일이라 타입·린트 검사를 끈다(맨 위 주석 참고).
 
 ## 배포 전에 알아야 할 것 (2026-11-10 점검)
