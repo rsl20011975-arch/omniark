@@ -25,6 +25,7 @@ export default function Rail({ fields, terms }: Props) {
         <Link href="/lab/elements">요소 사전</Link>
         <Link href="/lab/prompts">지시 문장</Link>
         <Link href="/lab/clips">예시 영상</Link>
+        <Link href="/lab/ideas">영상 소재</Link>
         <Link href="/lab/fonts">글꼴</Link>
       </nav>
       <details className="tree" open ref={tree}>

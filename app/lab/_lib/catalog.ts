@@ -18,7 +18,7 @@ export type Elements = {
   sub: string;
   cats: Cat[];
   limits: { sub: string; items: string[] };
-  counts: { chips: number; ok: number; todo: number; none: number; cats: number; clips: number; prompts: number };
+  counts: { chips: number; ok: number; todo: number; none: number; cats: number; clips: number; prompts: number; ideas: number };
 };
 export type Prompt = { status: "ok" | "todo"; name: string; text: string };
 export type Prompts = { sub: string; items: Prompt[] };
@@ -29,16 +29,22 @@ export type Clips = {
   full: { sub: string; text: string; caveat: string; video: string; poster: string };
 };
 
-let cache: { el: Elements; pr: Prompts; cl: Clips } | null = null;
-const load = () => (cache ??= { el: read<Elements>("elements.json"), pr: read<Prompts>("prompts.json"), cl: read<Clips>("clips.json") });
+/** 영상 소재(결정 #73): 원본의 내부 메모(비슷한 영상 현황·차별화 가능성)는 추출 단계에서 빠진다. */
+export type Idea = { t: string; f: string; g: string; links: ChipLink[] };
+export type Ideas = { sub: string; items: Idea[] };
+
+let cache: { el: Elements; pr: Prompts; cl: Clips; id: Ideas } | null = null;
+const load = () =>
+  (cache ??= { el: read<Elements>("elements.json"), pr: read<Prompts>("prompts.json"), cl: read<Clips>("clips.json"), id: read<Ideas>("ideas.json") });
 
 export const elements = (): Elements => load().el;
 export const prompts = (): Prompts => load().pr;
 export const clips = (): Clips => load().cl;
+export const ideas = (): Ideas => load().id;
 export const mediaUrl = (file: string) => `/lab/media/${file}`;
 
 /** 요소 사전의 확인 안 한(○) 칩 수 = 점선 칩(todo) + 표시가 없는 칩(none). 원본 머리글의 '아직 확인하지 않은 것'과 같은 정의다. */
 export const unconfirmed = (c: Elements["counts"]) => c.todo + c.none;
 
 /** 이 새 페이지 주소는 분야 주소(/lab/<분야>)와 겹치면 안 된다. */
-export const CATALOG_PATHS = ["/lab/elements", "/lab/prompts", "/lab/clips"] as const;
+export const CATALOG_PATHS = ["/lab/elements", "/lab/prompts", "/lab/clips", "/lab/ideas"] as const;

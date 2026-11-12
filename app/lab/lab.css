@@ -520,3 +520,14 @@
 .lab-root .fontmeta b{font-size:var(--t16);color:var(--ink)}
 .lab-root .fontact{display:flex;align-items:center;gap:var(--s4);flex-wrap:wrap;margin-top:auto}
 .lab-root .fontlink{font-size:var(--t14);color:var(--chip-ink);text-decoration:underline;text-underline-offset:3px}
+/* 영상 소재(/lab/ideas, 결정 #73) */
+.lab-root .ideagrid{list-style:none;margin:var(--s6) 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(440px,100%),1fr));gap:var(--s4);counter-reset:idea}
+.lab-root .ideacard{min-width:0;display:flex;flex-direction:column;gap:var(--s3);padding:var(--s5);border:1px solid var(--line);border-radius:var(--r-m);background:var(--panel);counter-increment:idea}
+.lab-root .ideacard .ihead{display:flex;align-items:baseline;gap:var(--s3)}
+.lab-root .ideacard .ihead::before{content:counter(idea,decimal-leading-zero);font-family:var(--serif);font-style:italic;font-size:var(--t24);line-height:1;color:var(--faint)}
+.lab-root .ideacard .ifmt{font-size:var(--t12);font-weight:700;color:var(--chip-ink)}
+.lab-root .ideacard h2{margin:0;font-size:var(--t20);line-height:1.4;letter-spacing:-.01em;color:var(--ink)}
+.lab-root .ideacard p{margin:0;font-size:var(--t14);line-height:1.8;color:var(--muted)}
+.lab-root .ideacard .ilinks{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:auto;padding-top:var(--s2)}
+.lab-root .ideacard .ilinks a{display:inline-flex;align-items:center;gap:var(--s1);min-height:32px;padding:0 var(--s3);border-radius:var(--r-s);background:var(--chip);color:var(--chip-ink);font-size:var(--t14);font-weight:600}
+.lab-root .ideacard .ilinks a:hover{text-decoration:underline;text-underline-offset:3px}
