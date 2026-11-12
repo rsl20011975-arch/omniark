@@ -2,10 +2,6 @@ import Link from "next/link";
 import { LAB_NAV } from "../_lib/config";
 import ThemeToggle from "./ThemeToggle";
 
-const WANTED =
-  "https://cdn.jsdelivr.net/gh/wantedlab/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css";
-const INSTRUMENT = "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap";
-
 /** 저장된 테마를 첫 화면 그리기 전에 적용해 깜빡임을 막는다. */
 const THEME_BOOT = `try{var t=localStorage.getItem("lab-theme");if(t==="dark"||t==="light"){document.currentScript.parentElement.dataset.theme=t}}catch(e){}`;
 
@@ -13,8 +9,6 @@ export default function LabFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="lab-root" data-theme="light" suppressHydrationWarning>
       <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
-      <link rel="stylesheet" href={WANTED} precedence="default" />
-      <link rel="stylesheet" href={INSTRUMENT} precedence="default" />
       <header className="tb">
         <div className="in">
           <Link className="brand" href="/" aria-label="옴니아크 홈">

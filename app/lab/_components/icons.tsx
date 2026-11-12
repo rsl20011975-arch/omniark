@@ -9,3 +9,6 @@ export const CheckIcon = () => (
 export const ArrowIcon = () => (
   <svg {...base} width={16} height={16} strokeWidth={2.2} strokeLinejoin="round"><path d="M5 12h14m-6-6 6 6-6 6" /></svg>
 );
+export const DownloadIcon = () => (
+  <svg {...base} width={18} height={18} strokeWidth={2.2} strokeLinejoin="round"><path d="M12 4v11m-5-5 5 5 5-5M5 20h14" /></svg>
+);

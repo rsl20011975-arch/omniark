@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./_lib/self-hosted-fonts";
 import "./lab.css";
 import LabFrame from "./_components/LabFrame";
 import { LAB_INDEXABLE } from "./_lib/config";

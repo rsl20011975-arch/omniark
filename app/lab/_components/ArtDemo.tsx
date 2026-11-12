@@ -13,9 +13,6 @@ type Demo = {
 };
 type Loader = () => Promise<{ default: Demo }>;
 
-const FONTS =
-  "https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap";
-
 /** 3D 데모의 WebGL 화면을 돌려준다. 브라우저는 동시에 열 수 있는 수가 정해져 있어서, 페이지를 오가다 보면 막힌다. */
 function releaseGl(s: unknown) {
   const seen = new Set<unknown>();
@@ -136,7 +133,6 @@ export default function ArtDemo({ load, label, level = null }: { load: Loader; l
 
   return (
     <div className="demo">
-      <link rel="stylesheet" href={FONTS} precedence="default" />
       <div className="artstage" ref={stage} role="img" aria-label={`${label} 움직이는 예제`}>
         <div className="artsp" ref={sp} />
         <div className="artbadge" ref={badge} />
