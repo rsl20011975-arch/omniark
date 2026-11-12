@@ -62,6 +62,26 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "label": () => import("./d100_label.js"),
     "fast": () => import("./d100_fast.js")
   },
+  d101: {
+    base: () => import("./d101.js"),
+    "half": () => import("./d101_half.js"),
+    "slow": () => import("./d101_slow.js")
+  },
+  d102: {
+    base: () => import("./d102.js"),
+    "slow": () => import("./d102_slow.js"),
+    "inout": () => import("./d102_inout.js")
+  },
+  d103: {
+    base: () => import("./d103.js"),
+    "longhold": () => import("./d103_longhold.js"),
+    "twice": () => import("./d103_twice.js")
+  },
+  d104: {
+    base: () => import("./d104.js"),
+    "stronger": () => import("./d104_stronger.js"),
+    "during": () => import("./d104_during.js")
+  },
   d11: {
     base: () => import("./d11.js"),
     "dense": () => import("./d11_dense.js"),

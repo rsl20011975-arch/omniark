@@ -1,5 +1,5 @@
 {
-  "sub": "칩 하나가 요소 하나입니다. 초록 실선이 직접 확인한 것(287개), 점선은 아직 확인하지 않은 것(161개)입니다. 오른쪽 숫자는 확인한 수와 전체 수입니다.",
+  "sub": "칩 하나가 요소 하나입니다. 초록 실선이 직접 확인한 것(302개), 점선은 아직 확인하지 않은 것(146개)입니다. 오른쪽 숫자는 확인한 수와 전체 수입니다.",
   "cats": [
     {
       "no": "01",
@@ -22,18 +22,36 @@
         },
         {
           "t": "요소 간격(스태거 값)",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 78,
+              "href": "/lab/motion/stagger-four",
+              "name": "스태거 4패턴"
+            }
+          ]
         },
         {
           "t": "지연(delay)",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 103,
+              "href": "/lab/motion/delay-hold-loop",
+              "name": "지연·홀드·루프(시간을 다루는 값 3가지)"
+            }
+          ]
         },
         {
           "t": "홀드(멈춤)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 103,
+              "href": "/lab/motion/delay-hold-loop",
+              "name": "지연·홀드·루프(시간을 다루는 값 3가지)"
+            }
+          ]
         },
         {
           "t": "오버랩",
@@ -47,8 +65,14 @@
         },
         {
           "t": "루프",
-          "s": "todo",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 103,
+              "href": "/lab/motion/delay-hold-loop",
+              "name": "지연·홀드·루프(시간을 다루는 값 3가지)"
+            }
+          ]
         },
         {
           "t": "정지 프레임 강조",
@@ -134,7 +158,13 @@
         {
           "t": "outQuad/outCubic/outQuart/outQuint (outC)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 102,
+              "href": "/lab/motion/easing-power-curves",
+              "name": "이징 계열: Quad부터 Quint, Expo까지"
+            }
+          ]
         },
         {
           "t": "outExpo (실습 74)",
@@ -150,7 +180,13 @@
         {
           "t": "inOutExpo",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 102,
+              "href": "/lab/motion/easing-power-curves",
+              "name": "이징 계열: Quad부터 Quint, Expo까지"
+            }
+          ]
         },
         {
           "t": "outBack(오버슈트) (실습 74·79)",
@@ -268,8 +304,14 @@
         },
         {
           "t": "세컨더리 액션",
-          "s": "todo",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 104,
+              "href": "/lab/motion/secondary-action",
+              "name": "세컨더리 액션(주인공을 거드는 보조 동작)"
+            }
+          ]
         },
         {
           "t": "타이밍과 간격 (실습 77)",
@@ -296,7 +338,13 @@
         {
           "t": "캐스케이드",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 78,
+              "href": "/lab/motion/stagger-four",
+              "name": "스태거 4패턴"
+            }
+          ]
         },
         {
           "t": "웨이브",
@@ -375,62 +423,134 @@
         {
           "t": "위치(translate)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "크기(scale)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "회전(rotate)",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "기울임(skew)",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "투명도(opacity)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "블러(blur)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "클립(clip-path) ·마스크(mask)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
-          "t": "필터(brightness/contrast/saturate/hue-rotate/drop-shadow\u0001",
+          "t": "필터(brightness/contrast/saturate/hue-rotate/drop-shadow",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "색",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "선 그리기(stroke-dashoffset)",
           "s": "todo",
-          "links": []
+          "links": [
+            {
+              "n": 89,
+              "href": "/lab/motion/draw-on",
+              "name": "선 그리기"
+            }
+          ]
         },
         {
           "t": "너비·높이",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "둥근 모서리(border-radius)",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "패스 모프 (실습 27)",
@@ -451,7 +571,13 @@
         {
           "t": "변형 기준점(transform-origin)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꿀 수 있는 값 12가지"
+            }
+          ]
         },
         {
           "t": "원근(perspective)·rotateX/Y·translateZ·preserve-3d",
@@ -482,23 +608,47 @@
       "chips": [
         {
           "t": "페이드",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
         },
         {
           "t": "슬라이드 업/다운/좌/우",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
         },
         {
           "t": "스케일 인",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
         },
         {
           "t": "팝(outBack)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
         },
         {
           "t": "바운스 인",
@@ -507,33 +657,69 @@
         },
         {
           "t": "드롭",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 90,
+              "href": "/lab/motion/physical-entrances",
+              "name": "물리적 등장"
+            }
+          ]
         },
         {
           "t": "플립",
-          "s": "todo",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 90,
+              "href": "/lab/motion/physical-entrances",
+              "name": "물리적 등장"
+            }
+          ]
         },
         {
           "t": "스핀",
-          "s": "todo",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 90,
+              "href": "/lab/motion/physical-entrances",
+              "name": "물리적 등장"
+            }
+          ]
         },
         {
           "t": "와이프 (전/후)",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 4,
+              "href": "/lab/motion/before-after-wipe",
+              "name": "전후 비교 와이프"
+            }
+          ]
         },
         {
           "t": "마스크 리빌",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 2,
+              "href": "/lab/motion/mask-reveal",
+              "name": "마스크 리빌"
+            }
+          ]
         },
         {
           "t": "블러 인/언블러",
           "s": "ok",
-          "links": []
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
         },
         {
           "t": "타이핑",
@@ -542,13 +728,25 @@
         },
         {
           "t": "글자·단어·줄 분리 후 순차",
-          "s": "none",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 88,
+              "href": "/lab/motion/split-text-appear",
+              "name": "줄·단어·글자 등장"
+            }
+          ]
         },
         {
           "t": "그리기(draw-on)",
-          "s": "todo",
-          "links": []
+          "s": "ok",
+          "links": [
+            {
+              "n": 89,
+              "href": "/lab/motion/draw-on",
+              "name": "선 그리기"
+            }
+          ]
         },
         {
           "t": "조립/분해(explode/assemble) (실습 17·19)",
@@ -1300,7 +1498,7 @@
           "links": []
         },
         {
-          "t": "폰트 로딩 확인(렌더 전 글자 한 번씩 그리기\u0001",
+          "t": "폰트 로딩 확인(렌더 전 글자 한 번씩 그리기",
           "s": "ok",
           "links": []
         },
@@ -1348,7 +1546,7 @@
           "links": []
         },
         {
-          "t": "아이콘(검증된 세트 사용 권장: Lucide·Phosphor·Tabler 등\u0001",
+          "t": "아이콘(검증된 세트 사용 권장: Lucide·Phosphor·Tabler 등",
           "s": "todo",
           "links": []
         },
@@ -1363,7 +1561,7 @@
           "links": []
         },
         {
-          "t": "패턴(점·격자·줄무늬·해칭\u0001",
+          "t": "패턴(점·격자·줄무늬·해칭",
           "s": "ok",
           "links": []
         },
@@ -1929,7 +2127,7 @@
           ]
         },
         {
-          "t": "대시보드·FUI·HUD(레티클·레이더·눈금·스캔라인 실습 10\u0001 원형 게이지·꺾쇠 패널·16진수 데이터 흐름·신호 막대·선 차트 그리기 실습 35)",
+          "t": "대시보드·FUI·HUD(레티클·레이더·눈금·스캔라인 실습 10 원형 게이지·꺾쇠 패널·16진수 데이터 흐름·신호 막대·선 차트 그리기 실습 35)",
           "s": "ok",
           "links": [
             {
@@ -2053,7 +2251,7 @@
           ]
         },
         {
-          "t": "그라디언트(선형\u0001방사형\u0001원뿔 (실습 53·55)/메시\u0001",
+          "t": "그라디언트(선형방사형원뿔 (실습 53·55)/메시",
           "s": "ok",
           "links": [
             {
@@ -2117,7 +2315,7 @@
           ]
         },
         {
-          "t": "그림자(접지\u0001드롭 (실습 52·54)/층 높이별 실습 54/내부\u0001",
+          "t": "그림자(접지드롭 (실습 52·54)/층 높이별 실습 54/내부",
           "s": "ok",
           "links": [
             {
@@ -2133,7 +2331,7 @@
           ]
         },
         {
-          "t": "유리(backdrop-filter 흐림 실습 52, 반투명 카드\u0001",
+          "t": "유리(backdrop-filter 흐림 실습 52, 반투명 카드",
           "s": "ok",
           "links": [
             {
@@ -2199,7 +2397,7 @@
           ]
         },
         {
-          "t": "컬러 그레이딩 (실습 50 · LUT 파일 적용\u0001",
+          "t": "컬러 그레이딩 (실습 50 · LUT 파일 적용",
           "s": "ok",
           "links": [
             {
@@ -2339,7 +2537,7 @@
           ]
         },
         {
-          "t": "조명(키·림\u0001 필\u0001 HDRI\u0001",
+          "t": "조명(키·림 필 HDRI",
           "s": "ok",
           "links": []
         },
@@ -2942,7 +3140,7 @@
       "name": "서사·구성",
       "chips": [
         {
-          "t": "훅(결과 먼저 실습 62\u0001 질문 실습 62\u0001 충돌·대결\u0001 숫자 실습 62\u0001 직접 체험 실습 62)",
+          "t": "훅(결과 먼저 실습 62 질문 실습 62 충돌·대결 숫자 실습 62 직접 체험 실습 62)",
           "s": "ok",
           "links": [
             {
@@ -3293,7 +3491,7 @@
           "links": []
         },
         {
-          "t": "음악(BPM·키·코드·층 진입·루프) (실습 72 단순 합성 · 분위기별 작곡\u0001",
+          "t": "음악(BPM·키·코드·층 진입·루프) (실습 72 단순 합성 · 분위기별 작곡",
           "s": "ok",
           "links": [
             {
@@ -3411,7 +3609,7 @@
       "name": "규격·출력",
       "chips": [
         {
-          "t": "해상도(1920×1080\u0001 3840×2160, 1080×1920 (쇼츠), 1080×1350, 1080×1080)",
+          "t": "해상도(1920×1080 3840×2160, 1080×1920 (쇼츠), 1080×1350, 1080×1080)",
           "s": "ok",
           "links": []
         },
@@ -3421,12 +3619,12 @@
           "links": []
         },
         {
-          "t": "fps(24/30\u000160)",
+          "t": "fps(24/3060)",
           "s": "ok",
           "links": []
         },
         {
-          "t": "코덱(H.264 yuv420p\u0001 ProRes, VP9, AV1)",
+          "t": "코덱(H.264 yuv420p ProRes, VP9, AV1)",
           "s": "ok",
           "links": []
         },
@@ -3882,9 +4080,9 @@
   },
   "counts": {
     "chips": 448,
-    "ok": 287,
-    "todo": 79,
-    "none": 82,
+    "ok": 302,
+    "todo": 74,
+    "none": 72,
     "cats": 21,
     "clips": 20,
     "prompts": 25,
