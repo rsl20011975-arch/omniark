@@ -35,6 +35,14 @@ function ChipText({ chip }: { chip: Chip }) {
           </span>
         );
       })}
+      {/* 칩 글에 '실습 N' 이 없는 연결(새로 쓴 페이지가 설명하는 칩)은 뒤에 따로 붙인다 */}
+      {chip.links
+        .filter((l) => !(chip.t.match(/실습 ?\d+(?:\s?·\s?\d+)*/g) ?? []).some((m) => (m.match(/\d+/g) ?? []).map(Number).includes(l.n)))
+        .map((l) => (
+          <span key={l.n} className="ech-ref">
+            {" "}실습 <Link href={l.href} title={`${l.name} 데모로 이동`}>{l.n}</Link>
+          </span>
+        ))}
     </>
   );
 }

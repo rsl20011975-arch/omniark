@@ -462,4 +462,9 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "slowbars": () => import("./d91_slowbars.js"),
     "bignum": () => import("./d91_bignum.js")
   },
+  d92: {
+    base: () => import("./d92.js"),
+    "short": () => import("./d92_short.js"),
+    "white": () => import("./d92_white.js")
+  },
 };
