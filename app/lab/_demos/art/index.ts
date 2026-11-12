@@ -467,4 +467,29 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "short": () => import("./d92_short.js"),
     "white": () => import("./d92_white.js")
   },
+  d93: {
+    base: () => import("./d93.js"),
+    "soft": () => import("./d93_soft.js"),
+    "slide": () => import("./d93_slide.js")
+  },
+  d94: {
+    base: () => import("./d94.js"),
+    "slow": () => import("./d94_slow.js"),
+    "stronger": () => import("./d94_stronger.js")
+  },
+  d95: {
+    base: () => import("./d95.js"),
+    "dreamy": () => import("./d95_dreamy.js"),
+    "heavy": () => import("./d95_heavy.js")
+  },
+  d96: {
+    base: () => import("./d96.js"),
+    "blend": () => import("./d96_blend.js"),
+    "still": () => import("./d96_still.js")
+  },
+  d97: {
+    base: () => import("./d97.js"),
+    "cool": () => import("./d97_cool.js"),
+    "soft": () => import("./d97_soft.js")
+  },
 };
