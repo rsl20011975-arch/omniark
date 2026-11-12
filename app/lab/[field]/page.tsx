@@ -40,7 +40,7 @@ export default async function FieldPage({ params }: Props) {
         <nav className="crumb" aria-label="경로">
           <Link href="/lab">Visual Lab</Link><i>›</i><span>{f.name}</span>
         </nav>
-        <span className="kicker ko">{f.group === "기초" ? "기초 요소" : "연출 분야"} · 분야</span>
+        <span className="kicker ko">{f.group === "기초" ? "기초 요소" : f.group === "연출" ? "연출 분야" : "제작 참고"} · 분야</span>
         <h1>{f.name}</h1>
         <p className="lead">{f.desc}. 용어를 고르면 데모와 지시문이 있습니다.</p>
         <TermBrowser terms={terms} />

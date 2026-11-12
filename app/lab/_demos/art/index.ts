@@ -82,50 +82,500 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "stronger": () => import("./d104_stronger.js"),
     "during": () => import("./d104_during.js")
   },
+  d105: {
+    base: () => import("./d105.js"),
+    "wide": () => import("./d105_wide.js"),
+    "long": () => import("./d105_long.js")
+  },
+  d106: {
+    base: () => import("./d106.js"),
+    "diamond": () => import("./d106_diamond.js"),
+    "hard": () => import("./d106_hard.js")
+  },
+  d107: {
+    base: () => import("./d107.js"),
+    "close": () => import("./d107_close.js"),
+    "right": () => import("./d107_right.js")
+  },
+  d108: {
+    base: () => import("./d108.js"),
+    "few": () => import("./d108_few.js"),
+    "big": () => import("./d108_big.js")
+  },
+  d109: {
+    base: () => import("./d109.js"),
+    "blur": () => import("./d109_blur.js"),
+    "flat": () => import("./d109_flat.js")
+  },
   d11: {
     base: () => import("./d11.js"),
     "dense": () => import("./d11_dense.js"),
     "sway": () => import("./d11_sway.js")
+  },
+  d110: {
+    base: () => import("./d110.js"),
+    "fast": () => import("./d110_fast.js"),
+    "center": () => import("./d110_center.js")
+  },
+  d111: {
+    base: () => import("./d111.js"),
+    "slower": () => import("./d111_slower.js"),
+    "dark": () => import("./d111_dark.js")
+  },
+  d112: {
+    base: () => import("./d112.js"),
+    "fast": () => import("./d112_fast.js"),
+    "even": () => import("./d112_even.js")
+  },
+  d113: {
+    base: () => import("./d113.js"),
+    "long": () => import("./d113_long.js"),
+    "late": () => import("./d113_late.js")
+  },
+  d114: {
+    base: () => import("./d114.js"),
+    "more": () => import("./d114_more.js"),
+    "fog": () => import("./d114_fog.js")
+  },
+  d115: {
+    base: () => import("./d115.js"),
+    "lock": () => import("./d115_lock.js"),
+    "crop": () => import("./d115_crop.js")
+  },
+  d116: {
+    base: () => import("./d116.js"),
+    "longintro": () => import("./d116_longintro.js"),
+    "longoutro": () => import("./d116_longoutro.js")
+  },
+  d117: {
+    base: () => import("./d117.js"),
+    "moremsg": () => import("./d117_moremsg.js"),
+    "swing": () => import("./d117_swing.js")
+  },
+  d118: {
+    base: () => import("./d118.js"),
+    "short": () => import("./d118_short.js"),
+    "nohold": () => import("./d118_nohold.js")
+  },
+  d119: {
+    base: () => import("./d119.js"),
+    "moreseeds": () => import("./d119_moreseeds.js"),
+    "nohook": () => import("./d119_nohook.js")
   },
   d12: {
     base: () => import("./d12.js"),
     "tail": () => import("./d12_tail.js"),
     "gravity": () => import("./d12_gravity.js")
   },
+  d120: {
+    base: () => import("./d120.js"),
+    "sensitive": () => import("./d120_sensitive.js"),
+    "nocmp": () => import("./d120_nocmp.js")
+  },
+  d121: {
+    base: () => import("./d121.js"),
+    "ymin": () => import("./d121_ymin.js"),
+    "nochild": () => import("./d121_nochild.js")
+  },
+  d122: {
+    base: () => import("./d122.js"),
+    "nolost": () => import("./d122_nolost.js"),
+    "solid": () => import("./d122_solid.js")
+  },
+  d123: {
+    base: () => import("./d123.js"),
+    "later": () => import("./d123_later.js"),
+    "weeks": () => import("./d123_weeks.js")
+  },
+  d124: {
+    base: () => import("./d124.js"),
+    "slow": () => import("./d124_slow.js"),
+    "nobank": () => import("./d124_nobank.js")
+  },
+  d125: {
+    base: () => import("./d125.js"),
+    "steeper": () => import("./d125_steeper.js"),
+    "gentler": () => import("./d125_gentler.js")
+  },
+  d126: {
+    base: () => import("./d126.js"),
+    "stronger": () => import("./d126_stronger.js"),
+    "edge": () => import("./d126_edge.js")
+  },
+  d127: {
+    base: () => import("./d127.js"),
+    "bigger": () => import("./d127_bigger.js"),
+    "late": () => import("./d127_late.js")
+  },
+  d128: {
+    base: () => import("./d128.js"),
+    "bigger": () => import("./d128_bigger.js"),
+    "allbold": () => import("./d128_allbold.js")
+  },
+  d129: {
+    base: () => import("./d129.js"),
+    "looser": () => import("./d129_looser.js"),
+    "justify": () => import("./d129_justify.js")
+  },
   d13: {
     base: () => import("./d13.js"),
     "bokeh": () => import("./d13_bokeh.js"),
     "warm": () => import("./d13_warm.js")
+  },
+  d130: {
+    base: () => import("./d130.js"),
+    "murky": () => import("./d130_murky.js"),
+    "toodim": () => import("./d130_toodim.js")
+  },
+  d131: {
+    base: () => import("./d131.js"),
+    "thick": () => import("./d131_thick.js"),
+    "far": () => import("./d131_far.js")
+  },
+  d132: {
+    base: () => import("./d132.js"),
+    "manyslices": () => import("./d132_manyslices.js"),
+    "higher": () => import("./d132_higher.js")
+  },
+  d133: {
+    base: () => import("./d133.js"),
+    "fast": () => import("./d133_fast.js"),
+    "widegap": () => import("./d133_widegap.js")
+  },
+  d134: {
+    base: () => import("./d134.js"),
+    "far": () => import("./d134_far.js"),
+    "tight": () => import("./d134_tight.js")
+  },
+  d135: {
+    base: () => import("./d135.js"),
+    "narrower": () => import("./d135_narrower.js"),
+    "bigger": () => import("./d135_bigger.js")
+  },
+  d136: {
+    base: () => import("./d136.js"),
+    "bolder": () => import("./d136_bolder.js"),
+    "bigger": () => import("./d136_bigger.js")
+  },
+  d137: {
+    base: () => import("./d137.js"),
+    "fill": () => import("./d137_fill.js"),
+    "tilecolor": () => import("./d137_tilecolor.js")
+  },
+  d138: {
+    base: () => import("./d138.js"),
+    "slow": () => import("./d138_slow.js"),
+    "center": () => import("./d138_center.js")
+  },
+  d139: {
+    base: () => import("./d139.js"),
+    "three": () => import("./d139_three.js"),
+    "blue": () => import("./d139_blue.js")
   },
   d14: {
     base: () => import("./d14.js"),
     "flash": () => import("./d14_flash.js"),
     "straight": () => import("./d14_straight.js")
   },
+  d140: {
+    base: () => import("./d140.js"),
+    "fewer": () => import("./d140_fewer.js"),
+    "mono": () => import("./d140_mono.js")
+  },
+  d141: {
+    base: () => import("./d141.js"),
+    "mild": () => import("./d141_mild.js"),
+    "orange": () => import("./d141_orange.js")
+  },
+  d142: {
+    base: () => import("./d142.js"),
+    "off": () => import("./d142_off.js"),
+    "lag": () => import("./d142_lag.js")
+  },
+  d143: {
+    base: () => import("./d143.js"),
+    "stronger": () => import("./d143_stronger.js"),
+    "darker": () => import("./d143_darker.js")
+  },
+  d144: {
+    base: () => import("./d144.js"),
+    "deeper": () => import("./d144_deeper.js"),
+    "below": () => import("./d144_below.js")
+  },
+  d145: {
+    base: () => import("./d145.js"),
+    "slowdraw": () => import("./d145_slowdraw.js"),
+    "wide": () => import("./d145_wide.js")
+  },
+  d146: {
+    base: () => import("./d146.js"),
+    "fast": () => import("./d146_fast.js"),
+    "side": () => import("./d146_side.js")
+  },
+  d147: {
+    base: () => import("./d147.js"),
+    "strong": () => import("./d147_strong.js"),
+    "wide": () => import("./d147_wide.js")
+  },
+  d148: {
+    base: () => import("./d148.js"),
+    "early": () => import("./d148_early.js"),
+    "few": () => import("./d148_few.js")
+  },
+  d149: {
+    base: () => import("./d149.js"),
+    "lively": () => import("./d149_lively.js"),
+    "jelly": () => import("./d149_jelly.js")
+  },
   d15: {
     base: () => import("./d15.js"),
     "nodes": () => import("./d15_nodes.js"),
     "reach": () => import("./d15_reach.js")
+  },
+  d150: {
+    base: () => import("./d150.js"),
+    "slowpop": () => import("./d150_slowpop.js"),
+    "thick": () => import("./d150_thick.js")
+  },
+  d151: {
+    base: () => import("./d151.js"),
+    "farther": () => import("./d151_farther.js"),
+    "slowmove": () => import("./d151_slowmove.js")
+  },
+  d152: {
+    base: () => import("./d152.js"),
+    "fewpts": () => import("./d152_fewpts.js"),
+    "slowmorph": () => import("./d152_slowmorph.js")
+  },
+  d153: {
+    base: () => import("./d153.js"),
+    "hard": () => import("./d153_hard.js"),
+    "foamy": () => import("./d153_foamy.js")
+  },
+  d154: {
+    base: () => import("./d154.js"),
+    "softer": () => import("./d154_softer.js"),
+    "wobbly": () => import("./d154_wobbly.js")
+  },
+  d155: {
+    base: () => import("./d155.js"),
+    "quick": () => import("./d155_quick.js"),
+    "roll": () => import("./d155_roll.js")
+  },
+  d156: {
+    base: () => import("./d156.js"),
+    "stronger": () => import("./d156_stronger.js"),
+    "finer": () => import("./d156_finer.js")
+  },
+  d157: {
+    base: () => import("./d157.js"),
+    "heavy": () => import("./d157_heavy.js"),
+    "lingering": () => import("./d157_lingering.js")
+  },
+  d158: {
+    base: () => import("./d158.js"),
+    "denser": () => import("./d158_denser.js"),
+    "biggerAura": () => import("./d158_biggerAura.js")
+  },
+  d159: {
+    base: () => import("./d159.js"),
+    "denser": () => import("./d159_denser.js"),
+    "windy": () => import("./d159_windy.js")
   },
   d16: {
     base: () => import("./d16.js"),
     "split": () => import("./d16_split.js"),
     "longer": () => import("./d16_longer.js")
   },
+  d160: {
+    base: () => import("./d160.js"),
+    "longtrail": () => import("./d160_longtrail.js"),
+    "smalleddy": () => import("./d160_smalleddy.js")
+  },
+  d161: {
+    base: () => import("./d161.js"),
+    "widebluer": () => import("./d161_widebluer.js"),
+    "tightecho": () => import("./d161_tightecho.js")
+  },
+  d162: {
+    base: () => import("./d162.js"),
+    "finewave": () => import("./d162_finewave.js"),
+    "meltmore": () => import("./d162_meltmore.js")
+  },
+  d163: {
+    base: () => import("./d163.js"),
+    "stronger": () => import("./d163_stronger.js"),
+    "rougher": () => import("./d163_rougher.js")
+  },
+  d164: {
+    base: () => import("./d164.js"),
+    "more": () => import("./d164_more.js"),
+    "bigger": () => import("./d164_bigger.js")
+  },
+  d165: {
+    base: () => import("./d165.js"),
+    "halfcube": () => import("./d165_halfcube.js"),
+    "spikier": () => import("./d165_spikier.js")
+  },
+  d166: {
+    base: () => import("./d166.js"),
+    "moon": () => import("./d166_moon.js"),
+    "superball": () => import("./d166_superball.js")
+  },
+  d167: {
+    base: () => import("./d167.js"),
+    "topdown": () => import("./d167_topdown.js"),
+    "tall": () => import("./d167_tall.js")
+  },
+  d168: {
+    base: () => import("./d168.js"),
+    "steep": () => import("./d168_steep.js"),
+    "sparse": () => import("./d168_sparse.js")
+  },
+  d169: {
+    base: () => import("./d169.js"),
+    "tiltmore": () => import("./d169_tiltmore.js"),
+    "fastspin": () => import("./d169_fastspin.js")
+  },
   d17: {
     base: () => import("./d17.js"),
     "gap": () => import("./d17_gap.js"),
     "cam": () => import("./d17_cam.js")
+  },
+  d170: {
+    base: () => import("./d170.js"),
+    "thickbezel": () => import("./d170_thickbezel.js"),
+    "stronggloss": () => import("./d170_stronggloss.js")
+  },
+  d171: {
+    base: () => import("./d171.js"),
+    "closecam": () => import("./d171_closecam.js"),
+    "thickbody": () => import("./d171_thickbody.js")
+  },
+  d172: {
+    base: () => import("./d172.js"),
+    "slowtab": () => import("./d172_slowtab.js"),
+    "slowswitch": () => import("./d172_slowswitch.js")
+  },
+  d173: {
+    base: () => import("./d173.js"),
+    "slowdebounce": () => import("./d173_slowdebounce.js"),
+    "fewrows": () => import("./d173_fewrows.js")
+  },
+  d174: {
+    base: () => import("./d174.js"),
+    "biglift": () => import("./d174_biglift.js"),
+    "slowsettle": () => import("./d174_slowsettle.js")
+  },
+  d175: {
+    base: () => import("./d175.js"),
+    "bigkeys": () => import("./d175_bigkeys.js"),
+    "thickkeys": () => import("./d175_thickkeys.js")
+  },
+  d176: {
+    base: () => import("./d176.js"),
+    "shortswipe": () => import("./d176_shortswipe.js"),
+    "bigzoom": () => import("./d176_bigzoom.js")
+  },
+  d177: {
+    base: () => import("./d177.js"),
+    "bigtext": () => import("./d177_bigtext.js"),
+    "darker": () => import("./d177_darker.js")
+  },
+  d178: {
+    base: () => import("./d178.js"),
+    "newdata": () => import("./d178_newdata.js"),
+    "thickring": () => import("./d178_thickring.js")
+  },
+  d179: {
+    base: () => import("./d179.js"),
+    "shorter": () => import("./d179_shorter.js"),
+    "longtail": () => import("./d179_longtail.js")
   },
   d18: {
     base: () => import("./d18.js"),
     "rough": () => import("./d18_rough.js"),
     "key": () => import("./d18_key.js")
   },
+  d180: {
+    base: () => import("./d180.js"),
+    "longslice": () => import("./d180_longslice.js"),
+    "longgap": () => import("./d180_longgap.js")
+  },
+  d181: {
+    base: () => import("./d181.js"),
+    "longnote": () => import("./d181_longnote.js"),
+    "brightfail": () => import("./d181_brightfail.js")
+  },
+  d182: {
+    base: () => import("./d182.js"),
+    "highpass300": () => import("./d182_highpass300.js"),
+    "deepcut": () => import("./d182_deepcut.js")
+  },
+  d183: {
+    base: () => import("./d183.js"),
+    "slowattack": () => import("./d183_slowattack.js"),
+    "lowthresh": () => import("./d183_lowthresh.js")
+  },
+  d184: {
+    base: () => import("./d184.js"),
+    "cropleft": () => import("./d184_cropleft.js"),
+    "tall34": () => import("./d184_tall34.js")
+  },
+  d185: {
+    base: () => import("./d185.js"),
+    "lowcells": () => import("./d185_lowcells.js"),
+    "cols32": () => import("./d185_cols32.js")
+  },
+  d186: {
+    base: () => import("./d186.js"),
+    "dotp3": () => import("./d186_dotp3.js"),
+    "no2020": () => import("./d186_no2020.js")
+  },
+  d187: {
+    base: () => import("./d187.js"),
+    "shadow90": () => import("./d187_shadow90.js"),
+    "night": () => import("./d187_night.js")
+  },
+  d188: {
+    base: () => import("./d188.js"),
+    "dist300": () => import("./d188_dist300.js"),
+    "dur24": () => import("./d188_dur24.js")
+  },
+  d189: {
+    base: () => import("./d189.js"),
+    "handleout": () => import("./d189_handleout.js"),
+    "clickearly": () => import("./d189_clickearly.js")
+  },
   d19: {
     base: () => import("./d19.js"),
     "shallow": () => import("./d19_shallow.js"),
     "tilt": () => import("./d19_tilt.js")
+  },
+  d190: {
+    base: () => import("./d190.js"),
+    "dist300": () => import("./d190_dist300.js"),
+    "dur24": () => import("./d190_dur24.js")
+  },
+  d191: {
+    base: () => import("./d191.js"),
+    "dist300": () => import("./d191_dist300.js"),
+    "dur24": () => import("./d191_dur24.js")
+  },
+  d192: {
+    base: () => import("./d192.js"),
+    "end8": () => import("./d192_end8.js"),
+    "handle80": () => import("./d192_handle80.js")
+  },
+  d193: {
+    base: () => import("./d193.js"),
+    "zoom4": () => import("./d193_zoom4.js"),
+    "xf05": () => import("./d193_xf05.js")
+  },
+  d194: {
+    base: () => import("./d194.js"),
+    "more": () => import("./d194_more.js"),
+    "short": () => import("./d194_short.js")
   },
   d20: {
     base: () => import("./d20.js"),

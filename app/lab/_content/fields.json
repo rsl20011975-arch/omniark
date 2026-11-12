@@ -124,5 +124,23 @@
     "name": "소리",
     "group": "연출",
     "desc": "효과음·전환음·덕킹·음악·리버브"
+  },
+  {
+    "slug": "spec",
+    "name": "규격·출력",
+    "group": "제작",
+    "desc": "해상도·비율·fps·코덱·자막 파일·안전영역"
+  },
+  {
+    "slug": "tools",
+    "name": "도구·코드",
+    "group": "제작",
+    "desc": "Playwright·ffmpeg·Remotion·GSAP 같은 만드는 도구와 코드 이름"
+  },
+  {
+    "slug": "check",
+    "name": "검수·금지 목록",
+    "group": "제작",
+    "desc": "채점 가능한 검수 명령과 초보 신호 금지 목록"
   }
 ]

@@ -111,9 +111,9 @@ export default function LabHubPage() {
           <div><span className="kicker ko">분야 지도</span><h2>어디서부터 찾아볼까요</h2></div>
           <p>데모와 지시문을 직접 시험한 용어만 공개합니다. 시험이 끝나지 않은 분야는 열지 않습니다.</p>
         </div>
-        {(["기초", "연출"] as const).map((g) => (
+        {(["기초", "연출", "제작"] as const).map((g) => (
           <Fragment key={g}>
-            <div className="glabel">{g} <small>{g === "기초" ? "모든 결과물에 들어가는 시각 요소" : "한 단계 위의 표현 기법"}</small></div>
+            <div className="glabel">{g} <small>{g === "기초" ? "모든 결과물에 들어가는 시각 요소" : g === "연출" ? "한 단계 위의 표현 기법" : "만들고 내보낼 때 알아야 할 규격·도구·검수"}</small></div>
             <div className="fgrid">
               {fields.filter((f) => f.group === g).map((f) => {
                 const list = termsOfField(f.slug);

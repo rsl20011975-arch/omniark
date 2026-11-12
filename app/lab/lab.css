@@ -204,6 +204,7 @@
 .lab-root .fcard h3{font-size:var(--t24)}
 .lab-root .fcard .d{font-size:var(--t14);color:var(--muted);line-height:1.6}
 .lab-root .fcard .tp{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.lab-root .fcard .tp .chip{max-width:100%;height:auto;min-height:24px;padding-block:var(--s1);white-space:normal;line-height:1.4}
 .lab-root .fcard .ct{margin-top:auto;display:flex;justify-content:space-between;align-items:center;font-size:var(--t14);font-weight:600;color:var(--accent)}
 .lab-root .fcard.soon{background:none;border-style:dashed}
 .lab-root .fcard.soon h3,.lab-root .fcard.soon .d,.lab-root .fcard.soon .ct{color:var(--faint)}

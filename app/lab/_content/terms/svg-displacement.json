@@ -1,0 +1,177 @@
+{
+  "order": 157,
+  "slug": "svg-displacement",
+  "name": "SVG 변위 필터(feTurbulence + feDisplacementMap, 열기 일렁임)",
+  "en": "SVG Displacement (feTurbulence + feDisplacementMap)",
+  "field": "mograph",
+  "level": "고급",
+  "purposes": [
+    "분위기",
+    "시선 집중"
+  ],
+  "media": [
+    "웹·앱",
+    "영상"
+  ],
+  "oneLine": "feTurbulence 가 만든 노이즈 그림의 색을 ‘이동량’으로 삼아 feDisplacementMap 이 원본 그림의 픽셀을 밀어, 그림이 아지랑이·물결처럼 일렁이게 하는 SVG 필터",
+  "preview": null,
+  "keywords": [
+    "변위 필터",
+    "일렁임",
+    "아지랑이",
+    "물결 효과",
+    "열기 왜곡",
+    "물속 같은 왜곡",
+    "feTurbulence",
+    "feDisplacementMap",
+    "baseFrequency",
+    "SVG filter",
+    "displacement map",
+    "heat haze",
+    "ripple distortion",
+    "노이즈 지도",
+    "기본 주파수",
+    "옥타브",
+    "시드",
+    "채널 선택",
+    "noise map",
+    "fedisplacementmap",
+    "basefrequency",
+    "numoctaves",
+    "seed",
+    "xchannelselector · ychannelselector"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d156",
+    "prompt": "글자와 그림이 아지랑이처럼 일렁이는 SVG 필터 애니메이션을 만들어줘. 왼쪽에는 필터가 쓰는 노이즈 그림과 값을 보여줘.\n\n- 오른쪽 작품: 보라색 배경에 노랑에서 분홍·보라로 이어지는 해(반지름 84px, 아래쪽에 가로 줄무늬로 오려 냄), 지평선 아래 청록색 격자, 아래쪽에 굵은 글자 FLOW. 이 그림 묶음에 필터를 건다.\n- 필터: feTurbulence(type fractalNoise, baseFrequency 가로 0.02 · 세로 0.05, numOctaves 2, seed 4) 결과를 feDisplacementMap(in SourceGraphic, in2 노이즈, scale 36, xChannelSelector R, yChannelSelector G)의 변위 지도로 쓴다. color-interpolation-filters 는 sRGB.\n- 움직임: 0.4초부터 1.0초 동안 scale 이 0에서 36까지 outCubic 으로 커지고, 이후 scale 이 36의 85~100% 사이로 숨 쉬듯 변한다. baseFrequency 는 ±22% 범위로 천천히 오르내린다.\n- 왼쪽 패널: 같은 feTurbulence 결과를 알파 1로 그린 168×168px 노이즈 지도, baseFrequency · numOctaves · seed · scale · 최대 이동량(±scale/2px)을 코드로 표시하고 ‘빨강은 가로, 초록은 세로 이동, 회색(0.5)은 안 움직임’이라고 적는다.\n- 연출 전: 필터 없이 원본 그림 그대로.\n- 금지: Math.random 으로 매 프레임 노이즈를 새로 만드는 것(seed 고정), 변위 지도를 그림 위에 보이게 올려놓는 것, scale 을 값 자리 아닌 퍼센트로 쓰는 것.",
+    "check": [
+      "필터를 건 연출 후에는 해의 줄무늬와 격자선, FLOW 글자가 물결처럼 휘어 보인다",
+      "연출 전은 해가 완전한 원이고 격자선이 곧은 직선이다",
+      "왼쪽 노이즈 지도는 색이 부드럽게 변하는 구름 무늬이고, 숫자(baseFrequency·scale)가 오른쪽 일렁임과 같은 값이다",
+      "scale 이 커질수록 일렁임 폭이 커진다(0.4초~1.4초 사이)",
+      "이동량 표시(±scale/2)가 scale 숫자의 절반이다"
+    ],
+    "use": [
+      "글자나 로고가 물속에서 보이듯 일렁이게 할 때",
+      "뜨거운 공기(아지랑이) 연출",
+      "글리치·왜곡 전환 효과"
+    ],
+    "tech": [
+      "SVG <filter> 안의 feTurbulence · feDisplacementMap",
+      "CSS filter: url(#필터이름) 로 HTML 요소에도 적용",
+      "필터 속성 baseFrequency · scale 을 JS 또는 SMIL <animate> 로 애니메이션",
+      "WebGL 셰이더: 같은 원리를 GPU 에서(플로우맵·노이즈 UV 왜곡)",
+      "After Effects: Turbulent Displace · Displacement Map 이펙트"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "feTurbulence 는 노이즈 이미지를 만드는 필터 프리미티브로, type(fractalNoise 는 구름처럼 부드럽고 turbulence 는 더 날카로움)·baseFrequency(클수록 무늬가 촘촘함)·numOctaves(겹치는 층 수)·seed(무늬를 정하는 시작 값)를 가집니다. 대개 직접 보이기보다 feDisplacementMap 의 입력으로 씁니다.",
+        "title": "MDN — feTurbulence",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/feTurbulence"
+      },
+      {
+        "state": "확인",
+        "text": "feDisplacementMap 은 in2 의 색 채널 값으로 in 이미지의 픽셀 위치를 옮기며, 이동량은 scale × (채널값 − 0.5) 입니다. 그래서 값이 0.5 이면 움직이지 않고, xChannelSelector·yChannelSelector 로 가로·세로 이동에 쓸 채널(R·G·B·A)을 고릅니다.",
+        "title": "MDN — feDisplacementMap",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Element/feDisplacementMap"
+      }
+    ],
+    "related": [
+      {
+        "name": "입자 모핑",
+        "note": "이펙트·파티클 · 같은 목적: 시선 집중"
+      },
+      {
+        "name": "폭죽·스파크",
+        "note": "이펙트·파티클 · 같은 목적: 분위기"
+      },
+      {
+        "name": "번개·충격",
+        "note": "이펙트·파티클 · 같은 목적: 분위기"
+      }
+    ],
+    "vs": {
+      "bad": "글자가 물속처럼 일렁이게 해줘",
+      "badResult": "필터의 노이즈 주파수와 이동량이 정해지지 않아 거의 안 움직이거나 글자가 읽을 수 없게 찌그러지기 쉽습니다",
+      "good": "feTurbulence baseFrequency 0.02/0.05 + feDisplacementMap scale 36, scale 을 0.4초에 시작해 1.0초 동안 키우기",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "stronger",
+        "title": "일렁임이 너무 약해서 티가 안 나요",
+        "situation": "물결이 약해 원본과 거의 같아 보일 때",
+        "from": "scale 36",
+        "to": "scale 80",
+        "effect": "scale 이 36에서 80으로 커져 최대 이동량이 ±18px에서 ±40px로 늘어 해의 줄무늬와 글자가 크게 휘어집니다. 대신 너무 크면 글자가 알아보기 어려울 만큼 찌그러집니다."
+      },
+      {
+        "id": "finer",
+        "title": "물결이 너무 크고 느슨해요",
+        "situation": "잔물결처럼 촘촘하게 일렁이게 하고 싶을 때",
+        "from": "baseFrequency 가로 0.02",
+        "to": "baseFrequency 가로 0.08",
+        "effect": "노이즈 주파수가 가로 0.02에서 0.08로 커져(세로 0.05에서 0.2) 일렁임이 넓은 물결에서 잘고 촘촘한 잔물결로 바뀝니다. 대신 잔물결이 너무 촘촘하면 글자 윤곽이 거칠게 떨려 보입니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "먼저 필터 없이 원본 그림만 둡니다",
+        "d": "해·격자·글자가 반듯한 기본 상태입니다. 이것이 기준(연출 전)입니다.",
+        "code": "art.setAttribute('filter', 'none');"
+      },
+      {
+        "t": "feTurbulence 와 feDisplacementMap 을 이어 붙입니다",
+        "d": "노이즈 이미지를 만들고(feTurbulence) 그 색을 변위 지도로 써서(feDisplacementMap) 원본 픽셀을 밉니다. 이동량은 scale × (색 − 0.5) 라서 회색(0.5)은 안 움직이고 밝거나 어두운 곳이 서로 반대 방향으로 밀립니다. 이 단계의 scale 은 36으로 고정입니다.",
+        "code": "<filter id=\"wave\" color-interpolation-filters=\"sRGB\">\n  <feTurbulence type=\"fractalNoise\" baseFrequency=\"0.02 0.05\" numOctaves=\"2\" seed=\"4\" result=\"noise\"/>\n  <feDisplacementMap in=\"SourceGraphic\" in2=\"noise\" scale=\"36\" xChannelSelector=\"R\" yChannelSelector=\"G\"/>\n</filter>"
+      },
+      {
+        "t": "시간에 따라 scale 과 주파수를 바꿉니다",
+        "d": "scale 을 0에서 36으로 키워 일렁임이 서서히 시작되게 하고, 이후 scale 과 baseFrequency 를 조금씩 오르내려 일렁임이 살아 움직이게 합니다. 노이즈의 seed 는 고정해 같은 시각이면 항상 같은 그림이 나오게 합니다.",
+        "code": "dm.setAttribute('scale', SCALE * E.outC(seg(t, 0.4, 1.4)));\nturb.setAttribute('baseFrequency', `${f} ${f * 2.5}`);"
+      }
+    ],
+    "terms": [
+      {
+        "w": "노이즈 지도",
+        "en": "Noise map",
+        "m": "구름 같은 무늬로 값을 부드럽게 변하게 한 그림. 변위 필터에서는 ‘얼마나 밀지’를 색으로 적어 둔 지도로 씁니다.",
+        "say": "“fractalNoise 로 노이즈 지도를 만들어줘”"
+      },
+      {
+        "w": "변위 필터",
+        "en": "feDisplacementMap",
+        "m": "지도의 색 값만큼 원본 그림의 픽셀을 옮기는 필터. 회색(0.5)이면 안 움직이고 밝거나 어두우면 반대 방향으로 움직입니다.",
+        "say": "“feDisplacementMap 으로 물결 왜곡을 줘”"
+      },
+      {
+        "w": "기본 주파수",
+        "en": "baseFrequency",
+        "m": "노이즈 무늬가 얼마나 촘촘한지 정하는 값. 크면 잘고 촘촘하고, 작으면 크고 느슨합니다. 가로·세로를 따로 줄 수 있습니다.",
+        "say": "“baseFrequency 가로 0.02 세로 0.05 로”"
+      },
+      {
+        "w": "옥타브",
+        "en": "numOctaves",
+        "m": "노이즈를 몇 겹 겹쳐 더 세밀하게 만들지 정하는 수. 많을수록 자세하지만 계산이 무겁습니다.",
+        "say": "“numOctaves 는 2 로”"
+      },
+      {
+        "w": "시드",
+        "en": "seed",
+        "m": "노이즈 무늬를 정하는 시작 숫자. 같은 값이면 늘 같은 무늬가 나오고 바꾸면 다른 무늬가 나옵니다.",
+        "say": "“seed 는 4 로 고정”"
+      },
+      {
+        "w": "채널 선택",
+        "en": "xChannelSelector · yChannelSelector",
+        "m": "지도의 어느 색 채널(R·G·B·A)을 가로·세로 이동에 쓸지 정하는 값.",
+        "say": "“가로는 R, 세로는 G 채널로 밀어줘”"
+      }
+    ],
+    "levels": 3
+  },
+  "poster": "/lab/posters/svg-displacement.jpg"
+}

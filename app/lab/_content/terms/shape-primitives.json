@@ -1,0 +1,182 @@
+{
+  "order": 151,
+  "slug": "shape-primitives",
+  "name": "도형 프리미티브와 선(사각형·원·타원·선·다각형)",
+  "en": "Shape Primitives & Lines",
+  "field": "mograph",
+  "level": "기본",
+  "purposes": [
+    "설명",
+    "데이터 표현"
+  ],
+  "media": [
+    "영상",
+    "웹·앱",
+    "발표·문서"
+  ],
+  "oneLine": "사각형·둥근 사각형·원·타원·선·꺾은선·다각형처럼 숫자 몇 개만으로 정확히 그려지는 기본 도형과, 선의 두께·끝 모양을 정하는 값 — 모션그래픽의 가장 작은 재료",
+  "preview": null,
+  "keywords": [
+    "도형",
+    "프리미티브",
+    "기본 도형",
+    "사각형",
+    "원",
+    "타원",
+    "선",
+    "꺾은선",
+    "다각형",
+    "둥근 모서리",
+    "선 두께",
+    "선 끝 모양",
+    "rect",
+    "circle",
+    "ellipse",
+    "line",
+    "polyline",
+    "polygon",
+    "stroke-width",
+    "stroke-linecap",
+    "primitive shapes",
+    "도형 프리미티브",
+    "모서리 둥글기",
+    "점 목록",
+    "꺾임 모양",
+    "shape primitives",
+    "rx · ry",
+    "points",
+    "stroke-linejoin"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d150",
+    "prompt": "기본 도형 8가지를 4×2 칸에 하나씩 보여주는 SVG 애니메이션을 만들어줘. 칸마다 도형, 이름, 도형을 정하는 숫자(점·반지름·치수선)가 보여야 해.\n\n- 칸 1 사각형 rect(x 24, y 22, width 70, height 56) / 칸 2 둥근 사각형(같은 크기에 rx 18) / 칸 3 원 circle(cx 72, cy 50, r 32) / 칸 4 타원 ellipse(rx 42, ry 24) / 칸 5 선 line(두께 6px, 양 끝 점 2개) / 칸 6 꺾은선 polyline(점 5개, 두께 6px) / 칸 7 다각형 polygon(정육각형, 점 6개, 마지막 점이 처음과 이어지는 선을 점선으로) / 칸 8 선 끝 모양(butt · round · square 세 줄, 끝 위치에 세로 점선).\n- 칸마다 다른 색(하늘·주황·보라·민트·노랑·분홍·연파랑·살구), 칠은 옅은 그라디언트에 흰 테두리, 선은 둥근 끝(stroke-linecap: round)과 둥근 꺾임.\n- 손잡이: 흰 점은 도형을 정하는 점(꼭짓점·중심·모서리), 노란 글자가 달린 점선은 치수(width·height·r·rx·ry).\n- 칸 이름 아래에 SVG 태그와 속성 이름을 코드로 적는다.\n- 도형은 0.3초부터 0.25초 간격으로 한 칸씩 0.45초 동안 outBack 으로 커지며 나타난다.\n- 연출 전: 도형만 한꺼번에 있고 숫자(손잡이·태그)는 안 보인다.\n- 금지: 도형을 이미지(PNG)로 넣는 것, 같은 색 칸이 있는 것, 선 칸 두께가 칸마다 다른 것.",
+    "check": [
+      "8칸의 도형이 이름과 같다(원은 정원, 타원은 가로로 긴 모양)",
+      "손잡이 점이 도형을 정하는 점(꼭짓점·중심·모서리)에 있다",
+      "둥근 사각형은 같은 사각형에서 모서리만 둥글다",
+      "선 끝 모양 칸에서 butt 는 점선 위치에서 끝나고 round·square 는 점선 밖으로 튀어나온다",
+      "연출 전은 손잡이와 코드 글자 없이 도형만 보인다"
+    ],
+    "use": [
+      "아이콘·도형 모션을 코드로 정확히 그릴 때",
+      "AI에게 ‘동그라미 말고 반지름 32px 원’처럼 구체적으로 말하고 싶을 때",
+      "선 두께와 끝 모양을 바꿔 차트·다이어그램 선을 다듬을 때"
+    ],
+    "tech": [
+      "SVG: <rect> · <circle> · <ellipse> · <line> · <polyline> · <polygon>",
+      "SVG stroke · stroke-width · stroke-linecap · stroke-linejoin",
+      "CSS clip-path: circle() · ellipse() · polygon()(HTML 요소를 도형으로 자를 때)",
+      "After Effects: 셰이프 레이어의 사각형·타원·다각형 도구"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "SVG 의 기본 도형은 rect(x y width height, 모서리는 rx ry), circle(cx cy r), ellipse(cx cy rx ry), line(x1 y1 x2 y2), polyline·polygon(points), path 7가지이며, polygon 은 마지막 점을 처음 점과 자동으로 이어 줍니다.",
+        "title": "MDN — SVG 기본 도형",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Basic_shapes"
+      },
+      {
+        "state": "확인",
+        "text": "stroke-linecap 은 선 끝 모양을 정합니다. butt 는 끝점에서 정확히 끝나고, round 는 반원, square 는 선 두께의 절반만큼 사각형이 끝점 밖으로 더해집니다.",
+        "title": "MDN — stroke-linecap",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/stroke-linecap"
+      }
+    ],
+    "related": [
+      {
+        "name": "지역별 지도",
+        "note": "정보 표현 · 같은 목적: 데이터 표현"
+      },
+      {
+        "name": "어노테이션 그래프",
+        "note": "정보 표현 · 같은 목적: 데이터 표현"
+      },
+      {
+        "name": "워터폴",
+        "note": "정보 표현 · 같은 목적: 데이터 표현"
+      }
+    ],
+    "vs": {
+      "bad": "동그라미랑 네모랑 선 몇 개 그려줘",
+      "badResult": "크기·위치·두께가 정해지지 않아 도형마다 제각각이고 다시 고쳐야 하기 쉽습니다",
+      "good": "원 cx 72 cy 50 r 32, 사각형 x 24 y 22 width 70 height 56 rx 18, 선 두께 6px 둥근 끝",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "slowpop",
+        "title": "도형이 너무 빨리 나타나서 하나하나 못 보겠어요",
+        "situation": "도형 소개를 천천히 따라가고 싶을 때",
+        "from": "0.25초 간격으로",
+        "to": "0.5초 간격으로",
+        "effect": "도형이 나타나는 간격이 0.25초에서 0.5초로 늘어, 1.2초 지점에서 보이는 칸이 4개에서 2개로 줄고 하나씩 소개되는 느낌이 커집니다. 대신 마지막 칸이 나타나는 시각이 1.75초 늦어집니다."
+      },
+      {
+        "id": "thick",
+        "title": "선이 너무 가늘어서 눈에 안 띄어요",
+        "situation": "선·꺾은선이 가늘어 도형보다 약해 보일 때",
+        "from": "두께 6px",
+        "to": "두께 14px",
+        "effect": "선·꺾은선·선 끝 모양 칸의 선 두께가 6px에서 14px로 굵어져 도형 칸과 비슷한 존재감이 생깁니다. 대신 꺾은선의 꺾임이 뭉개지고 선 끝 모양 칸의 차이(butt·round·square)가 더 커 보입니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "먼저 도형만 한꺼번에 보입니다",
+        "d": "8개 도형이 처음부터 다 있고 숫자나 이름표 없이 모양만 있는 기본 상태입니다. 이것이 기준(연출 전)입니다.",
+        "code": "<rect x=\"24\" y=\"22\" width=\"70\" height=\"56\"/>\n<circle cx=\"72\" cy=\"50\" r=\"32\"/>"
+      },
+      {
+        "t": "도형을 정하는 숫자를 보여 줍니다",
+        "d": "사각형은 왼쪽 위 점과 너비·높이, 원은 중심과 반지름, 타원은 중심과 가로·세로 반지름, 선은 두 점, 꺾은선과 다각형은 점 목록으로 정해집니다. 손잡이 점과 치수선, 태그 이름을 함께 보여 줍니다.",
+        "code": "<ellipse cx=\"72\" cy=\"50\" rx=\"42\" ry=\"24\"/>\n<polygon points=\"72,16 101,33 101,67 72,84 43,67 43,33\"/>"
+      },
+      {
+        "t": "하나씩 차례로 만들어 보입니다",
+        "d": "칸마다 0.25초 간격으로 outBack 이징을 걸어 살짝 넘쳤다 자리 잡으며 나타나게 합니다. 선은 stroke-width 와 stroke-linecap 으로 두께와 끝 모양을 정합니다.",
+        "code": "const u = seg(t, T0 + i * STEP, T0 + i * STEP + 0.45);\ncell.style.transform = `scale(${0.55 + 0.45 * E.outBack(u)})`;\nline.setAttribute('stroke-width', 6);\nline.setAttribute('stroke-linecap', 'round');"
+      }
+    ],
+    "terms": [
+      {
+        "w": "도형 프리미티브",
+        "en": "Shape primitives",
+        "m": "숫자 몇 개로 정확히 그려지는 가장 기본적인 도형(사각형·원·타원·선·다각형). 복잡한 그림의 재료입니다.",
+        "say": "“반지름 32px 원 하나로 시작해줘”"
+      },
+      {
+        "w": "모서리 둥글기",
+        "en": "rx · ry",
+        "m": "사각형 모서리를 얼마나 둥글게 깎을지(rx, ry). 값이 클수록 둥글고, 너비의 절반이면 알약 모양이 됩니다.",
+        "say": "“모서리를 rx 18px 로 둥글게”"
+      },
+      {
+        "w": "점 목록",
+        "en": "points",
+        "m": "꺾은선(polyline)과 다각형(polygon)이 꼭짓점을 차례로 적는 속성. 다각형은 마지막 점을 처음 점과 자동으로 이어 줍니다.",
+        "say": "“점 6개로 정육각형 polygon”"
+      },
+      {
+        "w": "선 두께",
+        "en": "stroke-width",
+        "m": "선의 굵기. 숫자가 클수록 굵습니다.",
+        "say": "“선 두께는 6px”"
+      },
+      {
+        "w": "선 끝 모양",
+        "en": "stroke-linecap",
+        "m": "선의 끝을 평평하게(butt), 둥글게(round), 네모로 조금 더 길게(square) 정하는 값.",
+        "say": "“선 끝은 round 로”"
+      },
+      {
+        "w": "꺾임 모양",
+        "en": "stroke-linejoin",
+        "m": "선이 꺾이는 곳을 뾰족하게(miter), 둥글게(round), 깎아서(bevel) 처리하는 값.",
+        "say": "“꺾이는 곳은 둥글게”"
+      }
+    ],
+    "levels": 3
+  },
+  "poster": "/lab/posters/shape-primitives.jpg"
+}

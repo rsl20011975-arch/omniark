@@ -1,0 +1,220 @@
+{
+  "order": 191,
+  "slug": "code-video-tools",
+  "name": "코드로 영상 만드는 도구(Remotion · Motion Canvas · Manim)",
+  "en": "Code-to-Video Tools",
+  "field": "tools",
+  "level": "고급",
+  "purposes": [
+    "설명",
+    "타이밍과 리듬"
+  ],
+  "media": [
+    "영상"
+  ],
+  "oneLine": "편집 프로그램 대신 코드로 장면을 쓰고, 도구가 프레임을 하나씩 계산해 영상으로 만든다. Remotion 은 React, Motion Canvas 는 TypeScript 와 미리보기 편집기, Manim 은 Python 으로 수학 애니메이션을 만든다",
+  "preview": null,
+  "keywords": [
+    "Remotion",
+    "리모션",
+    "Motion Canvas",
+    "모션 캔버스",
+    "Manim",
+    "마님",
+    "코드로 영상",
+    "프로그래밍 영상",
+    "React 영상",
+    "수학 애니메이션",
+    "3Blue1Brown",
+    "프레임 렌더",
+    "useCurrentFrame",
+    "interpolate",
+    "programmatic video",
+    "video as code",
+    "프레임",
+    "컴포지션",
+    "보간",
+    "제너레이터 · yield*",
+    "속도 곡선",
+    "장면",
+    "frame",
+    "composition",
+    "generator",
+    "rate_func",
+    "scene"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d190",
+    "prompt": "같은 공 움직임을 Remotion · Motion Canvas · Manim 이 코드로 어떻게 적고 어떻게 프레임이 되는지 보여주는 애니메이션을 만들어줘. 세 줄(레인)로 나누고, 각 줄 왼쪽에는 그 도구의 코드 5~6줄, 오른쪽에는 공이 움직이는 트랙과 그 아래 ‘렌더된 프레임’ 필름 7칸을 둬.\n\n- 움직임: 공이 오른쪽으로 480px 이동, 0.4초 기다렸다가 1.2초 동안 움직이고 끝에서 감속(outCubic). 초당 30프레임.\n- 줄 1 Remotion: const frame = useCurrentFrame(); interpolate(frame, [12, 48], [0, 480], { easing: Easing.out(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }).\n- 줄 2 Motion Canvas: yield* waitFor(0.4); yield* tween(1.2, value => { ball().position.x(easeOutCubic(value, 0, 480)); }).\n- 줄 3 Manim: self.wait(0.4); self.play(ball.animate.shift(4.8 * RIGHT), run_time=1.2, rate_func=rate_functions.ease_out_cubic).\n- 세 공은 같은 시각에 출발해 같은 시각에 도착해야 해. 트랙 위에 ‘프레임 N (30fps)’ 숫자를 보여줘.\n- 필름 7칸은 0.4초부터 0.2초마다 한 칸씩 켜지며 그 순간 공의 위치를 작게 보여주고, 현재 칸은 노란 테두리.\n- 코드의 숫자(480 또는 4.8, 1.2, 0.4, 프레임 12~48)와 화면 숫자가 서로 같아야 해.\n- 연출 전: Remotion 한 줄만, easing 줄이 없어서 공이 같은 속도로 움직임(interpolate 의 기본은 직선).\n- 금지: 도구마다 공의 속도나 도착 시각이 다른 것, 문서에 없는 함수 이름을 지어내는 것.",
+    "check": [
+      "연출 전은 Remotion 줄 하나뿐이고 코드에 easing 줄이 없으며 공이 같은 속도로 움직인다",
+      "2단계는 easing: Easing.out(Easing.cubic) 줄이 생기고 공이 끝에서 느려진다",
+      "3단계는 줄이 세 개(Remotion · Motion Canvas · Manim)이고 세 공이 같은 시각(0.4초)에 출발해 같은 시각(1.6초)에 도착한다",
+      "코드의 숫자(480 또는 4.8, 1.2, 0.4, 프레임 12 · 48)가 화면의 숫자와 맞는다",
+      "필름 7칸이 0.4초부터 0.2초마다 하나씩 켜지고, 현재 칸에 노란 테두리가 있다"
+    ],
+    "use": [
+      "같은 형식의 영상을 데이터만 바꿔 여러 개 찍어 내야 할 때(코드로 만들기)",
+      "설명 영상의 도형·수식·그래프를 코드로 정확하게 움직이고 싶을 때",
+      "AI에게 영상 제작 도구 이름을 지정해 코드를 쓰게 해야 할 때"
+    ],
+    "tech": [
+      "Remotion: <Composition>(폭·높이·fps·길이) + useCurrentFrame() + interpolate()",
+      "Motion Canvas: makeScene2D 의 제너레이터 함수, yield* tween / 속성 트윈, 편집기 미리보기",
+      "Manim: Scene 의 construct() 안에서 self.play(… .animate …), manim -pql main.py 장면이름 으로 렌더",
+      "ffmpeg: 프레임 이미지를 영상 파일로 묶는 마무리 단계(별도 페이지)"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "Remotion 문서는 ‘컴포지션’을 React 컴포넌트와 영상 정보(width·height·durationInFrames·fps)의 짝으로 설명하고, useCurrentFrame() 이 지금 렌더 중인 프레임 번호(0부터)를 돌려준다고 합니다. 프레임마다 내용을 바꾸면 애니메이션이 됩니다.",
+        "title": "Remotion — The fundamentals",
+        "url": "https://www.remotion.dev/docs/the-fundamentals"
+      },
+      {
+        "state": "확인",
+        "text": "interpolate(input, inputRange, outputRange, options?) 는 프레임 같은 값을 구간에 따라 다른 값으로 바꿉니다. 옵션 easing 은 기본이 직선(linear)이고, extrapolateLeft/Right 의 기본은 extend 이며 clamp 로 구간 밖 값을 끝값에 붙잡을 수 있습니다.",
+        "title": "Remotion — interpolate()",
+        "url": "https://www.remotion.dev/docs/interpolate"
+      },
+      {
+        "state": "확인",
+        "text": "Easing.out(fn) 은 이징 함수를 거꾸로 돌려 ‘끝에서 감속’으로 바꾸고, Easing.inOut, Easing.bezier(…) 도 있으며 Easing.cubic 은 f(t) = t³ 으로 문서화돼 있습니다.",
+        "title": "Remotion — Easing",
+        "url": "https://www.remotion.dev/docs/easing"
+      },
+      {
+        "state": "확인",
+        "text": "Motion Canvas 는 제너레이터로 애니메이션을 프로그래밍하는 TypeScript 라이브러리와 실시간 미리보기 편집기로 이루어져 있고 MIT 라이선스라고 README 에 적혀 있습니다.",
+        "title": "GitHub — motion-canvas/motion-canvas (README)",
+        "url": "https://github.com/motion-canvas/motion-canvas"
+      },
+      {
+        "state": "확인",
+        "text": "트위닝 문서의 예: yield* tween(2, value => { circle().position.x(map(-300, 300, easeInOutCubic(value))); }) 이고 easeInOutCubic(value, -300, 300) 으로 줄여 쓸 수 있습니다. 속성 트윈은 세 번째 인자로 타이밍 함수를 받습니다(예: circle().color('#e13238', 2, easeOutQuad)).",
+        "title": "Motion Canvas — Tweening",
+        "url": "https://motioncanvas.io/docs/tweening"
+      },
+      {
+        "state": "확인",
+        "text": "Motion Canvas API 문서에 waitFor(seconds)(‘주어진 시간만큼 기다린다’)와 easeOutCubic · easeInOutCubic · easeOutQuad 같은 타이밍 함수가 실려 있습니다.",
+        "title": "Motion Canvas — API (flow · tweening)",
+        "url": "https://motioncanvas.io/api/core/flow"
+      },
+      {
+        "state": "확인",
+        "text": "Manim(수학 애니메이션 엔진)은 파이썬으로 쓰는 무료 오픈소스 엔진이며 MIT 라이선스, 그랜트 샌더슨이 2015년 초 개발을 시작했고 3Blue1Brown 영상에 쓰였다고 정리돼 있습니다. 커뮤니티가 관리하는 포크도 있습니다.",
+        "title": "Wikipedia — Manim",
+        "url": "https://en.wikipedia.org/wiki/Manim"
+      },
+      {
+        "state": "확인",
+        "text": "Manim 문서: Scene 의 construct() 안에서 self.play(square.animate.shift(UP), run_time=3) 처럼 .animate 로 변화를 애니메이션하고 run_time 이 길이(기본 1초), self.wait(1) 이 멈춤입니다. 렌더 명령 예는 manim -pql main.py CreateCircle 입니다.",
+        "title": "Manim Docs — Quickstart · Building blocks",
+        "url": "https://docs.manim.community/en/stable/tutorials/building_blocks.html"
+      },
+      {
+        "state": "확인",
+        "text": "Manim 의 rate_func 는 상대 시간에 따른 진행도를 정하는 함수이며 기본값은 smooth 입니다. rate_functions 모듈에 linear, ease_out_cubic, ease_in_out_cubic 등이 있습니다.",
+        "title": "Manim Docs — rate_functions",
+        "url": "https://docs.manim.community/en/stable/reference/manim.utils.rate_functions.html"
+      }
+    ],
+    "related": [
+      {
+        "name": "지연·홀드·루프(시간을 다루는 값 3가지)",
+        "note": "움직임 · 같은 목적: 타이밍과 리듬"
+      },
+      {
+        "name": "호흡과 감정 곡선(빠름·느림을 번갈아 두고, 장면마다 메시지 하나)",
+        "note": "서사·구성 · 같은 목적: 타이밍과 리듬"
+      },
+      {
+        "name": "서사와 시리즈 떡밥 설계(심고 · 상기하고 · 회수하는 지도)",
+        "note": "서사·구성 · 같은 목적: 설명"
+      }
+    ],
+    "vs": {
+      "bad": "코드로 공이 움직이는 영상을 만들어줘",
+      "badResult": "어떤 도구를 쓸지, 몇 프레임·몇 초인지 정해지지 않아 결과를 다시 만들기 어렵기 쉽습니다",
+      "good": "Remotion 으로 30fps, 12프레임에 출발해 48프레임에 도착하는 공을 interpolate 와 Easing.out(Easing.cubic) 으로, 480px 이동",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "dist300",
+        "title": "공이 너무 멀리 가요",
+        "situation": "화면 폭에 비해 이동 거리가 클 때",
+        "from": "공이 오른쪽으로 480px 이동",
+        "to": "공이 오른쪽으로 300px 이동",
+        "effect": "세 줄의 공이 도착하는 자리가 왼쪽으로 가까워지고 코드의 숫자가 480 에서 300 으로(Manim 은 4.8 에서 3.0 으로) 바뀝니다. 같은 1.2초에 가는 거리가 줄어 속도는 느려 보입니다."
+      },
+      {
+        "id": "dur24",
+        "title": "움직임이 너무 빨라요",
+        "situation": "공이 휙 지나가서 감속이 보이지 않을 때",
+        "from": "1.2초 동안 움직이고",
+        "to": "2.4초 동안 움직이고",
+        "effect": "Remotion 의 프레임 구간이 [12, 48] 에서 [12, 84] 로 바뀌고 Motion Canvas · Manim 의 시간도 2.4초가 됩니다. 필름 7칸의 공 위치가 천천히 벌어지고, 1.0초에는 공이 길의 약 88% 에서 58% 지점에 있습니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "먼저 기본값으로 움직여 봅니다",
+        "d": "Remotion 은 지금 프레임 번호(0, 1, 2 …)를 알려 주고, interpolate 가 그 번호를 위치로 바꿉니다. 이징을 따로 주지 않으면 직선이라 공이 같은 속도로 움직입니다. 12프레임(0.4초)에 출발해 48프레임(1.6초)에 도착합니다. 이것이 기준(연출 전)입니다.",
+        "code": "const frame = useCurrentFrame();\nconst x = interpolate(frame, [12, 48], [0, 480], {\n  extrapolateLeft: 'clamp',\n  extrapolateRight: 'clamp',\n});"
+      },
+      {
+        "t": "끝에서 감속하는 easing 을 겁니다",
+        "d": "easing 한 줄을 더해 Easing.out(Easing.cubic) 으로 바꿉니다. out 은 곡선을 거꾸로 돌려 ‘끝에서 감속’으로 만듭니다. 숫자는 그대로입니다.",
+        "code": "const x = interpolate(frame, [12, 48], [0, 480], {\n  easing: Easing.out(Easing.cubic),\n  extrapolateLeft: 'clamp',\n  extrapolateRight: 'clamp',\n});"
+      },
+      {
+        "t": "같은 움직임을 다른 도구는 어떻게 적는지 봅니다",
+        "d": "Motion Canvas 는 제너레이터에서 yield* 로 ‘기다리기·움직이기’를 순서대로 적고, Manim 은 Python 에서 self.wait 와 self.play 를 순서대로 적습니다. 둘 다 시간(초)으로 적고, Remotion 은 프레임 번호로 적는다는 점이 다릅니다.",
+        "code": "self.wait(0.4)\nself.play(\n    ball.animate.shift(4.8 * RIGHT),\n    run_time=1.2,\n    rate_func=rate_functions.ease_out_cubic,\n)"
+      }
+    ],
+    "terms": [
+      {
+        "w": "프레임",
+        "en": "Frame",
+        "m": "영상을 이루는 정지 이미지 한 장. 30fps 면 1초에 30장이고, 도구가 한 장씩 계산해 이어 붙입니다.",
+        "say": "“30fps 로 12프레임에 출발해 48프레임에 도착”"
+      },
+      {
+        "w": "컴포지션",
+        "en": "Composition",
+        "m": "Remotion 에서 영상 하나의 설계도. 폭·높이·fps·길이와 그릴 React 컴포넌트를 묶습니다.",
+        "say": "“1920×1080, 30fps, 150프레임 컴포지션”"
+      },
+      {
+        "w": "보간",
+        "en": "Interpolate",
+        "m": "구간의 시작값과 끝값 사이를 자동으로 채우는 계산. 프레임 번호를 위치로 바꿉니다.",
+        "say": "“interpolate 로 프레임을 x 위치에 연결”"
+      },
+      {
+        "w": "제너레이터 · yield*",
+        "en": "Generator",
+        "m": "Motion Canvas 에서 ‘여기까지 재생하고 다음 줄로’를 순서대로 쓰게 해 주는 JavaScript 문법.",
+        "say": "“yield* 로 0.4초 기다린 뒤 이동”"
+      },
+      {
+        "w": "속도 곡선",
+        "en": "rate_func",
+        "m": "Manim 에서 시간에 따른 진행도를 정하는 함수. 기본은 smooth, 끝에서 감속은 ease_out_cubic 입니다.",
+        "say": "“rate_func 는 ease_out_cubic”"
+      },
+      {
+        "w": "장면",
+        "en": "Scene",
+        "m": "Manim 에서 영상 한 편(또는 한 장면)을 만드는 클래스. construct() 안에 순서대로 적습니다.",
+        "say": "“Scene 클래스의 construct 에 적어줘”"
+      }
+    ],
+    "levels": 3
+  },
+  "poster": "/lab/posters/code-video-tools.jpg"
+}

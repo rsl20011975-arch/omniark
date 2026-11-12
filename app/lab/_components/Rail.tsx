@@ -60,9 +60,9 @@ export default function Rail({ fields, terms }: Props) {
       </nav>
       <details className="tree" open ref={tree}>
         <summary>분야 목차</summary>
-        {(["기초", "연출"] as const).map((g) => (
+        {(["기초", "연출", "제작"] as const).map((g) => (
           <div key={g}>
-            <h4>{g === "기초" ? "기초 요소" : "연출 분야"}</h4>
+            <h4>{g === "기초" ? "기초 요소" : g === "연출" ? "연출 분야" : "제작 참고"}</h4>
             {fields.filter((f) => f.group === g).map((f) => {
               const list = terms.filter((t) => t.field === f.slug);
               if (list.length === 0) {

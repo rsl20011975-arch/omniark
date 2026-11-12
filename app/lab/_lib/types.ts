@@ -1,4 +1,4 @@
-export type Field = { slug: string; name: string; group: "기초" | "연출"; desc: string };
+export type Field = { slug: string; name: string; group: "기초" | "연출" | "제작"; desc: string };
 
 export type Ref = { state: "확인" | "추정" | "원본 없음"; text: string; title: string | null; url: string | null };
 

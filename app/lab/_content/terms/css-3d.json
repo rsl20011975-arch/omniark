@@ -1,0 +1,193 @@
+{
+  "order": 148,
+  "slug": "css-3d",
+  "name": "CSS 3D(원근 · rotateX/Y · translateZ · preserve-3d)",
+  "en": "CSS 3D Transforms",
+  "field": "motion",
+  "level": "중급",
+  "purposes": [
+    "공간감",
+    "미래형 인터페이스"
+  ],
+  "media": [
+    "웹·앱",
+    "영상"
+  ],
+  "oneLine": "평평한 화면 요소를 앞뒤로 돌리고 밀어서, 입체 공간에 놓인 물체처럼 보이게 하는 방법 — 원근(perspective)·회전(rotateX/Y)·앞뒤 이동(translateZ)·입체 유지(preserve-3d) 네 가지를 함께 쓴다",
+  "preview": null,
+  "keywords": [
+    "CSS 3D",
+    "3D 변환",
+    "원근",
+    "perspective",
+    "rotateX",
+    "rotateY",
+    "translateZ",
+    "preserve-3d",
+    "큐브",
+    "3D 카드",
+    "입체 효과",
+    "depth",
+    "3D transform",
+    "입체 유지",
+    "x축 회전",
+    "y축 회전",
+    "앞뒤 이동",
+    "소실점",
+    "transform-style: preserve-3d",
+    "rotatex",
+    "rotatey",
+    "translatez",
+    "perspective-origin"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d147",
+    "prompt": "CSS 3D 변환의 네 가지 값을 한 화면에서 보여주는 애니메이션을 만들어줘. 왼쪽은 회전하는 큐브, 오른쪽은 앞뒤로 벌어지는 층 카드.\n\n- 왼쪽: 한 변 120px 큐브(면 6개: 앞·뒤·오른쪽·왼쪽·위·아래, 면마다 밝기가 다른 파란 그라디언트와 글자). rotateX(-22deg) 로 고정하고 rotateY 를 25°에서 135°까지 0.4초에 출발해 2.4초 동안 easeInOut 으로 돌린다.\n- 오른쪽: 층 카드 3장(배경판 196×124 청록, 카드 150×84 주황, 버튼 84×34 흰색)이 같은 자리에서 시작해 translateZ 로 각각 -40px, 0, +40px 로 벌어진다. 전체는 rotateX(-14deg) 에 rotateY 를 -30°에서 -50°로.\n- 두 장면의 부모에 perspective: 600px 를 주고, 큐브와 층 카드 묶음에는 transform-style: preserve-3d 를 준다.\n- 각 패널 아래에 지금 perspective·rotate·translateZ 값을 코드로 표시.\n- 연출 전: 3D 값 없이 평면 — 큐브는 앞면 정사각형 하나, 층 카드는 한 장처럼 겹쳐 보임.\n- 금지: 3D 부모(preserve-3d 요소)에 overflow: hidden·opacity<1·filter 를 주는 것(입체가 납작해진다), perspective 를 자식이 아니라 회전하는 요소 자신에 주는 것, 등속 회전.",
+    "check": [
+      "연출 후 큐브에서 면이 한 번에 3개까지 보이고, 도는 동안 보이는 면이 바뀐다",
+      "멀리 있는 면이 가까운 면보다 작게 보인다(원근 600px)",
+      "층 카드 3장이 서로 다른 깊이로 벌어져 보인다(버튼이 가장 앞)",
+      "패널 아래 perspective·rotate·translateZ 값이 화면 상태와 맞는다",
+      "연출 전은 큐브가 정사각형 한 면으로, 층 카드가 한 장처럼 보인다"
+    ],
+    "use": [
+      "카드가 입체로 뒤집히거나 기울어지는 인터페이스",
+      "층층이 쌓인 화면(배경·카드·버튼)을 앞뒤로 벌려 보여 줄 때",
+      "큐브·상자 같은 입체 도형을 코드만으로 보여 줄 때"
+    ],
+    "tech": [
+      "CSS perspective(부모 요소에)",
+      "CSS transform: rotateX() · rotateY() · translateZ()",
+      "CSS transform-style: preserve-3d",
+      "CSS perspective-origin · backface-visibility",
+      "Three.js(진짜 3D가 필요할 때)"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "perspective 는 z=0 평면과 보는 사람 사이 거리를 정해 입체감을 줍니다. 부모 요소에 주면 자식에게 적용되고, 값이 작을수록 원근 변화가 큽니다.",
+        "title": "MDN — perspective",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/perspective"
+      },
+      {
+        "state": "확인",
+        "text": "transform-style: preserve-3d 는 자식을 3D 공간에 그대로 놓습니다(기본값 flat 은 자식을 평면에 납작하게 합니다). overflow·opacity·filter 등이 걸리면 flat 으로 바뀔 수 있다고 주의합니다.",
+        "title": "MDN — transform-style",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style"
+      },
+      {
+        "state": "확인",
+        "text": "rotateX() 는 가로 축을 기준으로 요소를 돌리며 양수 각도는 시계 방향입니다.",
+        "title": "MDN — rotateX()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotateX"
+      },
+      {
+        "state": "확인",
+        "text": "translateZ() 는 요소를 보는 쪽(양수) 또는 먼 쪽(음수)으로 옮기며, 눈에 보이게 하려면 perspective 가 필요합니다.",
+        "title": "MDN — translateZ()",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translateZ"
+      }
+    ],
+    "related": [
+      {
+        "name": "2.5D 패럴랙스",
+        "note": "인터랙티브 웹 · 같은 목적: 공간감"
+      },
+      {
+        "name": "HUD 스캔",
+        "note": "FUI·HUD·홀로그램 · 같은 목적: 미래형 인터페이스"
+      },
+      {
+        "name": "분위기 입자",
+        "note": "이펙트·파티클 · 같은 목적: 공간감"
+      }
+    ],
+    "vs": {
+      "bad": "카드와 큐브가 3D로 돌아가게 해줘",
+      "badResult": "원근이나 입체 유지 값이 빠져 납작하게 겹치거나 깊이가 느껴지지 않기 쉽습니다",
+      "good": "부모 perspective: 600px, 큐브 preserve-3d, rotateX -22° · rotateY 25°→135° 2.4초",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "strong",
+        "title": "입체감이 너무 약해요(멀고 가까운 차이가 안 보여요)",
+        "situation": "원근이 약해 큐브가 평평한 도형처럼 보일 때",
+        "from": "perspective: 600px",
+        "to": "perspective: 250px",
+        "effect": "원근 거리가 600px에서 250px로 가까워져, 큐브의 가까운 면은 훨씬 크고 먼 면은 훨씬 작아집니다. 대신 값이 너무 작으면 가까운 모서리가 화면 밖으로 터져 나오고 왜곡이 심해집니다."
+      },
+      {
+        "id": "wide",
+        "title": "층이 너무 붙어 있어서 앞뒤 차이를 모르겠어요",
+        "situation": "층 카드 사이 깊이 차이가 작아 보일 때",
+        "from": "translateZ 로 각각 -40px, 0, +40px",
+        "to": "translateZ 로 각각 -90px, 0, +90px",
+        "effect": "층 사이 간격이 40px에서 90px로 넓어져 버튼이 카드보다 훨씬 앞으로, 배경판이 훨씬 뒤로 보입니다. 대신 간격이 너무 크면 층이 서로 떨어진 별개의 물체처럼 보입니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "먼저 모든 것이 평면입니다",
+        "d": "큐브는 앞면 정사각형 하나, 층 카드는 겹쳐 보이는 한 장입니다. 3D 값이 하나도 없는 기본 상태이며 이것이 기준(연출 전)입니다.",
+        "code": "cube.style.transform = 'none';\nscene.style.perspective = 'none';"
+      },
+      {
+        "t": "rotateX/rotateY 와 preserve-3d 로 입체를 만듭니다",
+        "d": "회전축을 가로(X)·세로(Y)로 돌리고, 자식이 입체를 유지하도록 preserve-3d 를 줍니다. 원근(perspective)이 아직 없어서 멀리 있는 면도 가까운 면과 같은 크기로 보입니다.",
+        "code": "cube.style.transformStyle = 'preserve-3d';\ncube.style.transform = `rotateX(-22deg) rotateY(${ry}deg)`;"
+      },
+      {
+        "t": "부모에 perspective 를 줍니다",
+        "d": "perspective: 600px 를 부모에 주면 멀리 있는 면이 작아지고 가까운 면이 커져 깊이가 느껴집니다. 값이 작을수록 원근이 강합니다.",
+        "code": "scene.style.perspective = '600px';   // 부모에 준다"
+      },
+      {
+        "t": "translateZ 로 층을 앞뒤로 벌립니다",
+        "d": "층마다 translateZ 를 달리 주면 같은 자리의 카드들이 앞뒤로 떨어져 보입니다. 앞으로 나온 층(+)이 크고, 뒤로 간 층(-)이 작아집니다.",
+        "code": "layers[0].style.transform = 'translateZ(-40px)';\nlayers[1].style.transform = 'translateZ(0px)';\nlayers[2].style.transform = 'translateZ(40px)';"
+      }
+    ],
+    "terms": [
+      {
+        "w": "원근",
+        "en": "perspective",
+        "m": "보는 사람과 화면 사이 거리를 정해, 멀리 있는 것을 작게 보이게 하는 값. 부모 요소에 줍니다. 숫자가 작을수록 원근이 강합니다.",
+        "say": "“부모에 perspective: 600px 를 줘서 원근감 있게”"
+      },
+      {
+        "w": "입체 유지",
+        "en": "transform-style: preserve-3d",
+        "m": "자식 요소가 평면으로 납작해지지 않고 3D 공간에 서 있게 하는 값. 이것이 없으면 큐브의 면이 겹쳐 납작해집니다.",
+        "say": "“큐브에 preserve-3d 를 줘서 면이 입체로 서게”"
+      },
+      {
+        "w": "X축 회전",
+        "en": "rotateX",
+        "m": "가로 축을 기준으로 앞뒤로 젖히는 회전. 위쪽이 뒤로 눕거나 앞으로 나옵니다.",
+        "say": "“rotateX(-22deg) 로 위에서 내려다보는 각도”"
+      },
+      {
+        "w": "Y축 회전",
+        "en": "rotateY",
+        "m": "세로 축을 기준으로 좌우로 도는 회전. 카드를 뒤집을 때 씁니다.",
+        "say": "“rotateY 를 25°에서 135°까지 돌려줘”"
+      },
+      {
+        "w": "앞뒤 이동",
+        "en": "translateZ",
+        "m": "요소를 보는 사람 쪽(+)이나 먼 쪽(-)으로 옮기는 값. 원근이 있을 때만 크기 차이로 보입니다.",
+        "say": "“버튼은 translateZ(40px) 로 앞으로 빼줘”"
+      },
+      {
+        "w": "소실점",
+        "en": "perspective-origin",
+        "m": "멀어지는 선들이 모이는 점(기본은 가운데). 옮기면 보는 위치가 바뀐 것처럼 보입니다.",
+        "say": "“소실점을 왼쪽 위로”"
+      }
+    ],
+    "levels": 4
+  },
+  "poster": "/lab/posters/css-3d.jpg"
+}

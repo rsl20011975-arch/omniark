@@ -1,0 +1,179 @@
+{
+  "order": 147,
+  "slug": "offset-path",
+  "name": "경로 따라 이동(offset-path, 곡선 위를 지나가는 움직임)",
+  "en": "Motion Path (offset-path)",
+  "field": "motion",
+  "level": "중급",
+  "purposes": [
+    "시선 집중",
+    "행동 안내"
+  ],
+  "media": [
+    "웹·앱",
+    "영상"
+  ],
+  "oneLine": "곡선이나 도형 모양의 길을 하나 정해 주면, 요소가 그 길 위를 따라 움직이고 진행 방향으로 몸을 돌리는 방법 — 직선으로만 움직이는 것에서 벗어난다",
+  "preview": null,
+  "keywords": [
+    "경로 따라 이동",
+    "곡선 이동",
+    "경로 애니메이션",
+    "길 따라가기",
+    "모션 패스",
+    "offset-path",
+    "offset-distance",
+    "offset-rotate",
+    "motion path",
+    "follow path",
+    "path animation",
+    "오프셋 패스",
+    "오프셋 디스턴스",
+    "오프셋 로테이트",
+    "경로",
+    "진행 방향 정렬",
+    "눈금(퍼센트)",
+    "path",
+    "orient to path",
+    "percentage along path"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d146",
+    "prompt": "카드 하나가 S자 곡선 길을 따라 이동하는 애니메이션을 만들어줘. 길과 지나간 자국이 화면에 보이게.\n\n- 길: 시작 (60, 270) 에서 끝 (580, 110) 까지 부드러운 S자 곡선(SVG path). 길 위에 0·25·50·75·100% 눈금 점과 숫자를 표시.\n- 카드: 96×54px, 파란색에서 보라색으로 이어지는 그라디언트, 오른쪽 끝에 진행 방향을 가리키는 흰 꺾쇠.\n- CSS offset-path: path(\"...\") 로 길을 주고 offset-distance 를 0%에서 100%로, 0.5초에 출발해 2.4초 동안 easeInOut 으로 움직인다.\n- offset-rotate: auto 로 카드가 곡선의 방향에 맞춰 돌게 한다.\n- 카드가 지나간 길은 하늘색에서 보라색으로 이어지는 선으로 칠하고, 은은한 빛 번짐을 겹친다.\n- 왼쪽 아래에 지금 offset-distance 값과 offset-rotate 값을 코드로 표시.\n- 연출 전: 카드가 translate 로 시작점에서 끝점까지 직선으로 가고, 방향도 그대로.\n- 금지: transform 으로 곡선 위 좌표를 프레임마다 직접 계산해 넣는 것, 카드가 길에서 벗어나는 것, 등속 이동.",
+    "check": [
+      "카드의 중심이 S자 길 위에서 벗어나지 않는다",
+      "카드의 꺾쇠가 늘 길의 진행 방향을 가리킨다(연출 후)",
+      "길을 따라 지나간 자국이 카드 뒤쪽에만 칠해진다",
+      "왼쪽 아래 offset-distance 숫자가 0%에서 100%로 늘어난다",
+      "연출 전은 카드가 직선으로 가며 방향이 바뀌지 않는다"
+    ],
+    "use": [
+      "카드나 아이콘이 곡선을 그리며 장바구니로 날아가는 연출",
+      "지도·로드맵에서 점이 정해진 길을 따라 이동할 때",
+      "비행기·자동차·화살표처럼 방향이 있는 물체가 길을 따라 돌며 나아갈 때"
+    ],
+    "tech": [
+      "CSS offset-path: path() · ray() · 도형 함수",
+      "CSS offset-distance · offset-rotate · offset-anchor",
+      "CSS @keyframes 로 offset-distance 0% → 100%",
+      "SVG path 로 길 그리기(눈으로 보이는 선)",
+      "GSAP: MotionPathPlugin"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "offset-path 는 요소가 따라갈 길(경로)을 정하는 속성이며, path()·ray()·도형 함수 등을 값으로 쓸 수 있습니다. 이 속성만으로는 움직이지 않고 offset-distance 로 위치를 정해야 합니다.",
+        "title": "MDN — offset-path",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path"
+      },
+      {
+        "state": "확인",
+        "text": "offset-distance 는 길 위의 위치를 정하며, 퍼센트는 길 전체 길이에 대한 비율이라 0%가 시작, 100%가 끝입니다. 키프레임으로 0%에서 100%로 바꿔 요소를 움직입니다.",
+        "title": "MDN — offset-distance",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance"
+      },
+      {
+        "state": "확인",
+        "text": "offset-rotate 는 길을 따라가는 요소의 방향을 정합니다. auto 는 길의 진행 방향을 따라 돌고, auto 뒤에 각도를 더하면 그만큼 더 돕니다.",
+        "title": "MDN — offset-rotate",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/offset-rotate"
+      }
+    ],
+    "related": [
+      {
+        "name": "젤리 바운스",
+        "note": "움직임 · 같은 목적: 시선 집중"
+      },
+      {
+        "name": "등장 6종",
+        "note": "움직임 · 같은 목적: 행동 안내"
+      },
+      {
+        "name": "키네틱 자막",
+        "note": "움직임 · 같은 목적: 시선 집중"
+      }
+    ],
+    "vs": {
+      "bad": "카드가 곡선으로 부드럽게 날아가게 해줘",
+      "badResult": "어떤 길을 따라 얼마 동안 가는지, 방향을 돌리는지 정해지지 않아 직선이거나 어색하게 흔들리기 쉽습니다",
+      "good": "S자 path 를 offset-path 로 주고 offset-distance 0%→100%, 2.4초 easeInOut, offset-rotate: auto",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "fast",
+        "title": "카드가 너무 느리게 가요",
+        "situation": "이동이 길게 느껴져 답답할 때",
+        "from": "2.4초 동안 easeInOut",
+        "to": "1.2초 동안 easeInOut",
+        "effect": "길을 지나가는 시간이 2.4초에서 1.2초로 짧아져, 같은 1.1초 지점에서 카드가 길의 6% 지점에서 50% 지점까지 가 있습니다. 대신 곡선 중간에서 방향이 바뀌는 모습을 눈으로 따라가기 어려워집니다."
+      },
+      {
+        "id": "side",
+        "title": "카드가 옆으로 서서 가요(앞이 길 쪽이 아니에요)",
+        "situation": "그림이 위나 옆을 보고 있어 진행 방향과 맞지 않을 때",
+        "from": "offset-rotate: auto 로",
+        "to": "offset-rotate: auto 90deg 로",
+        "effect": "카드가 길의 진행 방향에서 90° 더 돌아 꺾쇠가 길과 직각 방향을 가리킵니다. 그림의 앞쪽이 위나 옆일 때 이렇게 각도를 더해 맞춥니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "먼저 카드가 직선으로 이동합니다",
+        "d": "시작점에서 끝점까지 좌표만 바꿔 직선으로 옮기는 기본 상태입니다. 곡선 길이 있어도 카드는 그 위를 지나지 않습니다. 이것이 기준(연출 전)입니다.",
+        "code": "card.style.transform = `translate(${lerp(x0, x1, p)}px, ${lerp(y0, y1, p)}px)`;"
+      },
+      {
+        "t": "길(offset-path)을 주고 offset-distance 로 움직입니다",
+        "d": "길을 path() 로 주고 offset-distance 를 0%에서 100%로 바꾸면 카드가 곡선 위를 지나갑니다. 좌표를 직접 계산할 필요가 없습니다. 이 단계에서는 offset-rotate 를 0deg 로 두어 카드가 방향을 바꾸지 않고 처음 모양 그대로 움직입니다.",
+        "code": "card.style.offsetPath = `path(\"${PATH}\")`;\ncard.style.offsetDistance = `${p * 100}%`;\ncard.style.offsetRotate = '0deg';"
+      },
+      {
+        "t": "offset-rotate: auto 로 진행 방향을 따라 돌게 합니다",
+        "d": "auto 를 주면 곡선이 기울어지는 만큼 카드가 돌아서 꺾쇠가 늘 가는 쪽을 가리킵니다. auto 뒤에 각도를 붙이면(예: auto 90deg) 그림이 옆을 보고 있을 때 앞쪽을 맞출 수 있습니다.",
+        "code": "card.style.offsetRotate = 'auto';        // 진행 방향으로 돎\ncard.style.offsetRotate = 'auto 90deg';  // 진행 방향 + 90°"
+      }
+    ],
+    "terms": [
+      {
+        "w": "오프셋 패스",
+        "en": "offset-path",
+        "m": "요소가 따라갈 길을 정하는 CSS 속성. 곡선(path)이나 도형, 직선(ray)을 길로 줄 수 있습니다.",
+        "say": "“offset-path 로 이 곡선을 따라가게 해줘”"
+      },
+      {
+        "w": "오프셋 디스턴스",
+        "en": "offset-distance",
+        "m": "길 위에서 요소의 위치. 0%가 시작, 100%가 끝이며 이 값을 바꾸면 움직입니다.",
+        "say": "“offset-distance 를 0%에서 100%로 2.4초 동안”"
+      },
+      {
+        "w": "오프셋 로테이트",
+        "en": "offset-rotate",
+        "m": "길을 따라갈 때 요소가 어느 방향을 보게 할지 정하는 값. auto 는 길의 방향을 따라 돕니다.",
+        "say": "“offset-rotate: auto 로 진행 방향을 보게”"
+      },
+      {
+        "w": "경로",
+        "en": "Path",
+        "m": "점들을 이어 만든 선(직선·곡선). 움직임에서는 요소가 지나갈 ‘길’을 뜻합니다.",
+        "say": "“S자 곡선 경로 위로 이동”"
+      },
+      {
+        "w": "진행 방향 정렬",
+        "en": "Orient to path",
+        "m": "움직이는 물체의 앞이 길이 향하는 쪽을 보게 돌려 주는 것. 자동차나 비행기가 길을 따라 돌 때 쓰입니다.",
+        "say": "“진행 방향에 맞춰 회전”"
+      },
+      {
+        "w": "눈금(퍼센트)",
+        "en": "Percentage along path",
+        "m": "길 전체를 100으로 보고 지금 어디쯤인지 부르는 말. 50%는 길의 정확히 가운데(길이 기준)입니다.",
+        "say": "“50% 지점에서 잠깐 멈춰줘”"
+      }
+    ],
+    "levels": 3
+  },
+  "poster": "/lab/posters/offset-path.jpg"
+}
