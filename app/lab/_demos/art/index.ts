@@ -57,6 +57,11 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "slowsweep": () => import("./d10_slowsweep.js"),
     "decode": () => import("./d10_decode.js")
   },
+  d100: {
+    base: () => import("./d100.js"),
+    "label": () => import("./d100_label.js"),
+    "fast": () => import("./d100_fast.js")
+  },
   d11: {
     base: () => import("./d11.js"),
     "dense": () => import("./d11_dense.js"),
@@ -491,5 +496,15 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     base: () => import("./d97.js"),
     "cool": () => import("./d97_cool.js"),
     "soft": () => import("./d97_soft.js")
+  },
+  d98: {
+    base: () => import("./d98.js"),
+    "even": () => import("./d98_even.js"),
+    "pip": () => import("./d98_pip.js")
+  },
+  d99: {
+    base: () => import("./d99.js"),
+    "slow": () => import("./d99_slow.js"),
+    "dissolve": () => import("./d99_dissolve.js")
   },
 };
