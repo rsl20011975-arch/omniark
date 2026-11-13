@@ -53,6 +53,7 @@ export const metadata: Metadata = {
 
 const navigation = [
   { name: "제품·서비스", href: "/products" },
+  { name: "Visual Lab", href: "/lab" },
   { name: "소개", href: "/about" },
 ];
 
