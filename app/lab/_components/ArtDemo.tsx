@@ -166,16 +166,32 @@ export default function ArtDemo({ load, label, level = null, allowSplit = false 
   const showSplit = allowSplit && !meta.noCompare && mode === "split";
 
   return (
-    <div className="demo">
+    <div className={allowSplit ? "demo demo-split" : "demo"}>
       <div className={showSplit ? "artgrid" : "artgrid single"}>
-        <div className="artstage" ref={stage} role="img" aria-label={`${label} 움직이는 예제`}>
-          <div className="artsp" ref={sp} />
-          <div className="artbadge" ref={badge} />
+        <div className="artpane">
+          {allowSplit && !meta.noCompare && (
+            <div className="arthead">
+              <span className={mode === "after" ? "arttag after" : "arttag"}>{mode === "after" ? "연출 후" : "연출 전"}</span>
+              <span className="artsub">{mode === "after" ? "완성본" : "흔한 첫 결과"}</span>
+            </div>
+          )}
+          <div className="artstage" ref={stage} role="img" aria-label={`${label} 움직이는 예제`}>
+            <div className="artsp" ref={sp} />
+            <div className="artbadge" ref={badge} />
+          </div>
         </div>
         {allowSplit && (
-          <div className="artstage artstage-after" ref={stage2} role="img" aria-label={`${label} 연출 후 예제`}>
-            <div className="artsp" ref={sp2} />
-            <div className="artbadge after" ref={badge2} />
+          <div className="artpane artpane-after">
+            {!meta.noCompare && (
+              <div className="arthead">
+                <span className="arttag after">연출 후</span>
+                <span className="artsub">완성본</span>
+              </div>
+            )}
+            <div className="artstage artstage-after" ref={stage2} role="img" aria-label={`${label} 연출 후 예제`}>
+              <div className="artsp" ref={sp2} />
+              <div className="artbadge after" ref={badge2} />
+            </div>
           </div>
         )}
       </div>

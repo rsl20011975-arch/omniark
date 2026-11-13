@@ -440,10 +440,20 @@
 .site-shell:has(.lab-root)>.site-main{width:100%;max-width:none;margin:0;padding:0}
 
 /* 아티팩트 데모 무대(640x360 가상 공간을 가로폭에 맞춰 줄여 보여 준다). 무대는 영상처럼 늘 어둡다 */
-.lab-root .artgrid{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3)}
+.lab-root .artgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .lab-root .artgrid.single{grid-template-columns:1fr}
-.lab-root .artgrid.single .artstage-after{display:none}
+.lab-root .artgrid.single .artpane-after,.lab-root .artgrid.single .artstage-after{display:none}
 @media(max-width:720px){.lab-root .artgrid{grid-template-columns:1fr}}
+.lab-root .demo.demo-split{padding:0;border:0;background:transparent;box-shadow:none}
+.lab-root .demo.demo-split .artpane{display:flex;flex-direction:column;gap:6px}
+.lab-root .demo.demo-split .arthead{display:flex;align-items:baseline;justify-content:space-between;padding:0 2px}
+.lab-root .demo.demo-split .arttag{font-size:12px;font-weight:700;letter-spacing:.02em;color:var(--muted)}
+.lab-root .demo.demo-split .arttag.after{color:var(--accent)}
+.lab-root .demo.demo-split .artsub{font-size:11px;color:var(--faint)}
+.lab-root .demo.demo-split .artstage{border-radius:6px;border:1px solid var(--line)}
+.lab-root .demo.demo-split .artbadge{display:none}
+.lab-root .demo.demo-split .ctrl{margin-top:12px;padding-top:12px;border-top:1px solid var(--line);gap:8px}
+.lab-root .demo.demo-split .seg,.lab-root .demo.demo-split .seg button,.lab-root .demo.demo-split .btn.small{border-radius:5px}
 .lab-root .artstage{--display:'Black Han Sans','Wanted Sans Variable',sans-serif;--body:'IBM Plex Sans KR','Wanted Sans Variable',sans-serif;--mono:'JetBrains Mono',ui-monospace,Menlo,monospace;--accent:#ff8a3d;--cool:#6fd3ff;position:relative;width:100%;aspect-ratio:16/9;background:#07090c;border-radius:var(--r-m);overflow:hidden;color:#ece7dc}
 .lab-root .artsp{position:absolute;left:0;top:0;width:640px;height:360px;transform-origin:0 0;overflow:hidden;font-family:var(--body);line-height:1.2}
 .lab-root .artsp canvas{position:absolute;left:0;top:0;width:640px;height:360px}
