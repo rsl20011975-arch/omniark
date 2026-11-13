@@ -12,7 +12,7 @@ export default function DemoSlot({ demo, label, tipTitle }: { demo: string; labe
   const key = variant && set[variant] ? variant : "base";
   return (
     <>
-      <ArtDemo key={`${demo}-${key}-${level ?? "all"}`} load={set[key]} label={label} level={level} allowSplit={demo === "d38"} />
+      <ArtDemo key={`${demo}-${key}-${level ?? "all"}`} load={set[key]} label={label} level={level} allowSplit />
       {level != null && (
         <div className="tipnow" role="status">
           <span>만드는 순서 1~{level}단계까지 적용한 모습</span>
