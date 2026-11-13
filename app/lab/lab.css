@@ -236,7 +236,7 @@
 .lab-root .rail .sub a{min-height:32px}
 .lab-root .tree>summary{display:none;list-style:none}
 .lab-root .tree>summary::-webkit-details-marker{display:none}
-.lab-root .pg{padding:var(--s6) var(--s6) var(--s8);min-width:0;max-width:none}
+.lab-root .pg{padding:var(--s6) 40px var(--s8);min-width:0;max-width:none}
 .lab-root .crumb{display:flex;gap:var(--s2);flex-wrap:wrap;font-size:var(--t14);color:var(--faint);margin-bottom:var(--s4)}
 .lab-root .crumb a:hover{color:var(--ink)}
 .lab-root .crumb i{font-style:normal;opacity:.6}
@@ -270,7 +270,7 @@
 .lab-root .items[data-view=list] .item .tags{flex-direction:column;align-items:flex-start;margin:0}
 @media(max-width:760px){.lab-root .items[data-view=list] .item{grid-template-columns:104px 1fr}
 .lab-root .items[data-view=list] .item .tags{grid-column:2;flex-direction:row}}
-.lab-root .doc{display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:var(--s6)}
+.lab-root .doc{display:grid;grid-template-columns:minmax(0,1fr) 168px;gap:40px}
 .lab-root .doc-main{max-width:none}
 .lab-root .chips{display:flex;gap:var(--s2);flex-wrap:wrap;margin-top:var(--s5)}
 .lab-root .toc{position:sticky;top:96px;align-self:start;font-size:var(--t14)}
