@@ -447,7 +447,7 @@
 
 /* 아티팩트 데모 무대(640x360 가상 공간을 가로폭에 맞춰 줄여 보여 준다). 무대는 영상처럼 늘 어둡다 */
 .lab-root .artgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.lab-root .artgrid.single{grid-template-columns:1fr}
+.lab-root .artgrid.single{grid-template-columns:1fr;max-width:720px}
 .lab-root .artgrid.single .artpane-after,.lab-root .artgrid.single .artstage-after{display:none}
 @media(max-width:720px){.lab-root .artgrid{grid-template-columns:1fr}}
 .lab-root .demo.demo-split{padding:0;border:0;background:transparent;box-shadow:none}
