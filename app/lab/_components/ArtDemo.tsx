@@ -29,17 +29,23 @@ function releaseGl(s: unknown) {
   walk(s, 0);
 }
 
-export default function ArtDemo({ load, label, level = null }: { load: Loader; label: string; level?: number | null }) {
+type ViewMode = "split" | "before" | "after";
+
+export default function ArtDemo({ load, label, level = null, allowSplit = false }: { load: Loader; label: string; level?: number | null; allowSplit?: boolean }) {
   const stage = useRef<HTMLDivElement>(null);
   const sp = useRef<HTMLDivElement>(null);
   const badge = useRef<HTMLDivElement>(null);
+  const stage2 = useRef<HTMLDivElement>(null);
+  const sp2 = useRef<HTMLDivElement>(null);
+  const badge2 = useRef<HTMLDivElement>(null);
   const scrub = useRef<HTMLInputElement>(null);
   const timeEl = useRef<HTMLSpanElement>(null);
+  const initialMode: ViewMode = allowSplit ? "split" : "after";
   const run = useRef({
-    demo: null as Demo | null, s: null as unknown, t: 0, playing: true, speed: 1, after: true, visible: true, reduce: false,
-    level: null as number | null,
+    demo: null as Demo | null, s: null as unknown, s2: null as unknown, t: 0, playing: true, speed: 1,
+    mode: initialMode as ViewMode, visible: true, reduce: false, level: null as number | null,
   });
-  const [after, setAfter] = useState(true);
+  const [mode, setMode] = useState<ViewMode>(initialMode);
   const [speed, setSpeed] = useState(1);
   const [playing, setPlaying] = useState(true);
   const [meta, setMeta] = useState({ dur: 4, noCompare: false });
@@ -47,11 +53,18 @@ export default function ArtDemo({ load, label, level = null }: { load: Loader; l
   const draw = useCallback(() => {
     const r = run.current;
     if (!r.demo || !scrub.current || !timeEl.current || !badge.current) return;
-    r.demo.render(r.s, r.t, r.after, r.level);
+    const isSplit = r.mode === "split" && !r.demo.noCompare && r.s2 != null;
+    const primaryAfter = isSplit ? false : r.mode === "after";
+    r.demo.render(r.s, r.t, primaryAfter, r.level);
+    badge.current.className = r.demo.noCompare ? "artbadge off" : primaryAfter ? "artbadge after" : "artbadge";
+    badge.current.textContent = !primaryAfter ? "연출 전 · 흔한 첫 결과" : r.level != null ? `만드는 순서 1~${r.level}단계까지 적용` : "연출 후";
+    if (isSplit && badge2.current) {
+      r.demo.render(r.s2, r.t, true, r.level);
+      badge2.current.className = "artbadge after";
+      badge2.current.textContent = r.level != null ? `만드는 순서 1~${r.level}단계까지 적용` : "연출 후";
+    }
     scrub.current.value = String(r.t);
     timeEl.current.textContent = `${r.t.toFixed(2)}초 / ${r.demo.dur.toFixed(1)}초`;
-    badge.current.className = r.demo.noCompare ? "artbadge off" : r.after ? "artbadge after" : "artbadge";
-    badge.current.textContent = !r.after ? "연출 전 · 흔한 첫 결과" : r.level != null ? `만드는 순서 1~${r.level}단계까지 적용` : "연출 후";
   }, []);
 
   useEffect(() => {
@@ -62,26 +75,42 @@ export default function ArtDemo({ load, label, level = null }: { load: Loader; l
     const r = run.current;
     r.level = level; // 단계가 바뀌면 부모가 key 를 바꿔 새로 시작하므로, 처음 한 번만 읽는다.
     const spEl = sp.current;
+    const spEl2 = sp2.current;
     load().then((m) => {
       if (!alive || !sp.current || !stage.current) return;
       const d = m.default;
       r.demo = d;
+      if (d.noCompare && r.mode === "split") {
+        r.mode = "after";
+        setMode("after");
+      }
       r.reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (r.reduce) {
         r.playing = false;
         r.t = d.rest;
       }
       r.s = d.mount(sp.current);
+      if (allowSplit && !d.noCompare && sp2.current) {
+        r.s2 = d.mount(sp2.current);
+      } else {
+        r.s2 = null;
+      }
       setMeta({ dur: d.dur, noCompare: d.noCompare });
       setPlaying(r.playing);
-      const el = sp.current;
-      const box = stage.current;
-      ro = new ResizeObserver(() => {
-        el.style.transform = `scale(${box.clientWidth / 640})`;
-      });
-      ro.observe(box);
+      const syncScale = () => {
+        if (stage.current && sp.current && stage.current.clientWidth > 0) {
+          sp.current.style.transform = `scale(${stage.current.clientWidth / 640})`;
+        }
+        if (stage2.current && sp2.current && stage2.current.clientWidth > 0) {
+          sp2.current.style.transform = `scale(${stage2.current.clientWidth / 640})`;
+        }
+      };
+      ro = new ResizeObserver(syncScale);
+      ro.observe(stage.current);
+      if (stage2.current) ro.observe(stage2.current);
+      syncScale();
       io = new IntersectionObserver((es) => es.forEach((e) => (r.visible = e.isIntersecting)), { rootMargin: "100px" });
-      io.observe(box);
+      io.observe(stage.current);
       let last = performance.now();
       const tick = (now: number) => {
         const dt = Math.min(0.05, (now - last) / 1000);
@@ -104,14 +133,17 @@ export default function ArtDemo({ load, label, level = null }: { load: Loader; l
       ro?.disconnect();
       io?.disconnect();
       releaseGl(r.s);
+      if (r.s2) releaseGl(r.s2);
       if (spEl) spEl.textContent = "";
+      if (spEl2) spEl2.textContent = "";
       r.demo = null;
+      r.s2 = null;
     };
-  }, [load, draw, level]);
+  }, [load, draw, level, allowSplit]);
 
-  function pickMode(v: boolean) {
-    run.current.after = v;
-    setAfter(v);
+  function pickMode(v: ViewMode) {
+    run.current.mode = v;
+    setMode(v);
     draw();
   }
   function pickSpeed(v: number) {
@@ -131,17 +163,30 @@ export default function ArtDemo({ load, label, level = null }: { load: Loader; l
     draw();
   }
 
+  const showSplit = allowSplit && !meta.noCompare && mode === "split";
+
   return (
     <div className="demo">
-      <div className="artstage" ref={stage} role="img" aria-label={`${label} 움직이는 예제`}>
-        <div className="artsp" ref={sp} />
-        <div className="artbadge" ref={badge} />
+      <div className={showSplit ? "artgrid" : "artgrid single"}>
+        <div className="artstage" ref={stage} role="img" aria-label={`${label} 움직이는 예제`}>
+          <div className="artsp" ref={sp} />
+          <div className="artbadge" ref={badge} />
+        </div>
+        {allowSplit && (
+          <div className="artstage artstage-after" ref={stage2} role="img" aria-label={`${label} 연출 후 예제`}>
+            <div className="artsp" ref={sp2} />
+            <div className="artbadge after" ref={badge2} />
+          </div>
+        )}
       </div>
       <div className="ctrl">
         {!meta.noCompare && (
           <div className="seg" role="group" aria-label="비교">
-            <button type="button" aria-pressed={!after} onClick={() => pickMode(false)}>연출 전</button>
-            <button type="button" aria-pressed={after} onClick={() => pickMode(true)}>연출 후</button>
+            {allowSplit && (
+              <button type="button" aria-pressed={mode === "split"} onClick={() => pickMode("split")}>나란히</button>
+            )}
+            <button type="button" aria-pressed={mode === "before"} onClick={() => pickMode("before")}>연출 전</button>
+            <button type="button" aria-pressed={mode === "after"} onClick={() => pickMode("after")}>연출 후</button>
           </div>
         )}
         <div className="seg" role="group" aria-label="재생 속도">
