@@ -474,13 +474,13 @@
 .lab-root .artsp .kt-w{position:relative;display:inline-block;will-change:transform}
 .lab-root .artsp .kt-hl{position:absolute;left:-8px;right:-8px;top:8px;bottom:4px;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
 .lab-root .artsp .kt-tx{position:relative}
-.lab-root .artsp .kt-tag{position:absolute;left:58px;bottom:30px;font-family:var(--mono);font-size:12px;color:#8c949e;letter-spacing:.1em}
+.lab-root .artsp .kt-tag{position:absolute;left:58px;bottom:30px;font-family:var(--mono);font-size:14px;color:#8c949e;letter-spacing:.1em}
 .lab-root .artsp .mr-word{position:absolute;left:60px;top:58px;font-family:var(--display);font-size:118px;line-height:1;color:#f5f1e8;white-space:nowrap}
 .lab-root .artsp .mr-bar{position:absolute;top:56px;width:6px;height:140px;background:var(--cool);transform-origin:50% 50%}
 .lab-root .artsp .mr-subbox{position:absolute;left:64px;top:226px;height:38px;overflow:hidden}
 .lab-root .artsp .mr-sub{font-size:24px;font-weight:500;color:#d8d3c8;white-space:nowrap}
 .lab-root .artsp .mr-ul{position:absolute;left:64px;top:272px;width:420px;height:2px;background:var(--accent);transform-origin:0 50%}
-.lab-root .artsp .mr-st{position:absolute;left:0;right:0;bottom:20px;text-align:center;font-family:var(--mono);font-size:12px;color:#8c949e}
+.lab-root .artsp .mr-st{position:absolute;left:0;right:0;bottom:20px;text-align:center;font-family:var(--mono);font-size:14px;color:#8c949e}
 .lab-root .artsp .ch-base{position:absolute;left:62px;top:300px;width:470px;height:2px;background:#8c949e;transform-origin:0 50%}
 .lab-root .artsp .ch-bar{position:absolute;bottom:60px;width:60px;transform-origin:50% 100%;border-radius:4px 4px 0 0}
 .lab-root .artsp .ch-val{position:absolute;width:80px;text-align:center;font-family:var(--mono);font-size:13px;color:#cfd5dc;font-variant-numeric:tabular-nums}
