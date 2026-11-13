@@ -532,3 +532,25 @@
 .lab-root .ideacard .ilinks{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:auto;padding-top:var(--s2)}
 .lab-root .ideacard .ilinks a{display:inline-flex;align-items:center;gap:var(--s1);min-height:32px;padding:0 var(--s3);border-radius:var(--r-s);background:var(--chip);color:var(--chip-ink);font-size:var(--t14);font-weight:600}
 .lab-root .ideacard .ilinks a:hover{text-decoration:underline;text-underline-offset:3px}
+
+/* 연출 규칙 페이지(결정 #94) */
+.lab-root .rtable{display:grid;gap:var(--s2)}
+.lab-root .rrow{display:grid;grid-template-columns:minmax(7rem,.9fr) 2fr 2fr 1.4fr;gap:var(--s4);padding:var(--s4);border:1px solid var(--line);border-radius:var(--r-m);background:var(--panel);align-items:start}
+.lab-root .rrow b{font-size:var(--t16)}
+.lab-root .rrow q{color:var(--muted);font-size:var(--t14)}
+.lab-root .rpend{grid-template-columns:minmax(7rem,.8fr) 2fr 2fr 1.6fr}
+.lab-root .rnow{color:var(--accent);font-weight:600;font-size:var(--t14)}
+.lab-root .rlinks{display:flex;flex-wrap:wrap;gap:var(--s2) var(--s4);font-size:var(--t14)}
+.lab-root .rlinks a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+.lab-root .rulelist{display:grid;gap:var(--s3);list-style:none;padding:0}
+.lab-root .rulelist li{padding:var(--s4) var(--s5);border:1px solid var(--line);border-radius:var(--r-m);background:var(--panel)}
+.lab-root .rh{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap}
+.lab-root .rh h3{font-size:var(--t20);margin:0}
+.lab-root .rid{font:600 var(--t12)/1 var(--mono);color:var(--faint)}
+.lab-root .rg{font-size:var(--t12);font-weight:700;padding:2px var(--s3);border-radius:var(--r-pill);background:var(--chip);color:var(--chip-ink)}
+.lab-root .g-측정{background:#e3f3ea;color:#14573a}
+.lab-root .g-지시{background:#e8eefc;color:#1e3f8a}
+.lab-root .g-추정,.lab-root .g-미확인{background:#fbeee0;color:#8a4a12}
+.lab-root .rv{margin:var(--s3) 0 var(--s2);font-weight:600}
+.lab-root .rb{color:var(--muted);font-size:var(--t14);margin-bottom:var(--s3)}
+@media (max-width:820px){.lab-root .rrow,.lab-root .rpend{grid-template-columns:1fr}}

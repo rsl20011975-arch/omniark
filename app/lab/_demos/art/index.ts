@@ -605,10 +605,87 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "more": () => import("./d194_more.js"),
     "short": () => import("./d194_short.js")
   },
+  d195: {
+    base: () => import("./d195.js"),
+    "zend": () => import("./d195_zend.js"),
+    "dur": () => import("./d195_dur.js"),
+    "start": () => import("./d195_start.js")
+  },
+  d196: {
+    base: () => import("./d196.js"),
+    "five": () => import("./d196_five.js"),
+    "thr": () => import("./d196_thr.js"),
+    "shot": () => import("./d196_shot.js")
+  },
+  d197: {
+    base: () => import("./d197.js"),
+    "maxshot": () => import("./d197_maxshot.js"),
+    "speed": () => import("./d197_speed.js"),
+    "tight": () => import("./d197_tight.js")
+  },
+  d198: {
+    base: () => import("./d198.js"),
+    "gentler": () => import("./d198_gentler.js"),
+    "sharper": () => import("./d198_sharper.js")
+  },
+  d199: {
+    base: () => import("./d199.js"),
+    "bright": () => import("./d199_bright.js"),
+    "margin": () => import("./d199_margin.js"),
+    "faster": () => import("./d199_faster.js")
+  },
   d20: {
     base: () => import("./d20.js"),
     "disc": () => import("./d20_disc.js"),
     "near": () => import("./d20_near.js")
+  },
+  d200: {
+    base: () => import("./d200.js"),
+    "fewer": () => import("./d200_fewer.js"),
+    "bigger": () => import("./d200_bigger.js")
+  },
+  d201: {
+    base: () => import("./d201.js"),
+    "punch": () => import("./d201_punch.js"),
+    "dimmore": () => import("./d201_dimmore.js"),
+    "slowin": () => import("./d201_slowin.js")
+  },
+  d202: {
+    base: () => import("./d202.js"),
+    "lead30": () => import("./d202_lead30.js"),
+    "bigword": () => import("./d202_bigword.js"),
+    "lineearly": () => import("./d202_lineearly.js")
+  },
+  d203: {
+    base: () => import("./d203.js"),
+    "deeper": () => import("./d203_deeper.js"),
+    "slowstart": () => import("./d203_slowstart.js")
+  },
+  d204: {
+    base: () => import("./d204.js"),
+    "endzoom": () => import("./d204_endzoom.js"),
+    "openbright": () => import("./d204_openbright.js")
+  },
+  d205: {
+    base: () => import("./d205.js"),
+    "quick": () => import("./d205_quick.js"),
+    "calm": () => import("./d205_calm.js")
+  },
+  d206: {
+    base: () => import("./d206.js"),
+    "found": () => import("./d206_found.js"),
+    "relabel": () => import("./d206_relabel.js")
+  },
+  d207: {
+    base: () => import("./d207.js"),
+    "zoomfar": () => import("./d207_zoomfar.js"),
+    "deepsep": () => import("./d207_deepsep.js"),
+    "cloudfar": () => import("./d207_cloudfar.js")
+  },
+  d208: {
+    base: () => import("./d208.js"),
+    "leadwide": () => import("./d208_leadwide.js"),
+    "zoombig": () => import("./d208_zoombig.js")
   },
   d21: {
     base: () => import("./d21.js"),

@@ -56,6 +56,7 @@ export default function Rail({ fields, terms }: Props) {
         <Link href="/lab/prompts">지시 문장</Link>
         <Link href="/lab/clips">예시 영상</Link>
         <Link href="/lab/ideas">영상 소재</Link>
+        <Link href="/lab/rules">연출 규칙</Link>
         <Link href="/lab/fonts">글꼴</Link>
       </nav>
       <details className="tree" open ref={tree}>

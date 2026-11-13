@@ -6,6 +6,7 @@ const TABS = [
   { href: "/lab/prompts", label: "지시 문장" },
   { href: "/lab/clips", label: "예시 영상" },
   { href: "/lab/ideas", label: "영상 소재" },
+  { href: "/lab/rules", label: "연출 규칙" },
   { href: "/lab/fonts", label: "글꼴" },
 ];
 

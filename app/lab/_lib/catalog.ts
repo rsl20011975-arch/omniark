@@ -33,18 +33,49 @@ export type Clips = {
 export type Idea = { t: string; f: string; g: string; links: ChipLink[] };
 export type Ideas = { sub: string; items: Idea[] };
 
-let cache: { el: Elements; pr: Prompts; cl: Clips; id: Ideas } | null = null;
+/** AI에게 읽히는 연출 규칙(결정 #94). 새 세션이 0부터 다시 정하지 않게, 증거 등급을 붙여 모은 것. */
+export type RuleLink = { href: string; name: string };
+export type Rule = { id: string; t: string; value: string; grade: "측정" | "지시" | "기록" | "추정" | "미확인"; basis: string; links: RuleLink[] };
+export type Rules = {
+  title: string;
+  updated: string;
+  intro: string;
+  usage: string[];
+  frame: string[];
+  translate: { word: string; split: string; example: string; links: RuleLink[] }[];
+  rules: Rule[];
+  pending: { t: string; a: string; b: string; now: string }[];
+  bans: string[];
+};
+
+let cache: { el: Elements; pr: Prompts; cl: Clips; id: Ideas; ru: Rules } | null = null;
 const load = () =>
-  (cache ??= { el: read<Elements>("elements.json"), pr: read<Prompts>("prompts.json"), cl: read<Clips>("clips.json"), id: read<Ideas>("ideas.json") });
+  (cache ??= { el: read<Elements>("elements.json"), pr: read<Prompts>("prompts.json"), cl: read<Clips>("clips.json"), id: read<Ideas>("ideas.json"), ru: read<Rules>("rules.json") });
 
 export const elements = (): Elements => load().el;
 export const prompts = (): Prompts => load().pr;
 export const clips = (): Clips => load().cl;
 export const ideas = (): Ideas => load().id;
+export const rules = (): Rules => load().ru;
+
+/** 새 세션의 AI 가 그대로 읽는 순수 글(규칙 페이지와 /lab/rules/raw 가 같은 글을 쓴다). */
+export function rulesText(): string {
+  const r = rules();
+  const L: string[] = [`# ${r.title} (${r.updated})`, "", r.intro, "", "## 읽는 법"];
+  r.usage.forEach((u, i) => L.push(`${i + 1}. ${u}`));
+  L.push("", "## 지시 틀", ...r.frame, "", "## 번역표(막연한 말 → 쪼개기 → 이름으로 시키는 말)");
+  r.translate.forEach((x) => L.push(`- ${x.word}: ${x.split} → 예) ${x.example}`));
+  L.push("", "## 규칙(등급: 측정·지시·기록·추정·미확인)");
+  r.rules.forEach((x) => L.push(`- ${x.id} [${x.grade}] ${x.t}: ${x.value} (근거: ${x.basis})`));
+  L.push("", "## 결정 대기(저장소마다 값이 다른 것)");
+  r.pending.forEach((x) => L.push(`- ${x.t}: A) ${x.a} / B) ${x.b} → 지금: ${x.now}`));
+  L.push("", "## 금지", ...r.bans.map((b) => `- ${b}`), "", "각 규칙의 데모와 지시문: https://omniark.co/lab/imgvid");
+  return L.join("\n");
+}
 export const mediaUrl = (file: string) => `/lab/media/${file}`;
 
 /** 요소 사전의 확인 안 한(○) 칩 수 = 점선 칩(todo) + 표시가 없는 칩(none). 원본 머리글의 '아직 확인하지 않은 것'과 같은 정의다. */
 export const unconfirmed = (c: Elements["counts"]) => c.todo + c.none;
 
 /** 이 새 페이지 주소는 분야 주소(/lab/<분야>)와 겹치면 안 된다. */
-export const CATALOG_PATHS = ["/lab/elements", "/lab/prompts", "/lab/clips", "/lab/ideas"] as const;
+export const CATALOG_PATHS = ["/lab/elements", "/lab/prompts", "/lab/clips", "/lab/ideas", "/lab/rules"] as const;
