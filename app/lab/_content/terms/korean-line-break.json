@@ -13,7 +13,7 @@
     "웹·앱",
     "발표·문서"
   ],
-  "oneLine": "좁은 칸에서 한글 문장의 줄이 바뀔 때 단어 한가운데가 아니라 띄어쓰기 자리에서만 끊기게 하는 CSS 설정(word-break: keep-all)이다.",
+  "oneLine": "좁은 칸에서 한글 문장의 줄이 바뀔 때 단어 한가운데가 아니라 띄어쓰기 자리에서만 끊기게 하는 CSS 설정(word-break: keep-all)이다",
   "preview": null,
   "keywords": [
     "한글 줄바꿈",

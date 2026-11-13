@@ -13,7 +13,7 @@
     "영상",
     "웹·앱"
   ],
-  "oneLine": "같은 ‘감속’이라도 차수가 Quad, Cubic, Quart, Quint로 올라갈수록 처음이 더 확 빠르고 끝이 더 오래 느려진다. Expo는 그 끝에 있고, inOutExpo는 느리게 시작해 가운데서 급가속한다.",
+  "oneLine": "같은 ‘감속’이라도 차수가 Quad, Cubic, Quart, Quint로 올라갈수록 처음이 더 확 빠르고 끝이 더 오래 느려진다. Expo는 그 끝에 있고, inOutExpo는 느리게 시작해 가운데서 급가속한다",
   "preview": null,
   "keywords": [
     "easeOutQuad",

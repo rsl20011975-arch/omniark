@@ -13,7 +13,7 @@
     "웹·앱",
     "영상"
   ],
-  "oneLine": "feTurbulence 가 만든 노이즈 그림의 색을 ‘이동량’으로 삼아 feDisplacementMap 이 원본 픽셀을 밀면, 그림이 아지랑이나 물결처럼 일렁입니다.",
+  "oneLine": "feTurbulence 가 만든 노이즈 그림의 색을 ‘이동량’으로 삼아 feDisplacementMap 이 원본 픽셀을 밀면, 그림이 아지랑이나 물결처럼 일렁입니다",
   "preview": null,
   "keywords": [
     "변위 필터",

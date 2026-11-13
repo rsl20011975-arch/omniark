@@ -280,7 +280,7 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     base: () => import("./d139.js"),
     "three": () => import("./d139_three.js"),
     "blue": () => import("./d139_blue.js"),
-    "base": () => import("./d139_base.js")
+    "graybase": () => import("./d139_graybase.js")
   },
   d14: {
     base: () => import("./d14.js"),

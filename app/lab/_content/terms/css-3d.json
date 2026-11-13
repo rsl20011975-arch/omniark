@@ -13,7 +13,7 @@
     "웹·앱",
     "영상"
   ],
-  "oneLine": "평평한 화면 요소를 돌리고 앞뒤로 밀어서 입체 공간에 놓인 물체처럼 보이게 합니다. 원근(perspective), 회전(rotateX/Y), 앞뒤 이동(translateZ), 입체 유지(preserve-3d) 네 가지가 한 세트입니다.",
+  "oneLine": "평평한 화면 요소를 돌리고 앞뒤로 밀어서 입체 공간에 놓인 물체처럼 보이게 합니다. 원근(perspective), 회전(rotateX/Y), 앞뒤 이동(translateZ), 입체 유지(preserve-3d) 네 가지가 한 세트입니다",
   "preview": null,
   "keywords": [
     "CSS 3D",

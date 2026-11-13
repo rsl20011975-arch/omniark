@@ -12,7 +12,7 @@
   "media": [
     "웹·앱"
   ],
-  "oneLine": "웹 요소를 움직이는 코드를 대신 써 주는 도구들. GSAP 와 anime.js 는 ‘무엇을 얼마나 오래 어떤 곡선으로’를 한 줄에 적고, Theatre.js 는 키프레임을 시각 편집기(Studio)에서 찍는다.",
+  "oneLine": "웹 요소를 움직이는 코드를 대신 써 주는 도구들. GSAP 와 anime.js 는 ‘무엇을 얼마나 오래 어떤 곡선으로’를 한 줄에 적고, Theatre.js 는 키프레임을 시각 편집기(Studio)에서 찍는다",
   "preview": null,
   "keywords": [
     "GSAP",

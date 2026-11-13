@@ -12,7 +12,7 @@
   "media": [
     "영상"
   ],
-  "oneLine": "ffmpeg 는 명령어로 영상을 다루는 도구다. -vf 뒤에 ‘필터=옵션’을 적으면 전환(xfade), 글자(drawtext), 확대(zoompan), 섞기(blend), 색 보정(curves) 같은 가공을 한 줄로 걸 수 있다.",
+  "oneLine": "ffmpeg 는 명령어로 영상을 다루는 도구다. -vf 뒤에 ‘필터=옵션’을 적으면 전환(xfade), 글자(drawtext), 확대(zoompan), 섞기(blend), 색 보정(curves) 같은 가공을 한 줄로 걸 수 있다",
   "preview": null,
   "keywords": [
     "ffmpeg",
