@@ -92,12 +92,12 @@
 .lab-root .ctrl{display:flex;align-items:center;gap:var(--s3) var(--s4);flex-wrap:wrap;padding-top:var(--s4)}
 .lab-root .seg{display:inline-flex;padding:3px;border-radius:var(--r-m);background:color-mix(in srgb,var(--panel2) 55%,transparent);border:1px solid var(--line)}
 .lab-root .seg button{min-height:34px;padding:0 var(--s3);border:0;background:none;border-radius:var(--r-s);color:var(--muted);font-size:var(--t14);font-weight:600;transition:background-color .2s ease-out,color .2s ease-out,box-shadow .2s ease-out}
-.lab-root .seg button[aria-pressed=true]{background:color-mix(in srgb,var(--accent) 16%,transparent);color:var(--accent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 45%,transparent)}
+.lab-root .seg button[aria-pressed=true]{background:color-mix(in srgb,var(--ok) 16%,transparent);color:var(--ok);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ok) 45%,transparent)}
 .lab-root .seg + .seg button[aria-pressed=true]{background:color-mix(in srgb,var(--ink) 10%,transparent);color:var(--ink);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ink) 22%,transparent)}
 .lab-root .seg button:not([aria-pressed=true]):hover{color:var(--ink)}
 .lab-root .scrubwrap{flex:1 1 260px;display:flex;align-items:center;gap:var(--s3);min-width:220px}
 .lab-root .scrub{flex:1;display:flex;align-items:center;min-width:100px}
-.lab-root .scrub input{width:100%;accent-color:var(--accent)}
+.lab-root .scrub input{width:100%;accent-color:var(--ok)}
 .lab-root .time{font-size:var(--t12);color:var(--faint);font-variant-numeric:tabular-nums;min-width:104px;text-align:right;white-space:nowrap}
 .lab-root{--font:"Wanted Sans Variable","Pretendard Variable",Pretendard,-apple-system,"Noto Sans KR",sans-serif;--serif:"Instrument Serif",serif}
 .lab-root[data-theme=light]{
