@@ -77,6 +77,7 @@ export default function RulesPage() {
         </ul>
       </section>
 
+      {r.pending.length > 0 && (
       <section className="blk" id="pending">
         <h2><i>04</i>결정 대기 — 저장소마다 값이 달랐던 것</h2>
         <div className="rtable" role="table" aria-label="결정 대기">
@@ -90,9 +91,10 @@ export default function RulesPage() {
           ))}
         </div>
       </section>
+      )}
 
       <section className="blk" id="bans">
-        <h2><i>05</i>금지</h2>
+        <h2><i>{r.pending.length > 0 ? "05" : "04"}</i>금지</h2>
         <ul className="uselist">{r.bans.map((b) => <li key={b}>{b}</li>)}</ul>
       </section>
 

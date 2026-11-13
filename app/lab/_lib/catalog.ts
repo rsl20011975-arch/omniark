@@ -67,8 +67,10 @@ export function rulesText(): string {
   r.translate.forEach((x) => L.push(`- ${x.word}: ${x.split} → 예) ${x.example}`));
   L.push("", "## 규칙(등급: 측정·지시·기록·추정·미확인)");
   r.rules.forEach((x) => L.push(`- ${x.id} [${x.grade}] ${x.t}: ${x.value} (근거: ${x.basis})`));
-  L.push("", "## 결정 대기(저장소마다 값이 다른 것)");
-  r.pending.forEach((x) => L.push(`- ${x.t}: A) ${x.a} / B) ${x.b} → 지금: ${x.now}`));
+  if (r.pending.length) {
+    L.push("", "## 결정 대기(저장소마다 값이 다른 것)");
+    r.pending.forEach((x) => L.push(`- ${x.t}: A) ${x.a} / B) ${x.b} → 지금: ${x.now}`));
+  }
   L.push("", "## 금지", ...r.bans.map((b) => `- ${b}`), "", "각 규칙의 데모와 지시문: https://omniark.co/lab/imgvid");
   return L.join("\n");
 }
