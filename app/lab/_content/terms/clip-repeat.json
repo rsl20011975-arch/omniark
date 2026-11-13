@@ -85,6 +85,12 @@
         "text": "음악에서 루프는 되풀이되는 소리 한 구간이고, 끊김 없는 루프(seamless loop)는 끝이 처음에 매끄럽게 이어지도록 편집해 이음새가 들리지 않는 것이라고 정의합니다. 영상의 ‘구간 반복’도 같은 개념입니다.",
         "title": "Wikipedia — Loop (music)",
         "url": "https://en.wikipedia.org/wiki/Loop_(music)"
+      },
+      {
+        "state": "확인",
+        "text": "참고치(편집 플러그인 회사의 블로그 글): 프리미어 프로에서 클립을 복사해 바로 뒤에 원하는 길이만큼 이어 붙이는 방법과, 루프 플러그인에서 시작 프레임·루프 길이를 정하는 방법을 소개하고, 이음새에서 튀는 곳은 크로스 디졸브나 프레임 다듬기로 확인하라고 합니다. 요소 사전의 ‘반복’은 앞뒤 칩(화면 분할·프리즈 프레임·리버스)과 같은 편집 기법 목록의 항목이라, 이 페이지는 그것을 ‘클립 구간을 되풀이하는 편집’으로 해석했습니다.",
+        "title": "Boris FX — 2 ways to loop a video in Premiere Pro",
+        "url": "https://borisfx.com/blog/2-ways-to-loop-a-video-in-premiere-pro-guide/"
       }
     ],
     "related": [

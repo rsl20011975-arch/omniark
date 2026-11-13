@@ -73,6 +73,18 @@
         "text": "인지 부하는 작업 기억에서 쓰이는 노력이며 작업 기억은 용량과 지속 시간이 매우 제한적이라고 설명합니다. 그중 ‘외재 부하’는 정보를 어떻게 보여 주느냐 때문에 생기고 설계자가 줄일 수 있다고 하여, 한 화면에 담는 정보를 줄이는 근거로 씁니다.",
         "title": "Wikipedia — Cognitive load",
         "url": "https://en.wikipedia.org/wiki/Cognitive_load"
+      },
+      {
+        "state": "확인",
+        "text": "논문 초록은 이야기가 뚜렷한 ‘감정의 궤적(emotional trajectories)’을 따르며, 프로젝트 구텐베르크 소설 1,327편을 분석해 여섯 가지 핵심 감정 곡선을 찾았다고 합니다. 이 페이지의 감정 곡선(시간에 따라 오르내리는 선)이 같은 발상이라는 근거입니다. 초록에는 곡선의 가로·세로 축과 여섯 모양의 이름이 나오지 않아 그 부분은 쓰지 않았습니다.",
+        "title": "arXiv — The emotional arcs of stories are dominated by six basic shapes (Reagan 외, 2016)",
+        "url": "https://arxiv.org/abs/1606.07772"
+      },
+      {
+        "state": "확인",
+        "text": "참고치(영상 제작 SaaS 회사의 블로그 글): ‘장면 하나에 생각 하나’를 핵심 규칙으로 두고, 한 장면에 문장이 여러 개 필요하면 생각이 둘 이상 섞인 것이라고 설명합니다. 학술 근거가 아니라 현장에서 쓰는 요령을 소개한 글이라는 점을 밝혀 둡니다.",
+        "title": "Biteable — Turn one sentence into a 30-second video",
+        "url": "https://biteable.com/blog/turn-one-sentence-into-30-second-video/"
       }
     ],
     "related": [
