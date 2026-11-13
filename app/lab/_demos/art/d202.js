@@ -140,7 +140,7 @@ const demo = {
     const r1 = el('div', null, sp), r2 = el('div', null, sp);
     box(r1, { position: 'absolute', left: '40px', top: '284px', width: '580px', font: "500 12px/1.3 'JetBrains Mono',monospace", color: PAL.ink });
     box(r2, { position: 'absolute', left: '40px', top: '306px', width: '580px', font: "400 11px/1.3 'JetBrains Mono',monospace", color: PAL.muted });
-    const wait = el('div', null, sp, '결정 대기');
+    const wait = el('div', null, sp, '줄 단위로 정함');
     box(wait, { position: 'absolute', right: '20px', top: '326px', padding: '4px 8px', borderRadius: '3px', background: PAL.accent, color: '#fff', font: "600 11px/1 'IBM Plex Sans KR',sans-serif", boxShadow: '0 2px 6px rgba(120,40,20,.35)' });
     return { vis, rowA, tokA, tokB, rowB, big, ul, hint, blocks, bands, marks, gaps, lbar, head, r1, r2, wait };
   },
