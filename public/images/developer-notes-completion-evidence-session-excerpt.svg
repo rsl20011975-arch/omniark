@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960" role="img" aria-labelledby="title desc">
+  <title id="title">도구가 현재 세션에 노출되지 않았던 기록 발췌</title>
+  <desc id="desc">2026년 9월 18일의 MCP 사건을 비식별 처리한 기록 발췌. 현재 세션에 읽기 도구가 노출되지 않아 호출할 수 없었다는 관찰과 원인 미확정을 함께 표시한다.</desc>
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111a25"/><stop offset=".56" stop-color="#192a35"/><stop offset="1" stop-color="#11201e"/></linearGradient>
+    <linearGradient id="terminal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#12212c"/><stop offset="1" stop-color="#0d171f"/></linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ff976f"/><stop offset="1" stop-color="#ffc06b"/></linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="34"/></filter>
+    <filter id="shadow" x="-15%" y="-20%" width="130%" height="150%"><feDropShadow dx="0" dy="26" stdDeviation="28" flood-color="#020609" flood-opacity=".52"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="2" seed="8"/><feColorMatrix values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .035 0"/></filter>
+  </defs>
+  <rect width="1600" height="960" fill="url(#ground)"/>
+  <ellipse cx="1360" cy="112" rx="320" ry="210" fill="#2ce2bd" opacity=".14" filter="url(#blur)"/>
+  <ellipse cx="148" cy="876" rx="310" ry="190" fill="#f46f86" opacity=".12" filter="url(#blur)"/>
+  <rect width="1600" height="960" filter="url(#grain)" opacity=".7"/>
+  <g font-family="Pretendard, 'Noto Sans KR', sans-serif">
+    <text x="112" y="106" fill="#8bf0d6" font-size="21" font-weight="700" letter-spacing="5">FIELD EVIDENCE / SESSION RECORD</text>
+    <text x="112" y="181" fill="#f4f7f4" font-size="56" font-weight="800" letter-spacing="-2">도구가 “있다”는 말만으로는</text>
+    <text x="112" y="247" fill="#f4f7f4" font-size="56" font-weight="800" letter-spacing="-2">내 작업창에서 쓸 수 있는 것이 아니었다</text>
+    <text x="112" y="300" fill="#b6c3c6" font-size="23">2026.09.18 · 원문 세션 기록의 의미를 유지한 비식별 발췌</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="112" y="364" width="1376" height="420" rx="26" fill="url(#terminal)" stroke="#38515c" stroke-width="2"/>
+    <path d="M112 432H1488" stroke="#38515c" stroke-width="2"/>
+    <circle cx="157" cy="398" r="10" fill="#ff866e"/><circle cx="192" cy="398" r="10" fill="#ffc463"/><circle cx="227" cy="398" r="10" fill="#69e0bd"/>
+    <text x="276" y="406" fill="#9fb0b7" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="18">read-only session record · identifiers removed</text>
+    <rect x="158" y="490" width="260" height="38" rx="19" fill="#35272a" stroke="#82504c"/>
+    <text x="184" y="516" fill="#ffb6a3" font-family="Pretendard, 'Noto Sans KR', sans-serif" font-size="17" font-weight="700" letter-spacing="2">OBSERVED STATE</text>
+    <text x="158" y="597" fill="#89ead4" font-family="ui-monospace, 'Cascadia Code', monospace" font-size="23">&gt; call smallest read-only tool</text>
+    <rect x="158" y="629" width="1210" height="78" rx="14" fill="#241d23" stroke="#66484d"/>
+    <rect x="158" y="629" width="8" height="78" rx="4" fill="url(#signal)"/>
+    <text x="196" y="675" fill="#ffe6db" font-family="Pretendard, 'Noto Sans KR', sans-serif" font-size="28" font-weight="700">현재 세션에는 요청한 읽기 도구가 노출되지 않아 호출할 수 없습니다.</text>
+  </g>
+  <g font-family="Pretendard, 'Noto Sans KR', sans-serif">
+    <rect x="112" y="836" width="1376" height="74" rx="16" fill="#193239" stroke="#38706f"/>
+    <circle cx="153" cy="873" r="12" fill="#83e9d3"/>
+    <text x="184" y="882" fill="#d8f2eb" font-size="24" font-weight="700">확정된 관찰: 이 세션에서 도구가 보이지 않았다.</text>
+    <text x="864" y="882" fill="#c7d3d4" font-size="22">원인·수정 순서·현재 재현 여부는 미확정</text>
+  </g>
+</svg>

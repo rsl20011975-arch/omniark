@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://omniark.co"),
 
   verification: {
-    google: "Cz9GASrTO3jWMSsvfR_yiie1JN5x5H5daEntUcrrFEI",
+    google: "urqkhqSKnWsrtd0cKs1-ZayUjHrkJdf7VyK5ifMcD24",
   },
 
   title: {
