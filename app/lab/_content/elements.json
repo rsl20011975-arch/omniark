@@ -1,0 +1,4965 @@
+{
+  "sub": "칩 하나가 요소 하나입니다. 초록 실선이 직접 확인한 것(448개), 점선은 아직 확인하지 않은 것(0개)입니다. 오른쪽 숫자는 확인한 수와 전체 수입니다.",
+  "cats": [
+    {
+      "no": "01",
+      "name": "시간·리듬",
+      "chips": [
+        {
+          "t": "총 길이",
+          "s": "ok",
+          "links": [
+            {
+              "n": 112,
+              "href": "/lab/edit/cut-rhythm",
+              "name": "컷 리듬과 박자 맞추기"
+            }
+          ]
+        },
+        {
+          "t": "장면 길이",
+          "s": "ok",
+          "links": [
+            {
+              "n": 112,
+              "href": "/lab/edit/cut-rhythm",
+              "name": "컷 리듬과 박자 맞추기"
+            }
+          ]
+        },
+        {
+          "t": "박자(BPM)·비트 컷",
+          "s": "ok",
+          "links": [
+            {
+              "n": 112,
+              "href": "/lab/edit/cut-rhythm",
+              "name": "컷 리듬과 박자 맞추기"
+            }
+          ]
+        },
+        {
+          "t": "요소 간격(스태거 값)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 78,
+              "href": "/lab/motion/stagger-four",
+              "name": "스태거 4패턴"
+            }
+          ]
+        },
+        {
+          "t": "지연(delay)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 103,
+              "href": "/lab/motion/delay-hold-loop",
+              "name": "지연과 홀드와 루프"
+            }
+          ]
+        },
+        {
+          "t": "홀드(멈춤)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 103,
+              "href": "/lab/motion/delay-hold-loop",
+              "name": "지연과 홀드와 루프"
+            }
+          ]
+        },
+        {
+          "t": "오버랩",
+          "s": "ok",
+          "links": [
+            {
+              "n": 113,
+              "href": "/lab/edit/overlap-sound-sync",
+              "name": "J컷, L컷과 소리 동기"
+            }
+          ]
+        },
+        {
+          "t": "속도 변화(램프)·슬로모션·타임랩스",
+          "s": "ok",
+          "links": [
+            {
+              "n": 111,
+              "href": "/lab/edit/speed-ramp-freeze",
+              "name": "속도 램프와 정지 프레임"
+            }
+          ]
+        },
+        {
+          "t": "루프",
+          "s": "ok",
+          "links": [
+            {
+              "n": 103,
+              "href": "/lab/motion/delay-hold-loop",
+              "name": "지연과 홀드와 루프"
+            }
+          ]
+        },
+        {
+          "t": "정지 프레임 강조",
+          "s": "ok",
+          "links": [
+            {
+              "n": 111,
+              "href": "/lab/edit/speed-ramp-freeze",
+              "name": "속도 램프와 정지 프레임"
+            }
+          ]
+        },
+        {
+          "t": "카운트다운",
+          "s": "ok",
+          "links": [
+            {
+              "n": 118,
+              "href": "/lab/story/countdown",
+              "name": "카운트다운"
+            }
+          ]
+        },
+        {
+          "t": "호흡(빠름-느림 교차)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 117,
+              "href": "/lab/story/pacing-curve",
+              "name": "호흡과 감정 곡선"
+            }
+          ]
+        },
+        {
+          "t": "감정 곡선",
+          "s": "ok",
+          "links": [
+            {
+              "n": 117,
+              "href": "/lab/story/pacing-curve",
+              "name": "호흡과 감정 곡선"
+            }
+          ]
+        },
+        {
+          "t": "한 장면 한 메시지",
+          "s": "ok",
+          "links": [
+            {
+              "n": 117,
+              "href": "/lab/story/pacing-curve",
+              "name": "호흡과 감정 곡선"
+            }
+          ]
+        },
+        {
+          "t": "정보 밀도 조절",
+          "s": "ok",
+          "links": [
+            {
+              "n": 117,
+              "href": "/lab/story/pacing-curve",
+              "name": "호흡과 감정 곡선"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c14_transition",
+          "label": "장면 전환"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "no": "02",
+      "name": "이징·움직임 원리",
+      "chips": [
+        {
+          "t": "linear(원칙적으로 금지 · 비교용으로는 실습 74)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 74,
+              "href": "/lab/motion/easing-race",
+              "name": "이징 8종 레이스"
+            }
+          ]
+        },
+        {
+          "t": "ease-in/out/in-out (실습 74)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 74,
+              "href": "/lab/motion/easing-race",
+              "name": "이징 8종 레이스"
+            }
+          ]
+        },
+        {
+          "t": "cubic-bezier (실습 76·79)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 76,
+              "href": "/lab/motion/anticipation-follow",
+              "name": "예비동작·팔로스루"
+            },
+            {
+              "n": 79,
+              "href": "/lab/motion/feel-to-easing",
+              "name": "느낌→이징 번역"
+            }
+          ]
+        },
+        {
+          "t": "outQuad/outCubic/outQuart/outQuint (outC)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 102,
+              "href": "/lab/motion/easing-power-curves",
+              "name": "이징 계열 Quad에서 Expo까지"
+            }
+          ]
+        },
+        {
+          "t": "outExpo (실습 74)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 74,
+              "href": "/lab/motion/easing-race",
+              "name": "이징 8종 레이스"
+            }
+          ]
+        },
+        {
+          "t": "inOutExpo",
+          "s": "ok",
+          "links": [
+            {
+              "n": 102,
+              "href": "/lab/motion/easing-power-curves",
+              "name": "이징 계열 Quad에서 Expo까지"
+            }
+          ]
+        },
+        {
+          "t": "outBack(오버슈트) (실습 74·79)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 74,
+              "href": "/lab/motion/easing-race",
+              "name": "이징 8종 레이스"
+            },
+            {
+              "n": 79,
+              "href": "/lab/motion/feel-to-easing",
+              "name": "느낌→이징 번역"
+            }
+          ]
+        },
+        {
+          "t": "outElastic (실습 74)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 74,
+              "href": "/lab/motion/easing-race",
+              "name": "이징 8종 레이스"
+            }
+          ]
+        },
+        {
+          "t": "outBounce (실습 74)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 74,
+              "href": "/lab/motion/easing-race",
+              "name": "이징 8종 레이스"
+            }
+          ]
+        },
+        {
+          "t": "spring(stiffness·damping·mass) (실습 75 · 감쇠비 ζ 4종·목표가 바뀌어도 속도가 이어지는 것)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 75,
+              "href": "/lab/motion/spring",
+              "name": "스프링"
+            }
+          ]
+        },
+        {
+          "t": "예비동작(anticipation) (실습 28, 14% 웅크림 · 실습 76)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 28,
+              "href": "/lab/motion/squash-stretch",
+              "name": "젤리 바운스"
+            },
+            {
+              "n": 76,
+              "href": "/lab/motion/anticipation-follow",
+              "name": "예비동작·팔로스루"
+            }
+          ]
+        },
+        {
+          "t": "팔로스루·겹침(follow-through, overlap) (실습 76 · 안테나가 스프링으로 늦게 따라옴)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 76,
+              "href": "/lab/motion/anticipation-follow",
+              "name": "예비동작·팔로스루"
+            }
+          ]
+        },
+        {
+          "t": "스쿼시&스트레치 (실습 28·76)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 28,
+              "href": "/lab/motion/squash-stretch",
+              "name": "젤리 바운스"
+            },
+            {
+              "n": 76,
+              "href": "/lab/motion/anticipation-follow",
+              "name": "예비동작·팔로스루"
+            }
+          ]
+        },
+        {
+          "t": "슬로인 슬로아웃 (실습 77)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 77,
+              "href": "/lab/motion/arcs-spacing",
+              "name": "아크 경로·간격"
+            }
+          ]
+        },
+        {
+          "t": "아크 경로 (실습 77 · 베지어 호와 어니언 스킨 간격 표)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 77,
+              "href": "/lab/motion/arcs-spacing",
+              "name": "아크 경로·간격"
+            }
+          ]
+        },
+        {
+          "t": "세컨더리 액션",
+          "s": "ok",
+          "links": [
+            {
+              "n": 104,
+              "href": "/lab/motion/secondary-action",
+              "name": "세컨더리 액션"
+            }
+          ]
+        },
+        {
+          "t": "타이밍과 간격 (실습 77)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 77,
+              "href": "/lab/motion/arcs-spacing",
+              "name": "아크 경로·간격"
+            }
+          ]
+        },
+        {
+          "t": "스태거 (실습 78)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 78,
+              "href": "/lab/motion/stagger-four",
+              "name": "스태거 4패턴"
+            }
+          ]
+        },
+        {
+          "t": "캐스케이드",
+          "s": "ok",
+          "links": [
+            {
+              "n": 78,
+              "href": "/lab/motion/stagger-four",
+              "name": "스태거 4패턴"
+            }
+          ]
+        },
+        {
+          "t": "웨이브",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "중심에서 바깥으로 (실습 78)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 78,
+              "href": "/lab/motion/stagger-four",
+              "name": "스태거 4패턴"
+            }
+          ]
+        },
+        {
+          "t": "가장자리부터 (실습 78)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 78,
+              "href": "/lab/motion/stagger-four",
+              "name": "스태거 4패턴"
+            }
+          ]
+        },
+        {
+          "t": "무작위 순서 (실습 78)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 78,
+              "href": "/lab/motion/stagger-four",
+              "name": "스태거 4패턴"
+            }
+          ]
+        },
+        {
+          "t": "느낌 말→이징 숫자 번역 (실습 79). ※ 실습 74~79의 속도 ×N·넘침 %·속도 끊김 px/s·잔상 간격은 모두 그 페이지에서 직접 계산한 값이다",
+          "s": "ok",
+          "links": [
+            {
+              "n": 74,
+              "href": "/lab/motion/easing-race",
+              "name": "이징 8종 레이스"
+            },
+            {
+              "n": 79,
+              "href": "/lab/motion/feel-to-easing",
+              "name": "느낌→이징 번역"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c01_countup",
+          "label": "숫자 카운트업과 이동"
+        },
+        {
+          "id": "c02_kinetic",
+          "label": "키네틱 제목"
+        }
+      ],
+      "notes": [
+        "이징 곡선 모양은 easings.net·MDN과 일치하게 썼지만, 1.6초·k=120 같은 시간·강성 값과 “부드럽게=이 곡선” 같은 느낌 번역은 제가 정한 출발값이며 표준이 아니다.",
+        "사람이 느끼는 인상은 클로드가 직접 평가할 수 없다."
+      ]
+    },
+    {
+      "no": "03",
+      "name": "움직임 속성(바꿀 수 있는 값)",
+      "chips": [
+        {
+          "t": "위치(translate)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "크기(scale)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "회전(rotate)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "기울임(skew)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "투명도(opacity)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "블러(blur)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "클립(clip-path) ·마스크(mask)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "필터(brightness/contrast/saturate/hue-rotate/drop-shadow",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "색",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "선 그리기(stroke-dashoffset)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 145,
+              "href": "/lab/motion/stroke-draw",
+              "name": "선 그리기 애니메이션"
+            },
+            {
+              "n": 89,
+              "href": "/lab/motion/draw-on",
+              "name": "선 그리기"
+            }
+          ]
+        },
+        {
+          "t": "너비·높이",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "둥근 모서리(border-radius)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "패스 모프 (실습 27)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 27,
+              "href": "/lab/mograph/path-morph",
+              "name": "패스 모프"
+            }
+          ]
+        },
+        {
+          "t": "경로 따라 이동(offset-path)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 146,
+              "href": "/lab/motion/offset-path",
+              "name": "곡선 경로를 따라 이동"
+            }
+          ]
+        },
+        {
+          "t": "변형 기준점(transform-origin)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 101,
+              "href": "/lab/motion/animatable-properties",
+              "name": "움직임으로 바꾸는 값 12가지"
+            }
+          ]
+        },
+        {
+          "t": "원근(perspective)·rotateX/Y·translateZ·preserve-3d",
+          "s": "ok",
+          "links": [
+            {
+              "n": 147,
+              "href": "/lab/motion/css-3d",
+              "name": "CSS 3D 원근과 회전"
+            }
+          ]
+        },
+        {
+          "t": "will-change",
+          "s": "ok",
+          "links": [
+            {
+              "n": 148,
+              "href": "/lab/motion/will-change",
+              "name": "will-change 힌트"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c02_kinetic",
+          "label": "키네틱 제목"
+        },
+        {
+          "id": "c09_zoom",
+          "label": "줌인으로 문제 짚기"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "no": "04",
+      "name": "등장·퇴장 패턴",
+      "chips": [
+        {
+          "t": "페이드",
+          "s": "ok",
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
+        },
+        {
+          "t": "슬라이드 업/다운/좌/우",
+          "s": "ok",
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
+        },
+        {
+          "t": "스케일 인",
+          "s": "ok",
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
+        },
+        {
+          "t": "팝(outBack)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
+        },
+        {
+          "t": "바운스 인",
+          "s": "ok",
+          "links": [
+            {
+              "n": 149,
+              "href": "/lab/motion/bounce-in",
+              "name": "바운스 인 등장"
+            }
+          ]
+        },
+        {
+          "t": "드롭",
+          "s": "ok",
+          "links": [
+            {
+              "n": 90,
+              "href": "/lab/motion/physical-entrances",
+              "name": "물리적 등장"
+            }
+          ]
+        },
+        {
+          "t": "플립",
+          "s": "ok",
+          "links": [
+            {
+              "n": 90,
+              "href": "/lab/motion/physical-entrances",
+              "name": "물리적 등장"
+            }
+          ]
+        },
+        {
+          "t": "스핀",
+          "s": "ok",
+          "links": [
+            {
+              "n": 90,
+              "href": "/lab/motion/physical-entrances",
+              "name": "물리적 등장"
+            }
+          ]
+        },
+        {
+          "t": "와이프 (전/후)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 4,
+              "href": "/lab/motion/before-after-wipe",
+              "name": "전후 비교 와이프"
+            }
+          ]
+        },
+        {
+          "t": "마스크 리빌",
+          "s": "ok",
+          "links": [
+            {
+              "n": 2,
+              "href": "/lab/motion/mask-reveal",
+              "name": "마스크 리빌"
+            }
+          ]
+        },
+        {
+          "t": "블러 인/언블러",
+          "s": "ok",
+          "links": [
+            {
+              "n": 86,
+              "href": "/lab/motion/entrances-six",
+              "name": "등장 6종"
+            }
+          ]
+        },
+        {
+          "t": "타이핑",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "글자·단어·줄 분리 후 순차",
+          "s": "ok",
+          "links": [
+            {
+              "n": 88,
+              "href": "/lab/motion/split-text-appear",
+              "name": "줄·단어·글자 등장"
+            }
+          ]
+        },
+        {
+          "t": "그리기(draw-on)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 89,
+              "href": "/lab/motion/draw-on",
+              "name": "선 그리기"
+            }
+          ]
+        },
+        {
+          "t": "조립/분해(explode/assemble) (실습 17·19)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 17,
+              "href": "/lab/webgl/exploded-view",
+              "name": "제품 분해·조립"
+            },
+            {
+              "n": 19,
+              "href": "/lab/webgl/ui-layer-explode",
+              "name": "UI 레이어 분해"
+            }
+          ]
+        },
+        {
+          "t": "도장 찍기",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "점선 자리표시가 채워지기",
+          "s": "ok",
+          "links": []
+        }
+      ],
+      "clips": [
+        {
+          "id": "c03_slots",
+          "label": "점선 자리표시가 카드로"
+        },
+        {
+          "id": "c07_highlight",
+          "label": "글자를 가리지 않는 형광펜"
+        },
+        {
+          "id": "c11_typing",
+          "label": "타이핑"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "no": "05",
+      "name": "장면 전환",
+      "chips": [
+        {
+          "t": "컷",
+          "s": "ok",
+          "links": [
+            {
+              "n": 92,
+              "href": "/lab/edit/dissolve-fade",
+              "name": "디졸브와 딥 투 블랙"
+            }
+          ]
+        },
+        {
+          "t": "디졸브(크로스페이드)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 92,
+              "href": "/lab/edit/dissolve-fade",
+              "name": "디졸브와 딥 투 블랙"
+            }
+          ]
+        },
+        {
+          "t": "딥 투 블랙/화이트",
+          "s": "ok",
+          "links": [
+            {
+              "n": 92,
+              "href": "/lab/edit/dissolve-fade",
+              "name": "디졸브와 딥 투 블랙"
+            }
+          ]
+        },
+        {
+          "t": "와이프(선형/원형/방사형)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 93,
+              "href": "/lab/edit/wipe-push",
+              "name": "와이프와 푸시 전환"
+            }
+          ]
+        },
+        {
+          "t": "푸시/슬라이드 (옆에서 밀려오며 초점 맺힘)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 93,
+              "href": "/lab/edit/wipe-push",
+              "name": "와이프와 푸시 전환"
+            }
+          ]
+        },
+        {
+          "t": "줌 스루 (실습 49)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 49,
+              "href": "/lab/camera/dolly-through",
+              "name": "프레임 통과 달리 인"
+            }
+          ]
+        },
+        {
+          "t": "휩팬",
+          "s": "ok",
+          "links": [
+            {
+              "n": 94,
+              "href": "/lab/edit/whip-pan",
+              "name": "휩팬"
+            }
+          ]
+        },
+        {
+          "t": "매치컷",
+          "s": "ok",
+          "links": [
+            {
+              "n": 96,
+              "href": "/lab/edit/match-cut",
+              "name": "매치컷"
+            }
+          ]
+        },
+        {
+          "t": "도형 매트 전환(큰 도형이 화면 덮음)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 106,
+              "href": "/lab/edit/matte-transitions",
+              "name": "도형 매트와 루마 페이드"
+            }
+          ]
+        },
+        {
+          "t": "모프·이어짐 (바 → 막대)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "글리치·RGB 분리",
+          "s": "ok",
+          "links": [
+            {
+              "n": 105,
+              "href": "/lab/edit/glitch-rgb-split",
+              "name": "글리치와 RGB 분리"
+            }
+          ]
+        },
+        {
+          "t": "라이트 리크",
+          "s": "ok",
+          "links": [
+            {
+              "n": 97,
+              "href": "/lab/edit/light-leak",
+              "name": "라이트 리크 전환"
+            }
+          ]
+        },
+        {
+          "t": "필름 번",
+          "s": "ok",
+          "links": [
+            {
+              "n": 110,
+              "href": "/lab/edit/film-burn",
+              "name": "필름 번 전환"
+            }
+          ]
+        },
+        {
+          "t": "잉크 번짐 (실습 31)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 31,
+              "href": "/lab/mograph/ink-transition",
+              "name": "잉크 번짐 전환"
+            }
+          ]
+        },
+        {
+          "t": "파편",
+          "s": "ok",
+          "links": [
+            {
+              "n": 108,
+              "href": "/lab/edit/shutter-shatter",
+              "name": "셔터 전환과 파편 전환"
+            }
+          ]
+        },
+        {
+          "t": "페이지 넘김",
+          "s": "ok",
+          "links": [
+            {
+              "n": 107,
+              "href": "/lab/edit/flip-3d-transitions",
+              "name": "큐브 회전과 페이지 넘김"
+            }
+          ]
+        },
+        {
+          "t": "큐브/도어",
+          "s": "ok",
+          "links": [
+            {
+              "n": 107,
+              "href": "/lab/edit/flip-3d-transitions",
+              "name": "큐브 회전과 페이지 넘김"
+            }
+          ]
+        },
+        {
+          "t": "셔터",
+          "s": "ok",
+          "links": [
+            {
+              "n": 108,
+              "href": "/lab/edit/shutter-shatter",
+              "name": "셔터 전환과 파편 전환"
+            }
+          ]
+        },
+        {
+          "t": "루마 페이드",
+          "s": "ok",
+          "links": [
+            {
+              "n": 106,
+              "href": "/lab/edit/matte-transitions",
+              "name": "도형 매트와 루마 페이드"
+            }
+          ]
+        },
+        {
+          "t": "글자가 커져 다음 장면",
+          "s": "ok",
+          "links": [
+            {
+              "n": 109,
+              "href": "/lab/edit/text-zoom-through",
+              "name": "글자 속으로 줌 스루"
+            }
+          ]
+        },
+        {
+          "t": "카드가 전체 화면으로 확장 (AI가 놓침)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "흐림 전환",
+          "s": "ok",
+          "links": [
+            {
+              "n": 95,
+              "href": "/lab/edit/defocus-transition",
+              "name": "흐림 전환"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c14_transition",
+          "label": "장면 전환"
+        },
+        {
+          "id": "c18_flow",
+          "label": "차이 2 · 장면이 바뀔 때"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "no": "06",
+      "name": "카메라·공간",
+      "chips": [
+        {
+          "t": "줌 인/아웃 (1.00→1.03)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "푸시 인 (실습 49)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 49,
+              "href": "/lab/camera/dolly-through",
+              "name": "프레임 통과 달리 인"
+            }
+          ]
+        },
+        {
+          "t": "팬 (실습 45)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 45,
+              "href": "/lab/camera/camera-moves",
+              "name": "카메라 이동 4종"
+            }
+          ]
+        },
+        {
+          "t": "틸트 (실습 45)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 45,
+              "href": "/lab/camera/camera-moves",
+              "name": "카메라 이동 4종"
+            }
+          ]
+        },
+        {
+          "t": "트래킹 (실습 45)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 45,
+              "href": "/lab/camera/camera-moves",
+              "name": "카메라 이동 4종"
+            }
+          ]
+        },
+        {
+          "t": "돌리 줌 (실습 44)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 44,
+              "href": "/lab/camera/dolly-zoom",
+              "name": "돌리 줌"
+            }
+          ]
+        },
+        {
+          "t": "오빗 (실습 17·20, 느린 선회)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 17,
+              "href": "/lab/webgl/exploded-view",
+              "name": "제품 분해·조립"
+            },
+            {
+              "n": 20,
+              "href": "/lab/webgl/scan-reveal",
+              "name": "스캔 리빌"
+            }
+          ]
+        },
+        {
+          "t": "크레인 (실습 45)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 45,
+              "href": "/lab/camera/camera-moves",
+              "name": "카메라 이동 4종"
+            }
+          ]
+        },
+        {
+          "t": "핸드헬드 흔들림 (실습 46)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 46,
+              "href": "/lab/camera/handheld",
+              "name": "핸드헬드 흔들림"
+            }
+          ]
+        },
+        {
+          "t": "쉐이크(충격 흔들림) (실습 46)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 46,
+              "href": "/lab/camera/handheld",
+              "name": "핸드헬드 흔들림"
+            }
+          ]
+        },
+        {
+          "t": "롤(기울임) (실습 46)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 46,
+              "href": "/lab/camera/handheld",
+              "name": "핸드헬드 흔들림"
+            }
+          ]
+        },
+        {
+          "t": "초점 이동(rack focus) (실습 47)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 47,
+              "href": "/lab/camera/rack-focus",
+              "name": "초점 이동·보케"
+            }
+          ]
+        },
+        {
+          "t": "피사계 심도(DOF)·보케 (실습 47)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 47,
+              "href": "/lab/camera/rack-focus",
+              "name": "초점 이동·보케"
+            }
+          ]
+        },
+        {
+          "t": "시차(패럴랙스) (먼지 3겹)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "2.5D 레이어 (실습 6 · 층별 시차 실습 45)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 6,
+              "href": "/lab/web/parallax-2-5d",
+              "name": "2.5D 패럴랙스"
+            },
+            {
+              "n": 45,
+              "href": "/lab/camera/camera-moves",
+              "name": "카메라 이동 4종"
+            }
+          ]
+        },
+        {
+          "t": "어웨이 줌 (실습 48)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 48,
+              "href": "/lab/camera/away-zoom-reframe",
+              "name": "어웨이 줌·화면비"
+            }
+          ]
+        },
+        {
+          "t": "레터박스 (실습 48)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 48,
+              "href": "/lab/camera/away-zoom-reframe",
+              "name": "어웨이 줌·화면비"
+            }
+          ]
+        },
+        {
+          "t": "화면비 변경(9:16 재구성) (실습 48)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 48,
+              "href": "/lab/camera/away-zoom-reframe",
+              "name": "어웨이 줌·화면비"
+            }
+          ]
+        },
+        {
+          "t": "프레임 통과 달리 인(줌 스루) (실습 49)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 49,
+              "href": "/lab/camera/dolly-through",
+              "name": "프레임 통과 달리 인"
+            }
+          ]
+        },
+        {
+          "t": "프레임 확대 후 되돌리기 (실험 영상 확대). 3D 카메라 경로(스플라인)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "FPV 드론 비행",
+          "s": "ok",
+          "links": [
+            {
+              "n": 124,
+              "href": "/lab/camera/fpv-steadicam",
+              "name": "FPV 드론 비행과 스테디캠"
+            }
+          ]
+        },
+        {
+          "t": "스테디캠 부드러운 따라가기",
+          "s": "ok",
+          "links": [
+            {
+              "n": 124,
+              "href": "/lab/camera/fpv-steadicam",
+              "name": "FPV 드론 비행과 스테디캠"
+            }
+          ]
+        },
+        {
+          "t": "하이·로우 앵글",
+          "s": "ok",
+          "links": [
+            {
+              "n": 125,
+              "href": "/lab/camera/high-low-angle",
+              "name": "하이 앵글과 로우 앵글"
+            }
+          ]
+        },
+        {
+          "t": "렌즈 왜곡(어안)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 126,
+              "href": "/lab/camera/fisheye-distortion",
+              "name": "렌즈 왜곡과 어안"
+            }
+          ]
+        },
+        {
+          "t": "화면 녹화 자동 줌·팬",
+          "s": "ok",
+          "links": [
+            {
+              "n": 127,
+              "href": "/lab/camera/screen-record-zoom",
+              "name": "화면 녹화 자동 줌과 팬"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c09_zoom",
+          "label": "줌인으로 문제 짚기"
+        },
+        {
+          "id": "c13_scroll",
+          "label": "페이지 스크롤"
+        }
+      ],
+      "notes": [
+        "실습 44~49는 모두 캔버스 2D로 계산했고 렌즈 수치(거리·배율·초점)는 제가 정한 시작값입니다."
+      ]
+    },
+    {
+      "no": "07",
+      "name": "타이포그래피",
+      "chips": [
+        {
+          "t": "서체 선택(고딕/명조/모노/디스플레이 Black Han Sans·IBM Plex Sans KR·JetBrains Mono)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "굵기",
+          "s": "ok",
+          "links": [
+            {
+              "n": 128,
+              "href": "/lab/type/type-hierarchy",
+              "name": "굵기와 크기 위계"
+            }
+          ]
+        },
+        {
+          "t": "크기 위계",
+          "s": "ok",
+          "links": [
+            {
+              "n": 128,
+              "href": "/lab/type/type-hierarchy",
+              "name": "굵기와 크기 위계"
+            }
+          ]
+        },
+        {
+          "t": "자간(tracking) (실습 41)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 41,
+              "href": "/lab/type/type-wave-weight",
+              "name": "웨이브·굵기 타이포"
+            }
+          ]
+        },
+        {
+          "t": "행간",
+          "s": "ok",
+          "links": [
+            {
+              "n": 129,
+              "href": "/lab/type/line-height-align",
+              "name": "행간과 정렬"
+            }
+          ]
+        },
+        {
+          "t": "정렬",
+          "s": "ok",
+          "links": [
+            {
+              "n": 129,
+              "href": "/lab/type/line-height-align",
+              "name": "행간과 정렬"
+            }
+          ]
+        },
+        {
+          "t": "대비",
+          "s": "ok",
+          "links": [
+            {
+              "n": 130,
+              "href": "/lab/type/type-contrast",
+              "name": "글자 대비"
+            }
+          ]
+        },
+        {
+          "t": "아웃라인",
+          "s": "ok",
+          "links": [
+            {
+              "n": 131,
+              "href": "/lab/type/text-outline-shadow-emboss",
+              "name": "글자 아웃라인, 그림자, 엠보싱"
+            }
+          ]
+        },
+        {
+          "t": "그림자",
+          "s": "ok",
+          "links": [
+            {
+              "n": 131,
+              "href": "/lab/type/text-outline-shadow-emboss",
+              "name": "글자 아웃라인, 그림자, 엠보싱"
+            }
+          ]
+        },
+        {
+          "t": "글로우",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "그라디언트 글자",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "글자 안에 영상 (실습 56)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 56,
+              "href": "/lab/edit/track-matte",
+              "name": "매트·글자 속 영상"
+            }
+          ]
+        },
+        {
+          "t": "가변 폰트 굵기 애니(진짜 가변 폰트 · 외곽선으로 흉내 실습 41)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 41,
+              "href": "/lab/type/type-wave-weight",
+              "name": "웨이브·굵기 타이포"
+            }
+          ]
+        },
+        {
+          "t": "분리 애니(chars/words/lines) (실습 38·40·41)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 38,
+              "href": "/lab/type/text-scramble",
+              "name": "스크램블 디코드"
+            },
+            {
+              "n": 40,
+              "href": "/lab/type/title-slam",
+              "name": "슬램 3D 제목"
+            },
+            {
+              "n": 41,
+              "href": "/lab/type/type-wave-weight",
+              "name": "웨이브·굵기 타이포"
+            }
+          ]
+        },
+        {
+          "t": "스케일 펌프 (실습 40)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 40,
+              "href": "/lab/type/title-slam",
+              "name": "슬램 3D 제목"
+            }
+          ]
+        },
+        {
+          "t": "슬램 (실습 40)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 40,
+              "href": "/lab/type/title-slam",
+              "name": "슬램 3D 제목"
+            }
+          ]
+        },
+        {
+          "t": "슬라이스",
+          "s": "ok",
+          "links": [
+            {
+              "n": 132,
+              "href": "/lab/type/text-slice-bounce",
+              "name": "글자 슬라이스와 바운스"
+            }
+          ]
+        },
+        {
+          "t": "바운스",
+          "s": "ok",
+          "links": [
+            {
+              "n": 132,
+              "href": "/lab/type/text-slice-bounce",
+              "name": "글자 슬라이스와 바운스"
+            }
+          ]
+        },
+        {
+          "t": "웨이브 (실습 41)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 41,
+              "href": "/lab/type/type-wave-weight",
+              "name": "웨이브·굵기 타이포"
+            }
+          ]
+        },
+        {
+          "t": "스크램블·디코드 (실습 38)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 38,
+              "href": "/lab/type/text-scramble",
+              "name": "스크램블 디코드"
+            }
+          ]
+        },
+        {
+          "t": "타이핑",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "롤링 숫자(오도미터) (실습 39)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 39,
+              "href": "/lab/type/odometer",
+              "name": "롤링 숫자"
+            }
+          ]
+        },
+        {
+          "t": "마퀴",
+          "s": "ok",
+          "links": [
+            {
+              "n": 133,
+              "href": "/lab/type/marquee",
+              "name": "마퀴, 흘러가는 글 띠"
+            }
+          ]
+        },
+        {
+          "t": "3D 돌출(겹쳐 그리기) (실습 40)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 40,
+              "href": "/lab/type/title-slam",
+              "name": "슬램 3D 제목"
+            }
+          ]
+        },
+        {
+          "t": "엠보싱",
+          "s": "ok",
+          "links": [
+            {
+              "n": 131,
+              "href": "/lab/type/text-outline-shadow-emboss",
+              "name": "글자 아웃라인, 그림자, 엠보싱"
+            }
+          ]
+        },
+        {
+          "t": "네온 튜브 (실습 42)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 42,
+              "href": "/lab/type/neon-tube",
+              "name": "네온 간판"
+            }
+          ]
+        },
+        {
+          "t": "하이라이트 마커 (실습 43)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 43,
+              "href": "/lab/type/hand-drawn-annotation",
+              "name": "손그림 강조"
+            }
+          ]
+        },
+        {
+          "t": "밑줄 그리기",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "취소선",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "동그라미·화살표·형광펜 박스(손그림 떨림·겹선·트림) (실습 43)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 43,
+              "href": "/lab/type/hand-drawn-annotation",
+              "name": "손그림 강조"
+            }
+          ]
+        },
+        {
+          "t": "말풍선",
+          "s": "ok",
+          "links": [
+            {
+              "n": 134,
+              "href": "/lab/type/speech-bubble",
+              "name": "말풍선과 풍선 모양"
+            }
+          ]
+        },
+        {
+          "t": "자막(SRT)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "한글 줄바꿈(word-break: keep-all)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 135,
+              "href": "/lab/type/korean-line-break",
+              "name": "한글 줄바꿈과 keep-all"
+            }
+          ]
+        },
+        {
+          "t": "폰트 로딩 확인(렌더 전 글자 한 번씩 그리기",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "숫자 고정폭",
+          "s": "ok",
+          "links": []
+        }
+      ],
+      "clips": [
+        {
+          "id": "c02_kinetic",
+          "label": "키네틱 제목"
+        },
+        {
+          "id": "c11_typing",
+          "label": "타이핑"
+        },
+        {
+          "id": "c12_strike",
+          "label": "취소선과 큰 단어"
+        }
+      ],
+      "notes": [
+        "맑은 고딕에는 이모지가 없어 □로 찍히므로 이모지·글리프 금지."
+      ]
+    },
+    {
+      "no": "08",
+      "name": "도형·그래픽",
+      "chips": [
+        {
+          "t": "도형 프리미티브",
+          "s": "ok",
+          "links": [
+            {
+              "n": 150,
+              "href": "/lab/mograph/shape-primitives",
+              "name": "도형 프리미티브와 선"
+            }
+          ]
+        },
+        {
+          "t": "선",
+          "s": "ok",
+          "links": [
+            {
+              "n": 150,
+              "href": "/lab/mograph/shape-primitives",
+              "name": "도형 프리미티브와 선"
+            }
+          ]
+        },
+        {
+          "t": "패스",
+          "s": "ok",
+          "links": [
+            {
+              "n": 151,
+              "href": "/lab/mograph/path-boolean",
+              "name": "패스와 불리언 연산"
+            }
+          ]
+        },
+        {
+          "t": "아이콘(검증된 세트 사용 권장: Lucide·Phosphor·Tabler 등",
+          "s": "ok",
+          "links": [
+            {
+              "n": 136,
+              "href": "/lab/image/icon-sets",
+              "name": "아이콘 세트"
+            }
+          ]
+        },
+        {
+          "t": "일러스트",
+          "s": "ok",
+          "links": [
+            {
+              "n": 137,
+              "href": "/lab/image/illustration-pictogram",
+              "name": "일러스트와 픽토그램"
+            }
+          ]
+        },
+        {
+          "t": "픽토그램",
+          "s": "ok",
+          "links": [
+            {
+              "n": 137,
+              "href": "/lab/image/illustration-pictogram",
+              "name": "일러스트와 픽토그램"
+            }
+          ]
+        },
+        {
+          "t": "패턴(점·격자·줄무늬·해칭",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "와이어프레임 (실습 20)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 20,
+              "href": "/lab/webgl/scan-reveal",
+              "name": "스캔 리빌"
+            }
+          ]
+        },
+        {
+          "t": "블롭 (배경 · 실습 26)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 26,
+              "href": "/lab/mograph/metaballs",
+              "name": "액체 합체"
+            }
+          ]
+        },
+        {
+          "t": "유기적 형태 (실습 26·27)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 26,
+              "href": "/lab/mograph/metaballs",
+              "name": "액체 합체"
+            },
+            {
+              "n": 27,
+              "href": "/lab/mograph/path-morph",
+              "name": "패스 모프"
+            }
+          ]
+        },
+        {
+          "t": "마스킹",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "불리언",
+          "s": "ok",
+          "links": [
+            {
+              "n": 151,
+              "href": "/lab/mograph/path-boolean",
+              "name": "패스와 불리언 연산"
+            }
+          ]
+        },
+        {
+          "t": "스트로크 애니",
+          "s": "ok",
+          "links": [
+            {
+              "n": 145,
+              "href": "/lab/motion/stroke-draw",
+              "name": "선 그리기 애니메이션"
+            }
+          ]
+        },
+        {
+          "t": "라인아트 그리기",
+          "s": "ok",
+          "links": [
+            {
+              "n": 145,
+              "href": "/lab/motion/stroke-draw",
+              "name": "선 그리기 애니메이션"
+            }
+          ]
+        },
+        {
+          "t": "필름스트립",
+          "s": "ok",
+          "links": []
+        }
+      ],
+      "clips": [
+        {
+          "id": "c10_film",
+          "label": "필름스트립"
+        },
+        {
+          "id": "c05_strip",
+          "label": "시간 띠와 실제 화면 확대"
+        }
+      ],
+      "notes": [
+        "도형을 겹쳐 물체를 흉내 내는 것은 금지(재질·광원·그림자가 있어야 함)."
+      ]
+    },
+    {
+      "no": "09",
+      "name": "데이터 시각화",
+      "chips": [
+        {
+          "t": "막대 (실습 80 순위 막대)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 80,
+              "href": "/lab/info/bars-not-pie",
+              "name": "파이 대신 막대·링"
+            }
+          ]
+        },
+        {
+          "t": "선",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "영역",
+          "s": "ok",
+          "links": [
+            {
+              "n": 121,
+              "href": "/lab/info/area-treemap",
+              "name": "영역 차트와 트리맵"
+            }
+          ]
+        },
+        {
+          "t": "도넛/파이 (실습 80 — 파이를 만들어 한계를 보이고 막대·링으로 대체)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 80,
+              "href": "/lab/info/bars-not-pie",
+              "name": "파이 대신 막대·링"
+            }
+          ]
+        },
+        {
+          "t": "산점도 (실습 81 · 추세선·이상치 짚기)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 81,
+              "href": "/lab/info/scatter-trend",
+              "name": "산점도·추세선"
+            }
+          ]
+        },
+        {
+          "t": "히트맵 (실습 82 · 한 색 램프 vs 무지개)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 82,
+              "href": "/lab/info/heatmap",
+              "name": "히트맵"
+            }
+          ]
+        },
+        {
+          "t": "트리맵",
+          "s": "ok",
+          "links": [
+            {
+              "n": 121,
+              "href": "/lab/info/area-treemap",
+              "name": "영역 차트와 트리맵"
+            }
+          ]
+        },
+        {
+          "t": "산키",
+          "s": "ok",
+          "links": [
+            {
+              "n": 122,
+              "href": "/lab/info/sankey-funnel",
+              "name": "산키와 퍼널"
+            }
+          ]
+        },
+        {
+          "t": "슬로프 차트 (실습 83 · 덤벨 형태)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 83,
+              "href": "/lab/info/dumbbell",
+              "name": "덤벨 차트"
+            }
+          ]
+        },
+        {
+          "t": "불릿",
+          "s": "ok",
+          "links": [
+            {
+              "n": 123,
+              "href": "/lab/info/bullet-gantt",
+              "name": "불릿 그래프와 간트 차트"
+            }
+          ]
+        },
+        {
+          "t": "게이지 (실습 80 링 게이지)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 80,
+              "href": "/lab/info/bars-not-pie",
+              "name": "파이 대신 막대·링"
+            }
+          ]
+        },
+        {
+          "t": "스파크라인 (실습 85)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 85,
+              "href": "/lab/info/sparkline-kpi",
+              "name": "스파크라인·KPI"
+            }
+          ]
+        },
+        {
+          "t": "지도(코로플레스 실습 22 · 지점·연결 아크 실습 21·23)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 21,
+              "href": "/lab/info/globe-zoom",
+              "name": "지구본 줌인"
+            },
+            {
+              "n": 22,
+              "href": "/lab/info/choropleth-map",
+              "name": "지역별 지도"
+            },
+            {
+              "n": 23,
+              "href": "/lab/info/arc-map",
+              "name": "연결 아크 지도"
+            }
+          ]
+        },
+        {
+          "t": "네트워크 (실습 15)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 15,
+              "href": "/lab/fx/plexus-network",
+              "name": "플렉서스 네트워크"
+            }
+          ]
+        },
+        {
+          "t": "타임라인 (띠)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "간트",
+          "s": "ok",
+          "links": [
+            {
+              "n": 123,
+              "href": "/lab/info/bullet-gantt",
+              "name": "불릿 그래프와 간트 차트"
+            }
+          ]
+        },
+        {
+          "t": "퍼널",
+          "s": "ok",
+          "links": [
+            {
+              "n": 122,
+              "href": "/lab/info/sankey-funnel",
+              "name": "산키와 퍼널"
+            }
+          ]
+        },
+        {
+          "t": "워터폴 (실습 84)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 84,
+              "href": "/lab/info/waterfall",
+              "name": "워터폴"
+            }
+          ]
+        },
+        {
+          "t": "작은 다중 그래프 (실습 85)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 85,
+              "href": "/lab/info/sparkline-kpi",
+              "name": "스파크라인·KPI"
+            }
+          ]
+        },
+        {
+          "t": "KPI 숫자 카드 (실습 85)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 85,
+              "href": "/lab/info/sparkline-kpi",
+              "name": "스파크라인·KPI"
+            }
+          ]
+        },
+        {
+          "t": "전/후 비교 (실습 83)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 83,
+              "href": "/lab/info/dumbbell",
+              "name": "덤벨 차트"
+            }
+          ]
+        },
+        {
+          "t": "어노테이션 (실습 25·81)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 25,
+              "href": "/lab/info/annotated-line",
+              "name": "어노테이션 그래프"
+            },
+            {
+              "n": 81,
+              "href": "/lab/info/scatter-trend",
+              "name": "산점도·추세선"
+            }
+          ]
+        },
+        {
+          "t": "축 0부터",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "카운트업",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "막대 레이스 (실습 24)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 24,
+              "href": "/lab/info/bar-chart-race",
+              "name": "막대 레이스"
+            }
+          ]
+        },
+        {
+          "t": "하나만 강조하고 나머지 회색 (실습 80~83)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 80,
+              "href": "/lab/info/bars-not-pie",
+              "name": "파이 대신 막대·링"
+            }
+          ]
+        },
+        {
+          "t": "단위·출처 표기 (가상 기업·예시 데이터). ※ 실습 80~85의 모든 데이터는 제가 만든 예시이며",
+          "s": "ok",
+          "links": [
+            {
+              "n": 80,
+              "href": "/lab/info/bars-not-pie",
+              "name": "파이 대신 막대·링"
+            }
+          ]
+        },
+        {
+          "t": "화면의 각도·px·기울기·r·밝기 뒤집힘·엇갈림 횟수·합계 식은 그 예시 데이터에서 코드가 직접 계산한 값이다",
+          "s": "ok",
+          "links": [
+            {
+              "n": 178,
+              "href": "/lab/check/computed-numbers",
+              "name": "화면 숫자는 코드가 계산"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c01_countup",
+          "label": "숫자 카운트업과 이동"
+        },
+        {
+          "id": "c05_strip",
+          "label": "시간 띠와 실제 화면 확대"
+        },
+        {
+          "id": "c06_accent",
+          "label": "강조는 하나"
+        },
+        {
+          "id": "c15_compare",
+          "label": "두 영상 나란히 재생"
+        },
+        {
+          "id": "c19_num",
+          "label": "차이 3 · 숫자"
+        }
+      ],
+      "notes": [
+        "이 분야에서 아직 만들지 않은 것: 트리맵·산키·불릿·간트·퍼널·영역 그래프."
+      ]
+    },
+    {
+      "no": "10",
+      "name": "UI·화면 연출",
+      "chips": [
+        {
+          "t": "브라우저 창 목업 (실습 32)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 32,
+              "href": "/lab/ui/cursor-demo",
+              "name": "커서·클릭 시연"
+            }
+          ]
+        },
+        {
+          "t": "폰·노트북 목업",
+          "s": "ok",
+          "links": [
+            {
+              "n": 170,
+              "href": "/lab/ui/device-mockup",
+              "name": "폰과 노트북 목업"
+            }
+          ]
+        },
+        {
+          "t": "마우스 커서(곡선 경로·감속) (실습 32)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 32,
+              "href": "/lab/ui/cursor-demo",
+              "name": "커서·클릭 시연"
+            }
+          ]
+        },
+        {
+          "t": "호버·눌림 상태 (실습 32)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 32,
+              "href": "/lab/ui/cursor-demo",
+              "name": "커서·클릭 시연"
+            }
+          ]
+        },
+        {
+          "t": "클릭 파문(리플) (실습 32)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 32,
+              "href": "/lab/ui/cursor-demo",
+              "name": "커서·클릭 시연"
+            }
+          ]
+        },
+        {
+          "t": "입력 타이핑(불규칙 간격) (실습 33)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 33,
+              "href": "/lab/ui/terminal-code",
+              "name": "터미널·코드"
+            }
+          ]
+        },
+        {
+          "t": "스크롤 시연 (실습 페이지 · 채팅 자동 스크롤 실습 34)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 34,
+              "href": "/lab/ui/chat-ui",
+              "name": "채팅 화면"
+            }
+          ]
+        },
+        {
+          "t": "드롭다운 (실습 36)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 36,
+              "href": "/lab/ui/modal-menu-toast",
+              "name": "메뉴·모달·알림"
+            }
+          ]
+        },
+        {
+          "t": "토스트·알림 (실습 32·36)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 32,
+              "href": "/lab/ui/cursor-demo",
+              "name": "커서·클릭 시연"
+            },
+            {
+              "n": 36,
+              "href": "/lab/ui/modal-menu-toast",
+              "name": "메뉴·모달·알림"
+            }
+          ]
+        },
+        {
+          "t": "모달 (실습 36)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 36,
+              "href": "/lab/ui/modal-menu-toast",
+              "name": "메뉴·모달·알림"
+            }
+          ]
+        },
+        {
+          "t": "로딩·진행 바 (실습 33·37)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 33,
+              "href": "/lab/ui/terminal-code",
+              "name": "터미널·코드"
+            },
+            {
+              "n": 37,
+              "href": "/lab/ui/skeleton-loading",
+              "name": "스켈레톤 로딩"
+            }
+          ]
+        },
+        {
+          "t": "스켈레톤 화면·시머 (실습 37)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 37,
+              "href": "/lab/ui/skeleton-loading",
+              "name": "스켈레톤 로딩"
+            }
+          ]
+        },
+        {
+          "t": "터미널 (실습 33)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 33,
+              "href": "/lab/ui/terminal-code",
+              "name": "터미널·코드"
+            }
+          ]
+        },
+        {
+          "t": "코드 에디터(구문 강조·줄 하이라이트·diff) (실습 33)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 33,
+              "href": "/lab/ui/terminal-code",
+              "name": "터미널·코드"
+            }
+          ]
+        },
+        {
+          "t": "채팅 UI (실습 34)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 34,
+              "href": "/lab/ui/chat-ui",
+              "name": "채팅 화면"
+            }
+          ]
+        },
+        {
+          "t": "타이핑 표시(점 3개) (실습 34)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 34,
+              "href": "/lab/ui/chat-ui",
+              "name": "채팅 화면"
+            }
+          ]
+        },
+        {
+          "t": "텍스트 스트리밍 (실습 34)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 34,
+              "href": "/lab/ui/chat-ui",
+              "name": "채팅 화면"
+            }
+          ]
+        },
+        {
+          "t": "대시보드·FUI·HUD(레티클·레이더·눈금·스캔라인 실습 10 원형 게이지·꺾쇠 패널·16진수 데이터 흐름·신호 막대·선 차트 그리기 실습 35)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 10,
+              "href": "/lab/fui/hud-scan",
+              "name": "HUD 스캔"
+            },
+            {
+              "n": 35,
+              "href": "/lab/fui/fui-panel",
+              "name": "FUI 데이터 패널"
+            }
+          ]
+        },
+        {
+          "t": "콜아웃 (실습 35 PEAK 표시)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 35,
+              "href": "/lab/fui/fui-panel",
+              "name": "FUI 데이터 패널"
+            }
+          ]
+        },
+        {
+          "t": "줌 하이라이트 . 컨텍스트 메뉴",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "탭 전환",
+          "s": "ok",
+          "links": [
+            {
+              "n": 172,
+              "href": "/lab/ui/tab-switch-toggle",
+              "name": "탭 전환과 스위치 토글"
+            }
+          ]
+        },
+        {
+          "t": "스위치·체크박스 토글",
+          "s": "ok",
+          "links": [
+            {
+              "n": 172,
+              "href": "/lab/ui/tab-switch-toggle",
+              "name": "탭 전환과 스위치 토글"
+            }
+          ]
+        },
+        {
+          "t": "검색창 자동완성",
+          "s": "ok",
+          "links": [
+            {
+              "n": 173,
+              "href": "/lab/ui/search-autocomplete",
+              "name": "검색창 자동완성"
+            }
+          ]
+        },
+        {
+          "t": "드래그 앤 드롭",
+          "s": "ok",
+          "links": [
+            {
+              "n": 174,
+              "href": "/lab/ui/drag-drop",
+              "name": "드래그 앤 드롭"
+            }
+          ]
+        },
+        {
+          "t": "키캡(단축키 표시)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 175,
+              "href": "/lab/ui/keycap",
+              "name": "키캡과 단축키 표시"
+            }
+          ]
+        },
+        {
+          "t": "화면 녹화 자동 줌·팬",
+          "s": "ok",
+          "links": [
+            {
+              "n": 127,
+              "href": "/lab/camera/screen-record-zoom",
+              "name": "화면 녹화 자동 줌과 팬"
+            }
+          ]
+        },
+        {
+          "t": "폰 제스처(핀치·스와이프)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 176,
+              "href": "/lab/ui/phone-gestures",
+              "name": "폰 제스처, 핀치와 스와이프"
+            }
+          ]
+        },
+        {
+          "t": "3D 기기 목업",
+          "s": "ok",
+          "links": [
+            {
+              "n": 171,
+              "href": "/lab/cinema/device-3d-mockup",
+              "name": "3D 기기 목업"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c04_spotlight",
+          "label": "스포트라이트 코드 패널"
+        },
+        {
+          "id": "c13_scroll",
+          "label": "페이지 스크롤"
+        }
+      ],
+      "notes": [
+        "실습 32~37은 모두 캔버스 2D로 그렸고 UI 값(ms·px)은 제가 정한 시작값이며 실제 서비스의 값이 아닙니다."
+      ]
+    },
+    {
+      "no": "11",
+      "name": "빛·색·재질",
+      "chips": [
+        {
+          "t": "팔레트(60-30-10) (실습 51)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 51,
+              "href": "/lab/color/palette-contrast",
+              "name": "60-30-10 팔레트·대비"
+            }
+          ]
+        },
+        {
+          "t": "대비 (실습 51)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 51,
+              "href": "/lab/color/palette-contrast",
+              "name": "60-30-10 팔레트·대비"
+            }
+          ]
+        },
+        {
+          "t": "색온도 (실습 50)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 50,
+              "href": "/lab/color/color-grading",
+              "name": "컬러 그레이딩"
+            }
+          ]
+        },
+        {
+          "t": "그라디언트(선형방사형원뿔 (실습 53·55)/메시",
+          "s": "ok",
+          "links": [
+            {
+              "n": 53,
+              "href": "/lab/depth/metal-material",
+              "name": "금속 재질"
+            },
+            {
+              "n": 55,
+              "href": "/lab/depth/hologram-card",
+              "name": "홀로그램 카드"
+            }
+          ]
+        },
+        {
+          "t": "필름 그레인 (실습 52 입자)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 52,
+              "href": "/lab/depth/frosted-glass",
+              "name": "유리 카드"
+            }
+          ]
+        },
+        {
+          "t": "비네팅",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "글로우·블룸",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "림라이트 (실습 17·18)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 17,
+              "href": "/lab/webgl/exploded-view",
+              "name": "제품 분해·조립"
+            },
+            {
+              "n": 18,
+              "href": "/lab/webgl/pbr-lighting",
+              "name": "재질과 조명"
+            }
+          ]
+        },
+        {
+          "t": "반사 (환경 반사, 실습 18)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 18,
+              "href": "/lab/webgl/pbr-lighting",
+              "name": "재질과 조명"
+            }
+          ]
+        },
+        {
+          "t": "그림자(접지드롭 (실습 52·54)/층 높이별 실습 54/내부",
+          "s": "ok",
+          "links": [
+            {
+              "n": 52,
+              "href": "/lab/depth/frosted-glass",
+              "name": "유리 카드"
+            },
+            {
+              "n": 54,
+              "href": "/lab/depth/paper-cutout",
+              "name": "종이 컷아웃"
+            }
+          ]
+        },
+        {
+          "t": "유리(backdrop-filter 흐림 실습 52, 반투명 카드",
+          "s": "ok",
+          "links": [
+            {
+              "n": 52,
+              "href": "/lab/depth/frosted-glass",
+              "name": "유리 카드"
+            }
+          ]
+        },
+        {
+          "t": "금속 (실습 53)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 53,
+              "href": "/lab/depth/metal-material",
+              "name": "금속 재질"
+            }
+          ]
+        },
+        {
+          "t": "종이 (실습 54)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 54,
+              "href": "/lab/depth/paper-cutout",
+              "name": "종이 컷아웃"
+            }
+          ]
+        },
+        {
+          "t": "네온 (실습 42)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 42,
+              "href": "/lab/type/neon-tube",
+              "name": "네온 간판"
+            }
+          ]
+        },
+        {
+          "t": "홀로그램 (실습 55)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 55,
+              "href": "/lab/depth/hologram-card",
+              "name": "홀로그램 카드"
+            }
+          ]
+        },
+        {
+          "t": "색수차 (실습 55)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 55,
+              "href": "/lab/depth/hologram-card",
+              "name": "홀로그램 카드"
+            }
+          ]
+        },
+        {
+          "t": "컬러 그레이딩 (실습 50 · LUT 파일 적용",
+          "s": "ok",
+          "links": [
+            {
+              "n": 50,
+              "href": "/lab/color/color-grading",
+              "name": "컬러 그레이딩"
+            }
+          ]
+        },
+        {
+          "t": "듀오톤 (실습 50)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 50,
+              "href": "/lab/color/color-grading",
+              "name": "컬러 그레이딩"
+            }
+          ]
+        },
+        {
+          "t": "다크/라이트",
+          "s": "ok",
+          "links": [
+            {
+              "n": 138,
+              "href": "/lab/color/dark-light-mode",
+              "name": "다크/라이트 모드와 전환 연출"
+            }
+          ]
+        },
+        {
+          "t": "접근성 대비비(4.5:1 이상, 실제 계산) (실습 51)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 51,
+              "href": "/lab/color/palette-contrast",
+              "name": "60-30-10 팔레트·대비"
+            }
+          ]
+        },
+        {
+          "t": "색의 의미 부여(주황=강조 하나)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 139,
+              "href": "/lab/color/color-meaning",
+              "name": "색의 의미 부여와 강조색"
+            }
+          ]
+        },
+        {
+          "t": "반짝임 스윕 (실습 52 빛 줄기)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 52,
+              "href": "/lab/depth/frosted-glass",
+              "name": "유리 카드"
+            }
+          ]
+        },
+        {
+          "t": "한 번 블러가 아니라 반경이 다른 여러 겹",
+          "s": "ok",
+          "links": [
+            {
+              "n": 143,
+              "href": "/lab/depth/layered-blur",
+              "name": "여러 겹 블러"
+            }
+          ]
+        },
+        {
+          "t": "그라디언트에는 그레인(밴딩 방지). 3D LUT 적용",
+          "s": "ok",
+          "links": [
+            {
+              "n": 140,
+              "href": "/lab/color/grain-lut",
+              "name": "그레인과 3D LUT"
+            }
+          ]
+        },
+        {
+          "t": "내부 그림자",
+          "s": "ok",
+          "links": [
+            {
+              "n": 144,
+              "href": "/lab/depth/inner-shadow",
+              "name": "내부 그림자"
+            }
+          ]
+        },
+        {
+          "t": "다크/라이트 전환 연출",
+          "s": "ok",
+          "links": [
+            {
+              "n": 138,
+              "href": "/lab/color/dark-light-mode",
+              "name": "다크/라이트 모드와 전환 연출"
+            }
+          ]
+        },
+        {
+          "t": "색약 시뮬레이션",
+          "s": "ok",
+          "links": [
+            {
+              "n": 141,
+              "href": "/lab/color/colorblind-sim",
+              "name": "색약 시뮬레이션"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c01_countup",
+          "label": "숫자 카운트업과 이동"
+        },
+        {
+          "id": "c12_strike",
+          "label": "취소선과 큰 단어"
+        }
+      ],
+      "notes": [
+        "실습 50~55는 캔버스 2D 합성으로 만들었고 색·강도 값은 제가 정한 시작값입니다."
+      ]
+    },
+    {
+      "no": "12",
+      "name": "3D·WebGL",
+      "chips": [
+        {
+          "t": "three.js (r128, 실습 17~20)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 17,
+              "href": "/lab/webgl/exploded-view",
+              "name": "제품 분해·조립"
+            }
+          ]
+        },
+        {
+          "t": "Babylon",
+          "s": "ok",
+          "links": [
+            {
+              "n": 191,
+              "href": "/lab/tools/js-graphics-libs",
+              "name": "웹 그래픽 라이브러리"
+            }
+          ]
+        },
+        {
+          "t": "CSS 3D",
+          "s": "ok",
+          "links": [
+            {
+              "n": 147,
+              "href": "/lab/motion/css-3d",
+              "name": "CSS 3D 원근과 회전"
+            }
+          ]
+        },
+        {
+          "t": "메시 (기본 도형 조합)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "PBR 재질(metalness/roughness) (실습 17·18)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 17,
+              "href": "/lab/webgl/exploded-view",
+              "name": "제품 분해·조립"
+            },
+            {
+              "n": 18,
+              "href": "/lab/webgl/pbr-lighting",
+              "name": "재질과 조명"
+            }
+          ]
+        },
+        {
+          "t": "조명(키·림 필 HDRI",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "그림자 (실습 17·18)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 17,
+              "href": "/lab/webgl/exploded-view",
+              "name": "제품 분해·조립"
+            },
+            {
+              "n": 18,
+              "href": "/lab/webgl/pbr-lighting",
+              "name": "재질과 조명"
+            }
+          ]
+        },
+        {
+          "t": "카메라",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "후처리(bloom, DOF, SSAO, 색수차, 비네트, 필름)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 163,
+              "href": "/lab/webgl/postprocessing",
+              "name": "후처리 효과 한 겹씩"
+            }
+          ]
+        },
+        {
+          "t": "셰이더(GLSL 노이즈, fbm, SDF, 레이마칭, 프레넬)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 162,
+              "href": "/lab/webgl/shader-glsl-sdf",
+              "name": "물결 셰이더와 SDF 블롭"
+            }
+          ]
+        },
+        {
+          "t": "GPU 파티클",
+          "s": "ok",
+          "links": [
+            {
+              "n": 164,
+              "href": "/lab/webgl/gpu-particles-instancing",
+              "name": "GPU 파티클과 인스턴싱"
+            }
+          ]
+        },
+        {
+          "t": "인스턴싱",
+          "s": "ok",
+          "links": [
+            {
+              "n": 164,
+              "href": "/lab/webgl/gpu-particles-instancing",
+              "name": "GPU 파티클과 인스턴싱"
+            }
+          ]
+        },
+        {
+          "t": "모프 타깃",
+          "s": "ok",
+          "links": [
+            {
+              "n": 165,
+              "href": "/lab/webgl/morph-target",
+              "name": "모프 타깃"
+            }
+          ]
+        },
+        {
+          "t": "물리(rapier/cannon)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 166,
+              "href": "/lab/webgl/physics-engine",
+              "name": "물리 엔진"
+            }
+          ]
+        },
+        {
+          "t": "텍스처 (캔버스 텍스처, 실습 17·19)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 17,
+              "href": "/lab/webgl/exploded-view",
+              "name": "제품 분해·조립"
+            },
+            {
+              "n": 19,
+              "href": "/lab/webgl/ui-layer-explode",
+              "name": "UI 레이어 분해"
+            }
+          ]
+        },
+        {
+          "t": "환경맵 (소프트박스를 그려 PMREM 처리, 실습 18)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 18,
+              "href": "/lab/webgl/pbr-lighting",
+              "name": "재질과 조명"
+            }
+          ]
+        },
+        {
+          "t": "아이소메트릭",
+          "s": "ok",
+          "links": [
+            {
+              "n": 167,
+              "href": "/lab/webgl/isometric-lowpoly",
+              "name": "아이소메트릭과 로우폴리"
+            }
+          ]
+        },
+        {
+          "t": "로우폴리",
+          "s": "ok",
+          "links": [
+            {
+              "n": 167,
+              "href": "/lab/webgl/isometric-lowpoly",
+              "name": "아이소메트릭과 로우폴리"
+            }
+          ]
+        },
+        {
+          "t": "점 구름",
+          "s": "ok",
+          "links": [
+            {
+              "n": 168,
+              "href": "/lab/webgl/pointcloud-terrain",
+              "name": "점 구름과 높이 지도 지형"
+            }
+          ]
+        },
+        {
+          "t": "지형",
+          "s": "ok",
+          "links": [
+            {
+              "n": 168,
+              "href": "/lab/webgl/pointcloud-terrain",
+              "name": "점 구름과 높이 지도 지형"
+            }
+          ]
+        },
+        {
+          "t": "지구본",
+          "s": "ok",
+          "links": [
+            {
+              "n": 169,
+              "href": "/lab/webgl/globe",
+              "name": "돌아가는 지구본"
+            }
+          ]
+        }
+      ],
+      "clips": [],
+      "notes": [
+        "실습 17~20에서 만든 것만 확인했고(초록 칩) 나머지(후처리·셰이더·GPU 파티클·인스턴싱·물리 등)는 아직 확인하지 않았습니다(점선 칩)."
+      ]
+    },
+    {
+      "no": "13",
+      "name": "파티클·이펙트",
+      "chips": [
+        {
+          "t": "에미터 (폭죽 발사점)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "입자 모핑 (실습 11)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 11,
+              "href": "/lab/fx/particle-morph",
+              "name": "입자 모핑"
+            }
+          ]
+        },
+        {
+          "t": "폭죽 (실습 12)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 12,
+              "href": "/lab/fx/fireworks-sparks",
+              "name": "폭죽·스파크"
+            }
+          ]
+        },
+        {
+          "t": "불꽃",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "스파크",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "연기",
+          "s": "ok",
+          "links": [
+            {
+              "n": 158,
+              "href": "/lab/fx/smoke-aura",
+              "name": "연기와 오라"
+            }
+          ]
+        },
+        {
+          "t": "먼지 (3겹)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "눈·비",
+          "s": "ok",
+          "links": [
+            {
+              "n": 159,
+              "href": "/lab/fx/snow-rain",
+              "name": "눈과 비"
+            }
+          ]
+        },
+        {
+          "t": "별 (점)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "반딧불 (실습 13)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 13,
+              "href": "/lab/fx/ambient-particles",
+              "name": "분위기 입자"
+            }
+          ]
+        },
+        {
+          "t": "보케 (실습 13)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 13,
+              "href": "/lab/fx/ambient-particles",
+              "name": "분위기 입자"
+            }
+          ]
+        },
+        {
+          "t": "번개 (실습 14)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 14,
+              "href": "/lab/fx/lightning-impact",
+              "name": "번개·충격"
+            }
+          ]
+        },
+        {
+          "t": "오라",
+          "s": "ok",
+          "links": [
+            {
+              "n": 158,
+              "href": "/lab/fx/smoke-aura",
+              "name": "연기와 오라"
+            }
+          ]
+        },
+        {
+          "t": "선 흐름",
+          "s": "ok",
+          "links": [
+            {
+              "n": 160,
+              "href": "/lab/fx/flow-vector-field",
+              "name": "선 흐름과 벡터 필드"
+            }
+          ]
+        },
+        {
+          "t": "플렉서스 (실습 15)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 15,
+              "href": "/lab/fx/plexus-network",
+              "name": "플렉서스 네트워크"
+            }
+          ]
+        },
+        {
+          "t": "벡터 필드",
+          "s": "ok",
+          "links": [
+            {
+              "n": 160,
+              "href": "/lab/fx/flow-vector-field",
+              "name": "선 흐름과 벡터 필드"
+            }
+          ]
+        },
+        {
+          "t": "트레일 (실습 12)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 12,
+              "href": "/lab/fx/fireworks-sparks",
+              "name": "폭죽·스파크"
+            }
+          ]
+        },
+        {
+          "t": "잔상(echo)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 161,
+              "href": "/lab/fx/echo-motion-blur",
+              "name": "잔상과 모션 블러"
+            }
+          ]
+        },
+        {
+          "t": "모션 블러",
+          "s": "ok",
+          "links": [
+            {
+              "n": 161,
+              "href": "/lab/fx/echo-motion-blur",
+              "name": "잔상과 모션 블러"
+            }
+          ]
+        },
+        {
+          "t": "글리치 (실습 16)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 16,
+              "href": "/lab/fx/glitch",
+              "name": "글리치"
+            }
+          ]
+        },
+        {
+          "t": "RGB 분리",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "스캔라인",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "줄 찢기(띠 밀기)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "노이즈 디스플레이스 (실습 30)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 30,
+              "href": "/lab/mograph/liquid-text",
+              "name": "액체 글자"
+            }
+          ]
+        },
+        {
+          "t": "리플 (실습 29)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 29,
+              "href": "/lab/mograph/ripple",
+              "name": "물결 리플"
+            }
+          ]
+        },
+        {
+          "t": "열기 왜곡 (실습 30)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 30,
+              "href": "/lab/mograph/liquid-text",
+              "name": "액체 글자"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c01_countup",
+          "label": "숫자 카운트업과 이동"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "no": "14",
+      "name": "합성·편집",
+      "chips": [
+        {
+          "t": "레이어",
+          "s": "ok",
+          "links": [
+            {
+              "n": 114,
+              "href": "/lab/edit/layers-repeat",
+              "name": "레이어 쌓기와 복제 배치"
+            }
+          ]
+        },
+        {
+          "t": "블렌드 모드(multiply·screen·overlay·add·soft-light 그레인 · 실습 50·52·55)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 50,
+              "href": "/lab/color/color-grading",
+              "name": "컬러 그레이딩"
+            },
+            {
+              "n": 52,
+              "href": "/lab/depth/frosted-glass",
+              "name": "유리 카드"
+            },
+            {
+              "n": 55,
+              "href": "/lab/depth/hologram-card",
+              "name": "홀로그램 카드"
+            }
+          ]
+        },
+        {
+          "t": "마스크 (실습 56)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 56,
+              "href": "/lab/edit/track-matte",
+              "name": "매트·글자 속 영상"
+            }
+          ]
+        },
+        {
+          "t": "알파·루마 매트 (실습 56)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 56,
+              "href": "/lab/edit/track-matte",
+              "name": "매트·글자 속 영상"
+            }
+          ]
+        },
+        {
+          "t": "키잉(크로마키·페더·디스필) (실습 61)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 61,
+              "href": "/lab/edit/chroma-key",
+              "name": "크로마키"
+            }
+          ]
+        },
+        {
+          "t": "트래킹",
+          "s": "ok",
+          "links": [
+            {
+              "n": 115,
+              "href": "/lab/edit/tracking-stabilize",
+              "name": "트래킹과 스태빌라이즈"
+            }
+          ]
+        },
+        {
+          "t": "스태빌라이즈",
+          "s": "ok",
+          "links": [
+            {
+              "n": 115,
+              "href": "/lab/edit/tracking-stabilize",
+              "name": "트래킹과 스태빌라이즈"
+            }
+          ]
+        },
+        {
+          "t": "화면 분할(2·3·4분할, PIP 실습 57)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 57,
+              "href": "/lab/edit/split-screen",
+              "name": "화면 분할"
+            }
+          ]
+        },
+        {
+          "t": "반복",
+          "s": "ok",
+          "links": [
+            {
+              "n": 194,
+              "href": "/lab/edit/clip-repeat",
+              "name": "구간 반복과 핑퐁 재생"
+            }
+          ]
+        },
+        {
+          "t": "프리즈 프레임 (실습 58)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 58,
+              "href": "/lab/edit/speed-ramp",
+              "name": "속도 램프"
+            }
+          ]
+        },
+        {
+          "t": "리버스 (실습 58)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 58,
+              "href": "/lab/edit/speed-ramp",
+              "name": "속도 램프"
+            }
+          ]
+        },
+        {
+          "t": "속도 램프 (실습 58)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 58,
+              "href": "/lab/edit/speed-ramp",
+              "name": "속도 램프"
+            }
+          ]
+        },
+        {
+          "t": "컷 리듬",
+          "s": "ok",
+          "links": [
+            {
+              "n": 112,
+              "href": "/lab/edit/cut-rhythm",
+              "name": "컷 리듬과 박자 맞추기"
+            }
+          ]
+        },
+        {
+          "t": "J컷·L컷 (실습 59)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 59,
+              "href": "/lab/edit/j-l-cut",
+              "name": "J컷·L컷"
+            }
+          ]
+        },
+        {
+          "t": "점프컷",
+          "s": "ok",
+          "links": [
+            {
+              "n": 100,
+              "href": "/lab/edit/jump-cut",
+              "name": "점프컷"
+            }
+          ]
+        },
+        {
+          "t": "몽타주",
+          "s": "ok",
+          "links": [
+            {
+              "n": 99,
+              "href": "/lab/edit/montage",
+              "name": "몽타주"
+            }
+          ]
+        },
+        {
+          "t": "크로스컷",
+          "s": "ok",
+          "links": [
+            {
+              "n": 98,
+              "href": "/lab/edit/cross-cutting",
+              "name": "크로스컷"
+            }
+          ]
+        },
+        {
+          "t": "챕터 카드 (실습 60)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 60,
+              "href": "/lab/edit/broadcast-graphics",
+              "name": "방송 그래픽"
+            }
+          ]
+        },
+        {
+          "t": "로어서드 (실습 60)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 60,
+              "href": "/lab/edit/broadcast-graphics",
+              "name": "방송 그래픽"
+            }
+          ]
+        },
+        {
+          "t": "엔드카드",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "썸네일",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "로고 스팅어 (실습 60)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 60,
+              "href": "/lab/edit/broadcast-graphics",
+              "name": "방송 그래픽"
+            }
+          ]
+        },
+        {
+          "t": "인트로·아웃트로",
+          "s": "ok",
+          "links": [
+            {
+              "n": 116,
+              "href": "/lab/edit/intro-outro",
+              "name": "인트로와 아웃트로"
+            }
+          ]
+        },
+        {
+          "t": "워터마크 (실습 60)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 60,
+              "href": "/lab/edit/broadcast-graphics",
+              "name": "방송 그래픽"
+            }
+          ]
+        },
+        {
+          "t": "자막 스타일",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "컬러 매칭 (실습 50 일부). 모션 트래킹",
+          "s": "ok",
+          "links": [
+            {
+              "n": 50,
+              "href": "/lab/color/color-grading",
+              "name": "컬러 그레이딩"
+            },
+            {
+              "n": 142,
+              "href": "/lab/color/color-match",
+              "name": "컬러 매칭과 모션 트래킹"
+            }
+          ]
+        },
+        {
+          "t": "스태빌라이즈",
+          "s": "ok",
+          "links": [
+            {
+              "n": 115,
+              "href": "/lab/edit/tracking-stabilize",
+              "name": "트래킹과 스태빌라이즈"
+            }
+          ]
+        },
+        {
+          "t": "점프컷·몽타주·크로스컷의 리듬",
+          "s": "ok",
+          "links": [
+            {
+              "n": 112,
+              "href": "/lab/edit/cut-rhythm",
+              "name": "컷 리듬과 박자 맞추기"
+            }
+          ]
+        },
+        {
+          "t": "소리와 컷 동기",
+          "s": "ok",
+          "links": [
+            {
+              "n": 113,
+              "href": "/lab/edit/overlap-sound-sync",
+              "name": "J컷, L컷과 소리 동기"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c15_compare",
+          "label": "두 영상 나란히 재생"
+        },
+        {
+          "id": "c16_faceoff",
+          "label": "훅: 일반 지시 vs 구체적 지시"
+        }
+      ],
+      "notes": [
+        "실습 56~61은 캔버스 2D로 직접 계산했고 시간·수치는 제가 정한 시작값입니다."
+      ]
+    },
+    {
+      "no": "15",
+      "name": "서사·구성",
+      "chips": [
+        {
+          "t": "훅(결과 먼저 실습 62 질문 실습 62 충돌·대결 숫자 실습 62 직접 체험 실습 62)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 62,
+              "href": "/lab/story/hook-four",
+              "name": "훅 4종"
+            }
+          ]
+        },
+        {
+          "t": "약속 (실습 62)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 62,
+              "href": "/lab/story/hook-four",
+              "name": "훅 4종"
+            }
+          ]
+        },
+        {
+          "t": "열린 고리 (실습 67)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 67,
+              "href": "/lab/story/recap-cta",
+              "name": "요약·다음 편·CTA"
+            }
+          ]
+        },
+        {
+          "t": "오해→반전 (실습 64)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 64,
+              "href": "/lab/story/misconception-reveal",
+              "name": "오해→반전"
+            }
+          ]
+        },
+        {
+          "t": "문제-해결 (실습 63 구성)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 63,
+              "href": "/lab/story/three-act",
+              "name": "3막 구조"
+            }
+          ]
+        },
+        {
+          "t": "전-후",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "3막 (실습 63)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 63,
+              "href": "/lab/story/three-act",
+              "name": "3막 구조"
+            }
+          ]
+        },
+        {
+          "t": "챕터 (실습 63)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 63,
+              "href": "/lab/story/three-act",
+              "name": "3막 구조"
+            }
+          ]
+        },
+        {
+          "t": "콜백 (실습 65)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 65,
+              "href": "/lab/story/callback",
+              "name": "콜백·모티프"
+            }
+          ]
+        },
+        {
+          "t": "반복 모티프 (실습 65)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 65,
+              "href": "/lab/story/callback",
+              "name": "콜백·모티프"
+            }
+          ]
+        },
+        {
+          "t": "클리프행어(컷으로 끊기) (실습 67)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 67,
+              "href": "/lab/story/recap-cta",
+              "name": "요약·다음 편·CTA"
+            }
+          ]
+        },
+        {
+          "t": "페이오프 (실습 65)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 65,
+              "href": "/lab/story/callback",
+              "name": "콜백·모티프"
+            }
+          ]
+        },
+        {
+          "t": "요약 (실습 67)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 67,
+              "href": "/lab/story/recap-cta",
+              "name": "요약·다음 편·CTA"
+            }
+          ]
+        },
+        {
+          "t": "CTA(하나만) (실습 67)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 67,
+              "href": "/lab/story/recap-cta",
+              "name": "요약·다음 편·CTA"
+            }
+          ]
+        },
+        {
+          "t": "한계 고지",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "증거 제시",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "퀴즈·예측시키기 (실습 66). 몽타주 구성",
+          "s": "ok",
+          "links": [
+            {
+              "n": 66,
+              "href": "/lab/story/predict-quiz",
+              "name": "예측 퀴즈"
+            }
+          ]
+        },
+        {
+          "t": "병렬 편집(크로스컷)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 98,
+              "href": "/lab/edit/cross-cutting",
+              "name": "크로스컷"
+            }
+          ]
+        },
+        {
+          "t": "서사",
+          "s": "ok",
+          "links": [
+            {
+              "n": 119,
+              "href": "/lab/story/narrative-series",
+              "name": "서사와 시리즈 떡밥 설계"
+            }
+          ]
+        },
+        {
+          "t": "시리즈 떡밥 설계",
+          "s": "ok",
+          "links": [
+            {
+              "n": 119,
+              "href": "/lab/story/narrative-series",
+              "name": "서사와 시리즈 떡밥 설계"
+            }
+          ]
+        },
+        {
+          "t": "시청자 이탈 지점 측정",
+          "s": "ok",
+          "links": [
+            {
+              "n": 120,
+              "href": "/lab/story/retention-drop",
+              "name": "시청자 이탈 지점 측정"
+            }
+          ]
+        }
+      ],
+      "clips": [
+        {
+          "id": "c16_faceoff",
+          "label": "훅: 일반 지시 vs 구체적 지시"
+        },
+        {
+          "id": "c20_end",
+          "label": "마무리 한 줄"
+        }
+      ],
+      "notes": [
+        "실습 62~67은 구성 기법을 캔버스 연출로 옮긴 예시이며 시청 유지율·전환율 같은 효과는 측정하지 않았습니다(3초, 25:50:25는 경험칙·모형).",
+        "(v2가 지루했던 이유: 결과를 먼저 말하고 규칙을 나열했고 열린 질문이 59문장 중 1개였다.)"
+      ]
+    },
+    {
+      "no": "16",
+      "name": "소리",
+      "chips": [
+        {
+          "t": "효과음 종류: whoosh",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "swish",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "pop",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "tick",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "hit",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "thud",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "type (실습 70)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 70,
+              "href": "/lab/sound/typing-sfx",
+              "name": "타이핑 소리"
+            }
+          ]
+        },
+        {
+          "t": "click (실습 70 딸깍)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 70,
+              "href": "/lab/sound/typing-sfx",
+              "name": "타이핑 소리"
+            }
+          ]
+        },
+        {
+          "t": "impact (실습 68)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 68,
+              "href": "/lab/sound/sfx-layering",
+              "name": "효과음 층 쌓기"
+            }
+          ]
+        },
+        {
+          "t": "riser (실습 68 긴장 · 69)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 68,
+              "href": "/lab/sound/sfx-layering",
+              "name": "효과음 층 쌓기"
+            }
+          ]
+        },
+        {
+          "t": "downlifter",
+          "s": "ok",
+          "links": [
+            {
+              "n": 179,
+              "href": "/lab/sound/sound-risers",
+              "name": "다운리프터와 스팅어"
+            }
+          ]
+        },
+        {
+          "t": "stinger",
+          "s": "ok",
+          "links": [
+            {
+              "n": 179,
+              "href": "/lab/sound/sound-risers",
+              "name": "다운리프터와 스팅어"
+            }
+          ]
+        },
+        {
+          "t": "sweep (실습 69)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 69,
+              "href": "/lab/sound/whoosh",
+              "name": "휘익 전환음"
+            }
+          ]
+        },
+        {
+          "t": "glitch",
+          "s": "ok",
+          "links": [
+            {
+              "n": 180,
+              "href": "/lab/sound/sound-glitch-shutter",
+              "name": "글리치와 셔터 소리"
+            }
+          ]
+        },
+        {
+          "t": "셔터",
+          "s": "ok",
+          "links": [
+            {
+              "n": 180,
+              "href": "/lab/sound/sound-glitch-shutter",
+              "name": "글리치와 셔터 소리"
+            }
+          ]
+        },
+        {
+          "t": "알림",
+          "s": "ok",
+          "links": [
+            {
+              "n": 181,
+              "href": "/lab/sound/sound-ui-feedback",
+              "name": "알림음과 성공·실패음"
+            }
+          ]
+        },
+        {
+          "t": "성공·실패음",
+          "s": "ok",
+          "links": [
+            {
+              "n": 181,
+              "href": "/lab/sound/sound-ui-feedback",
+              "name": "알림음과 성공·실패음"
+            }
+          ]
+        },
+        {
+          "t": "층 쌓기(저역+몸통+어택+꼬리 실습 68)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 68,
+              "href": "/lab/sound/sfx-layering",
+              "name": "효과음 층 쌓기"
+            }
+          ]
+        },
+        {
+          "t": "피치·타이밍(휴머나이즈) (실습 70)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 70,
+              "href": "/lab/sound/typing-sfx",
+              "name": "타이핑 소리"
+            }
+          ]
+        },
+        {
+          "t": "룸톤·앰비언스 (패드)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "음악(BPM·키·코드·층 진입·루프) (실습 72 단순 합성 · 분위기별 작곡",
+          "s": "ok",
+          "links": [
+            {
+              "n": 72,
+              "href": "/lab/sound/music-layers",
+              "name": "음악 층 쌓기"
+            }
+          ]
+        },
+        {
+          "t": "사이드체인 덕킹 (실습 71 수치 확인)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 71,
+              "href": "/lab/sound/ducking",
+              "name": "덕킹"
+            }
+          ]
+        },
+        {
+          "t": "EQ",
+          "s": "ok",
+          "links": [
+            {
+              "n": 182,
+              "href": "/lab/sound/sound-eq",
+              "name": "EQ 주파수별 소리 조절"
+            }
+          ]
+        },
+        {
+          "t": "컴프레서",
+          "s": "ok",
+          "links": [
+            {
+              "n": 183,
+              "href": "/lab/sound/sound-compressor",
+              "name": "컴프레서"
+            }
+          ]
+        },
+        {
+          "t": "리버브 (실습 73)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 73,
+              "href": "/lab/sound/reverb-delay",
+              "name": "공간감 리버브"
+            }
+          ]
+        },
+        {
+          "t": "딜레이 (실습 73)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 73,
+              "href": "/lab/sound/reverb-delay",
+              "name": "공간감 리버브"
+            }
+          ]
+        },
+        {
+          "t": "스테레오 팬 (실습 69·73)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 69,
+              "href": "/lab/sound/whoosh",
+              "name": "휘익 전환음"
+            },
+            {
+              "n": 73,
+              "href": "/lab/sound/reverb-delay",
+              "name": "공간감 리버브"
+            }
+          ]
+        },
+        {
+          "t": "라우드니스 −16 LUFS",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "트루피크 −1.5dB",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "일부러 무음 (실습 68, 0.35~0.5초)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 68,
+              "href": "/lab/sound/sfx-layering",
+              "name": "효과음 층 쌓기"
+            }
+          ]
+        },
+        {
+          "t": "목소리(TTS Gemini Live Orus : 속도·휴지·음높이 검사)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "자막-소리 동기 . ※ 실습 68~73의 소리는 제가 들어 볼 수 없어 파형·스펙트럼·피크·RMS·클리핑 수치만 확인했습니다",
+          "s": "ok",
+          "links": [
+            {
+              "n": 68,
+              "href": "/lab/sound/sfx-layering",
+              "name": "효과음 층 쌓기"
+            }
+          ]
+        }
+      ],
+      "clips": [],
+      "notes": [
+        "좋은 소리인지는 사람이 듣고 판정합니다.",
+        "실제 사람 목소리(TTS)와 음악 생성 모델은 이 실습에서 쓰지 않았고, 음량은 LUFS가 아니라 RMS dBFS로만 계산했습니다."
+      ]
+    },
+    {
+      "no": "17",
+      "name": "규격·출력",
+      "chips": [
+        {
+          "t": "해상도(1920×1080 3840×2160, 1080×1920 (쇼츠), 1080×1350, 1080×1080)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "비율(16:9, 9:16, 1:1, 4:5)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 184,
+              "href": "/lab/spec/aspect-ratio",
+              "name": "화면 비율과 잘리는 곳"
+            }
+          ]
+        },
+        {
+          "t": "fps(24/3060)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "코덱(H.264 yuv420p ProRes, VP9, AV1)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "CRF (22)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "비트레이트",
+          "s": "ok",
+          "links": [
+            {
+              "n": 185,
+              "href": "/lab/spec/bitrate",
+              "name": "비트레이트와 블록 깨짐"
+            }
+          ]
+        },
+        {
+          "t": "색공간(sRGB/Rec.709)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 186,
+              "href": "/lab/spec/color-space",
+              "name": "색공간과 색 영역"
+            }
+          ]
+        },
+        {
+          "t": "알파 채널",
+          "s": "ok",
+          "links": [
+            {
+              "n": 187,
+              "href": "/lab/spec/alpha-channel",
+              "name": "알파 채널과 투명도"
+            }
+          ]
+        },
+        {
+          "t": "오디오 AAC 48kHz",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "SRT/WebVTT",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "쇼츠 안전영역(위 160·아래 330·오른쪽 140px)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "썸네일 1280×720",
+          "s": "ok",
+          "links": []
+        }
+      ],
+      "clips": [],
+      "notes": []
+    },
+    {
+      "no": "18",
+      "name": "만드는 도구·코드 이름",
+      "chips": [
+        {
+          "t": "HTML/CSS/JS 장면(시간 t → 화면의 순수 함수)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "Playwright(헤드리스 Chromium 프레임 캡처)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "`render.js`",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "ffmpeg(인코딩·loudnorm·sidechaincompress·atempo·amix)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "Python(numpy·PIL·faster-whisper·librosa)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "Gemini Live TTS",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "Remotion",
+          "s": "ok",
+          "links": [
+            {
+              "n": 190,
+              "href": "/lab/tools/code-video-tools",
+              "name": "코드로 영상 만드는 도구"
+            }
+          ]
+        },
+        {
+          "t": "Motion Canvas",
+          "s": "ok",
+          "links": [
+            {
+              "n": 190,
+              "href": "/lab/tools/code-video-tools",
+              "name": "코드로 영상 만드는 도구"
+            }
+          ]
+        },
+        {
+          "t": "GSAP",
+          "s": "ok",
+          "links": [
+            {
+              "n": 188,
+              "href": "/lab/tools/js-motion-libs",
+              "name": "웹 움직임 라이브러리"
+            }
+          ]
+        },
+        {
+          "t": "anime.js",
+          "s": "ok",
+          "links": [
+            {
+              "n": 188,
+              "href": "/lab/tools/js-motion-libs",
+              "name": "웹 움직임 라이브러리"
+            }
+          ]
+        },
+        {
+          "t": "Lottie",
+          "s": "ok",
+          "links": [
+            {
+              "n": 189,
+              "href": "/lab/tools/lottie-rive",
+              "name": "Lottie 와 Rive"
+            }
+          ]
+        },
+        {
+          "t": "Rive",
+          "s": "ok",
+          "links": [
+            {
+              "n": 189,
+              "href": "/lab/tools/lottie-rive",
+              "name": "Lottie 와 Rive"
+            }
+          ]
+        },
+        {
+          "t": "Three.js",
+          "s": "ok",
+          "links": [
+            {
+              "n": 191,
+              "href": "/lab/tools/js-graphics-libs",
+              "name": "웹 그래픽 라이브러리"
+            }
+          ]
+        },
+        {
+          "t": "p5.js",
+          "s": "ok",
+          "links": [
+            {
+              "n": 191,
+              "href": "/lab/tools/js-graphics-libs",
+              "name": "웹 그래픽 라이브러리"
+            }
+          ]
+        },
+        {
+          "t": "D3",
+          "s": "ok",
+          "links": [
+            {
+              "n": 191,
+              "href": "/lab/tools/js-graphics-libs",
+              "name": "웹 그래픽 라이브러리"
+            }
+          ]
+        },
+        {
+          "t": "Theatre.js",
+          "s": "ok",
+          "links": [
+            {
+              "n": 188,
+              "href": "/lab/tools/js-motion-libs",
+              "name": "웹 움직임 라이브러리"
+            }
+          ]
+        },
+        {
+          "t": "Manim",
+          "s": "ok",
+          "links": [
+            {
+              "n": 190,
+              "href": "/lab/tools/code-video-tools",
+              "name": "코드로 영상 만드는 도구"
+            }
+          ]
+        },
+        {
+          "t": "Blender",
+          "s": "ok",
+          "links": [
+            {
+              "n": 192,
+              "href": "/lab/tools/blender-ae",
+              "name": "Blender, After Effects"
+            }
+          ]
+        },
+        {
+          "t": "After Effects",
+          "s": "ok",
+          "links": [
+            {
+              "n": 192,
+              "href": "/lab/tools/blender-ae",
+              "name": "Blender, After Effects"
+            }
+          ]
+        },
+        {
+          "t": "ffmpeg 필터(xfade·drawtext·zoompan·blend·geq·minterpolate·tblend·lut3d·curves·perspective 등)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 193,
+              "href": "/lab/tools/ffmpeg-filters",
+              "name": "ffmpeg 필터 모음"
+            }
+          ]
+        }
+      ],
+      "clips": [],
+      "notes": []
+    },
+    {
+      "no": "19",
+      "name": "검수 명령(채점 가능한 것)",
+      "chips": [
+        {
+          "t": "프레임 추출 후 눈으로 열기",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "거의 빈 화면 비율(밝은 픽셀 >110이 최대치의 15% 미만)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "정지 프레임 비율",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "화면 사용 면적",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "화면-말 시차(−0.05~−0.30초)",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "글자 가림 확인",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "라우드니스",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "장면 전환 번짐 확인. 안전영역 침범 픽셀 검사 자동화",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "대비비 자동 측정",
+          "s": "ok",
+          "links": [
+            {
+              "n": 177,
+              "href": "/lab/check/contrast-ratio-auto",
+              "name": "대비비 자동 측정"
+            }
+          ]
+        }
+      ],
+      "clips": [],
+      "notes": []
+    },
+    {
+      "no": "20",
+      "name": "초보 신호 금지 목록",
+      "chips": [],
+      "clips": [],
+      "notes": [
+        "도형 조립으로 물체 흉내 · 등속(linear)",
+        "움직임 · 한 겹 소리·한 번 블러 · 레퍼런스 없는 디자인 · 이모지·폰트 글리프 의존 · 모든 요소 동시 등장 · 회전·바운스 남발 · 3D 막대 · 글자 가림 · 문장 길이의 화면 글자 · 같은 배치 반복 · 의존성 없다는 이유로 품질을 낮추기."
+      ]
+    },
+    {
+      "no": "21",
+      "name": "형태 변형·유체",
+      "chips": [
+        {
+          "t": "생성",
+          "s": "ok",
+          "links": []
+        },
+        {
+          "t": "방울 분리·낙하·재합류 (실습 26)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 26,
+              "href": "/lab/mograph/metaballs",
+              "name": "액체 합체"
+            }
+          ]
+        },
+        {
+          "t": "감쇠 진동 출렁임 (실습 26·28)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 26,
+              "href": "/lab/mograph/metaballs",
+              "name": "액체 합체"
+            },
+            {
+              "n": 28,
+              "href": "/lab/motion/squash-stretch",
+              "name": "젤리 바운스"
+            }
+          ]
+        },
+        {
+          "t": "액체 입체감(높이→법선→조명) (실습 26)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 26,
+              "href": "/lab/mograph/metaballs",
+              "name": "액체 합체"
+            }
+          ]
+        },
+        {
+          "t": "패스 모프(점 대응·시작점 정렬·윤곽 시차) (실습 27)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 27,
+              "href": "/lab/mograph/path-morph",
+              "name": "패스 모프"
+            }
+          ]
+        },
+        {
+          "t": "크로스페이드와의 구분 (실습 27 전/후)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 27,
+              "href": "/lab/mograph/path-morph",
+              "name": "패스 모프"
+            }
+          ]
+        },
+        {
+          "t": "스쿼시&스트레치(부피 보존·기준점 이동) (실습 28)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 28,
+              "href": "/lab/motion/squash-stretch",
+              "name": "젤리 바운스"
+            }
+          ]
+        },
+        {
+          "t": "접지 그림자·충격 고리·반사 (실습 28)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 28,
+              "href": "/lab/motion/squash-stretch",
+              "name": "젤리 바운스"
+            }
+          ]
+        },
+        {
+          "t": "물결 리플(굴절 + 경사 조명) (실습 29)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 29,
+              "href": "/lab/mograph/ripple",
+              "name": "물결 리플"
+            }
+          ]
+        },
+        {
+          "t": "파동 포락선·진폭 감쇠 (실습 29)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 29,
+              "href": "/lab/mograph/ripple",
+              "name": "물결 리플"
+            }
+          ]
+        },
+        {
+          "t": "진폭×파수 < 1(찢어짐 방지) (실습 29)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 29,
+              "href": "/lab/mograph/ripple",
+              "name": "물결 리플"
+            }
+          ]
+        },
+        {
+          "t": "노이즈 변위·액체 글자 (실습 30)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 30,
+              "href": "/lab/mograph/liquid-text",
+              "name": "액체 글자"
+            }
+          ]
+        },
+        {
+          "t": "열기 왜곡(위로 흐르는 노이즈) (실습 30)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 30,
+              "href": "/lab/mograph/liquid-text",
+              "name": "액체 글자"
+            }
+          ]
+        },
+        {
+          "t": "노이즈 마스크 전환(잉크 번짐·디졸브) (실습 31)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 31,
+              "href": "/lab/mograph/ink-transition",
+              "name": "잉크 번짐 전환"
+            }
+          ]
+        },
+        {
+          "t": "거리 필드 + fbm 번짐 지도 (실습 31). 격자 기반 유체 시뮬레이션(연기·물감 번짐)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 31,
+              "href": "/lab/mograph/ink-transition",
+              "name": "잉크 번짐 전환"
+            }
+          ]
+        },
+        {
+          "t": "입자 유체(SPH)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 153,
+              "href": "/lab/mograph/fluid-splash-bubble",
+              "name": "입자 유체 스플래시와 거품"
+            }
+          ]
+        },
+        {
+          "t": "스프링-질량 소프트바디(젤리 물리)",
+          "s": "ok",
+          "links": [
+            {
+              "n": 154,
+              "href": "/lab/mograph/soft-body",
+              "name": "스프링 질량 소프트바디"
+            }
+          ]
+        },
+        {
+          "t": "글자→글자 모핑",
+          "s": "ok",
+          "links": [
+            {
+              "n": 152,
+              "href": "/lab/mograph/text-morph",
+              "name": "글자에서 글자로 모핑"
+            }
+          ]
+        },
+        {
+          "t": "3D 모프 타깃",
+          "s": "ok",
+          "links": [
+            {
+              "n": 165,
+              "href": "/lab/webgl/morph-target",
+              "name": "모프 타깃"
+            }
+          ]
+        },
+        {
+          "t": "마우스 반응 플로우맵",
+          "s": "ok",
+          "links": [
+            {
+              "n": 157,
+              "href": "/lab/mograph/flowmap-mouse",
+              "name": "마우스 반응 플로우맵"
+            }
+          ]
+        },
+        {
+          "t": "스플래시·왕관 튀김",
+          "s": "ok",
+          "links": [
+            {
+              "n": 153,
+              "href": "/lab/mograph/fluid-splash-bubble",
+              "name": "입자 유체 스플래시와 거품"
+            }
+          ]
+        },
+        {
+          "t": "거품",
+          "s": "ok",
+          "links": [
+            {
+              "n": 153,
+              "href": "/lab/mograph/fluid-splash-bubble",
+              "name": "입자 유체 스플래시와 거품"
+            }
+          ]
+        },
+        {
+          "t": "종이 찢기·페이지 말림",
+          "s": "ok",
+          "links": [
+            {
+              "n": 155,
+              "href": "/lab/mograph/paper-tear-curl",
+              "name": "종이 찢기와 페이지 말림"
+            }
+          ]
+        },
+        {
+          "t": "GLSL 물결·SDF 블롭 셰이더",
+          "s": "ok",
+          "links": [
+            {
+              "n": 162,
+              "href": "/lab/webgl/shader-glsl-sdf",
+              "name": "물결 셰이더와 SDF 블롭"
+            }
+          ]
+        },
+        {
+          "t": "SVG feTurbulence+feDisplacementMap",
+          "s": "ok",
+          "links": [
+            {
+              "n": 156,
+              "href": "/lab/mograph/svg-displacement",
+              "name": "SVG 변위 필터 일렁임"
+            }
+          ]
+        }
+      ],
+      "clips": [],
+      "notes": [
+        "메타볼·액체 합체(필드 합 + 임계값) 확인함(실습 26), 목(neck)",
+        "이 분야 실습 26~31은 모두 캔버스 2D 픽셀 계산으로 만들었고(WebGL 셰이더 없음), 숫자 값은 제가 정한 시작값입니다."
+      ]
+    }
+  ],
+  "limits": {
+    "sub": "\"하나도 빠짐없이\"는 지킬 수 없는 약속이라, 지금 아는 범위의 지도라고 읽어 주세요. 빠진 것을 발견하면 추가합니다.",
+    "items": [
+      "미확인(점선 칩) 항목은 만들면 된다고 아는 것이지 이 환경에서 렌더해 본 것이 아니다.",
+      "소리(귀로 듣는 판정), 맛·촉감·느낌 같은 것은 클로드가 판정할 수 없고 사람이 한다.",
+      "목록을 안다고 소재에 맞는 걸 고르는 능력이 보장되지 않는다. 지난 롱폼 v2·v3가 기초 범위에 머문 이유이기도 하다.",
+      "다음 확장 순서 제안: 점선 칩 중 가장 시각 변화가 큰 것(예: 격자 유체 시뮬레이션·셰이더·플로우맵)을 하나씩 만들어 초록 칩으로 바꾼다."
+    ]
+  },
+  "counts": {
+    "chips": 448,
+    "ok": 448,
+    "todo": 0,
+    "none": 0,
+    "cats": 21,
+    "clips": 20,
+    "prompts": 25,
+    "ideas": 8
+  }
+}

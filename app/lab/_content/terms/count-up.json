@@ -1,0 +1,111 @@
+{
+  "order": 6,
+  "slug": "count-up",
+  "name": "카운트업·막대 성장",
+  "en": "Count-up · Bar Grow",
+  "field": "info",
+  "level": "기본",
+  "purposes": [
+    "변화와 비교"
+  ],
+  "media": [
+    "발표·문서",
+    "영상"
+  ],
+  "oneLine": "숫자가 올라가고 막대가 자라며 크기와 변화를 보여 준다",
+  "preview": null,
+  "keywords": [
+    "숫자",
+    "올라가",
+    "막대",
+    "그래프",
+    "차트",
+    "성장"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d03",
+    "prompt": "막대그래프 애니메이션을 만들어줘.\n데이터(예시): 7월 1,200 / 8월 2,100 / 9월 3,400 / 10월 6,100 / 11월 12,800\n\n- 0.2~0.6초: 바닥 기준선이 왼쪽→오른쪽으로 그려짐.\n- 0.5초부터 막대가 0.15초 간격으로 아래→위로 자람(0.8초, easeOutCubic). 높이는 값에 정비례하고 축은 0부터 시작.\n- 앞 4개는 회색(#4A5260), 마지막 막대만 주황색(#FF8A3D).\n- 왼쪽 위 큰 숫자 0→12,800 카운트업(1.5초, easeOutExpo, 천 단위 쉼표, 고정폭 숫자). 끝나면 \"+110%\" 배지가 살짝 튀며 등장(easeOutBack).\n- 마지막에 앞 막대를 50% 흐리게 해서 마지막 막대에 시선을 모은다.\n- 금지: 3D 막대, 축을 0이 아닌 값에서 시작해 차이 과장, 모든 막대 같은 색.",
+    "check": [
+      "막대 높이가 실제 값에 비례한다(0 기준)",
+      "카운터의 마지막 숫자가 데이터와 정확히 같다",
+      "강조하는 막대는 1개만 색이 다르다",
+      "숫자가 바뀌는 동안 글자 폭 때문에 흔들리지 않는다"
+    ],
+    "use": [
+      "채널·매출 성과 보고",
+      "정보형 영상의 통계 한 장면",
+      "발표에서 ‘결과’를 보여주는 순간"
+    ],
+    "tech": [
+      "CSS transform: scaleY",
+      "requestAnimationFrame 카운터",
+      "toLocaleString / Intl.NumberFormat",
+      "tabular-nums",
+      "D3 · Recharts",
+      "Manim · Remotion"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "Hans Rosling은 BBC Four <i>The Joy of Stats</i>에서 200개국 200년의 소득과 기대수명을 움직이는 차트로 약 4분 만에 설명했습니다.",
+        "title": "The Marginalian — Hans Rosling, The Joy of Stats (BBC Four)",
+        "url": "https://www.themarginalian.org/2010/12/03/hans-rosling-bbc/"
+      },
+      {
+        "state": "확인",
+        "text": "The Pudding은 스크롤에 따라 핵심 발견을 단계적으로 보여준 뒤 독자가 데이터를 탐색하게 하는 시각 에세이 형식을 씁니다.",
+        "title": "The Pudding — About",
+        "url": "https://pudding.cool/about"
+      },
+      {
+        "state": "추정",
+        "text": "‘회색 + 강조색 하나’ 구성은 데이터 시각화에서 널리 쓰는 원칙이지만, 이번 조사에서 특정 원전을 확인하지는 않았습니다.",
+        "title": null,
+        "url": null
+      }
+    ],
+    "related": [
+      {
+        "name": "전후 비교 와이프",
+        "note": "움직임 · 같은 목적: 변화와 비교"
+      },
+      {
+        "name": "막대 레이스",
+        "note": "정보 표현 · 같은 목적: 변화와 비교"
+      },
+      {
+        "name": "손그림 강조",
+        "note": "글자 · 같은 목적: 변화와 비교"
+      }
+    ],
+    "vs": {
+      "bad": "그래프에 애니메이션 넣어줘",
+      "badResult": "막대가 처음부터 다 서 있고 숫자도 그대로라서, 어디를 봐야 할지 알 수 없다",
+      "good": "막대가 0.15초 간격으로 자라고, 마지막 막대만 주황색",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "countslow",
+        "title": "숫자가 너무 순식간에 올라가요",
+        "situation": "숫자가 올라가는 걸 눈으로 따라가기 어려울 때",
+        "from": "0→12,800 카운트업(1.5초, easeOutExpo, …)",
+        "to": "0→12,800 카운트업(3초, easeOutExpo, …) — 뒤의 +110% 배지와 흐림도 그만큼 늦춰줘",
+        "effect": "숫자가 올라가는 시간이 1.5초에서 3초로 길어집니다. 배지와 막대 흐림이 숫자보다 먼저 나오지 않게 같이 늦춥니다."
+      },
+      {
+        "id": "stagger",
+        "title": "막대가 한꺼번에 올라와요",
+        "situation": "막대마다 값이 다르다는 걸 천천히 보여 주고 싶을 때",
+        "from": "0.5초부터 막대가 0.15초 간격으로 아래→위로 자람",
+        "to": "0.5초부터 막대가 0.25초 간격으로 아래→위로 자람",
+        "effect": "막대 사이 시차가 0.15초에서 0.25초로 늘어, 막대가 하나씩 차례로 자라는 게 분명해집니다."
+      }
+    ],
+    "steps": [],
+    "terms": [],
+    "levels": 0
+  },
+  "poster": "/lab/posters/count-up.jpg"
+}

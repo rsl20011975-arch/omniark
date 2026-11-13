@@ -1,0 +1,204 @@
+{
+  "order": 136,
+  "slug": "korean-line-break",
+  "name": "한글 줄바꿈과 keep-all",
+  "en": "Korean Line Break · word-break: keep-all",
+  "field": "type",
+  "level": "기본",
+  "purposes": [
+    "설명",
+    "행동 안내"
+  ],
+  "media": [
+    "웹·앱",
+    "발표·문서"
+  ],
+  "oneLine": "좁은 칸에서 한글 문장의 줄이 바뀔 때 단어 한가운데가 아니라 띄어쓰기 자리에서만 끊기게 하는 CSS 설정(word-break: keep-all)이다",
+  "preview": null,
+  "keywords": [
+    "한글 줄바꿈",
+    "단어 단위 줄바꿈",
+    "어절 줄바꿈",
+    "keep-all",
+    "word-break",
+    "overflow-wrap",
+    "text-wrap balance",
+    "줄바꿈 이상해요",
+    "단어가 중간에 끊겨요",
+    "한국어 타이포",
+    "기본 줄바꿈",
+    "글자 단위 줄바꿈",
+    "어절",
+    "text-wrap: balance",
+    "들쭉날쭉한 오른쪽 끝",
+    "word-break: keep-all",
+    "word-break: normal",
+    "word-break: break-all",
+    "eojeol (word unit)",
+    "overflow-wrap: anywhere / break-word",
+    "balanced wrapping",
+    "ragged right"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d135",
+    "prompt": "장면: 한글 줄바꿈 비교 장면. 짙은 파랑 배경(#1f3a8a 에서 #172a63 로) 위에 카드 두 개(각 286×292px)를 왼쪽과 오른쪽에 두고, 카드마다 글 상자를 하나씩 넣는다. 글 상자 안은 위에서부터 ①제목 “개인정보처리방침 개정 안내 및 동의 요청”(IBM Plex Sans KR 17px 굵기 700, 밝은 흰색 #f3f6ff) ②본문 “저희 서비스는 개인정보처리방침을 개정했습니다. 자세한 내용은 아래 주소에서 확인하세요.”(본문 13px, 연한 청회색) ③주소 “https://example.com/privacy/2026”(JetBrains Mono 11px, 노랑 #ffd166). 글 상자 오른쪽 끝에는 노란 선을 그어 폭을 보여 준다.\n폭 움직임: 모든 단계가 같다. 글 상자 폭이 254px 에서 0.4초에 줄기 시작해 2.0초까지 부드럽게 가장 좁을 때 160px 가 되고, 3.2초까지 그대로 있다가 4.2초까지 다시 254px 로 돌아간다.\n연출 전: 왼쪽과 오른쪽 모두 기본 줄바꿈(word-break: normal).\n1단계: 오른쪽 카드만 word-break: keep-all 을 켠다. 왼쪽은 그대로 두어 비교한다.\n2단계: 오른쪽 카드에 overflow-wrap: anywhere 도 켜서 긴 주소가 칸 밖으로 넘치지 않게 한다.\n3단계: 오른쪽 카드 제목에 text-wrap: balance 도 켠다.\n표시: 카드 위쪽에 지금 걸린 설정과, 폭, 본문에서 단어 중간에 끊긴 곳의 개수, 주소가 칸 밖으로 넘쳤는지를 작은 글씨로 적는다. 단어 중간에서 끊긴 곳에는 붉은 막대를 그린다. 화면 왼쪽 가장자리에는 지금 단계를 세로쓰기 글자로 보여 준다.\n금지: 글을 이미지로 만들거나 줄을 직접 나눠 적기. 실제 CSS 줄바꿈 결과를 보여 줘야 한다.",
+    "check": [
+      "연출 전, 폭이 줄 때 양쪽 카드 본문에 단어 중간에서 끊긴 곳이 생기고 붉은 막대가 찍히는가?",
+      "1단계 뒤 오른쪽 카드 본문은 띄어쓰기 자리에서만 줄이 바뀌어 ‘단어 중간 끊김 0곳’이고 왼쪽은 그대로다",
+      "2단계 뒤 오른쪽 주소는 여러 줄로 나뉘어 칸 안에 들어가고, 왼쪽 주소는 칸 밖으로 넘쳐 붉은 글씨가 된다",
+      "폭이 254px 일 때(0.2초, 4.2초) 3단계 오른쪽 제목은 두 줄 길이가 고르고 왼쪽 제목은 마지막 줄에 ‘요청’만 남는다"
+    ],
+    "use": [
+      "모바일 화면이나 좁은 카드에서 한글 단어가 반으로 쪼개질 때",
+      "긴 영문 주소와 해시태그가 칸 밖으로 삐져나오는 화면",
+      "두 줄이 된 제목의 아랫줄에 한두 글자만 남는 경우"
+    ],
+    "tech": [
+      "CSS word-break: keep-all (한글, 중국어, 일본어는 띄어쓰기 자리에서만 줄바꿈)",
+      "CSS overflow-wrap: anywhere / break-word (긴 문자열이 칸을 넘을 때만 강제로 끊음)",
+      "CSS text-wrap: balance (제목 같은 짧은 여러 줄 글의 줄 길이를 고르게)",
+      "Tailwind: break-keep / break-words / text-balance"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "word-break 의 값은 normal, break-all, keep-all. keep-all 은 중국어, 일본어, 한국어(CJK) 글을 단어 사이에서 끊지 않고, CJK 가 아닌 글은 normal 과 같다. break-word 값은 폐기되었고 overflow-wrap: anywhere 와 같은 효과다.",
+        "title": "MDN — word-break",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/word-break"
+      },
+      {
+        "state": "확인",
+        "text": "overflow-wrap 은 한 단어가 칸에 안 들어갈 때만 그 단어를 끊어 넘침을 막는다(anywhere, break-word). 칸에 들어갈 수 있는 단어까지 포함해 모든 글의 끊는 방식을 바꾸는 word-break 와는 이 점이 다르다.",
+        "title": "MDN — overflow-wrap",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/overflow-wrap"
+      },
+      {
+        "state": "확인",
+        "text": "text-wrap: balance 는 줄 길이를 비슷하게 맞춰 제목이나 캡션 같은 짧은 여러 줄 글을 읽기 좋게 한다. 계산이 무거워 브라우저가 줄 수를 제한한다(크로미엄 6줄, 파이어폭스 10줄 이하).",
+        "title": "MDN — text-wrap",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/text-wrap"
+      },
+      {
+        "state": "확인",
+        "text": "한글 조판 요구사항 문서의 설명으로는, 한글 줄바꿈은 글자 단위일 수도 어절(띄어쓰기) 단위일 수도 있고, 어느 쪽인지는 문단이나 문서 전체에 대해 글쓴이가 고른다.",
+        "title": "W3C — Requirements for Hangul Text Layout and Typography (klreq)",
+        "url": "https://www.w3.org/TR/klreq/"
+      }
+    ],
+    "related": [
+      {
+        "name": "커서·클릭 시연",
+        "note": "UI 화면 연출 · 같은 목적: 행동 안내"
+      },
+      {
+        "name": "채팅 화면",
+        "note": "UI 화면 연출 · 같은 목적: 설명"
+      },
+      {
+        "name": "메뉴·모달·알림",
+        "note": "UI 화면 연출 · 같은 목적: 행동 안내"
+      }
+    ],
+    "vs": {
+      "bad": "한글이 줄바꿈될 때 이상하게 끊겨요, 고쳐줘",
+      "badResult": "줄을 직접 나눠 적거나 글자 크기만 줄이는 쪽으로 가기 쉬워서, 칸 폭이 바뀌면 같은 문제가 다시 나옵니다",
+      "good": "본문에 word-break: keep-all, 긴 주소에 overflow-wrap: anywhere, 제목에 text-wrap: balance",
+      "goodResult": "폭이 160px 로 좁아져도 본문 단어 중간 끊김 0곳, 긴 주소는 칸 안, 제목은 두 줄 길이가 고른 카드"
+    },
+    "tips": [
+      {
+        "id": "narrower",
+        "title": "휴대폰처럼 아주 좁은 화면이면?",
+        "situation": "글 상자가 더 좁아졌을 때도 keep-all 이 괜찮은지 볼 때",
+        "from": "가장 좁을 때 160px",
+        "to": "가장 좁을 때 148px",
+        "effect": "가장 좁을 때가 160px 에서 148px 로 줄어 왼쪽 카드의 단어 중간 끊김이 3곳에서 4곳으로 늘어납니다. 오른쪽 카드는 0곳 그대로지만 줄이 짧아져 본문이 한 줄 더 늘고 오른쪽 끝이 들쭉날쭉해집니다."
+      },
+      {
+        "id": "bigger",
+        "title": "글씨를 키우면 줄바꿈이 달라지나요",
+        "situation": "본문이 작아 키우고 싶을 때",
+        "from": "본문 13px",
+        "to": "본문 15px",
+        "effect": "본문이 13px 에서 15px 로 커져도 왼쪽 카드는 단어 중간 끊김이 3곳에서 2곳으로 자리만 바뀔 뿐 사라지지 않고, 오른쪽 카드는 본문이 4줄에서 5줄로 늘면서도 단어는 온전합니다."
+      },
+      {
+        "id": "startnarrow",
+        "title": "처음부터 좁은 칸이라면?",
+        "situation": "글 상자가 줄어들기 전부터 이미 좁은 칸일 때",
+        "from": "글 상자 폭이 254px",
+        "to": "글 상자 폭이 200px",
+        "effect": "시작 폭이 254px 에서 200px 로 좁아지면 0.2초 시점에 왼쪽은 단어 중간 끊김이 1곳에서 2곳으로 늘고 주소가 칸 밖으로 넘쳐 붉은 글씨가 됩니다. 오른쪽은 긴 주소가 두 줄로 나뉘어 칸 안에 들어갑니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "기본 줄바꿈 그대로",
+        "d": "두 카드 모두 word-break: normal 입니다. 글 상자 폭이 254px 에서 160px 로 줄면 본문이 단어 한가운데서 끊기고(예: ‘개인정보처리방/침을’), 끊긴 곳마다 붉은 막대가 찍힙니다. 아직 아무 설정도 쓰지 않았습니다.",
+        "code": "text.style.wordBreak = 'normal';"
+      },
+      {
+        "t": "keep-all 로 띄어쓰기 자리에서만 끊기",
+        "d": "오른쪽 카드에 word-break: keep-all 을 걸면 한글이 단어 사이에서만 끊겨 ‘단어 중간 끊김’이 0곳이 됩니다. 줄 끝은 더 들쭉날쭉해질 수 있습니다. 왼쪽은 그대로 두어 견줍니다.",
+        "code": "text.style.wordBreak = 'keep-all';"
+      },
+      {
+        "t": "긴 주소에는 overflow-wrap 을 더하기",
+        "d": "keep-all 만으로는 띄어쓰기 없는 긴 주소가 칸 밖으로 넘칩니다. overflow-wrap: anywhere 를 더하면 칸에 들어가지 않는 문자열만 강제로 끊겨 넘침이 사라지고, 본문 단어는 여전히 안 끊깁니다.",
+        "code": "text.style.wordBreak = 'keep-all';\ntext.style.overflowWrap = 'anywhere';"
+      },
+      {
+        "t": "제목 줄 길이를 text-wrap: balance 로 고르기",
+        "d": "제목이 두 줄로 나뉠 때 윗줄만 길고 아랫줄이 짧게 남는 일이 흔합니다(폭 254px 에서 기본 설정의 제목은 마지막 줄에 ‘요청’만 남습니다). balance 를 켜면 두 줄 길이가 비슷해집니다. 브라우저는 계산량 때문에 6줄 정도까지만 적용합니다.",
+        "code": "heading.style.textWrap = 'balance';"
+      }
+    ],
+    "terms": [
+      {
+        "w": "keep-all",
+        "en": "word-break: keep-all",
+        "m": "한글, 한자, 가나 같은 글을 띄어쓰기 자리에서만 줄바꿈하는 설정입니다. 영문은 기본과 같습니다.",
+        "say": "“본문에 word-break: keep-all 적용해줘”"
+      },
+      {
+        "w": "기본 줄바꿈",
+        "en": "word-break: normal",
+        "m": "브라우저 기본값. 한글은 글자 사이 어디서든 줄이 바뀔 수 있어 좁은 칸에서 단어가 반으로 갈라집니다.",
+        "say": "단어가 중간에서 끊기는 normal 말고"
+      },
+      {
+        "w": "글자 단위 줄바꿈",
+        "en": "word-break: break-all",
+        "m": "글자 사이 어디서든 끊도록 강제하는 값입니다. 긴 문자열은 막지만 한글 단어도 가리지 않고 잘립니다.",
+        "say": "“긴 코드는 글자 단위(break-all)로 끊어줘”"
+      },
+      {
+        "w": "어절",
+        "en": "Eojeol (word unit)",
+        "m": "띄어쓰기로 나뉘는 한글 낱말 덩어리. keep-all 은 어절 중간에서는 끊지 않습니다.",
+        "say": "어절 단위로 줄 바꿈"
+      },
+      {
+        "w": "overflow-wrap",
+        "en": "overflow-wrap: anywhere / break-word",
+        "m": "한 단어가 칸에 들어가지 않을 때만 그 단어를 끊어 넘침을 막는 설정으로, 긴 주소와 해시태그에 씁니다.",
+        "say": "“긴 주소가 칸을 넘으면 강제로 끊어줘”"
+      },
+      {
+        "w": "text-wrap: balance",
+        "en": "Balanced wrapping",
+        "m": "줄 길이를 비슷하게 맞춰서 짧은 줄이 남는 것을 줄이는 설정. 제목과 캡션에 어울립니다.",
+        "say": "제목 줄바꿈은 text-wrap: balance"
+      },
+      {
+        "w": "들쭉날쭉한 오른쪽 끝",
+        "en": "Ragged right",
+        "m": "keep-all 로 단어를 통째로 넘기면 줄마다 길이가 달라지는 모양입니다. 자연스러운 것이라, 줄이 너무 짧게 남을 때만 손봅니다.",
+        "say": "“줄 끝이 너무 짧게 남지 않도록”"
+      }
+    ],
+    "levels": 4
+  },
+  "poster": "/lab/posters/korean-line-break.jpg"
+}

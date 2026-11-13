@@ -1,0 +1,168 @@
+{
+  "order": 166,
+  "slug": "morph-target",
+  "name": "모프 타깃",
+  "en": "Morph Target · Blend Shape",
+  "field": "webgl",
+  "level": "고급",
+  "purposes": [
+    "변화와 비교",
+    "제품 소개"
+  ],
+  "media": [
+    "웹·앱",
+    "영상"
+  ],
+  "oneLine": "꼭짓점 개수와 순서가 같은 다른 모양(타깃)을 미리 만들어 두고, 0에서 1 사이 가중치만 움직여 기본 모양을 타깃 쪽으로 변형하는 3D 기법이다. 모양을 한 장씩 새로 그리지 않고 섞는 값 하나로 바꾼다",
+  "preview": null,
+  "keywords": [
+    "모프 타깃",
+    "블렌드 셰이프",
+    "셰이프 키",
+    "3D 모핑",
+    "표정 애니메이션",
+    "형태 변형",
+    "가중치",
+    "morph target",
+    "blend shape",
+    "shape key",
+    "morphTargetInfluences",
+    "vertex morph",
+    "three.js morph",
+    "기본 모양",
+    "보간",
+    "morph target · blend shape",
+    "influence · weight",
+    "base shape",
+    "interpolation"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d165",
+    "prompt": "three.js 에서 구(SphereGeometry, 반지름 1, 가로 28 × 세로 18 분할) 하나에 모프 타깃 2개를 달아줘. 타깃은 모두 구와 꼭짓점 개수와 순서가 같아야 한다.\n\n첫 번째 타깃은 정육면체다. 각 꼭짓점을 중심에서 같은 방향으로 밀어 반변 0.82 인 정육면체 표면 위에 놓는다. 두 번째 타깃은 울퉁불퉁한 덩어리로, 구 표면을 바깥으로 5개의 물결(높이 0.35)로 부풀리고 위아래로 1.2배 늘인다.\n\nmesh.morphTargetInfluences 는 [타깃 1, 타깃 2] 순서로 조절한다. 타깃 1 은 0.4초에 출발해 1.1초 동안 0에서 1.0까지(inOutCubic), 타깃 2 는 1.9초에 출발해 1.1초 동안 0에서 0.8까지(inOutCubic) 올라가고, 두 타깃이 동시에 켜져 있는 동안에는 두 모양이 함께 섞인다.\n\n재질은 면마다 한 색인 평면 셰이딩(MeshStandardMaterial 의 flatShading: true)에 왼쪽 위 광원, 청록 계열(어두운 곳 #263f3c에서 밝은 곳 #aee2da)로 하고, 배경은 숯색(#232120에서 #171615)이다. 구는 초당 0.5rad 로 천천히 돈다. 화면 아래에는 지금의 가중치 식을 한 줄로 적고, 왼쪽 가장자리에는 단계를 세로 글씨로 적되 지금 단계만 풀어서 쓴다.\n\n연출 전에는 구 하나만 돌고 모프 타깃이 없다. 타깃의 꼭짓점 개수나 순서가 구와 다르거나, 가중치가 0~1 을 벗어나거나, 모양이 바뀌는 동안 구가 끊기며 튀면 안 된다.",
+    "check": [
+      "연출 전에는 구 하나뿐이고 모양이 바뀌지 않는다",
+      "1단계에서 구가 점점 모서리 진 정육면체 쪽으로 변하는가",
+      "2단계에서 정육면체 변형 위에 울퉁불퉁한 변형이 더해져 두 모양의 중간 형태가 된다",
+      "3단계의 막대 길이와 숫자가 그 순간의 가중치(0~1)와 맞고, 점선 구는 변하지 않는다"
+    ],
+    "use": [
+      "제품 모델이 다른 형태나 색상 버전으로 부드럽게 바뀌는 연출",
+      "캐릭터 얼굴의 웃음과 놀람 같은 표정을 가중치로 섞는 일"
+    ],
+    "tech": [
+      "three.js: geometry.morphAttributes.position + mesh.morphTargetInfluences",
+      "glTF 파일의 morph targets(Blender 의 Shape Keys 로 만들어 내보내기)",
+      "Blender 의 Shape Keys, Unity 와 Unreal 의 Blend Shapes",
+      "react-three-fiber: useGLTF 로 불러온 메시의 morphTargetInfluences 를 useFrame 에서 조절"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "모프 타깃 애니메이션(셰이프 키, 블렌드 셰이프)은 같은 메시의 다른 버전을 꼭짓점 위치 모음으로 저장해 두고 중립 모양과 목표 모양들 사이를 섞어 움직이는 3D 기법이다. 웃는 입이나 올라간 눈썹 같은 얼굴 표정 변형에 쓰인다.",
+        "title": "Wikipedia — Morph target animation",
+        "url": "https://en.wikipedia.org/wiki/Morph_target_animation"
+      },
+      {
+        "state": "확인",
+        "text": "three.js 의 Mesh 는 morphTargetInfluences(타깃마다 하나씩, 보통 0~1 범위의 가중치 배열)와 morphTargetDictionary(타깃 이름을 인덱스로 바꿔 주는 표)를 가진다.",
+        "title": "three.js docs — Mesh (morphTargetInfluences)",
+        "url": "https://threejs.org/docs/pages/Mesh.html"
+      },
+      {
+        "state": "확인",
+        "text": "BufferGeometry 의 morphAttributes 는 모프 타깃 데이터를 담는 사전. morphTargetsRelative 가 false 면 타깃을 절대 위치로, true 면 기본 모양 기준의 변위(차이)로 읽는다. 한 번 그린 뒤에는 이 데이터를 바꿀 수 없다고 안내한다.",
+        "title": "three.js docs — BufferGeometry (morphAttributes)",
+        "url": "https://threejs.org/docs/pages/BufferGeometry.html"
+      }
+    ],
+    "related": [
+      {
+        "name": "화면 분할",
+        "note": "합성·편집 · 같은 목적: 변화와 비교"
+      },
+      {
+        "name": "크로마키",
+        "note": "합성·편집 · 같은 목적: 제품 소개"
+      },
+      {
+        "name": "전후 비교 와이프",
+        "note": "움직임 · 같은 목적: 변화와 비교"
+      }
+    ],
+    "vs": {
+      "bad": "공이 네모로 바뀌는 3D 애니메이션 만들어줘",
+      "badResult": "대개 꼭짓점을 매 프레임 직접 옮기는 무거운 코드가 나오고, 모양이 바뀌다 끊깁니다",
+      "good": "구 28×18 + 모프 타깃 2개(정육면체 반변 0.82, 울퉁불퉁 높이 0.35), 가중치를 0.4초·1.9초에 1.1초씩 올리기",
+      "goodResult": "구가 0.4초부터 정육면체로, 1.9초부터 울퉁불퉁한 덩어리 쪽으로 이어서 섞이며 막대 두 개로 가중치가 보이는 장면"
+    },
+    "tips": [
+      {
+        "id": "halfcube",
+        "title": "완전한 정육면체는 너무 각져요",
+        "situation": "타깃을 끝까지 섞으면 너무 각져 보일 때",
+        "from": "0에서 1.0까지(inOutCubic)",
+        "to": "0에서 0.5까지(inOutCubic)",
+        "effect": "타깃 1 가중치가 0.5 에서 멈추니 모서리가 구와 정육면체의 중간쯤으로 둥글게 남아 ‘둥근 상자’가 된다. 정육면체 느낌은 약해지고, 타깃 2 와 섞인 모양도 덜 각져서 변화가 밋밋해 보일 수 있다."
+      },
+      {
+        "id": "spikier",
+        "title": "돌기가 밋밋함",
+        "situation": "타깃 2 가 구와 별 차이가 없어 보일 때",
+        "from": "높이 0.35",
+        "to": "높이 0.7",
+        "effect": "돌기 높이가 0.35에서 0.7로 2배가 되어 표면이 뾰족뾰족 솟은 덩어리가 된다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "구 하나만 돌리기",
+        "d": "모프 타깃이 없는 구 하나가 천천히 돈다. 모양은 바뀌지 않는다.",
+        "code": "const sphere = new THREE.SphereGeometry(1, 28, 18);\nmesh.rotation.y = 0.5 * t;"
+      },
+      {
+        "t": "타깃 1(정육면체)을 만들고 가중치 올리기",
+        "d": "구의 꼭짓점마다 ‘정육면체 위의 같은 방향 점’ 위치를 계산해 타깃으로 저장한다. 가중치가 0이면 구, 1이면 정육면체이고 그 사이는 위치를 섞어(보간해) 얻은 중간 모양이다. 이 데모는 0.4초부터 1.1초 동안 가중치를 올린다.",
+        "code": "geometry.morphAttributes.position = [cubePositions];\nmesh.updateMorphTargets();\nmesh.morphTargetInfluences[0] = 1.0 * ease(t);"
+      },
+      {
+        "t": "타깃 2를 더해 두 모양을 함께 섞기",
+        "d": "울퉁불퉁한 덩어리를 두 번째 타깃으로 달고 1.9초부터 가중치를 0.8까지 올린다. 두 타깃이 동시에 켜져 있으면 변형이 합쳐져 어느 쪽도 아닌 새 모양이 되고, 꼭짓점 개수와 순서가 같아야만 이 섞기가 성립한다.",
+        "code": "geometry.morphAttributes.position = [cube, blob];\nmesh.morphTargetInfluences[0] = 1.0;\nmesh.morphTargetInfluences[1] = 0.8 * ease(t);"
+      },
+      {
+        "t": "가중치를 눈에 보이게 하고 원본과 비교",
+        "d": "가중치를 막대와 숫자로 보여 주고, 섞기 전의 원본 구를 점선으로 겹쳐 그린다. 점선과 면 사이의 거리가 변형의 양이다. 조절할 것은 막대 두 개뿐이라 애니메이션 제어가 단순해지고, 숫자를 바꾸면 모양이 곧바로 따라온다.",
+        "code": "const names = mesh.morphTargetDictionary;\nmesh.morphTargetInfluences[names['cube']] = 0.5;"
+      }
+    ],
+    "terms": [
+      {
+        "w": "모프 타깃",
+        "en": "Morph target · Blend shape",
+        "m": "기본 모양과 같은 꼭짓점을 가진 ‘다른 모양’을 미리 저장해 둔 것으로, 표정이나 변신에 쓴다.",
+        "say": "“구에 정육면체 모프 타깃을 하나 달아줘”"
+      },
+      {
+        "w": "가중치",
+        "en": "Influence · Weight",
+        "m": "타깃을 얼마나 섞을지 정하는 값이다. 보통 0(기본 모양)에서 1(타깃 모양) 사이를 쓴다.",
+        "say": "morphTargetInfluences[0] 을 0.4초에 시작해 1.0까지"
+      },
+      {
+        "w": "기본 모양",
+        "en": "Base shape",
+        "m": "모프하기 전의 원래 메시. 모든 타깃은 이 모양과 꼭짓점 개수, 순서가 같아야 한다.",
+        "say": "“타깃은 기본 구와 꼭짓점 순서를 같게”"
+      },
+      {
+        "w": "보간",
+        "en": "Interpolation",
+        "m": "두 값 사이의 중간 값을 구하는 계산이며, 모프는 꼭짓점 위치를 가중치만큼 보간해서 만든다.",
+        "say": "중간 모양이 끊기지 않고 이어지게"
+      }
+    ],
+    "levels": 4
+  },
+  "poster": "/lab/posters/morph-target.jpg"
+}

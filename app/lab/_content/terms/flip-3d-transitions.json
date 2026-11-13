@@ -1,0 +1,187 @@
+{
+  "order": 108,
+  "slug": "flip-3d-transitions",
+  "name": "큐브 회전과 페이지 넘김",
+  "en": "Cube Rotate · Page Turn (3D flip transitions)",
+  "field": "edit",
+  "level": "중급",
+  "purposes": [
+    "장면 연결",
+    "공간감"
+  ],
+  "media": [
+    "영상",
+    "웹·앱",
+    "발표·문서"
+  ],
+  "oneLine": "장면을 상자의 옆면이나 종이 한 장처럼 3D 공간에 세워 돌린다. 앞 장면이 옆으로 넘어가는 동안 다음 장면이 같은 공간에서 정면으로 들어온다",
+  "preview": null,
+  "keywords": [
+    "큐브 전환",
+    "3D 전환",
+    "상자가 돌아가는",
+    "페이지 넘기기",
+    "책장 넘기는",
+    "문이 열리는 전환",
+    "도어 전환",
+    "3D 플립",
+    "cube",
+    "page turn",
+    "door",
+    "3d flip",
+    "perspective",
+    "원근감",
+    "큐브 회전",
+    "도어(문 열림)",
+    "페이지 넘김",
+    "축(기준점)",
+    "면 그림자",
+    "cube rotate",
+    "transform origin / hinge",
+    "face shading"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d107",
+    "prompt": "DAY 1 서울, DAY 2 부산, DAY 3 제주 세 장면을 잇는 6.4초 영상이다. 연출 전에는 장면이 컷으로 바로 바뀐다. 전환은 둘이고 종류와 방향이 서로 달라야 한다.\n\n- 큐브 회전: 1.2초에 시작해 1.0초 동안(easeInOut). 두 장면을 한 상자의 이웃한 옆면으로 보고, 상자가 왼쪽으로 90도 돌아 다음 장면이 정면에 오게 한다. 원근감 900px. 돌아서 기운 면은 최대 62%까지 어둡게 눌러 빛이 한쪽에서 온다고 느끼게 한다.\n- 페이지 넘김: 3.8초에 시작해 1.2초 동안(easeInOut). 앞 장면이 종이 한 장처럼 왼쪽 모서리를 축으로 관객 쪽으로 100도까지 넘어가며 점점 어두워진다. 뒤에 드러나는 장면에는 처음에 그림자가 깔렸다가 걷힌다.\n- 왼쪽 아래 구석에 지금 어떤 전환인지 알려 주는 작은 캡션을 둔다.\n- 금지: 장면이 납작한 채 좌우로 미끄러지기만 하는 것, 같은 시점에 전환 두 개를 겹치는 것.",
+    "check": [
+      "큐브 회전 중 앞 장면과 다음 장면이 한 상자의 이웃한 두 면처럼 이어져 보이고 가운데에 모서리선이 생긴다",
+      "정면에서 멀어질수록 면이 더 어두워지는가?",
+      "큐브 전환은 1.0초, 페이지 넘김은 1.2초 걸린다",
+      "페이지 넘김 중 앞 장면은 왼쪽 모서리를 축으로 넘어가고, 뒤 장면은 어둡게 시작해 밝아진다",
+      "왼쪽 아래 캡션의 글이 지금 전환(컷, 큐브 회전, 페이지 넘김)과 맞는다"
+    ],
+    "use": [
+      "여행, 앨범, 포트폴리오 영상에서 다음 장으로 넘기는 느낌",
+      "앱이나 발표 화면 전환에 공간감을 더하는 데 쓴다",
+      "시리즈 영상의 편이 바뀌는 지점"
+    ],
+    "tech": [
+      "CSS perspective · transform-style: preserve-3d · rotateY()",
+      "CSS transform-origin 으로 넘김 축 정하기",
+      "CSS backface-visibility: hidden (뒤집힌 면 숨기기)",
+      "영상 편집 프로그램의 큐브 회전·페이지 넘김·도어 전환 효과"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "MDN 3D 변형 설명에 따르면 perspective 가 3D 공간과 깊이감을 만들고, preserve-3d 를 줘야 자식 면들이 같은 3D 공간에 남으며, rotateY() 는 세로축을 중심으로 돌린다. 큐브 예시는 각 면을 돌린 뒤 같은 거리만큼 앞으로 밀어 상자를 만든다.",
+        "title": "MDN — Using CSS transforms",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transforms/Using_CSS_transforms"
+      },
+      {
+        "state": "확인",
+        "text": "perspective 는 보는 사람과 화면 사이 거리를 정한다. 값이 크면 3D 효과가 약하고 작으면 왜곡이 강하며, 가까운 요소(z 가 큰 것)는 더 크게 보인다.",
+        "title": "MDN — perspective",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/perspective"
+      },
+      {
+        "state": "확인",
+        "text": "transform-origin: 회전 같은 변형의 기준점이고 기본값은 가운데. 기준점을 모서리로 옮기면 요소가 그 모서리를 축으로 돈다.",
+        "title": "MDN — transform-origin",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-origin"
+      },
+      {
+        "state": "확인",
+        "text": "backface-visibility: hidden 이면 3D 로 돌아가 뒷면이 보이는 요소가 숨겨진다(2D 변형에는 효과 없음). 이 데모에서 넘어간 장면이 뒤집힌 채 비치지 않게 하는 데 쓴다.",
+        "title": "MDN — backface-visibility",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/backface-visibility"
+      }
+    ],
+    "related": [
+      {
+        "name": "지구본 줌인",
+        "note": "정보 표현 · 같은 목적: 공간감"
+      },
+      {
+        "name": "프레임 통과 달리 인",
+        "note": "카메라·공간 · 같은 목적: 장면 연결"
+      },
+      {
+        "name": "마스크 리빌",
+        "note": "움직임 · 같은 목적: 장면 연결"
+      }
+    ],
+    "vs": {
+      "bad": "페이지 넘기는 전환 넣어줘",
+      "badResult": "대개 장면이 납작한 채 옆으로 밀리고, 원근감과 그림자가 없어 3D 처럼 읽히지 않는다",
+      "good": "1.2초에 큐브 회전 1.0초(왼쪽 90도, 원근감 900px), 3.8초에 왼쪽 모서리를 축으로 100도 넘기는 페이지 넘김 1.2초, 기울어질수록 어둡게",
+      "goodResult": "1.2초에 큐브가 왼쪽으로 돌고 3.8초에 앞 장면이 왼쪽 모서리를 축으로 넘어가는 서울, 부산, 제주 영상"
+    },
+    "tips": [
+      {
+        "id": "close",
+        "title": "3D 느낌이 너무 약해요",
+        "situation": "큐브가 돌아가는데 납작해 보일 때",
+        "from": "원근감 900px",
+        "to": "원근감 380px",
+        "effect": "보는 거리가 900px에서 380px로 가까워져 돌아가는 면의 가까운 쪽은 훨씬 커지고 먼 쪽은 작아진다. 장면 글자가 심하게 기울어 보일 수 있다."
+      },
+      {
+        "id": "right",
+        "title": "넘기는 방향이 반대였으면",
+        "situation": "오른쪽에서 왼쪽으로 읽는 흐름이라 오른쪽 모서리를 축으로 넘기고 싶을 때",
+        "from": "왼쪽 모서리를 축으로",
+        "to": "오른쪽 모서리를 축으로",
+        "effect": "축이 왼쪽에서 오른쪽 모서리로 옮겨져, 앞 장면이 오른쪽에 붙은 채 왼쪽 끝부터 관객 쪽으로 들려 넘어간다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "컷으로 이어 붙인 세 장면",
+        "d": "전환 없이 정해진 시각에 장면이 바로 바뀐다. 다음 단계부터 장면을 3D 공간에 놓고 돌린다.",
+        "code": "const cut1 = T1 + D1 / 2, cut2 = T2 + D2 / 2;   // 전환 구간 한가운데에서 바로 바뀜\nscene2.hidden = t < cut1;\nscene3.hidden = t < cut2;"
+      },
+      {
+        "t": "큐브 회전으로 첫 전환 바꾸기",
+        "d": "무대에 원근감(perspective)을 주고 두 장면을 상자의 이웃한 옆면으로 세운다. 한 면은 정면, 다른 면은 90도 돌린 뒤 상자 반지름(화면 폭의 절반인 320px)만큼 앞으로 민다. 상자 전체를 왼쪽으로 0도에서 −90도까지 돌리면 다음 장면이 정면에 온다. 상자를 반지름만큼 뒤로 물려 놓아야 시작과 끝에서 장면 크기가 변하지 않는다.",
+        "code": "const PERSP = 900;                                 // 원근감(px)\nworld.style.perspective = PERSP + 'px';\ncube.style.transform = `translateZ(-320px) rotateY(${-90 * p}deg)`;   // p: 0→1\nfaceA.style.transform = 'rotateY(0deg) translateZ(320px)';\nfaceB.style.transform = 'rotateY(90deg) translateZ(320px)';"
+      },
+      {
+        "t": "페이지 넘김으로 둘째 전환 바꾸기",
+        "d": "뒤 장면은 그대로 두고 앞 장면 한 장만 모서리를 축(transform-origin)으로 관객 쪽으로 넘긴다. 100도까지 넘기면 화면 밖으로 사라진다. 넘어가는 면에는 어두운 막을 점점 짙게, 뒤 장면에는 처음에 그림자를 깔았다 걷으면 종이가 떠오르는 느낌이 난다.",
+        "code": "const HINGE = 'left';                              // 축이 되는 모서리\npage.style.transformOrigin = HINGE + ' center';\npage.style.transform = `rotateY(${-100 * p}deg)`;   // 왼쪽 축이면 − 방향\npageShade.style.opacity = .55 * Math.min(1, Math.abs(angle) / 90);"
+      }
+    ],
+    "terms": [
+      {
+        "w": "원근감",
+        "en": "Perspective",
+        "m": "멀리 있는 것은 작게, 가까운 것은 크게 보이게 하는 3D 효과다. 보는 거리 값이 작을수록 기울기가 과장된다.",
+        "say": "“원근감 900px 로 3D 공간을 만들어줘”"
+      },
+      {
+        "w": "큐브 회전",
+        "en": "Cube rotate",
+        "m": "장면 두 개를 상자의 이웃한 옆면으로 놓고 상자를 돌려 다음 장면을 정면으로 가져오는 전환.",
+        "say": "큐브가 왼쪽으로 90도, 1.0초"
+      },
+      {
+        "w": "도어(문 열림)",
+        "en": "Door",
+        "m": "문짝처럼 한쪽 모서리를 축으로 장면이 열리며 뒤 장면이 보인다. 이 페이지의 페이지 넘김과 원리가 같고, 넘어가는 면이 문처럼 보이느냐 종이처럼 보이느냐만 다르다.",
+        "say": "“앞 장면이 문처럼 왼쪽 모서리를 축으로 열리게”"
+      },
+      {
+        "w": "페이지 넘김",
+        "en": "Page turn",
+        "m": "앞 장면이 종이 한 장처럼 한쪽 모서리를 축으로 넘어가며 뒤 장면을 드러내는 전환이다.",
+        "say": "“페이지가 왼쪽 모서리를 축으로 1.2초 넘어가게”"
+      },
+      {
+        "w": "축(기준점)",
+        "en": "Transform origin / Hinge",
+        "m": "회전의 중심점. 가운데에 두면 제자리에서 돌고, 모서리에 두면 그 모서리를 축으로 넘어간다.",
+        "say": "회전 기준점 = 왼쪽 모서리 가운데"
+      },
+      {
+        "w": "면 그림자",
+        "en": "Face shading",
+        "m": "기울어진 면을 어둡게 해서 빛이 한쪽에서 온다고 느끼게 하는 처리. 없으면 3D 판이 아니라 납작한 그림을 찌그러뜨린 것처럼 보인다.",
+        "say": "“기울어진 면은 최대 62%까지 어둡게”"
+      }
+    ],
+    "levels": 3
+  },
+  "poster": "/lab/posters/flip-3d-transitions.jpg"
+}

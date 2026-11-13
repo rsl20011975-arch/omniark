@@ -1,0 +1,192 @@
+{
+  "full": {
+    "sub": "이 사전에서 확인한 요소로 만든 58초 영상입니다. 성장 그래프를 일반 지시와 구체적 지시로 각각 시킨 결과를 비교합니다. 목소리는 Gemini Live(Orus)이고 소리를 켜야 들립니다.",
+    "text": "같은 데이터·같은 AI에게 지시문만 다르게 줘서 나온 두 그래프를 나란히 틀고, 눈이 가는 곳·장면이 바뀌는 방식·숫자 세 가지 차이를 실제 화면으로 보여 줍니다.",
+    "caveat": "각 1번씩 시킨 실험이라 통계가 아닙니다. 화면 반응 시점은 결과 영상에서 쟀고, 소리는 제가 들을 수 없어 확인하지 못했습니다.",
+    "video": "full_v3.mp4",
+    "poster": "full_v3.jpg"
+  },
+  "sub": "용어 페이지의 실습 데모와 별개로, 실제로 만든 롱폼에서 요소 하나씩을 잘라 낸 4~9초 조각입니다. 재생하면 반복됩니다. 아래 문장은 AI에게 그대로 붙여 넣을 수 있습니다.",
+  "items": [
+    {
+      "id": "c01_countup",
+      "title": "숫자 카운트업과 이동",
+      "what": "카운트업 · 재질 숫자 · 먼지 3겹 · 도형 이동·축소",
+      "cmd": "숫자는 0부터 카운트업 1.5초 easeOutExpo, 고정폭 숫자",
+      "src": "롱폼 v2 0:00",
+      "video": "c01_countup.mp4",
+      "poster": "c01_countup.jpg"
+    },
+    {
+      "id": "c02_kinetic",
+      "title": "키네틱 제목",
+      "what": "마스크 리빌 · 주황 바 · 큰 글자",
+      "cmd": "강조는 장면마다 하나만, 색은 #FF8A3D 한 가지",
+      "src": "롱폼 v2 0:10",
+      "video": "c02_kinetic.mp4",
+      "poster": "c02_kinetic.jpg"
+    },
+    {
+      "id": "c03_slots",
+      "title": "점선 자리표시가 카드로",
+      "what": "컨테이너 · 차례로 등장",
+      "cmd": "요소는 동시에 나오지 않는다. 0.12~0.2초 간격으로 차례로 등장",
+      "src": "롱폼 v2 0:17",
+      "video": "c03_slots.mp4",
+      "poster": "c03_slots.jpg"
+    },
+    {
+      "id": "c04_spotlight",
+      "title": "스포트라이트 코드 패널",
+      "what": "해당 줄만 밝게 · 줄별 점등",
+      "cmd": "지금 말하는 줄만 밝게, 나머지는 어둡게",
+      "src": "롱폼 v2 0:34",
+      "video": "c04_spotlight.mp4",
+      "poster": "c04_spotlight.jpg"
+    },
+    {
+      "id": "c05_strip",
+      "title": "시간 띠와 실제 화면 확대",
+      "what": "타임라인 띠 · 재생 헤드 · 프레임 확대",
+      "cmd": "빈 구간을 띠로 표시하고 해당 프레임을 확대",
+      "src": "롱폼 v2 0:41",
+      "video": "c05_strip.mp4",
+      "poster": "c05_strip.jpg"
+    },
+    {
+      "id": "c06_accent",
+      "title": "강조는 하나",
+      "what": "막대 순차 성장 · 나머지 어둡게",
+      "cmd": "마지막 막대만 주황, 나머지는 회색 #4A5260",
+      "src": "롱폼 v2 1:16",
+      "video": "c06_accent.mp4",
+      "poster": "c06_accent.jpg"
+    },
+    {
+      "id": "c07_highlight",
+      "title": "글자를 가리지 않는 형광펜",
+      "what": "바가 덮었다가 뒤로 이동 · 마스크",
+      "cmd": "형광펜은 글자 뒤에 둔다. 글자를 가리지 말 것",
+      "src": "롱폼 v2 1:23",
+      "video": "c07_highlight.mp4",
+      "poster": "c07_highlight.jpg"
+    },
+    {
+      "id": "c08_stamp",
+      "title": "도장 찍기",
+      "what": "outBack 도장 · 한계 표시",
+      "cmd": "도장이 1.5배에서 1배로 outBack으로 찍힌다",
+      "src": "롱폼 v2 2:17",
+      "video": "c08_stamp.mp4",
+      "poster": "c08_stamp.jpg"
+    },
+    {
+      "id": "c09_zoom",
+      "title": "줌인으로 문제 짚기",
+      "what": "공간 카메라 · 실제 스크린샷 확대",
+      "cmd": "문제 부분으로 1.2초에 확대, 나머지는 어둡게",
+      "src": "롱폼 v2 2:30",
+      "video": "c09_zoom.mp4",
+      "poster": "c09_zoom.jpg"
+    },
+    {
+      "id": "c10_film",
+      "title": "필름스트립",
+      "what": "프레임 줄 세우기 · 컷 간격 0.14초",
+      "cmd": "연속 프레임 5장을 같은 크기로 줄 세우고 해당 컷을 강조",
+      "src": "롱폼 v2 2:36",
+      "video": "c10_film.mp4",
+      "poster": "c10_film.jpg"
+    },
+    {
+      "id": "c11_typing",
+      "title": "타이핑",
+      "what": "좌→우 마스크 리빌 · 추가 줄",
+      "cmd": "새 줄은 왼쪽에서 오른쪽으로 1초에 타이핑",
+      "src": "롱폼 v2 2:44",
+      "video": "c11_typing.mp4",
+      "poster": "c11_typing.jpg"
+    },
+    {
+      "id": "c12_strike",
+      "title": "취소선과 큰 단어",
+      "what": "취소선 · 재질 숫자 · 빛 스윕",
+      "cmd": "빼는 말에 취소선, 넣는 말은 큰 글자로 outBack",
+      "src": "롱폼 v2 2:58",
+      "video": "c12_strike.mp4",
+      "poster": "c12_strike.jpg"
+    },
+    {
+      "id": "c13_scroll",
+      "title": "페이지 스크롤",
+      "what": "스크롤 카메라 · 밑줄 그리기",
+      "cmd": "페이지 화면이 inOutC로 천천히 스크롤",
+      "src": "롱폼 v2 3:09",
+      "video": "c13_scroll.mp4",
+      "poster": "c13_scroll.jpg"
+    },
+    {
+      "id": "c14_transition",
+      "title": "장면 전환",
+      "what": "나가는 장면 0.3초 · 들어오는 장면 0.45초",
+      "cmd": "장면 사이를 겹치지 않게, 나간 뒤 옆에서 밀려오며 초점이 맺힌다",
+      "src": "롱폼 v2 0:09",
+      "video": "c14_transition.mp4",
+      "poster": "c14_transition.jpg"
+    },
+    {
+      "id": "c15_compare",
+      "title": "두 영상 나란히 재생",
+      "what": "화면 분할 · 실시간 카운터",
+      "cmd": "두 결과를 같은 크기로 나란히 틀고 차이를 숫자로 센다",
+      "src": "롱폼 v2 1:38",
+      "video": "c15_compare.mp4",
+      "poster": "c15_compare.jpg"
+    },
+    {
+      "id": "c16_faceoff",
+      "title": "훅: 일반 지시 vs 구체적 지시",
+      "what": "결과 먼저 · 대결 구도 · 열린 질문",
+      "cmd": "결과를 먼저 보이고 설명은 뒤에 한다",
+      "src": "롱폼 v3 0:00",
+      "video": "c16_faceoff.mp4",
+      "poster": "c16_faceoff.jpg"
+    },
+    {
+      "id": "c17_ring",
+      "title": "차이 1 · 눈이 가는 곳",
+      "what": "링 강조 · 칩 순차 등장",
+      "cmd": "말하는 단어보다 0.15초 먼저 해당 요소가 움직인다",
+      "src": "롱폼 v3 0:19",
+      "video": "c17_ring.mp4",
+      "poster": "c17_ring.jpg"
+    },
+    {
+      "id": "c18_flow",
+      "title": "차이 2 · 장면이 바뀔 때",
+      "what": "썸네일 순차 · 빈 화면 표시",
+      "cmd": "장면 사이를 컷으로 끊지 않는다. 도형이 이동·변형되어 다음 요소가 된다",
+      "src": "롱폼 v3 0:28",
+      "video": "c18_flow.mp4",
+      "poster": "c18_flow.jpg"
+    },
+    {
+      "id": "c19_num",
+      "title": "차이 3 · 숫자",
+      "what": "같은 구간을 잘라 실시간 비교",
+      "cmd": "같은 크기·같은 구간으로 나란히 비교한다",
+      "src": "롱폼 v3 0:36",
+      "video": "c19_num.mp4",
+      "poster": "c19_num.jpg"
+    },
+    {
+      "id": "c20_end",
+      "title": "마무리 한 줄",
+      "what": "바 스케일 · 글자 슬라이드",
+      "cmd": "마지막 한 줄은 크게, 멈춰서 읽게 한다",
+      "src": "롱폼 v3 0:53",
+      "video": "c20_end.mp4",
+      "poster": "c20_end.jpg"
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "order": 149,
+  "slug": "will-change",
+  "name": "will-change 힌트",
+  "en": "will-change",
+  "field": "motion",
+  "level": "고급",
+  "purposes": [
+    "타이밍과 리듬",
+    "설명"
+  ],
+  "media": [
+    "웹·앱"
+  ],
+  "oneLine": "곧 바뀔 속성을 브라우저에게 미리 귀띔해 두는 CSS 값입니다. 겉모습은 그대로이고 움직임 준비만 앞당기는데, 그동안 자원을 미리 쓰므로 필요할 때만 켜고 끝나면 꺼야 합니다",
+  "preview": null,
+  "keywords": [
+    "will-change",
+    "윌 체인지",
+    "성능 최적화",
+    "애니메이션 버벅임",
+    "움직임 준비",
+    "레이어",
+    "GPU 가속",
+    "렌더링 힌트",
+    "animation performance",
+    "layer promotion",
+    "마지막 수단",
+    "끝나면 되돌리기",
+    "움직이는 속성",
+    "rendering hint",
+    "last resort",
+    "reset to auto",
+    "transform · opacity",
+    "layer"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d148",
+    "prompt": "will-change 를 쓰는 세 가지 방식을 세 줄로 비교하는 애니메이션을 만들어줘. 세 줄 모두 카드 8장이 똑같이 오른쪽으로 움직이고, 달라지는 건 ‘힌트가 켜진 구간’뿐이야. 배경은 짙은 와인색.\n\n- 5초 길이의 시간 막대를 줄마다 두고, 밝은 가는 막대는 움직이는 구간(2.0초~3.55초), 줄 색 막대는 will-change 가 켜진 구간으로 칠한다.\n- 카드 8장은 2.0초부터 0.05초 간격으로 1.2초 동안 outCubic 으로 52px 오른쪽으로 이동.\n- ① will-change 를 쓰지 않음: 켜진 구간 없음.\n- ② 항상 켜 둠(스타일시트에 will-change: transform): 0초~5초 내내 켜짐.\n- ③ 움직일 때만 켬(자바스크립트): 움직이기 0.5초 전에 켜고, 움직임이 끝난 뒤 0.2초에 끈다(auto).\n- 힌트가 켜져 있는 동안 줄 바탕을 줄 색으로 옅게 칠하고 카드에 같은 색 테두리를 둘러서 보이게. 오른쪽에 ‘힌트가 켜진 요소 수’와 ‘켜진 시간 / 5초’를 숫자로 표시.\n- 화면 아래에 ‘테두리와 바탕색은 이 데모가 칠한 표시이고 실제 겉모습은 똑같다’고 한 줄 적는다.\n- 연출 전: ① 한 줄만, 힌트 없이 카드가 움직임.\n- 금지: will-change 를 @keyframes 안에 쓰는 것, 페이지 전체(body)에 켜는 것, 겉모습이 줄마다 다르게 보이게 만드는 것.",
+    "check": [
+      "세 줄의 카드가 같은 시각에 같은 거리(52px)를 같은 속도로 움직인다",
+      "① 줄에는 힌트가 켜진 구간(색 막대와 바탕색)이 아예 없는가?",
+      "② 줄은 0초부터 5초까지 내내 켜져 있고 숫자가 8이다",
+      "③ 줄의 켜진 구간: 움직임보다 0.5초 먼저 시작해서 0.2초 뒤에 끝난다"
+    ],
+    "use": [
+      "움직임이 시작될 때 버벅이는 문제를 다른 방법으로 풀 수 없을 때(마지막 수단)",
+      "마우스를 올리면 곧 움직일 요소에만 켜고, 끝나면 auto 로 되돌리는 코드"
+    ],
+    "tech": [
+      "CSS will-change: transform · opacity · auto",
+      "JS: mouseenter 에서 켜고 animationend 에서 auto 로 되돌리기",
+      "CSS transform · opacity (움직임을 가볍게 하는 값)",
+      "브라우저 개발자 도구의 Layers·Performance 패널(실제 효과 확인)"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "곧 바뀔 속성을 브라우저에 알려 최적화를 준비하게 하는 힌트. 이미 있는 성능 문제를 풀 마지막 수단으로 쓰라고 하며, 너무 많은 요소에 쓰면 오히려 자원을 많이 먹는다고 경고한다.",
+        "title": "MDN — will-change",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/will-change"
+      },
+      {
+        "state": "확인",
+        "text": "스타일시트에 적어 두면 최적화가 오래 유지되므로, 변화 직전에 자바스크립트로 켜고 끝나면 auto 로 되돌리라고 권합니다. @keyframes 안이 아니라 움직임 전에 설정해야 한다는 주의도 있습니다.",
+        "title": "MDN — will-change(사용 시 주의)",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/will-change"
+      },
+      {
+        "state": "확인",
+        "text": "리플로우나 리페인트를 일으키지 않는 속성의 애니메이션은 메인 스레드 밖에서 처리할 수 있고, 가장 흔한 예가 transform.",
+        "title": "MDN — CSS and JavaScript animation performance",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/CSS_JavaScript_animation_performance"
+      }
+    ],
+    "related": [
+      {
+        "name": "지연과 홀드와 루프",
+        "note": "움직임 · 같은 목적: 타이밍과 리듬"
+      },
+      {
+        "name": "호흡과 감정 곡선",
+        "note": "서사·구성 · 같은 목적: 타이밍과 리듬"
+      },
+      {
+        "name": "서사와 시리즈 떡밥 설계",
+        "note": "서사·구성 · 같은 목적: 설명"
+      }
+    ],
+    "vs": {
+      "bad": "카드 움직임이 버벅이니까 전부 will-change 를 줘",
+      "badResult": "요소 수와 켜는 시점이 빠져 있어서 대개 필요 없는 요소까지 힌트가 계속 켜진 채 자원을 씁니다",
+      "good": "움직이기 0.5초 전에 켜고, 움직임이 끝난 뒤 0.2초에 끄기(카드 8장만)",
+      "goodResult": "카드 8장만 움직이기 0.5초 전에 켜지고 끝난 뒤 0.2초에 꺼져, 5초 중 2.3초만 힌트가 켜진 줄"
+    },
+    "tips": [
+      {
+        "id": "early",
+        "title": "힌트가 너무 일찍 켜지는 것 같아요",
+        "situation": "움직이기 훨씬 전부터 힌트가 켜져 있을 때",
+        "from": "움직이기 0.5초 전에 켜고",
+        "to": "움직이기 1.5초 전에 켜고",
+        "effect": "1.0초 지점의 ③ 줄 숫자가 0에서 8로 바뀝니다(켜지는 시각 1.5초 → 0.5초). 켜진 시간이 2.3초에서 3.3초로 늘어, 아직 움직이지도 않는데 자원을 쓰는 구간이 길어집니다."
+      },
+      {
+        "id": "few",
+        "title": "카드가 많아서 부담됨",
+        "situation": "힌트를 켜는 요소가 많아 부담스러울 때",
+        "from": "카드 8장은",
+        "to": "카드 3장은",
+        "effect": "힌트를 켜는 요소가 8개에서 3개로 줄어 숫자가 8에서 3으로 바뀝니다. 켜진 시간도 2.3초에서 2.0초로 짧아집니다. 줄마다 보이는 카드가 3장뿐이라 화면은 휑해집니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "will-change 를 쓰지 않습니다",
+        "d": "카드 8장이 움직이기만 하고 귀띔은 없습니다. 힌트가 켜진 구간이 없습니다. 움직임이 버벅이지 않는다면 여기서 멈추는 것이 맞습니다.",
+        "code": ".card { /* will-change 없음 */ }"
+      },
+      {
+        "t": "스타일시트에 적어 항상 켜 둡니다",
+        "d": "움직이지 않을 때도 계속 켜져 있어 힌트가 켜진 시간이 가장 깁니다. 요소가 많을수록 미리 쓰는 자원이 늘어나고, 눈에 보이는 모습은 바뀌지 않습니다.",
+        "code": ".card { will-change: transform; }   /* 5초 내내 켜짐 */"
+      },
+      {
+        "t": "움직이기 직전에 켜고 끝나면 끕니다",
+        "d": "마우스를 올리거나 움직임이 시작되기 조금 전에 켜고, 움직임이 끝나면 auto 로 되돌립니다. 이 데모에서는 움직이기 0.5초 전에 켜고 끝난 뒤 0.2초에 끕니다.",
+        "code": "el.style.willChange = 'transform';              // 움직이기 0.5초 전\nel.addEventListener('animationend', () => {\n  el.style.willChange = 'auto';                 // 끝난 뒤 되돌림\n});"
+      }
+    ],
+    "terms": [
+      {
+        "w": "윌 체인지",
+        "en": "will-change",
+        "m": "‘이 속성이 곧 바뀔 것’이라고 브라우저에게 미리 알려 주는 CSS 값입니다. 알려 줘도 겉모습은 그대로예요.",
+        "say": "“움직이기 직전에만 will-change: transform 을 줘”"
+      },
+      {
+        "w": "렌더링 힌트",
+        "en": "Rendering hint",
+        "m": "명령이 아니라 ‘준비해 두면 좋겠다’는 뜻의 귀띔. 브라우저가 화면을 그릴 때 참고합니다.",
+        "say": "힌트는 필요할 때만 켜기"
+      },
+      {
+        "w": "마지막 수단",
+        "en": "Last resort",
+        "m": "다른 방법으로 성능 문제를 못 풀었을 때 마지막으로 꺼내는 것입니다. will-change 는 미리 걱정해서 쓰는 값이 아닙니다.",
+        "say": "“버벅임이 실제로 있을 때만 will-change 를 써줘”"
+      },
+      {
+        "w": "끝나면 되돌리기",
+        "en": "Reset to auto",
+        "m": "미리 쓰던 자원을 놓아 주려고, 움직임이 끝난 뒤 will-change 를 auto 로 돌리는 것.",
+        "say": "애니메이션 끝나면 will-change: auto"
+      },
+      {
+        "w": "움직이는 속성",
+        "en": "transform · opacity",
+        "m": "다시 배치를 계산하지 않아도 되는 가벼운 값이라서, will-change 에 적는 값도 보통 이 둘입니다.",
+        "say": "“will-change: transform, opacity”"
+      },
+      {
+        "w": "레이어",
+        "en": "Layer",
+        "m": "화면의 한 부분을 따로 떼어 놓은 층입니다. 힌트를 주면 브라우저가 요소를 미리 층으로 분리해 둘 수 있습니다.",
+        "say": "“이 카드만 따로 층으로 분리해줘”"
+      }
+    ],
+    "levels": 3
+  },
+  "poster": "/lab/posters/will-change.jpg"
+}

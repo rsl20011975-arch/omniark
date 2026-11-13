@@ -1,0 +1,217 @@
+{
+  "order": 192,
+  "slug": "js-graphics-libs",
+  "name": "웹 그래픽 라이브러리",
+  "en": "JS Graphics Libraries",
+  "field": "tools",
+  "level": "고급",
+  "purposes": [
+    "설명",
+    "공간감"
+  ],
+  "media": [
+    "웹·앱"
+  ],
+  "oneLine": "웹 화면에 직접 그림을 그리는 도구들. Three.js 와 Babylon.js 는 3D 장면, p5.js 는 draw() 가 계속 반복되는 스케치, D3 는 데이터를 SVG 도형에 묶어 그래프를 만든다",
+  "preview": null,
+  "keywords": [
+    "Three.js",
+    "threejs",
+    "Babylon.js",
+    "babylon",
+    "p5.js",
+    "p5",
+    "D3",
+    "D3.js",
+    "WebGL",
+    "3D 웹",
+    "웹 3D",
+    "생성 예술",
+    "크리에이티브 코딩",
+    "데이터 시각화 라이브러리",
+    "렌더 루프",
+    "setAnimationLoop",
+    "runRenderLoop",
+    "draw",
+    "transition",
+    "스케치",
+    "전환",
+    "선형 보간",
+    "render loop",
+    "sketch (p5.js)",
+    "transition (d3)",
+    "lerp"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d191",
+    "prompt": "같은 공 움직임을 Three.js, Babylon.js, p5.js, D3 가 어떤 코드로 그리는지 보여 주는 애니메이션이 필요하다. 화면은 2×2 칸으로 나누고, 칸마다 위에는 공이 움직이는 작은 장면(각 도구의 분위기), 아래에는 그 도구의 코드 4~5줄을 둔다.\n\n공이 오른쪽으로 480(Three.js · Babylon.js 는 단위 4.8) 이동한다. 0.4초 기다렸다가 1.2초 동안 움직이고 끝에서 감속(outCubic)한다. 첫째 칸 Three.js 는 어두운 바닥 격자 위의 3D 구슬로, animate( time ) 안에서 mesh.position.x 를 바꾸고 renderer.render( scene, camera ) 를 부르며 renderer.setAnimationLoop( animate ) 로 돌린다. 둘째 칸 Babylon.js 는 하늘과 땅 장면이고 engine.runRenderLoop 안에서 sphere.position.x 를 바꾼 뒤 scene.render() 를 부른다. 셋째 칸 p5.js 는 밝은 회색 캔버스이고 function draw() 안에서 lerp( 0, 480, easeOut( t ) )로 x 를 구해 circle( x, 180, 40 ) 을 그린다. 넷째 칸 D3 는 눈금 축이 있는 어두운 SVG 장면이며 d3.select(\"circle\").transition().delay(400).duration(1200).ease(d3.easeCubicOut).attr(\"cx\", 480) 으로 움직인다.\n\nThree.js, Babylon.js, p5.js 코드의 첫 줄에는 ‘t=(시간-0.4)/1.2: 0~1, easeOut=직접 작성’ 주석을 넣는다. 네 공은 같은 시각에 출발해 같은 시각에 도착하고, 코드의 숫자와 화면 숫자는 서로 같아야 한다.\n\n연출 전에는 Three.js 칸 하나만 있고 easeOut 이 없어서 공이 같은 속도로 움직인다. 칸마다 공의 속도나 도착 시각이 다른 것, 문서에 없는 함수 이름을 지어내는 것은 금지.",
+    "check": [
+      "연출 전에는 Three.js 칸 하나뿐이고 코드에 easeOut 이 없으며 공이 같은 속도로 움직인다",
+      "5단계의 칸이 네 개이고 네 공이 0.4초에 함께 출발해 1.6초에 함께 도착하는가?",
+      "코드의 숫자(4.8 또는 480, 0.4, 1.2 또는 1200)가 화면의 숫자와 같고, 칸마다 장면 분위기가 다르다(어두운 바닥 격자, 하늘과 땅, 밝은 회색 캔버스, 눈금 축)"
+    ],
+    "use": [
+      "웹에서 3D 제품 뷰어나 공간 연출을 만드는 경우(Three.js, Babylon.js)",
+      "코드로 그림과 움직임을 스케치하듯 실험하기(p5.js)",
+      "데이터를 막대, 선, 지도 같은 그래프로 움직여야 할 때(D3)"
+    ],
+    "tech": [
+      "Three.js: scene · camera · renderer · mesh, renderer.setAnimationLoop(animate)",
+      "Babylon.js: Engine · Scene · MeshBuilder, engine.runRenderLoop, Animation 키프레임(scene.beginAnimation)",
+      "p5.js: setup() 한 번 + draw() 반복, lerp(시작, 끝, 비율), circle(x, y, 지름)",
+      "D3: select → transition().duration().ease() → attr (데이터에 묶어 전환)"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "three.js 는 쓰기 쉽고 가벼운 범용 3D 라이브러리로 WebGL 과 WebGPU 렌더러를 포함하고, SVG·CSS3D 렌더러는 애드온으로 제공된다고 소개한다. 라이선스는 MIT. 예제는 renderer.setAnimationLoop( animate ) 로 매 프레임 mesh.rotation.x = time / 2000 처럼 값을 바꿔 장면을 다시 그린다.",
+        "title": "GitHub — mrdoob/three.js (README)",
+        "url": "https://github.com/mrdoob/three.js"
+      },
+      {
+        "state": "확인",
+        "text": "Object3D 문서에 position 속성(Vector3, 로컬 위치, 기본값 (0,0,0))이 나오고, Vector3 문서는 x, y, z 가 숫자 속성이라고 정리한다.",
+        "title": "three.js Docs — Object3D · Vector3",
+        "url": "https://threejs.org/docs/pages/Object3D.html"
+      },
+      {
+        "state": "확인",
+        "text": "Babylon.js 시작 템플릿은 new BABYLON.Engine(canvas, true), new BABYLON.Scene(engine), FreeCamera, HemisphericLight, MeshBuilder.CreateSphere(...) 로 장면을 만들고 sphere.position.y = 1 처럼 위치를 정한다. engine.runRenderLoop(function () { scene.render(); }) 가 계속 그려 주는 부분.",
+        "title": "Babylon.js Docs — Minimal HTML template",
+        "url": "https://doc.babylonjs.com/setup/starterHTML"
+      },
+      {
+        "state": "확인",
+        "text": "Babylon.js 의 키프레임 애니메이션은 new Animation(name, property, frames_per_second, property_type, loop_mode), setKeys([{ frame: 0, value: 0.5 }, …]), scene.beginAnimation(target, from, to) 형태다. 이 문서에서는 이징 함수 코드를 확인하지 못했다.",
+        "title": "Babylon.js Docs — Animation method · introduction",
+        "url": "https://doc.babylonjs.com/features/featuresDeepDive/animation/animation_method"
+      },
+      {
+        "state": "확인",
+        "text": "draw() 는 setup() 뒤에 계속 반복 실행되는 블록으로 애니메이션과 입력 반응에 쓰이며, 기본은 초당 약 60번이고 noLoop() 로 멈춘다.",
+        "title": "p5.js Reference — draw()",
+        "url": "https://p5js.org/reference/p5/draw/"
+      },
+      {
+        "state": "확인",
+        "text": "lerp(start, stop, amt) 는 두 수 사이의 값을 비율로 구하는 함수로, 직선 경로 움직임에 편리하다고 설명한다. circle(x, y, d) 는 원을 그린다.",
+        "title": "p5.js Reference — lerp() · circle()",
+        "url": "https://p5js.org/reference/p5/lerp/"
+      },
+      {
+        "state": "확인",
+        "text": "D3 는 데이터를 시각화하는 무료 오픈소스 JavaScript 라이브러리. 차트 추상화 없이 스케일, 도형, 축, 선택(selection) 같은 기본 부품을 조합하며 SVG 와 Canvas 를 다룬다. 2011년 마이크 보스톡이 만들었고 ISC 라이선스다.",
+        "title": "D3 — What is D3?",
+        "url": "https://d3js.org/what-is-d3"
+      },
+      {
+        "state": "확인",
+        "text": "transition.duration(value)는 밀리초이며 기본 250ms, transition.ease(fn)의 기본은 d3.easeCubic 이고 attr 와 style 등 선택 메서드의 전환판이 있다. d3.easeCubic 은 easeCubicInOut 의 별칭, easeCubicOut 은 ‘거꾸로 돌린 cubic’(1 − easeCubicIn(1 − t)).",
+        "title": "D3 — d3-transition · d3-ease",
+        "url": "https://d3js.org/d3-transition/timing"
+      }
+    ],
+    "related": [
+      {
+        "name": "제품 분해·조립",
+        "note": "3D·WebGL · 같은 목적: 공간감"
+      },
+      {
+        "name": "카메라 이동 4종",
+        "note": "카메라·공간 · 같은 목적: 공간감"
+      },
+      {
+        "name": "프레임 통과 달리 인",
+        "note": "카메라·공간 · 같은 목적: 공간감"
+      }
+    ],
+    "vs": {
+      "bad": "웹에서 3D 공이 멋지게 움직이게 해줘",
+      "badResult": "라이브러리도 시간도 곡선도 정해지지 않아서, 대개 실행할 때마다 느낌이 다른 코드가 나옵니다",
+      "good": "Three.js 로 구슬 하나를 오른쪽으로 4.8 이동. 0.4초 기다렸다가 1.2초 동안 easeOut 으로, setAnimationLoop 안에서 position.x 를 갱신",
+      "goodResult": "Three.js 구슬이 4.8 만큼 0.4초 뒤에 1.2초 동안 easeOut 으로 움직이는 setAnimationLoop 코드"
+    },
+    "tips": [
+      {
+        "id": "dist300",
+        "title": "공이 너무 멀리 간다",
+        "situation": "칸 폭에 비해 이동 거리가 클 때",
+        "from": "공이 오른쪽으로 480(Three.js · Babylon.js 는 단위 4.8) 이동",
+        "to": "공이 오른쪽으로 300(Three.js · Babylon.js 는 단위 3.0) 이동",
+        "effect": "네 칸의 공이 도착하는 자리가 왼쪽으로 가까워지고 코드의 숫자도 480 에서 300 으로(Three.js 와 Babylon.js 는 4.8 에서 3.0 으로) 바뀌어, 같은 1.2초에 가는 거리가 줄어 느려 보인다."
+      },
+      {
+        "id": "dur24",
+        "title": "움직임이 너무 빨라요",
+        "situation": "공이 휙 지나가서 감속이 보이지 않을 때",
+        "from": "1.2초 동안 움직이고",
+        "to": "2.4초 동안 움직이고",
+        "effect": "1.0초에 네 공이 길의 약 88% 지점에서 58% 지점으로 물러나 있고, 코드의 1.2 는 2.4(D3 는 1200 이 2400)로 바뀐다. 끝에서 서서히 멈추는 모습이 길게 보이는 만큼 도착 시각은 2.8초로 늦어진다."
+      },
+      {
+        "id": "delay10",
+        "title": "처음에 잠깐 멈췄다 가면 좋겠다",
+        "situation": "화면이 열리자마자 공이 움직여 어디를 봐야 할지 놓칠 때",
+        "from": "0.4초 기다렸다가",
+        "to": "1.0초 기다렸다가",
+        "effect": "코드의 대기 숫자가 0.4 에서 1.0 으로(D3 는 400 에서 1000 으로) 바뀐다. 1.6초 시점의 네 공은 도착해 있던 자리에서 길의 약 88% 지점으로 물러나 있다. 도착 시각은 2.2초가 된다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "직선으로 움직이기",
+        "d": "Three.js 는 3D 장면을 만들어 두고, 매 프레임 setAnimationLoop 가 animate 를 불러 준다. animate 안에서 공의 위치(mesh.position.x)를 직접 계산해 넣는다. 시간에 비례해 값을 넣으면 같은 속도로 움직인다.",
+        "code": "function animate( time ) {\n  mesh.position.x = 4.8 * t;\n  renderer.render( scene, camera );\n}\nrenderer.setAnimationLoop( animate );"
+      },
+      {
+        "t": "끝에서 감속하게 만들기",
+        "d": "t(0~1)를 직접 만든 easeOut 함수에 통과시키면 끝에서 천천히 멈춘다. 바뀐 것은 라이브러리가 아니라 계산식 하나다.",
+        "code": "mesh.position.x = 4.8 * easeOut( t );"
+      },
+      {
+        "t": "Babylon.js 의 렌더 루프",
+        "d": "engine.runRenderLoop 가 매 프레임 scene.render() 를 부른다. 그 안에서 sphere.position.x 를 바꾸는 일은 Three.js 와 똑같다. 키프레임을 찍는 Animation 기능도 따로 있다.",
+        "code": "engine.runRenderLoop(function () {\n  sphere.position.x = 4.8 * easeOut( t );\n  scene.render();\n});"
+      },
+      {
+        "t": "p5.js 의 draw()",
+        "d": "draw() 는 초당 약 60번 실행된다. lerp 로 시작값과 끝값 사이를 구하고 circle 로 그리며, 3D 장면 없이 평면 캔버스에 바로 그린다.",
+        "code": "function draw() {\n  let x = lerp( 0, 480, easeOut( t ) );\n  circle( x, 180, 40 );\n}"
+      },
+      {
+        "t": "D3 의 전환(transition)",
+        "d": "프레임을 직접 계산하지 않고, 선택한 요소에 transition 을 걸어 시간(ms)과 ease 만 알려 준다. easeCubicOut 은 끝에서 감속하는 곡선이다. 데이터를 요소에 묶어 많은 점을 한꺼번에 움직일 때 강하다.",
+        "code": "d3.select(\"circle\").transition()\n  .delay(400).duration(1200)\n  .ease(d3.easeCubicOut)\n  .attr(\"cx\", 480);"
+      }
+    ],
+    "terms": [
+      {
+        "w": "렌더 루프",
+        "en": "Render loop",
+        "m": "화면을 계속 다시 그리는 반복이며, Three.js 는 setAnimationLoop, Babylon.js 는 runRenderLoop 로 부른다.",
+        "say": "“렌더 루프 안에서 공의 위치를 갱신해줘”"
+      },
+      {
+        "w": "스케치",
+        "en": "Sketch (p5.js)",
+        "m": "p5.js 프로그램 하나. setup() 한 번과 draw() 반복으로 이루어진다.",
+        "say": "p5.js 스케치로 원이 움직이게"
+      },
+      {
+        "w": "전환",
+        "en": "Transition (D3)",
+        "m": "D3 에서 값이 시간에 따라 부드럽게 바뀌게 하는 기능으로, duration 과 ease 를 정한다.",
+        "say": "“transition 은 1.2초에 easeCubicOut 으로”"
+      },
+      {
+        "w": "선형 보간",
+        "en": "lerp",
+        "m": "시작값과 끝값 사이를 비율(0~1)로 구하는 계산. lerp(0, 480, 0.5) 는 240.",
+        "say": "lerp 로 시작과 끝 사이 채우기"
+      }
+    ],
+    "levels": 5
+  },
+  "poster": "/lab/posters/js-graphics-libs.jpg"
+}

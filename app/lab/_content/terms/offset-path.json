@@ -1,0 +1,172 @@
+{
+  "order": 147,
+  "slug": "offset-path",
+  "name": "곡선 경로를 따라 이동",
+  "en": "Motion Path (offset-path)",
+  "field": "motion",
+  "level": "중급",
+  "purposes": [
+    "시선 집중",
+    "행동 안내"
+  ],
+  "media": [
+    "웹·앱",
+    "영상"
+  ],
+  "oneLine": "곡선이나 도형 모양의 길을 하나 정해 주면 요소가 그 길 위를 따라 움직이고, 가는 방향으로 몸까지 돌립니다. 직선으로만 오가던 움직임이 길을 따라 휘어집니다",
+  "preview": null,
+  "keywords": [
+    "경로 따라 이동",
+    "곡선 이동",
+    "경로 애니메이션",
+    "길 따라가기",
+    "모션 패스",
+    "offset-path",
+    "offset-distance",
+    "offset-rotate",
+    "motion path",
+    "follow path",
+    "path animation",
+    "오프셋 패스",
+    "오프셋 디스턴스",
+    "오프셋 로테이트",
+    "경로",
+    "눈금(퍼센트)",
+    "path",
+    "percentage along path"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d146",
+    "prompt": "카드 하나가 S자 곡선 길을 따라 이동하는 애니메이션을 만들어줘. 종이색 배경 위에 길과 지나간 자국이 보이게 해 줘.\n\n- 길: 시작 (60, 270) 에서 끝 (580, 110) 까지 부드러운 S자 곡선(SVG path). 길 위에 0, 25, 50, 75, 100% 눈금 점과 숫자를 표시.\n- 카드: 96×54px, 주황빛 붉은색 그라디언트에 접지 그림자, 오른쪽 끝에 진행 방향을 가리키는 밝은 꺾쇠.\n- CSS offset-path: path(\"...\") 로 길을 주고 offset-distance 를 0%에서 100%로, 0.5초에 출발해 2.4초 동안 easeInOut 으로 움직인다.\n- offset-rotate: auto 로 카드가 곡선의 방향에 맞춰 돌게 한다.\n- 카드가 지나간 길은 파란색에서 붉은색으로 이어지는 선으로 칠하고, 옅은 번짐을 겹친다.\n- 왼쪽 위에 지금 offset-distance 값과 offset-rotate 값을 코드로 표시.\n- 연출 전: 카드가 translate 로 시작점에서 끝점까지 직선으로 가고, 방향도 그대로.\n- 금지: transform 으로 곡선 위 좌표를 프레임마다 직접 계산해 넣는 것, 카드가 길에서 벗어나는 것, 등속 이동.",
+    "check": [
+      "카드 중심이 S자 길 위에서 벗어나지 않는다",
+      "연출 후 카드의 꺾쇠는 늘 길이 가는 방향을 가리키는가?",
+      "지나간 자국은 카드 뒤쪽에만 칠해진다",
+      "왼쪽 위 offset-distance 숫자가 0%에서 100%까지 늘어난다",
+      "연출 전 카드는 직선으로 가고 방향이 한 번도 바뀌지 않는다"
+    ],
+    "use": [
+      "카드나 아이콘이 곡선을 그리며 장바구니로 날아가는 연출",
+      "지도와 로드맵에서 점이 정해진 길을 따라 이동",
+      "비행기, 자동차, 화살표처럼 방향이 있는 물체가 길을 돌며 나아갈 때",
+      "로딩 표시에서 점이 원형 궤도를 도는 움직임"
+    ],
+    "tech": [
+      "CSS offset-path: path() · ray() · 도형 함수",
+      "CSS offset-distance · offset-rotate · offset-anchor",
+      "CSS @keyframes 로 offset-distance 0% → 100%",
+      "SVG path 로 길 그리기(눈으로 보이는 선)",
+      "GSAP: MotionPathPlugin"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "path(), ray(), 도형 함수로 요소가 따라갈 길을 정하는 속성. 이것만으로는 움직이지 않고, offset-distance 로 위치를 정해야 한다.",
+        "title": "MDN — offset-path",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/offset-path"
+      },
+      {
+        "state": "확인",
+        "text": "길 위의 위치를 정하는 값이고, 퍼센트는 길 전체 길이에 대한 비율이라 0%가 시작, 100%가 끝입니다. 키프레임으로 0%에서 100%까지 바꿔 요소를 움직이는 방식을 보여 줍니다.",
+        "title": "MDN — offset-distance",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/offset-distance"
+      },
+      {
+        "state": "확인",
+        "text": "길을 따라가는 요소가 어느 쪽을 볼지 정하는 속성입니다. auto 면 진행 방향을 따라 돌고, auto 뒤에 각도를 더하면 그만큼 더 돈다고 설명합니다.",
+        "title": "MDN — offset-rotate",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/offset-rotate"
+      }
+    ],
+    "related": [
+      {
+        "name": "젤리 바운스",
+        "note": "움직임 · 같은 목적: 시선 집중"
+      },
+      {
+        "name": "등장 6종",
+        "note": "움직임 · 같은 목적: 행동 안내"
+      },
+      {
+        "name": "키네틱 자막",
+        "note": "움직임 · 같은 목적: 시선 집중"
+      }
+    ],
+    "vs": {
+      "bad": "카드가 곡선으로 부드럽게 날아가게 해줘",
+      "badResult": "어떤 길을 따라 얼마 동안 가는지, 방향을 돌리는지가 빠져서 대개 직선으로 가거나 길과 상관없이 어색하게 흔들리는 움직임이 나옵니다",
+      "good": "S자 path 를 offset-path 로 주고 offset-distance 0%→100%, 2.4초 easeInOut, offset-rotate: auto",
+      "goodResult": "S자 길을 따라 2.4초 동안 가고 꺾쇠가 늘 진행 방향을 보는 카드"
+    },
+    "tips": [
+      {
+        "id": "fast",
+        "title": "카드가 너무 느리게 가요",
+        "situation": "이동이 길게 느껴져 답답할 때",
+        "from": "2.4초 동안 easeInOut",
+        "to": "1.2초 동안 easeInOut",
+        "effect": "같은 1.1초 지점에서 카드가 길의 6%에서 50%까지 앞서 가 있습니다(통과 시간 2.4초 → 1.2초). 곡선 중간에서 방향이 바뀌는 모습은 눈으로 따라가기 어려워집니다."
+      },
+      {
+        "id": "side",
+        "title": "앞이 길 쪽을 안 보는 카드",
+        "situation": "그림이 위나 옆을 보고 있어 진행 방향과 맞지 않을 때",
+        "from": "offset-rotate: auto 로",
+        "to": "offset-rotate: auto 90deg 로",
+        "effect": "꺾쇠가 길과 직각 방향, 곧 진행 방향에서 90° 더 돈 쪽을 가리키게 됩니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "카드가 직선으로 지나갑니다",
+        "d": "시작점에서 끝점까지 좌표만 바꿔 옮깁니다. 곡선 길이 그려져 있어도 카드는 그 위를 지나지 않습니다.",
+        "code": "card.style.transform = `translate(${lerp(x0, x1, p)}px, ${lerp(y0, y1, p)}px)`;"
+      },
+      {
+        "t": "길(offset-path)을 주고 offset-distance 로 움직입니다",
+        "d": "길을 path() 로 주고 offset-distance 를 0%에서 100%로 바꾸면 카드가 곡선 위를 지나갑니다. 좌표를 직접 계산할 필요가 없습니다. 이 단계에서는 offset-rotate 를 0deg 로 두어 카드가 방향을 바꾸지 않고 처음 모양 그대로 움직입니다.",
+        "code": "card.style.offsetPath = `path(\"${PATH}\")`;\ncard.style.offsetDistance = `${p * 100}%`;\ncard.style.offsetRotate = '0deg';"
+      },
+      {
+        "t": "offset-rotate: auto 로 진행 방향을 따라 돌게 합니다",
+        "d": "곡선이 기울어지는 만큼 카드가 돌아서 꺾쇠가 늘 가는 쪽을 봅니다. auto 뒤에 각도를 붙이면(예: auto 90deg) 그림이 옆을 보고 있을 때도 앞쪽을 맞출 수 있습니다.",
+        "code": "card.style.offsetRotate = 'auto';        // 진행 방향으로 돎\ncard.style.offsetRotate = 'auto 90deg';  // 진행 방향 + 90°"
+      }
+    ],
+    "terms": [
+      {
+        "w": "오프셋 패스",
+        "en": "offset-path",
+        "m": "요소가 따라갈 길을 정하는 CSS 속성입니다. 곡선(path)이나 도형, 직선(ray)을 길로 줄 수 있습니다.",
+        "say": "“offset-path 로 이 곡선을 따라가게 해줘”"
+      },
+      {
+        "w": "오프셋 디스턴스",
+        "en": "offset-distance",
+        "m": "길 위에서 요소가 서 있는 자리. 0%가 시작, 100%가 끝이고 값을 바꾸면 움직입니다.",
+        "say": "offset-distance 0%에서 100%로, 2.4초"
+      },
+      {
+        "w": "오프셋 로테이트",
+        "en": "offset-rotate",
+        "m": "길을 따라갈 때 요소가 어느 쪽을 보게 할지 정합니다. auto 는 길의 방향을 따라 돕니다.",
+        "say": "“offset-rotate: auto 로 진행 방향을 보게”"
+      },
+      {
+        "w": "경로",
+        "en": "Path",
+        "m": "점들을 이어 만든 선, 직선이든 곡선이든 상관없습니다. 움직임에서는 요소가 지나갈 ‘길’을 뜻합니다.",
+        "say": "S자 곡선 경로 위로 이동"
+      },
+      {
+        "w": "눈금(퍼센트)",
+        "en": "Percentage along path",
+        "m": "길 전체를 100으로 보고 지금 어디쯤인지 부르는 말입니다. 50%는 길이를 기준으로 한 정확한 가운데입니다.",
+        "say": "“50% 지점에서 잠깐 멈춰줘”"
+      }
+    ],
+    "levels": 3
+  },
+  "poster": "/lab/posters/offset-path.jpg"
+}

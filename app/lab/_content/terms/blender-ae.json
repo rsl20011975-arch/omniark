@@ -1,0 +1,199 @@
+{
+  "order": 193,
+  "slug": "blender-ae",
+  "name": "Blender, After Effects",
+  "en": "Blender / After Effects",
+  "field": "tools",
+  "level": "중급",
+  "purposes": [
+    "설명",
+    "변화와 비교"
+  ],
+  "media": [
+    "영상"
+  ],
+  "oneLine": "Blender 는 3D 모델링부터 애니메이션과 렌더링까지 하는 무료 오픈소스 제작 도구이고, After Effects 는 영상 위에 글자와 그래픽을 겹쳐 얹는 모션 그래픽·합성 도구다. 둘 다 ‘키프레임’을 찍어 움직임을 정한다",
+  "preview": null,
+  "keywords": [
+    "Blender",
+    "블렌더",
+    "After Effects",
+    "애프터 이펙트",
+    "에펙",
+    "AE",
+    "키프레임",
+    "그래프 에디터",
+    "보간",
+    "Bézier",
+    "3D 애니메이션",
+    "모션 그래픽",
+    "합성",
+    "VFX",
+    "keyframe",
+    "interpolation",
+    "compositing",
+    "손잡이",
+    "graph editor",
+    "handle"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d192",
+    "prompt": "Blender 와 After Effects 가 하는 일을 한 화면에 나란히 보여 주는 애니메이션 요청이다. 왼쪽이 Blender, 오른쪽이 After Effects.\n\n1. Blender 칸 위에는 바닥 격자 위의 회색 3D 큐브가 오른쪽으로 움직이는 장면, 아래에는 ‘값 대 프레임’ 그래프를 둔다. 키프레임은 마름모 두 개로, 프레임 1 에서 위치 3 m, 프레임 36 에서 위치 20 m. 두 번째 키프레임의 값은 20m.\n2. 큐브는 0.4초에 출발해 2.0초 동안 움직이고, 노란 선(현재 프레임)과 큐브와 곡선 위 점이 항상 같은 값을 가리킨다. 바닥에는 5프레임마다 작은 점을 남겨 속도가 보이게 한다.\n3. 위쪽에 버튼 세 개(Constant, Linear, Bézier)를 두고 지금 쓰는 방식을 노랗게 강조한다. 연출 전에는 Linear(직선)로 이어 속도가 일정하다. 다음 단계에서 Bézier 로 바꿔 부드럽게 하며, Bézier 손잡이 길이는 구간의 40%, 손잡이는 흰 점과 선으로 그린다.\n4. After Effects 칸 위에는 노을 영상 위로 ‘NEW DROP’ 글자 카드가 0.8초에서 1.6초 사이에 아래에서 올라오며(outCubic) 나타나는 장면을 둔다. 아래에는 ‘위에서 아래로 겹쳐 합성’ 도식(글자·그래픽 위, 영상 아래)과 Adobe 소개 페이지에서 확인한 기능 4개(글자·그래픽 애니메이션, 합성, 트래킹, 키잉)를 적는다.\n5. 프레임 번호와 값은 ‘프레임 N · x m’ 으로 그래프 위에 보여 준다. After Effects 의 화면 구성이나 메뉴 이름을 지어내는 것, 두 도구의 가격과 성능을 단정하는 것은 금지.",
+    "check": [
+      "연출 전과 1단계에서는 Linear 버튼이 노랗고 그래프가 직선이며 바닥 점의 간격이 모두 같다",
+      "2단계에서는 Bézier 버튼이 노랗고, 그래프가 S 자 곡선이며, 손잡이(흰 점과 선)가 보이는가?",
+      "2단계의 바닥 점 간격은 양 끝에서 좁고 가운데에서 넓다",
+      "키프레임 마름모는 프레임 1(3 m)과 프레임 36(20 m) 두 개이고, 노란 선과 곡선 위 점과 큐브가 같은 값을 가리킨다",
+      "3단계에서 오른쪽에 After Effects 칸이 나타나고 글자 카드가 0.8~1.6초에 아래에서 올라온다",
+      "그래프 위 ‘프레임 N · x m’ 표시가 프레임 1 · 3.0 m 에서 프레임 36 · 20.0 m 로 바뀐다"
+    ],
+    "use": [
+      "3D 제품 영상이나 캐릭터를 만들 도구를 고르는 일(Blender)",
+      "영상 위에 자막, 로고, 효과를 겹쳐 얹는 작업을 맡길 때(After Effects)",
+      "‘키프레임으로 움직임을 정한다’는 공통 원리를 한 번에 이해하기",
+      "움직임이 밋밋하게 느껴져 보간 방식을 바꿔 보고 싶은 순간"
+    ],
+    "tech": [
+      "Blender: 키프레임 삽입 → Graph Editor 에서 곡선(F-Curve)과 보간 방식 조절",
+      "Blender 보간: Constant(계단) · Linear(직선) · Bézier(부드러움, 기본) 외에 Back · Bounce · Elastic",
+      "After Effects: 영상에 글자·그래픽을 겹쳐 합성, 트래킹, 키잉(배경 바꾸기)",
+      "After Effects 스크립트: JavaScript · ExtendScript(위키백과)"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "Blender 설명서: 키프레임은 ‘시각을 표시하고 속성 값을 저장하는 표식’. 예를 들어 1프레임에 큐브의 가로 위치가 3 m, 10프레임에 20 m 라고 정하면 사이 프레임의 값은 선택한 보간 방식(Linear, Bézier, Quadratic 등)에 따라 자동 계산된다. 보간은 곡선(F-Curve)으로 표현되며 Graph Editor 에서 고친다.",
+        "title": "Blender Manual — Keyframes: Introduction",
+        "url": "https://docs.blender.org/manual/en/latest/animation/keyframes/introduction.html"
+      },
+      {
+        "state": "확인",
+        "text": "F-Curve 속성에서 Constant 는 다음 키프레임까지 값을 붙잡아 계단처럼 급변하고, Linear 는 직선이라 값의 급변은 막지만 속도의 급변은 막지 못한다. Bézier 는 기본값으로 값과 속도 모두 부드럽고 손잡이로 모양을 조절한다. Back, Bounce, Elastic 같은 ‘동적 효과’도 있다.",
+        "title": "Blender Manual — F-Curve Properties",
+        "url": "https://docs.blender.org/manual/en/latest/editors/graph_editor/fcurves/properties.html"
+      },
+      {
+        "state": "확인",
+        "text": "Blender 는 무료 오픈소스 3D 제작 도구로 모델링, 애니메이션, 조각, 시각효과, 렌더링, 합성, 모션 트래킹, 2D 애니메이션, 영상 편집을 한다고 정리돼 있다. GNU GPL 2 이상 라이선스이고 바이너리는 Apache 라이선스 라이브러리 때문에 GPL 3 이상이며, 비영리 Blender Foundation 이 개발을 이끈다.",
+        "title": "Wikipedia — Blender (software)",
+        "url": "https://en.wikipedia.org/wiki/Blender_(software)"
+      },
+      {
+        "state": "확인",
+        "text": "Adobe 제품 소개는 After Effects 를 모션 디자인·시각효과 소프트웨어로 소개하고, 글자·그래픽·일러스트 애니메이션, 필름·방송·영상·웹용 합성, 트래킹(클립 속 물체 따라가기), 키잉(배경 바꾸기), 3D 작업 공간, 내장 효과와 프리셋 등을 기능으로 나열한다. 가격은 이 페이지에서 날짜와 함께 확인할 수 없어 쓰지 않았습니다.",
+        "title": "Adobe — After Effects",
+        "url": "https://www.adobe.com/products/aftereffects.html"
+      },
+      {
+        "state": "확인",
+        "text": "After Effects 는 Adobe 의 디지털 효과·모션 그래픽·합성 프로그램이며 1993년 1월에 1.0 이 나왔다. 라이선스는 상용(독점), 스크립트는 JavaScript 와 ExtendScript, 확장은 HTML5 와 Node.js 로 만든다.",
+        "title": "Wikipedia — Adobe After Effects",
+        "url": "https://en.wikipedia.org/wiki/Adobe_After_Effects"
+      },
+      {
+        "state": "확인",
+        "text": "키프레임이란 부드러운 변화의 시작과 끝을 정하는 그림(장면). 3D 등 애니메이션 소프트웨어에서는 파라미터의 두 값을 정하면 사이 변화를 소프트웨어가 보간하고, 영상 편집에서는 값이 바뀌기 시작하는 때를 표시한다.",
+        "title": "Wikipedia — Key frame",
+        "url": "https://en.wikipedia.org/wiki/Key_frame"
+      }
+    ],
+    "related": [
+      {
+        "name": "손그림 강조",
+        "note": "글자 · 같은 목적: 설명"
+      },
+      {
+        "name": "크로마키",
+        "note": "합성·편집 · 같은 목적: 변화와 비교"
+      },
+      {
+        "name": "예측 퀴즈",
+        "note": "서사·구성 · 같은 목적: 설명"
+      }
+    ],
+    "vs": {
+      "bad": "3D 로 멋지게 움직이게 해줘",
+      "badResult": "어떤 도구에서 어떤 보간으로 몇 프레임에 움직일지 빠져 있어서, 대개 매번 다른 방식과 속도로 돌아옵니다",
+      "good": "Blender 에서 큐브를 프레임 1 에서 3 m, 프레임 36 에서 20 m 로 두 키프레임을 찍고, 보간은 Bézier(손잡이 40%)로",
+      "goodResult": "프레임 1 의 3 m 에서 프레임 36 의 20 m 까지 Bézier 손잡이 40% 곡선으로 이동하는 큐브 키프레임"
+    },
+    "tips": [
+      {
+        "id": "end8",
+        "title": "큐브가 너무 멀리 간다",
+        "situation": "화면 밖으로 나갈 것 같을 때",
+        "from": "두 번째 키프레임의 값은 20m",
+        "to": "두 번째 키프레임의 값은 8m",
+        "effect": "그래프의 곡선과 아래 색 영역이 낮아져 두 번째 마름모가 20 에서 8 로 내려오고, 큐브가 끝에서 멈추는 자리도 왼쪽으로 가까워진다. 같은 프레임 수에 가는 거리가 줄어 속도는 느려 보인다."
+      },
+      {
+        "id": "handle80",
+        "title": "시작과 끝이 더 오래 머물렀으면 해요",
+        "situation": "움직임이 가운데에서만 휙 지나가는 느낌을 원할 때",
+        "from": "Bézier 손잡이 길이는 구간의 40%",
+        "to": "Bézier 손잡이 길이는 구간의 80%",
+        "effect": "손잡이가 길어져 곡선이 양 끝에서 더 납작하고 가운데에서 더 가파른 S 자가 된다. 같은 2.0초 중 시작과 끝에서 큐브가 거의 멈춘 듯 머물다가 가운데에서 빠르게 지나간다. 너무 길면 움직임이 계단처럼 딱딱해 보일 수 있다."
+      },
+      {
+        "id": "dur32",
+        "title": "너무 휙 지나간다",
+        "situation": "큐브가 도착하는 순간이 짧아 움직임을 눈으로 따라가기 어려울 때",
+        "from": "2.0초 동안 움직이고",
+        "to": "3.2초 동안 움직이고",
+        "effect": "2.4초 시점의 표시가 프레임 36 · 20.0 m 에서 프레임 23 · 14.9 m 로 바뀌고, 큐브가 도착하는 시각은 2.4초에서 3.6초로 늦어진다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "키프레임 두 개를 직선으로",
+        "d": "키프레임은 ‘이 프레임에 이 값’이라고 찍어 둔 점이다. 프레임 1 에서 3 m, 프레임 36 에서 20 m 로 두 개를 찍고 사이를 Linear 로 이으면 큐브가 일정한 속도로 간다.",
+        "code": "const val = lerp(3, X_END, u);     // Linear: 진행도 u 그대로\n// 프레임 1 → 3 m,  프레임 36 → 20 m"
+      },
+      {
+        "t": "Bézier 로 부드럽게",
+        "d": "같은 두 키프레임이라도 보간을 Bézier 로 바꾸면 손잡이가 곡선 모양을 정한다. 손잡이를 구간의 40% 길이로 두면 출발과 도착이 느리고 가운데가 빠른 S 자 곡선이 되며, 바닥 점 간격이 양 끝에서 좁아지는 것으로 확인한다.",
+        "code": "const p = bez(u, HANDLE, 0, 1 - HANDLE, 1);   // 손잡이 40%\nconst val = lerp(3, X_END, p);"
+      },
+      {
+        "t": "영상 위에 겹치는 합성",
+        "d": "After Effects 는 3D 를 만드는 도구라기보다 이미 있는 영상 위에 글자와 그래픽을 겹쳐 얹고 움직이는 쪽에 가깝다. 아래(영상) 위에 위(글자 카드)를 합성하고, 0.8초에 시작해 1.6초에 자리 잡는다.",
+        "code": "const k = outCubic(seg(t, 0.8, 1.6));\ncardY = lerp(아래쪽, 자리, k);     // 글자 카드가 올라옴"
+      }
+    ],
+    "terms": [
+      {
+        "w": "키프레임",
+        "en": "Keyframe",
+        "m": "‘이 시각에 이 값’이라고 찍어 둔 표식이며, 사이는 도구가 자동으로 채운다.",
+        "say": "“프레임 1 과 36 에 위치 키프레임을 찍어줘”"
+      },
+      {
+        "w": "보간",
+        "en": "Interpolation",
+        "m": "키프레임 사이를 어떤 방식으로 채울지 정하는 것. Constant, Linear, Bézier 등이 있다.",
+        "say": "보간은 Bézier 로"
+      },
+      {
+        "w": "그래프 에디터",
+        "en": "Graph Editor",
+        "m": "값의 변화를 곡선(F-Curve)으로 보고 고치는 Blender 의 창으로, 가로가 시간이고 세로가 값이다.",
+        "say": "“Graph Editor 에서 곡선을 다듬어줘”"
+      },
+      {
+        "w": "손잡이",
+        "en": "Handle",
+        "m": "Bézier 곡선에서 키프레임 양옆에 달린 조절점. 길이와 방향이 곡선 모양을 정한다.",
+        "say": "출발 쪽 손잡이를 길게"
+      },
+      {
+        "w": "합성",
+        "en": "Compositing",
+        "m": "여러 영상과 그래픽을 겹쳐 한 장면으로 만드는 일이며 After Effects 의 중심 기능이다.",
+        "say": "“영상 위에 글자를 합성해줘”"
+      }
+    ],
+    "levels": 3
+  },
+  "poster": "/lab/posters/blender-ae.jpg"
+}

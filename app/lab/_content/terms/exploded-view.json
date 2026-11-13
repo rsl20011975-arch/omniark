@@ -1,0 +1,174 @@
+{
+  "order": 18,
+  "slug": "exploded-view",
+  "name": "제품 분해·조립",
+  "en": "Exploded View",
+  "field": "webgl",
+  "level": "고급",
+  "purposes": [
+    "제품 소개",
+    "공간감",
+    "설명"
+  ],
+  "media": [
+    "영상",
+    "웹·앱"
+  ],
+  "oneLine": "제품이 분해되고 다시 조립되는 장면",
+  "preview": null,
+  "keywords": [
+    "분해",
+    "조립",
+    "부품",
+    "제품",
+    "펼쳐",
+    "내부",
+    "구조",
+    "분해도",
+    "pbr 재질",
+    "환경 반사",
+    "림 라이트",
+    "exploded view",
+    "physically based rendering",
+    "environment map",
+    "rim light"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d17",
+    "prompt": "three.js(r128, cdnjs의 three.min.js)로 가상의 스마트 스피커가 분해됐다가 조립되는 7초 애니메이션을 만들어줘. HTML 한 파일, 배경은 아주 어두운 남색.\n\n- 부품 6개를 위에서 아래로: 터치 상단 캡(알루미늄, 금속성 0.95/거칠기 0.28), LED 링(주황 발광), 패브릭 본체(속이 빈 원통, 직물 무늬 텍스처), 스피커 드라이버, 회로 기판, 고무 받침. 모든 재질은 MeshStandardMaterial(PBR).\n- 장면에 환경 반사를 넣는다: 소프트박스가 그려진 하늘 그림을 만들어 PMREMGenerator로 처리하고 scene.environment에 건다. 키 라이트(따뜻한 흰색, 그림자 있음)와 림 라이트(차가운 파랑)를 둔다. 바닥에는 그림자만 받는 원판.\n- 0.7초부터 위쪽 부품부터 0.1초 간격으로 위로 떠올라 분해된다(이동 거리: 캡 4.3, LED 3.5, 본체 2.4, 드라이버 1.5, 기판 0.75, 받침 0). 이동은 easeOutExpo 1.2초.\n- 분해된 동안(2.0~4.6초) 부품마다 지시선과 이름표가 0.16초 간격으로 나타난다. 왼쪽·오른쪽을 번갈아 배치.\n- 4.8초부터 아래 부품부터 0.1초 간격으로 easeInOut 1.1초로 다시 조립된다. 조립이 끝나는 6초에 제품이 아주 살짝 눌렸다 돌아오고(감쇠 진동), LED가 한 번 더 밝아진다.\n- 분해될수록 카메라가 뒤로 물러난다(거리 9.5→14.5)고 조립되면 다시 다가온다. 제품은 천천히 계속 돈다.\n- 금지: 부품이 전부 동시에 움직이기, 직선(linear) 이동, 모든 면이 같은 색인 도형 조립, 그림자 없음, 라벨이 부품을 가리기.",
+    "check": [
+      "부품이 한꺼번에가 아니라 순서대로 움직인다",
+      "금속 부품에 하늘(환경)이 비쳐 입체감이 있다",
+      "제품 아래에 그림자가 있어 바닥에 놓여 보인다",
+      "라벨이 부품 가까이 붙어 따라다니고 서로 겹치지 않는다"
+    ],
+    "use": [
+      "신제품·하드웨어 소개 영상",
+      "구조나 원리를 설명하는 강의",
+      "쇼핑몰 상세 페이지의 제품 모션"
+    ],
+    "tech": [
+      "three.js r128 (cdnjs UMD)",
+      "MeshStandardMaterial (PBR)",
+      "PMREMGenerator 환경 반사",
+      "DirectionalLight 그림자",
+      "Vector3.project 로 3D→화면 좌표",
+      "GSAP · Theatre.js · Blender"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "Babylon.js 포럼의 분해도 애니메이션 논의는, 그럴듯한 분해도는 부모-자식 계층(그룹)을 잘 짜는 데서 나온다고 제안합니다. three.js에서도 부품을 그룹으로 묶어 움직이는 방식은 같습니다.",
+        "title": "Babylon.js 포럼 — Animating an Exploded View",
+        "url": "https://forum.babylonjs.com/t/animating-an-exploded-view/36022"
+      },
+      {
+        "state": "확인",
+        "text": "Frontend Masters 강의는 GSAP가 숫자 속성이면 무엇이든 움직일 수 있어 three.js 장면을 애니메이션하기 쉽다고 설명합니다.",
+        "title": "Frontend Masters — Animating 3D Scenes (Winning Websites)",
+        "url": "https://frontendmasters.com/courses/winning-websites/animating-3d-scenes"
+      },
+      {
+        "state": "확인",
+        "text": "환경 반사는 three.js 공식 문서의 PMREMGenerator로 환경 그림을 사전 처리해서 씁니다.",
+        "title": "three.js 공식 문서 — PMREMGenerator(환경 반사용 사전 처리)",
+        "url": "https://threejs.org/docs/pages/PMREMGenerator.html"
+      },
+      {
+        "state": "추정",
+        "text": "이동 거리, 지연 0.1초, 카메라 거리 같은 수치는 이 제품 크기에서 화면에 다 들어오도록 제가 정한 시작값입니다.",
+        "title": null,
+        "url": null
+      }
+    ],
+    "related": [
+      {
+        "name": "재질과 조명",
+        "note": "3D·WebGL · 같은 목적: 공간감"
+      },
+      {
+        "name": "UI 레이어 분해",
+        "note": "3D·WebGL · 같은 목적: 제품 소개"
+      },
+      {
+        "name": "커서·클릭 시연",
+        "note": "UI 화면 연출 · 같은 목적: 설명"
+      }
+    ],
+    "vs": {
+      "bad": "제품이 분해되는 모습 보여줘",
+      "badResult": "모든 부품이 한꺼번에 같은 속도로 직선으로 벌어지기 쉽습니다.",
+      "good": "위쪽 부품부터 0.1초 간격으로 easeOutExpo 1.2초 동안 위로 떠올라 분해되고, 분해될수록 카메라가 뒤로 물러나게 해줘",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "gap",
+        "title": "부품이 너무 멀리 떨어져요",
+        "situation": "분해하면 화면에 다 안 담기거나 부품이 따로 노는 것 같을 때",
+        "from": "이동 거리: 캡 4.3, LED 3.5, 본체 2.4, 드라이버 1.5, 기판 0.75, 받침 0",
+        "to": "이동 거리: 캡 2.6, LED 2.1, 본체 1.4, 드라이버 0.9, 기판 0.45, 받침 0",
+        "effect": "분해된 부품 사이 간격이 약 60%로 줄어 한 제품으로 묶여 보이고 화면에도 여유가 생깁니다. 대신 부품 하나하나가 따로 놓인 느낌은 약해집니다."
+      },
+      {
+        "id": "cam",
+        "title": "분해하면 제품이 너무 작아 보여요",
+        "situation": "카메라가 너무 멀리 물러나서 부품 모양이 잘 안 보일 때",
+        "from": "분해될수록 카메라가 뒤로 물러난다(거리 9.5→14.5)",
+        "to": "분해될수록 카메라가 뒤로 물러난다(거리 9.5→12.5)",
+        "effect": "분해된 상태에서 카메라가 덜 물러나 부품이 눈에 띄게 커 보이고 기판·드라이버의 모양이 더 잘 보입니다. 대신 맨 위 캡이 화면 위쪽 끝에 바짝 붙어 여유가 사라집니다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "부품을 그룹으로 만들고 원래 위치를 기억하기",
+        "d": "부품 하나하나를 그룹으로 만들어 조립된 높이를 적어 둡니다. 분해는 이 높이에 “올라갈 거리”를 더하는 것뿐입니다.",
+        "code": "home = {cap:1.76, led:1.66, body:.95, driver:.7, pcb:.3, base:.1};\npart.position.y = home[k] + lift[k] * e;"
+      },
+      {
+        "t": "부품마다 시작 시각을 다르게",
+        "d": "위쪽 부품부터 0.1초씩 늦게 출발시키면 분해가 물결처럼 이어집니다. 전부 같은 순간에 움직이면 폭발 같습니다.",
+        "code": "e = easeOutExpo(seg(t, .7+i*.1, 1.9+i*.1));"
+      },
+      {
+        "t": "환경 반사와 그림자로 재질 살리기",
+        "d": "소프트박스가 그려진 환경 그림을 만들어 반사로 걸고, 키 라이트에 그림자를 켭니다. 금속이 하늘을 비추고 바닥에 그림자가 생겨 도형 조립처럼 보이지 않습니다.",
+        "code": "scene.environment = pmrem.fromEquirectangular(tex).texture;\nlight.castShadow = true;"
+      },
+      {
+        "t": "3D 위치를 화면 좌표로 바꿔 라벨 붙이기",
+        "d": "부품의 3D 위치를 화면 좌표로 바꾸면 라벨이 부품을 따라 움직입니다. 지시선은 부품에서 옆으로 곧게 뻗게 합니다.",
+        "code": "const p = worldPos.clone().project(camera);\nx = (p.x*.5+.5)*W;  y = (-p.y*.5+.5)*H;"
+      }
+    ],
+    "terms": [
+      {
+        "w": "분해도",
+        "en": "Exploded view",
+        "m": "부품을 조립 순서대로 떨어뜨려 구조를 보여주는 그림·영상. 제품 구조를 한눈에 이해시킵니다.",
+        "say": "“부품 6개가 위로 분해되는 분해도 애니메이션”"
+      },
+      {
+        "w": "PBR 재질",
+        "en": "Physically Based Rendering",
+        "m": "금속성과 거칠기 숫자로 실제 재질처럼 빛을 받게 하는 방식. 금속성 1은 금속, 0은 플라스틱·직물입니다.",
+        "say": "“알루미늄은 금속성 0.95, 거칠기 0.28”"
+      },
+      {
+        "w": "환경 반사",
+        "en": "Environment map",
+        "m": "주변 풍경을 사진처럼 찍어 물체 표면에 비치게 하는 것. 금속이 금속답게 보이게 하는 핵심입니다.",
+        "say": "“소프트박스가 있는 환경 반사를 걸어줘”"
+      },
+      {
+        "w": "림 라이트",
+        "en": "Rim light",
+        "m": "뒤쪽에서 비춰 물체 윤곽을 밝게 따라 그리는 빛. 어두운 배경에서 물체가 떠 보입니다.",
+        "say": "“뒤쪽 파란 림 라이트 1.4”"
+      }
+    ],
+    "levels": 0
+  },
+  "poster": "/lab/posters/exploded-view.jpg"
+}

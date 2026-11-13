@@ -1,0 +1,195 @@
+{
+  "order": 189,
+  "slug": "js-motion-libs",
+  "name": "웹 움직임 라이브러리",
+  "en": "JS Motion Libraries",
+  "field": "tools",
+  "level": "중급",
+  "purposes": [
+    "설명",
+    "타이밍과 리듬"
+  ],
+  "media": [
+    "웹·앱"
+  ],
+  "oneLine": "웹 요소를 움직이는 코드를 대신 써 주는 도구들. GSAP 와 anime.js 는 ‘무엇을 얼마나 오래 어떤 곡선으로’를 한 줄에 적고, Theatre.js 는 키프레임을 시각 편집기(Studio)에서 찍는다",
+  "preview": null,
+  "keywords": [
+    "GSAP",
+    "anime.js",
+    "animejs",
+    "Theatre.js",
+    "theatrejs",
+    "웹 애니메이션 라이브러리",
+    "자바스크립트 애니메이션",
+    "트윈",
+    "이징",
+    "ease",
+    "gsap.to",
+    "타임라인",
+    "시퀀스",
+    "motion library",
+    "JavaScript animation",
+    "지연",
+    "키프레임",
+    "tween",
+    "delay",
+    "keyframe"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d188",
+    "prompt": "장면: 공 하나가 오른쪽으로 움직이는 한 장면을 세 가지 JavaScript 도구가 각각 어떻게 적는지 보여 주는 애니메이션. 세 줄(레인)로 나누고, 각 줄 왼쪽에는 그 도구의 코드 4~6줄, 오른쪽에는 공이 움직이는 트랙과 0~3.2초 시간 눈금을 둔다.\n움직임: 공이 오른쪽으로 480px 이동, 0.4초 기다렸다가 1.2초 동안 움직이고 끝에서 감속(outCubic).\nGSAP 줄: gsap.to(\".ball\", { x: 480, duration: 1.2, delay: 0.4, ease: \"power2.out\" }).\nanime.js 줄: animate('.ball', { x: 480, duration: 1200, delay: 400, ease: 'outCubic' }).\nTheatre.js 줄: sheet.object('Ball', { x: 0 }) 의 값이 바뀔 때마다 onValuesChange 로 el.style.left 를 바꾸고 sheet.sequence.play() 로 재생. 키프레임은 Studio 화면에서 찍는다는 주석을 달고, 눈금 위에 키프레임 마름모 두 개를 그린다.\n눈금: 세 공은 같은 시각에 출발해 같은 시각에 도착한다. 눈금 위에는 움직이는 구간을 막대로, 현재 시각을 붉은 선으로 나타낸다.\n숫자: 코드 숫자(480, 1.2, 0.4)와 화면에 쓰는 ‘0.4초 대기 → 1.2초 이동’은 서로 같아야 한다.\n연출 전: GSAP 한 줄만 있고 ease: \"none\"(같은 속도로 움직임).\n금지: 도구마다 공의 속도나 도착 시각이 다른 것, 코드에 적은 숫자와 화면 숫자가 다른 것.",
+    "check": [
+      "연출 전에는 공이 같은 속도로 가고 GSAP 코드에 ease: \"none\" 이 적혀 있다",
+      "2단계에서 공이 끝으로 갈수록 눈에 띄게 느려지고 코드가 ease: \"power2.out\" 으로 바뀐다",
+      "3단계에는 줄이 세 개(GSAP, anime.js, Theatre.js)이다",
+      "세 공이 0.4초에 함께 출발해 1.6초에 함께 도착하는가?",
+      "코드의 480, 1.2, 0.4 가 화면의 ‘0.4초 대기 → 1.2초 이동’과 같다(anime.js 는 1200, 400)",
+      "시간 눈금 위의 키프레임 마름모 두 개는 Theatre.js 줄에만 있다"
+    ],
+    "use": [
+      "AI에게 웹 움직임을 시킬 때 부를 도구 이름 정하기",
+      "코드로 쓸지 편집기에서 키프레임을 찍을지 고르는 갈림길"
+    ],
+    "tech": [
+      "GSAP: gsap.to(대상, { x, duration, delay, ease })",
+      "anime.js: animate(대상, { x, duration, delay, ease })",
+      "Theatre.js: getProject → project.sheet → sheet.object → onValuesChange, sheet.sequence.play()",
+      "CSS transition · animation 과 Web Animations API(라이브러리 없이 쓰는 방법)"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "gsap.to(targets, vars) 는 대상을 현재 값에서 vars 값까지 움직인다. 예: gsap.to(\".box\", { x: 100, duration: 1, ease: \"power2.out\" }). x 는 translateX 의 단축이고 duration 은 초 단위(기본 0.5), ease 기본값은 power1.out 이며 delay 같은 특별 속성이 있다고 설명한다.",
+        "title": "GSAP — gsap.to()",
+        "url": "https://gsap.com/docs/v3/GSAP/gsap.to()"
+      },
+      {
+        "state": "확인",
+        "text": "GSAP 의 ease 이름: power1~power4, back, bounce, elastic, expo, circ, sine, steps, none(직선). power2.out 처럼 ‘기본이름.in / out / inOut’ 꼴로 쓴다.",
+        "title": "GSAP — Eases",
+        "url": "https://gsap.com/docs/v3/Eases/"
+      },
+      {
+        "state": "확인",
+        "text": "GSAP 가격 페이지는 2026-11-12 에 연 시점에 ‘웹플로의 후원으로 모든 사용자에게 100% 무료’라고 안내합니다. 라이선스 조건 자체는 이 페이지에 적혀 있지 않아, 상업적 사용 조건은 직접 확인해야 합니다.",
+        "title": "GSAP — Pricing",
+        "url": "https://gsap.com/pricing/"
+      },
+      {
+        "state": "확인",
+        "text": "anime.js 는 import { animate } from 'animejs' 로 가져와 animate(targets, parameters) 꼴로 쓴다. 지속 시간은 밀리초 숫자(예: duration: 600)이고 값에 단위를 문자열로 붙일 수 있으며(예: '10rem'), 문서 사이트는 4.0.0, 3.2.2, 2.1.0 버전을 나눠 안내한다.",
+        "title": "anime.js — Animation",
+        "url": "https://animejs.com/documentation/animation"
+      },
+      {
+        "state": "확인",
+        "text": "anime.js 의 내장 ease 는 ‘종류 + 방향’ 이름(outQuad, inOutCubic 등)이고 linear 에만 방향이 없다. 예시 코드는 animate(target, { x: 100, ease: 'outQuad' }).",
+        "title": "anime.js — Built-in eases",
+        "url": "https://animejs.com/documentation/easings/built-in-eases"
+      },
+      {
+        "state": "확인",
+        "text": "Theatre.js 는 모션 그래픽용 애니메이션 라이브러리로, 코드와 시각 편집을 함께 쓰며 HTML/SVG, 3D, 변수 등을 움직인다. README 에 따르면 @theatre/core(런타임)는 Apache 라이선스, @theatre/studio(시각 편집기)는 AGPL 3.0 이다.",
+        "title": "GitHub — theatre-js/theatre (README)",
+        "url": "https://github.com/theatre-js/theatre"
+      },
+      {
+        "state": "확인",
+        "text": "Sheet Objects 예시: sheet.object('obj', { foo: 0 }) 으로 객체를 만들고 onValuesChange((values) => { … }) 안에서 el.style.left = values.x + 'px' 처럼 값을 화면에 반영한다. 시퀀스(Sequences)는 별도 문서에서 다룬다.",
+        "title": "Theatre.js — Sheet Objects",
+        "url": "https://www.theatrejs.com/docs/latest/manual/objects"
+      },
+      {
+        "state": "확인",
+        "text": "core API 목록: getProject(id, config), project.sheet(name), sheet.object(key, config), sheet.sequence.play(opts?)(Promise 반환), project.ready.",
+        "title": "Theatre.js — API: core",
+        "url": "https://www.theatrejs.com/docs/latest/api/core"
+      }
+    ],
+    "related": [
+      {
+        "name": "지연과 홀드와 루프",
+        "note": "움직임 · 같은 목적: 타이밍과 리듬"
+      },
+      {
+        "name": "호흡과 감정 곡선",
+        "note": "서사·구성 · 같은 목적: 타이밍과 리듬"
+      },
+      {
+        "name": "서사와 시리즈 떡밥 설계",
+        "note": "서사·구성 · 같은 목적: 설명"
+      }
+    ],
+    "vs": {
+      "bad": "웹에서 공이 부드럽게 움직이게 해줘",
+      "badResult": "어떤 도구로 몇 초 동안 어떤 곡선을 쓸지 빠져 있어서, 도구도 속도도 매번 다르게 돌아옵니다",
+      "good": "GSAP 로 gsap.to 를 써서 공이 오른쪽으로 480px, 0.4초 기다렸다가 1.2초 동안 ease 는 power2.out 으로",
+      "goodResult": "gsap.to 한 줄에 480px, 0.4초 대기, 1.2초, power2.out 이 그대로 들어간 코드"
+    },
+    "tips": [
+      {
+        "id": "dist300",
+        "title": "공이 너무 멀리 간다",
+        "situation": "화면 폭에 비해 이동 거리가 클 때",
+        "from": "공이 오른쪽으로 480px 이동",
+        "to": "공이 오른쪽으로 300px 이동",
+        "effect": "세 줄의 공이 도착하는 자리가 왼쪽으로 가까워지고 코드의 x 값도 480 에서 300 으로 바뀐다. 같은 1.2초에 가는 거리가 줄어서 속도는 느려 보인다."
+      },
+      {
+        "id": "dur24",
+        "title": "움직임이 너무 빨라요",
+        "situation": "공이 휙 지나가서 감속이 보이지 않을 때",
+        "from": "1.2초 동안 움직이고",
+        "to": "2.4초 동안 움직이고",
+        "effect": "1.0초 시점에 공이 가는 길의 약 88% 에서 58% 지점으로 물러나 있고 코드의 duration 이 1.2 에서 2.4(anime.js 는 2400)로 바뀌며, 끝에서 서서히 멈추는 모습은 길어지지만 도착 시각이 2.8초로 늦어진다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "같은 속도로 가는 공",
+        "d": "GSAP 한 줄로 공이 480px 를 0.4초 기다렸다가 1.2초 동안 움직인다. ease: \"none\" 은 직선(같은 속도)이라 도착하는 순간 툭 멈추는 느낌이 난다.",
+        "code": "gsap.to(\".ball\", {\n  x: 480, duration: 1.2,\n  delay: 0.4, ease: \"none\",\n});"
+      },
+      {
+        "t": "끝에서 감속하는 ease",
+        "d": "ease 를 \"power2.out\" 으로 바꾸면 출발은 빠르고 끝에서 천천히 멈춘다. 이름은 ‘기본이름.방향’ 꼴이고 in, out, inOut 세 방향이 있다. 숫자는 그대로 두고 ease 한 줄만 달라졌다.",
+        "code": "gsap.to(\".ball\", {\n  x: 480, duration: 1.2,\n  delay: 0.4, ease: \"power2.out\",\n});"
+      },
+      {
+        "t": "다른 도구는 어떻게 적나",
+        "d": "anime.js 는 비슷한 모양에 시간을 밀리초(1200, 400)로 적고, ease 이름도 ‘outCubic’ 처럼 종류와 방향을 붙인다. Theatre.js 는 움직임 자체를 코드 대신 Studio 화면의 키프레임으로 찍고, 코드는 그 값을 화면에 반영하는 일만 맡는다.",
+        "code": "animate('.ball', {\n  x: 480, duration: 1200,\n  delay: 400, ease: 'outCubic',\n});"
+      }
+    ],
+    "terms": [
+      {
+        "w": "트윈",
+        "en": "Tween",
+        "m": "시작 값과 끝 값 사이를 자동으로 채워 움직이는 것. gsap.to() 한 번이 트윈 하나다.",
+        "say": "“gsap.to 로 x 를 480 까지 트윈해줘”"
+      },
+      {
+        "w": "이징",
+        "en": "Ease",
+        "m": "시간에 따라 속도가 변하는 모양이며, none 은 같은 속도, power2.out 은 끝에서 감속.",
+        "say": "ease 는 power2.out"
+      },
+      {
+        "w": "지연",
+        "en": "Delay",
+        "m": "움직임이 시작하기 전에 기다리는 시간. GSAP 는 초 단위, anime.js 는 밀리초 단위로 적는다.",
+        "say": "“0.4초 delay 를 줘”"
+      },
+      {
+        "w": "키프레임",
+        "en": "Keyframe",
+        "m": "‘이 시각에 이 값’이라고 찍어 둔 점이고, 점과 점 사이는 자동으로 채워진다.",
+        "say": "0.4초와 1.6초에 키프레임"
+      }
+    ],
+    "levels": 3
+  },
+  "poster": "/lab/posters/js-motion-libs.jpg"
+}

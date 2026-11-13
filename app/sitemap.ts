@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { getPostsByKind } from "./content";
 import { articlePath } from "./seo/article";
 import { absoluteUrl } from "./seo/site";
+import { LAB_INDEXABLE } from "./lab/_lib/config";
+import { labPaths } from "./lab/_lib/urls";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [
@@ -26,7 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/guides",
   ];
 
-  const staticEntries = staticPaths.map((path) => ({ url: absoluteUrl(path) }));
+  // /lab 은 LAB_INDEXABLE 이 true 일 때만 검색엔진에 알린다.
+  const staticEntries = [...staticPaths, ...(LAB_INDEXABLE ? labPaths() : [])].map((path) => ({ url: absoluteUrl(path) }));
   const articleEntries = [...getPostsByKind("blog"), ...getPostsByKind("guide")].map(
     (post) => ({
       url: absoluteUrl(articlePath(post)),

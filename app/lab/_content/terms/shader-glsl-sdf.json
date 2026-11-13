@@ -1,0 +1,208 @@
+{
+  "order": 163,
+  "slug": "shader-glsl-sdf",
+  "name": "물결 셰이더와 SDF 블롭",
+  "en": "Shader · GLSL · fbm · SDF · Fresnel",
+  "field": "webgl",
+  "level": "고급",
+  "purposes": [
+    "분위기",
+    "미래형 인터페이스"
+  ],
+  "media": [
+    "웹·앱",
+    "영상"
+  ],
+  "oneLine": "셰이더는 화면의 모든 픽셀이 같은 식으로 자기 색을 계산하는 작은 프로그램이다. 노이즈를 겹친 fbm으로 물결을, 원까지의 거리(SDF)를 부드럽게 합쳐 녹아 붙는 블롭을, 프레넬로 가장자리의 빛을 그린다",
+  "preview": null,
+  "keywords": [
+    "셰이더",
+    "GLSL",
+    "프래그먼트 셰이더",
+    "fbm 노이즈",
+    "SDF",
+    "거리 함수",
+    "레이마칭",
+    "프레넬",
+    "블롭",
+    "물결 셰이더",
+    "metaball",
+    "shader",
+    "fragment shader",
+    "signed distance field",
+    "smooth min",
+    "ray marching",
+    "Shadertoy",
+    "glsl",
+    "fbm",
+    "sdf(거리 함수)",
+    "법선",
+    "opengl shading language",
+    "fractional brownian motion",
+    "signed distance function",
+    "normal",
+    "fresnel"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d162",
+    "prompt": "GLSL 프래그먼트 셰이더(three.js ShaderMaterial 또는 Shadertoy 방식)로 화면 전체를 한 장의 셰이더로 그려줘. 화면 비율은 16:9(640×360 기준)이고 시간 t 를 받아 움직인다.\n\n- 배경 물결: fbm(노이즈를 4옥타브 겹침)으로 만든 물빛 줄무늬. 줄무늬 밀도는 6, 색은 짙은 먹빛 남색(#243c50)에서 회청색(#7493ae)을 거쳐 옅은 푸른 회색(#d1d9dc)까지. 줄무늬 마루에는 얇은 밝은 선이 얹히고, t 에 따라 천천히 흐른다.\n- 블롭: 반지름 46, 38, 32px 인 원 세 개가 화면 중앙에서 천천히 돈다. 각 원까지의 거리(SDF)를 smin(부드러운 최솟값, 폭 30px)으로 합치면 가까워질 때 물방울처럼 녹아 붙는다. 거리 d 가 0보다 작으면 블롭 안쪽.\n- 블롭 질감: 거리의 기울기로 법선을 구해 왼쪽 위 광원으로 밝기를 계산한다. 프레넬(가장자리일수록 더 밝게)로 테두리에 흰빛을 더하고, 안쪽은 법선 방향으로 물결을 밀어 굴절시킨다. 색은 붉은 주홍(#d4472b)과 굴절된 물빛을 약 6:4 로 섞고, 블롭 오른쪽 아래로 옅은 그림자를 드리운다.\n- 화면 아래에는 지금 쓰는 식을 한 줄로 보여 주고, 오른쪽 위에는 단계 이름표를 둔다.\n- 연출 전: 단색 그라디언트 배경 위에 붉은 주홍 원 하나(계산식 없음).\n- 금지: 원 세 개를 그냥 겹쳐 그리는 것(합쳐지는 부분이 매끈해야 함), 물결 줄무늬가 반복 무늬로 보이는 것, 블롭이 납작한 단색 원으로 보이는 것.",
+    "check": [
+      "물결 줄무늬가 흐르면서 반복 무늬 없이 불규칙하게 휘어 있다",
+      "원 세 개가 가까워지면 경계가 이어져 한 덩어리로 녹아 붙는가",
+      "블롭 가장자리는 안쪽보다 밝은 흰빛이다(프레넬)",
+      "블롭 안쪽에는 물결이 일그러져 비친다",
+      "블롭 오른쪽 아래 물결 위에 옅은 그림자가 깔린다",
+      "연출 전에는 그라디언트와 단색 원 하나뿐이다"
+    ],
+    "use": [
+      "웹 배경에 물결이나 유체처럼 살아 움직이는 질감 깔기",
+      "물방울이 서로 녹아 붙는 로고, 버튼, 로딩 화면",
+      "3D 모델 없이 계산식만으로 그리는 입체적인 도형에 쓴다"
+    ],
+    "tech": [
+      "three.js: ShaderMaterial 이나 RawShaderMaterial 의 fragmentShader 에 GLSL 작성",
+      "Shadertoy 와 GLSL Sandbox: 전체 화면 셰이더 실험",
+      "WebGL(GLSL ES): 프래그먼트 셰이더는 픽셀마다 한 번씩 실행",
+      "Unity Shader Graph, Blender 셰이더 노드: 같은 식을 노드로 연결"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "GLSL은 C와 비슷한 언어로 GPU에서 실행된다. 꼭짓점 셰이더는 꼭짓점마다, 프래그먼트 셰이더는 픽셀마다 한 번씩 돌면서 그 픽셀의 색(gl_FragColor)을 정한다.",
+        "title": "MDN — GLSL Shaders",
+        "url": "https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders"
+      },
+      {
+        "state": "확인",
+        "text": "부호 있는 거리 함수(SDF)는 한 점에서 도형 경계까지의 거리를 돌려준다. 경계에서 0이고 안쪽과 바깥쪽의 부호가 반대. 문서는 안쪽을 양수로 쓰지만 반대 규칙도 쓰이며, 이 데모는 안쪽을 음수로 쓴다.",
+        "title": "Wikipedia — Signed distance function",
+        "url": "https://en.wikipedia.org/wiki/Signed_distance_function"
+      },
+      {
+        "state": "확인",
+        "text": "레이 마칭은 광선을 조금씩 전진시키며 매 지점의 값을 확인하는 3D 렌더링 방식이다. 구체 추적은 SDF로 ‘표면에 닿지 않고 갈 수 있는 가장 큰 걸음’을 알아내 빠르게 전진하다가 표면 가까이에서 멈춘다. 모양을 합치고 반복하기 쉬워 모핑 같은 모양에 어울린다.",
+        "title": "Wikipedia — Ray marching",
+        "url": "https://en.wikipedia.org/wiki/Ray_marching"
+      },
+      {
+        "state": "확인",
+        "text": "유리는 수직으로 볼 때 빛을 약 4%만 반사하지만 비스듬히(가장자리 쪽) 볼수록 반사가 급격히 늘어 거울처럼 보인다고 한다. 컴퓨터 그래픽에서는 이를 간단히 근사한 슐릭(Schlick) 식을 자주 쓴다.",
+        "title": "Wikipedia — Fresnel equations",
+        "url": "https://en.wikipedia.org/wiki/Fresnel_equations"
+      },
+      {
+        "state": "확인",
+        "text": "노이즈를 옥타브마다 두 배 촘촘하고 절반 세기로 겹치면, 여러 크기의 무늬가 쌓인 자연스러운 질감(fbm 같은 프랙탈 노이즈)이 나온다.",
+        "title": "Wikipedia — Perlin noise",
+        "url": "https://en.wikipedia.org/wiki/Perlin_noise"
+      }
+    ],
+    "related": [
+      {
+        "name": "플렉서스 네트워크",
+        "note": "이펙트·파티클 · 같은 목적: 미래형 인터페이스"
+      },
+      {
+        "name": "글리치",
+        "note": "이펙트·파티클 · 같은 목적: 미래형 인터페이스"
+      },
+      {
+        "name": "스크램블 디코드",
+        "note": "글자 · 같은 목적: 미래형 인터페이스"
+      }
+    ],
+    "vs": {
+      "bad": "물방울이 합쳐지는 물결 셰이더 만들어줘",
+      "badResult": "대개 원 세 개를 포개 놓은 듯한 그림이거나, 단색 원처럼 납작한 블롭이 나옵니다",
+      "good": "fbm 4옥타브 물결(밀도 6) + 원 3개(46·38·32px) SDF 를 폭 30px 로 smin + 법선·프레넬·굴절",
+      "goodResult": "먹빛 물결이 흐르는 위에서 원 세 개가 경계 없이 녹아 붙고, 가장자리는 흰빛, 안쪽은 물결이 굴절돼 비치는 블롭"
+    },
+    "tips": [
+      {
+        "id": "finewave",
+        "title": "물결이 얼룩처럼 넓어요",
+        "situation": "줄무늬가 넓어서 물결보다 얼룩처럼 보일 때",
+        "from": "줄무늬 밀도는 6",
+        "to": "줄무늬 밀도는 16",
+        "effect": "밀도가 6에서 16으로 올라 줄무늬가 2.7배쯤 촘촘해지고 물결선이 가늘게 여러 겹으로 흐르며, 블롭 안쪽에 굴절돼 비치는 무늬도 그만큼 복잡해진다."
+      },
+      {
+        "id": "meltmore",
+        "title": "블롭이 더 끈적하게 붙었으면",
+        "situation": "원들이 멀면 따로 놀아 합쳐지는 장면이 짧을 때",
+        "from": "폭 30px",
+        "to": "폭 70px",
+        "effect": "smin 폭이 30px에서 70px로 넓어지면 원들이 더 먼 거리에서부터 다리를 놓듯 이어져서, 한 덩어리로 보이는 시간이 길어진다. 폭을 지나치게 키우면 원 세 개의 개성이 사라져 큰 얼룩 하나로 보인다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "그라디언트와 단색 원만 두기",
+        "d": "위에서 아래로 짙어지는 푸른 그라디언트에 붉은 주홍 원 하나. 색을 ‘칠한’ 그림일 뿐이라 계산식도 움직임도 질감도 없다.",
+        "code": "background = linearGradient('#7493ae', '#243c50');\ncircle(320, 185, 62, '#d4472b');"
+      },
+      {
+        "t": "fbm 노이즈로 물결 만들기",
+        "d": "픽셀 위치 (x, y) 와 시간 t 로 노이즈를 4번 겹친 값 w 를 구한다(옥타브마다 두 배 촘촘하게, 절반 세기로). 줄무늬 sin 안에 w 를 더하면 줄이 구불거리고, 마루에는 밝은 선을 얹는다. 모든 픽셀이 똑같은 계산을 하고 위치만 다르다.",
+        "code": "float w = fbm(uv * 1.6 + t * 0.07);   // 4옥타브\nfloat band = 0.5 + 0.5 * sin(6.0 * (uv.y * 0.8 + w * 1.3) + t * 0.8);\ncolor = mix(deep, light, band * 0.7 + w * 0.6);"
+      },
+      {
+        "t": "원 세 개의 거리를 합쳐 블롭 만들기",
+        "d": "원까지의 거리는 length(p - 중심) - 반지름, 딱 한 줄이다. 세 거리를 일반 min 대신 smin(폭 30px)으로 합치면, 가까워질 때 경계가 매끈하게 녹아 붙는다. d < 0 인 픽셀이 블롭 안쪽이다.",
+        "code": "float d1 = length(p - c1) - 46.0;\nfloat d = smin(smin(d1, d2, 30.0), d3, 30.0);\nif (d < 0.0) color = accent;"
+      },
+      {
+        "t": "법선, 프레넬, 굴절로 입체감 주기",
+        "d": "거리 d 의 기울기가 곧 표면의 바깥 방향(법선)이다. 이 법선으로 왼쪽 위 광원의 밝기를 계산하고, 가장자리일수록(법선이 화면을 향하지 않을수록) 흰빛을 더한다(프레넬). 안쪽 물결은 법선 쪽으로 26px 밀어 굴절을 흉내 낸다.",
+        "code": "vec2 n = normalize(grad(d)) * (1.0 - tin);\nfloat fresnel = pow(1.0 - nz, 3.0);\nvec3 bg = water(p + n * 26.0);   // 굴절"
+      }
+    ],
+    "terms": [
+      {
+        "w": "셰이더",
+        "en": "Shader",
+        "m": "GPU가 픽셀이나 꼭짓점마다 실행하는 작은 프로그램. 프래그먼트 셰이더는 픽셀 하나의 색을 계산한다.",
+        "say": "“GLSL 프래그먼트 셰이더로 그려줘”"
+      },
+      {
+        "w": "GLSL",
+        "en": "OpenGL Shading Language",
+        "m": "셰이더를 쓰는 C 비슷한 언어이며, 웹에서는 WebGL 과 three.js 가 받아 실행한다.",
+        "say": "three.js ShaderMaterial 로 GLSL 작성"
+      },
+      {
+        "w": "fbm",
+        "en": "Fractional Brownian motion",
+        "m": "크기가 다른 노이즈를 여러 겹 쌓아 자연스러운 무늬를 내는 식. 쌓는 횟수를 옥타브라고 부른다.",
+        "say": "“fbm 4옥타브로 물결 무늬”"
+      },
+      {
+        "w": "SDF(거리 함수)",
+        "en": "Signed Distance Function",
+        "m": "한 점에서 도형 경계까지 거리를 알려 주는 함수다. 0이면 경계이고 안쪽과 바깥쪽의 부호가 반대.",
+        "say": "원 세 개를 SDF 로 만들어 smin 으로 합치기"
+      },
+      {
+        "w": "법선",
+        "en": "Normal",
+        "m": "표면이 향하는 바깥 방향. 빛의 밝기와 굴절 방향을 정하는 기준이 되고, 이 데모에서는 거리 함수의 기울기로 얻는다.",
+        "say": "“거리의 기울기로 법선을 구해서 밝기를 계산해줘”"
+      },
+      {
+        "w": "레이마칭",
+        "en": "Ray marching",
+        "m": "광선을 걸음마다 SDF 값만큼 전진시켜 표면을 찾는 3D 그리기 방식이다. 이 데모는 2D 라서 쓰지 않았다.",
+        "say": "“레이마칭으로 구체를 그려줘”"
+      },
+      {
+        "w": "프레넬",
+        "en": "Fresnel",
+        "m": "비스듬히 볼수록 반사가 세지는 현상. 테두리가 밝은 유리나 물방울의 느낌이 여기서 나온다.",
+        "say": "가장자리에 프레넬 림 라이트"
+      }
+    ],
+    "levels": 4
+  },
+  "poster": "/lab/posters/shader-glsl-sdf.jpg"
+}

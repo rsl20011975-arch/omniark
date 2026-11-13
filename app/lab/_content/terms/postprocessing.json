@@ -1,0 +1,211 @@
+{
+  "order": 164,
+  "slug": "postprocessing",
+  "name": "후처리 효과 한 겹씩",
+  "en": "Post-processing · Bloom · DOF · Chromatic Aberration · Vignette · Film Grain",
+  "field": "webgl",
+  "level": "고급",
+  "purposes": [
+    "분위기",
+    "시선 집중"
+  ],
+  "media": [
+    "영상",
+    "웹·앱"
+  ],
+  "oneLine": "3D 장면을 한 장의 그림으로 먼저 그린 다음, 그 그림 전체에 블룸, 피사계 심도, 색수차, 비네트, 필름 그레인을 한 겹씩 덧씌운다. 화면이 카메라로 찍은 영화 같은 느낌으로 바뀐다",
+  "preview": null,
+  "keywords": [
+    "후처리",
+    "포스트 프로세싱",
+    "블룸",
+    "빛 번짐",
+    "피사계 심도",
+    "DOF",
+    "보케",
+    "색수차",
+    "비네트",
+    "필름 그레인",
+    "SSAO",
+    "EffectComposer",
+    "post-processing",
+    "bloom",
+    "depth of field",
+    "chromatic aberration",
+    "vignette",
+    "film grain",
+    "cinematic look",
+    "피사계 심도와 보케",
+    "ssao",
+    "비네트와 그레인",
+    "depth of field · bokeh",
+    "screen-space ambient occlusion",
+    "vignette · film grain"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d163",
+    "prompt": "장면: three.js 로 만든 밤 도시에 후처리를 순서대로 덧씌워줘(EffectComposer 에 패스를 아래 순서로 추가). 멀리 빌딩 창문과 금빛 네온 간판, 여러 색 가로등 불빛 34개와 젖은 길에 비친 빛줄기가 있고, 앞쪽 가운데에는 크롬 구슬(지름 약 124px)과 그 뒤의 민트색 네온 링이 있다. 배경은 어두운 초록빛 밤(#0c1814에서 #15271f). 비율은 16:9(640×360 기준)이고 처음 1.5초 동안 효과가 서서히 세져서 최종 값에 이른다.\n블룸: 밝기 0.6 이 넘는 곳만 뽑아 작게 한 번, 크게 한 번 번지게 해서 원래 그림에 더한다. 세기 0.9.\n피사계 심도: 앞쪽 구슬은 또렷하게 두고, 멀리의 불빛은 지름이 커진 둥근 보케 원판이 되도록 흐리게 한다.\n색수차와 비네트: 화면 가장자리에서 빨강과 파랑이 5px 어긋나게(가운데는 0), 모서리는 어둡게(비네트 세기 0.55).\n필름 그레인: 1초에 24번 바뀌는 잔 알갱이를 세기 0.06 으로 얹는다.\n표시: 지금 단계 이름은 화면 왼쪽 아래에 배경 없는 작은 글씨로 보여 준다.\n연출 전: 같은 장면을 후처리 없이 그대로 보여 준다(불빛이 점과 선으로 또렷하고 번지지 않음).\n금지: 블룸이 장면 전체를 뿌옇게 만드는 것(밝은 곳 둘레만 번져야 함), 구슬까지 흐려지는 것, 비네트가 화면 가운데까지 어둡게 하는 것, 그레인이 가만히 멈춰 있는 것.",
+    "check": [
+      "연출 전에는 불빛이 점과 선으로 또렷하고 번지지 않는다",
+      "블룸 단계에서 구슬 하이라이트, 네온 링, 간판 둘레에만 빛무리가 생기는가",
+      "DOF 단계에서 멀리의 불빛은 둥근 원판으로 커지고 구슬은 또렷하다",
+      "마지막 단계에서 모서리가 어둡고 밝은 선에 붉은 파란 테두리가 지며 화면 전체에 알갱이가 보인다"
+    ],
+    "use": [
+      "밋밋한 3D 장면에 영화 같은 분위기 입히기",
+      "네온, 불빛, 로고를 빛나게 해서 시선 모으기",
+      "제품 렌더의 배경을 흐려 주인공에게 초점 주기",
+      "게임 화면이나 영상 인트로에 필름으로 찍은 듯한 질감 얹기"
+    ],
+    "tech": [
+      "three.js: EffectComposer + RenderPass + UnrealBloomPass, BokehPass, ShaderPass(색수차, 비네트), FilmPass",
+      "react-three-fiber 의 @react-three/postprocessing(Bloom, DepthOfField, ChromaticAberration, Vignette, Noise)",
+      "Unity Post-Processing Volume 과 Unreal Post Process Volume",
+      "After Effects 의 Glow, Lens Blur, Vignette, Add Grain 이펙트"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "블룸은 아주 밝은 빛이 렌즈나 눈을 압도하듯 밝은 곳에서 빛이 번져 나오게 하는 그래픽 효과. 실제로는 렌즈 초점이 완벽하지 않거나 센서 전하가 넘쳐서 생기는데, 실시간 그래픽에서는 비싼 큰 번짐 대신 근사 방법을 쓴다.",
+        "title": "Wikipedia — Bloom (shader effect)",
+        "url": "https://en.wikipedia.org/wiki/Bloom_(shader_effect)"
+      },
+      {
+        "state": "확인",
+        "text": "UnrealBloomPass 는 서로 다른 반경으로 번진 여러 장의 텍스처를 쌓는 방식이고, 생성자는 strength(세기, 기본 1), radius(0~1), threshold(번질 밝기 기준)를 받는다.",
+        "title": "three.js docs — UnrealBloomPass",
+        "url": "https://threejs.org/docs/pages/UnrealBloomPass.html"
+      },
+      {
+        "state": "확인",
+        "text": "EffectComposer 는 후처리 패스를 추가한 순서대로 실행하는 사슬을 관리하고 마지막 패스를 화면에 그린다. renderer.render() 대신 composer.render() 를 부른다는 설명이 있다.",
+        "title": "three.js docs — EffectComposer",
+        "url": "https://threejs.org/docs/pages/EffectComposer.html"
+      },
+      {
+        "state": "확인",
+        "text": "피사계 심도는 사진에서 초점이 맞아 보이는 거리의 범위를 뜻한다. 조리개를 열수록(f 값이 작을수록) 범위가 좁아지고 초점 밖이 더 흐려진다.",
+        "title": "Wikipedia — Depth of field",
+        "url": "https://en.wikipedia.org/wiki/Depth_of_field"
+      },
+      {
+        "state": "확인",
+        "text": "색수차는 렌즈가 색마다 다른 거리와 배율로 초점을 맺는 결함이라, 밝은 곳과 어두운 곳의 경계에 색 테두리로 나타난다.",
+        "title": "Wikipedia — Chromatic aberration",
+        "url": "https://en.wikipedia.org/wiki/Chromatic_aberration"
+      },
+      {
+        "state": "확인",
+        "text": "비네트는 이미지 가장자리가 가운데보다 어둡거나 덜 선명해지는 현상이다. 보통은 렌즈의 한계로 생기지만 시선을 가운데로 모으려고 일부러 넣기도 한다. 필름 그레인은 사진 필름의 은 입자에서 생기는 무작위 질감이며, 디지털 영상에는 후처리로 더해 넣는다.",
+        "title": "Wikipedia — Vignetting / Film grain",
+        "url": "https://en.wikipedia.org/wiki/Vignetting"
+      },
+      {
+        "state": "확인",
+        "text": "SSAO 는 주변 물체가 환경광을 가리는 정도를 화면의 깊이값으로 어림해서 모서리와 틈을 부드럽게 어둡게 만드는 실시간 기법. 이 데모에서는 쓰지 않고 용어로만 소개한다.",
+        "title": "Wikipedia — Screen space ambient occlusion",
+        "url": "https://en.wikipedia.org/wiki/Screen_space_ambient_occlusion"
+      }
+    ],
+    "related": [
+      {
+        "name": "입자 모핑",
+        "note": "이펙트·파티클 · 같은 목적: 시선 집중"
+      },
+      {
+        "name": "폭죽·스파크",
+        "note": "이펙트·파티클 · 같은 목적: 분위기"
+      },
+      {
+        "name": "번개·충격",
+        "note": "이펙트·파티클 · 같은 목적: 분위기"
+      }
+    ],
+    "vs": {
+      "bad": "영화 같은 느낌으로 후처리해줘",
+      "badResult": "대개 화면 전체가 뿌옇게 번지고 구슬까지 흐려지며, 효과마다 세기가 제각각으로 나옵니다",
+      "good": "블룸(밝기 0.6↑, 세기 0.9) → DOF(구슬만 또렷) → 색수차 5px·비네트 0.55 → 그레인 0.06(24fps) 순서",
+      "goodResult": "구슬 하이라이트 둘레만 번지고 멀리 불빛은 보케 원판이 되며, 모서리가 어두워지고 알갱이가 매 프레임 바뀌는 밤 도시"
+    },
+    "tips": [
+      {
+        "id": "stronger",
+        "title": "빛 번짐이 약해서 안 보여요",
+        "situation": "네온과 하이라이트가 그냥 하얗고 번지지 않아 보일 때",
+        "from": "세기 0.9",
+        "to": "세기 2.2",
+        "effect": "세기가 0.9에서 2.2로 오르면 구슬 하이라이트와 네온 링 둘레의 빛무리가 훨씬 넓고 하얗게 퍼진다. 밝은 부분은 하얗게 날아가고 장면 전체가 뿌옇게 뜬다."
+      },
+      {
+        "id": "rougher",
+        "title": "너무 매끈한 디지털 느낌",
+        "situation": "그레인이 거의 안 보여 디지털 영상처럼 느껴질 때",
+        "from": "세기 0.06 으로",
+        "to": "세기 0.2 로",
+        "effect": "알갱이 세기가 0.06에서 0.2로 3배 넘게 커져 화면 전체가 거친 필름 영화처럼 바뀐다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "장면을 그린 그대로 두기",
+        "d": "밤 도시를 그린 그대로다. 불빛은 점과 선으로 또렷하고 구슬과 네온 링도 평평한 색으로만 보인다.",
+        "code": "renderer.render(scene, camera);   // 후처리 없음"
+      },
+      {
+        "t": "블룸으로 밝은 곳 번지게 하기",
+        "d": "밝기가 0.6 이 넘는 부분만 뽑아(bright pass) 작게, 크게 두 번 번지게 한 뒤 원래 그림에 더한다. 세기는 0.9. 구슬 하이라이트와 네온 링 둘레에만 빛무리가 생기고 어두운 곳은 그대로 남는다.",
+        "code": "const bloom = new UnrealBloomPass(size, 0.9, 0.5, 0.6);\n// strength 0.9, radius 0.5, threshold 0.6\ncomposer.addPass(bloom);"
+      },
+      {
+        "t": "피사계 심도로 배경 흐리기",
+        "d": "초점이 맞는 앞쪽 구슬은 두고 멀리의 장면을 흐린 버전으로 바꾼다. 점이던 불빛이 지름 커진 둥근 원판(보케)이 되고, 시선은 구슬로 모인다.",
+        "code": "const dof = new BokehPass(scene, camera, {\n  focus: 6.0, aperture: 0.0002, maxblur: 0.01\n});\ncomposer.addPass(dof);"
+      },
+      {
+        "t": "색수차와 비네트 더하기",
+        "d": "화면 가운데에서 멀어질수록 빨강 채널은 바깥으로, 파랑 채널은 안쪽으로 최대 5px 어긋나서 가장자리의 밝은 선에 색 테두리가 생긴다. 모서리는 거리의 2.2제곱에 비례해 어두워진다(세기 0.55).",
+        "code": "offset = (uv - 0.5) * CA;\nr = tex(uv - offset).r;  b = tex(uv + offset).b;\ncolor *= 1.0 - VIG * pow(dist, 2.2);"
+      },
+      {
+        "t": "필름 그레인으로 마무리하기",
+        "d": "1초에 24번 바뀌는 무작위 값을 모든 픽셀에 세기 0.06 으로 더한다. 디지털 특유의 매끈함이 줄고 필름 질감이 생기는데, 멈춰 있는 그레인은 얼룩처럼 보이니 매 프레임 바뀌어야 한다.",
+        "code": "float n = hash(pixel + floor(t * 24.0)) - 0.5;\ncolor += n * GRAIN * 2.0;"
+      }
+    ],
+    "terms": [
+      {
+        "w": "블룸",
+        "en": "Bloom",
+        "m": "밝은 곳에서 빛이 번져 나오는 효과다. 밝은 부분만 뽑아 번지게 한 다음 원래 그림에 다시 더한다.",
+        "say": "“밝기 0.6 이상만 세기 0.9 로 블룸”"
+      },
+      {
+        "w": "피사계 심도와 보케",
+        "en": "Depth of field · Bokeh",
+        "m": "초점이 맞는 거리 밖이 흐려지는 효과. 흐려진 점 불빛이 둥근 원판으로 보이면 그것이 보케.",
+        "say": "구슬만 또렷하게, 배경 불빛은 보케로"
+      },
+      {
+        "w": "SSAO",
+        "en": "Screen-space ambient occlusion",
+        "m": "모서리와 틈처럼 주변 물체에 가려진 곳을 부드럽게 어둡게 해서 입체감을 더하는 기법인데, 이 데모에서는 쓰지 않았다.",
+        "say": "“SSAO 로 바닥과 물체가 닿는 곳을 어둡게”"
+      },
+      {
+        "w": "색수차",
+        "en": "Chromatic aberration",
+        "m": "렌즈가 색마다 초점이 달라 가장자리에 생기는 색 테두리를 흉내 낸 효과.",
+        "say": "가장자리에서 빨강과 파랑 5px 어긋나게"
+      },
+      {
+        "w": "비네트와 그레인",
+        "en": "Vignette · Film grain",
+        "m": "모서리를 어둡게 해 시선을 가운데로 모으는 것이 비네트이고, 필름의 잔 알갱이 질감을 더하는 것이 그레인이다.",
+        "say": "“비네트 0.55, 필름 그레인 0.06 을 24fps 로”"
+      }
+    ],
+    "levels": 5
+  },
+  "poster": "/lab/posters/postprocessing.jpg"
+}

@@ -1,0 +1,177 @@
+{
+  "order": 102,
+  "slug": "animatable-properties",
+  "name": "움직임으로 바꾸는 값 12가지",
+  "en": "Animatable Properties",
+  "field": "motion",
+  "level": "기본",
+  "purposes": [
+    "변화와 비교",
+    "타이밍과 리듬"
+  ],
+  "media": [
+    "웹·앱",
+    "영상"
+  ],
+  "oneLine": "위치, 크기, 회전, 기울임, 투명도, 블러, 클립, 필터, 색, 너비, 모서리, 기준점 가운데 어느 값 하나만 바꿔도 움직임의 성격이 달라진다. 12가지를 칸마다 나란히 놓고 비교한다",
+  "preview": null,
+  "keywords": [
+    "움직이는 속성",
+    "애니메이션 속성",
+    "translate",
+    "scale",
+    "rotate",
+    "skew",
+    "opacity",
+    "blur",
+    "clip-path",
+    "filter",
+    "border-radius",
+    "transform-origin",
+    "무엇을 움직여야 하나",
+    "움직임 종류",
+    "트랜스폼",
+    "필터",
+    "클립 패스",
+    "변형 기준점",
+    "리플로우",
+    "transform",
+    "reflow"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d101",
+    "prompt": "움직임으로 바꿀 수 있는 값 12가지를 4×3 칸에 하나씩 보여 주는 애니메이션을 만들어줘. 칸마다 같은 카드 한 장이 한 가지 값만 바꿔서 왕복한다.\n\n- 타이밍: 한 번 왕복 2.4초, easeInOut. 변화 폭은 기본값의 100%.\n- 움직임 변형: 위치 translateX ±40px, 크기 scale 0.7↔1.25, 회전 rotate ±35°, 기울임 skewX ±24°, 변형 기준점 transform-origin 왼쪽 위 모서리에서 rotate ±30°.\n- 겉모습: 투명도 opacity 0.15↔1, 블러 blur 0↔6px, 필터 hue-rotate 0↔120°와 brightness 1↔1.3, 색 background-color 하늘색↔주황.\n- 모양: 클립 clip-path inset 50%↔0%, 너비 width 24px↔70px, 둥근 모서리 border-radius 0↔50%.\n- 표시: 각 칸 아래에 한글 이름, CSS 속성 이름, 지금 값을 코드 값으로 실시간 보여 주고, 변형 기준점 칸에는 기준점을 주황 점으로 표시.\n- 금지: 칸마다 바꾸는 값이 둘 이상인 것(필터 칸의 색조와 밝기만 예외), 칸마다 다른 속도.",
+    "check": [
+      "칸마다 바뀌는 값이 하나뿐이다(필터 칸의 색조와 밝기만 예외)",
+      "12칸이 같은 길이(2.4초)와 같은 이징으로 움직이는가?",
+      "각 칸 아래의 값 표시가 실제 화면의 값과 같고, 변형 기준점 칸의 카드는 주황 점을 중심으로 돈다",
+      "변화 폭이 칸마다 눈으로 구분될 만큼 충분하다"
+    ],
+    "use": [
+      "AI에게 ‘움직이게 해줘’ 대신 바꿀 값을 정확히 짚어 말하고 싶을 때",
+      "페이드만 쓰는 밋밋한 UI 애니메이션에서 벗어난다",
+      "웹 애니메이션 성능이 걱정되는 프로젝트(어떤 값이 가벼운지 구분하기)"
+    ],
+    "tech": [
+      "CSS transform: translate · scale · rotate · skew",
+      "CSS opacity · filter · clip-path · border-radius · width",
+      "transform-origin",
+      "JS 시간 함수로 값을 직접 계산"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "transform 속성으로 요소를 회전, 확대와 축소, 기울이기, 이동할 수 있고 transform-origin 이 변형의 기준점을 정한다.",
+        "title": "MDN — transform · transform-origin",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform"
+      },
+      {
+        "state": "확인",
+        "text": "opacity 는 요소의 투명도, filter 는 흐림이나 색 변화 같은 그래픽 효과, clip-path 는 요소에서 보일 부분을 정하는 클리핑 영역을 만든다.",
+        "title": "MDN — opacity · filter · clip-path",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/filter"
+      },
+      {
+        "state": "확인",
+        "text": "리플로우나 리페인트를 일으키지 않는 속성을 애니메이션하면 샘플링을 메인 스레드 밖으로 옮길 수 있다. 가장 흔한 것이 CSS transform 이라는 설명.",
+        "title": "MDN — CSS and JavaScript animation performance",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/Performance/Guides/CSS_JavaScript_animation_performance"
+      }
+    ],
+    "related": [
+      {
+        "name": "몽타주",
+        "note": "합성·편집 · 같은 목적: 변화와 비교"
+      },
+      {
+        "name": "점프컷",
+        "note": "합성·편집 · 같은 목적: 타이밍과 리듬"
+      },
+      {
+        "name": "이징 계열 Quad에서 Expo까지",
+        "note": "움직임 · 같은 목적: 타이밍과 리듬"
+      }
+    ],
+    "vs": {
+      "bad": "카드가 멋지게 움직이게 해줘",
+      "badResult": "투명도만 오르내리는 페이드나, 어떤 값이 바뀌는지 정해지지 않은 움직임이 나오곤 합니다",
+      "good": "카드가 translateX ±40px로 왕복, 2.4초 easeInOut",
+      "goodResult": "12칸마다 값 하나씩만 바뀌며 한 번 왕복 2.4초 easeInOut으로 움직이는 화면(위치 칸은 translateX ±40px)"
+    },
+    "tips": [
+      {
+        "id": "half",
+        "title": "움직임이 너무 커서 정신없어요",
+        "situation": "칸마다 값이 크게 변해 눈이 따라가기 힘들 때",
+        "from": "변화 폭은 기본값의 100%",
+        "to": "변화 폭은 기본값의 50%",
+        "effect": "모든 칸의 변화 폭이 절반으로 줄어 위치는 ±20px처럼 얌전해진다. 값마다의 차이가 덜 눈에 띈다. ‘이게 무슨 값이지’ 구분하기가 어려워질 수 있다."
+      },
+      {
+        "id": "slow",
+        "title": "너무 빨라서 뭐가 바뀌는지 못 보겠다",
+        "situation": "값 변화를 눈으로 따라가고 싶을 때",
+        "from": "한 번 왕복 2.4초",
+        "to": "한 번 왕복 4.0초",
+        "effect": "한 번 왕복이 2.4초에서 4.0초로 느려져 값이 바뀌는 과정을 천천히 따라갈 수 있지만, 같은 시간에 볼 수 있는 변화 횟수가 줄어 전체 설명이 길어진다."
+      }
+    ],
+    "steps": [
+      {
+        "t": "12칸 모두 투명도만 바꾸는 상태",
+        "d": "AI에게 ‘움직이게 해줘’ 하면 가장 흔히 나오는 결과다. 칸마다 투명도만 0.15에서 1로 왕복하니 어느 칸이 무엇을 보여 주려는지 구분되지 않는다.",
+        "code": "card.style.opacity = lerp(0.15, 1, v);   // 모든 칸이 같은 값만 바꿈"
+      },
+      {
+        "t": "움직임 변형을 칸마다 따로 쓴다",
+        "d": "transform 한 속성 안의 서로 다른 함수를 칸마다 쓴다. 위치는 translateX, 크기는 scale, 회전은 rotate, 기울임은 skewX다. 변형 기준점 칸은 transform-origin 을 왼쪽 위 모서리로 바꿔, 같은 회전이라도 도는 중심이 달라지는 것을 보여 준다.",
+        "code": "card.style.transform = `translateX(${(v - .5) * 80}px)`;\ncard.style.transform = `rotate(${(v - .5) * 70}deg)`;\ncard.style.transformOrigin = '0% 0%';"
+      },
+      {
+        "t": "겉모습을 바꾸는 값을 더한다",
+        "d": "모양과 자리는 그대로 두고 보이는 느낌만 바꾼다. 블러는 filter: blur(), 필터 칸은 hue-rotate 와 brightness, 색 칸은 배경색을 섞는다.",
+        "code": "card.style.filter = `blur(${(1 - v) * 6}px)`;\ncard.style.filter = `hue-rotate(${v * 120}deg) brightness(${1 + v * .3})`;"
+      },
+      {
+        "t": "마지막으로 모양을 바꾸는 값을 더한다",
+        "d": "클립은 clip-path 로 보이는 영역을 줄이고, 너비는 width, 모서리는 border-radius 를 바꾼다. 너비처럼 주변 배치에 영향을 주는 값은 애니메이션하면 주변이 같이 움직이거나 부담이 될 수 있어 조심해서 쓴다.",
+        "code": "card.style.clipPath = `inset(${50 * (1 - v)}%)`;\ncard.style.width = `${lerp(24, 70, v)}px`;\ncard.style.borderRadius = `${v * 50}%`;"
+      }
+    ],
+    "terms": [
+      {
+        "w": "트랜스폼",
+        "en": "transform",
+        "m": "요소를 이동, 확대, 회전, 기울이는 속성 묶음이다. 주변 배치는 건드리지 않고 겉모습만 바꾼다.",
+        "say": "“transform으로 오른쪽 40px 이동시켜줘”"
+      },
+      {
+        "w": "필터",
+        "en": "filter",
+        "m": "흐림(blur), 밝기, 색조 같은 그래픽 효과를 요소 전체에 거는 속성.",
+        "say": "blur 6px에서 0으로 선명해지게"
+      },
+      {
+        "w": "클립 패스",
+        "en": "clip-path",
+        "m": "요소에서 보일 영역을 모양으로 오려 내는 속성이다. 영역을 키우면 드러나는 연출이 된다.",
+        "say": "“clip-path inset으로 가운데서 퍼지게”"
+      },
+      {
+        "w": "변형 기준점",
+        "en": "transform-origin",
+        "m": "회전과 확대의 중심이 되는 점. 기본은 가운데이고, 모서리로 옮기면 도는 모양이 달라진다.",
+        "say": "“왼쪽 위 모서리를 중심으로 회전”"
+      },
+      {
+        "w": "리플로우",
+        "en": "Reflow",
+        "m": "요소의 크기나 위치가 바뀌어 브라우저가 주변 배치를 다시 계산하는 일. 너비와 높이 같은 값을 애니메이션할 때 생길 수 있다.",
+        "say": "너비 말고 scale 로"
+      }
+    ],
+    "levels": 4
+  },
+  "poster": "/lab/posters/animatable-properties.jpg"
+}

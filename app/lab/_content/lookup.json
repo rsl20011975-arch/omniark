@@ -1,0 +1,50 @@
+[
+  {
+    "feel": "글자가 한 줄씩 아래에서 올라와요",
+    "term": "mask-reveal"
+  },
+  {
+    "feel": "단어가 하나씩 차례로 나타나요",
+    "term": "kinetic-words"
+  },
+  {
+    "feel": "화면 한 곳만 밝고 나머지는 어두워요",
+    "term": "spotlight"
+  },
+  {
+    "feel": "경계선이 지나가며 전·후가 바뀌어요",
+    "term": "before-after-wipe"
+  },
+  {
+    "feel": "점들이 모여서 글자가 돼요",
+    "term": "particle-morph"
+  },
+  {
+    "feel": "글자가 지지직 깨지며 어긋나요",
+    "term": "glitch"
+  },
+  {
+    "feel": "숫자가 드럼처럼 굴러 올라가요",
+    "term": "odometer"
+  },
+  {
+    "feel": "배경이 흐려지며 앞 사람에게 초점이 옮겨가요",
+    "term": "rack-focus"
+  },
+  {
+    "feel": "뒤 배경이 유리처럼 흐리게 비쳐요",
+    "term": "frosted-glass"
+  },
+  {
+    "feel": "막대가 순위를 바꿔 가며 달려요",
+    "term": "bar-chart-race"
+  },
+  {
+    "feel": "영상 첫 3초가 심심해요",
+    "term": "hook-four"
+  },
+  {
+    "feel": "배경음악 때문에 목소리가 안 들려요",
+    "term": "ducking"
+  }
+]

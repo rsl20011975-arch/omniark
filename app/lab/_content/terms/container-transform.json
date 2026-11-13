@@ -1,0 +1,106 @@
+{
+  "order": 9,
+  "slug": "container-transform",
+  "name": "컨테이너 트랜스폼",
+  "en": "Container Transform",
+  "field": "web",
+  "level": "중급",
+  "purposes": [
+    "장면 연결"
+  ],
+  "media": [
+    "웹·앱"
+  ],
+  "oneLine": "카드가 그대로 펼쳐져 상세 화면이 되는 전환",
+  "preview": null,
+  "keywords": [
+    "카드",
+    "펼쳐",
+    "상세",
+    "열리"
+  ],
+  "status": "published",
+  "detail": {
+    "demo": "d07",
+    "prompt": "상품 카드 3개가 있는 목록 화면에서 가운데 카드를 누르면 상세화면으로 바뀌는 컨테이너 트랜스폼을 만들어줘.\n\n- 0.2초: 누른 위치에 원형 물결(탭 표시).\n- 0.6~1.5초: 선택한 카드의 테두리 상자(위치·크기·모서리 반경 16→0)가 화면 전체로 커진다. easeInOutCubic.\n- 카드 안의 이미지 영역은 180×140 → 320×360으로, 상품명은 16px→28px로 커지며 새 위치로 이동. 같은 물체가 이어진다는 느낌을 유지할 것.\n- 같은 시간 동안 다른 카드는 94% 크기로 줄며 사라진다.\n- 1.4~2.2초: 설명 문장, 구매 버튼, 닫기 버튼이 0.12초 간격으로 아래→위 등장.\n- 3.6초부터 역순으로 원래 카드 자리로 돌아간다.\n- 금지: 화면이 통째로 바뀌는 컷 전환, scale()로 글자를 늘려 찌그러뜨리기.",
+    "check": [
+      "시작 카드와 끝 화면이 같은 물체로 느껴진다",
+      "커지는 동안 글자가 찌그러지지 않는다",
+      "돌아갈 때 원래 자리로 정확히 복귀한다",
+      "영상 시연용은 0.8~1초, 실제 앱은 이보다 짧게 조정한다"
+    ],
+    "use": [
+      "앱·웹 UI 시연 영상",
+      "상품 목록 → 상세 소개",
+      "발표에서 요약 화면 → 세부 내용으로 들어갈 때"
+    ],
+    "tech": [
+      "FLIP 기법(위치·크기 보간)",
+      "View Transitions API",
+      "Framer Motion layoutId",
+      "Android MaterialContainerTransform"
+    ],
+    "refs": [
+      {
+        "state": "확인",
+        "text": "Material Design 모션 시스템은 전환 패턴으로 컨테이너 트랜스폼, 공유 축, 페이드 스루, 페이드 4가지를 정의합니다.",
+        "title": "Material Design — The motion system",
+        "url": "https://material.io/design/motion/the-motion-system.html"
+      },
+      {
+        "state": "확인",
+        "text": "Material Components for Android 문서는 MaterialContainerTransform으로 카드→상세화면 같은 전환을 구현한다고 설명합니다.",
+        "title": "Material Components Android — Motion.md",
+        "url": "https://github.com/material-components/material-components-android/blob/master/docs/theming/Motion.md"
+      },
+      {
+        "state": "추정",
+        "text": "‘실제 앱에서는 더 짧게’는 일반적인 경험칙입니다. 공식 지속시간 값은 이번에 확인하지 못했습니다.",
+        "title": null,
+        "url": null
+      }
+    ],
+    "related": [
+      {
+        "name": "마스크 리빌",
+        "note": "움직임 · 같은 목적: 장면 연결"
+      },
+      {
+        "name": "전후 비교 와이프",
+        "note": "움직임 · 같은 목적: 장면 연결"
+      },
+      {
+        "name": "입자 모핑",
+        "note": "이펙트·파티클 · 같은 목적: 장면 연결"
+      }
+    ],
+    "vs": {
+      "bad": "카드 누르면 상세 화면 보여줘",
+      "badResult": "화면이 통째로 갑자기 바뀐다(컷 전환)",
+      "good": "누른 카드의 테두리 상자가 화면 전체로 커지게 해줘 (컨테이너 트랜스폼)",
+      "goodResult": "아래 지시문 전체를 붙여 넣기"
+    },
+    "tips": [
+      {
+        "id": "slower",
+        "title": "카드가 펼쳐지는 게 너무 빨라요",
+        "situation": "어떤 카드가 커진 건지 눈으로 따라가기 어려울 때",
+        "from": "0.6~1.5초: 선택한 카드의 테두리 상자가 화면 전체로 커진다",
+        "to": "0.6~2.2초 (설명 문장·버튼 등장도 그만큼 늦춰줘)",
+        "effect": "카드가 커지는 시간이 0.9초에서 1.6초로 길어집니다. 설명·버튼은 카드가 다 커진 뒤에 나오도록 늦춥니다."
+      },
+      {
+        "id": "dim",
+        "title": "다른 카드가 사라져서 어디서 왔는지 모르겠어요",
+        "situation": "목록으로 돌아올 곳을 보여 주고 싶을 때",
+        "from": "같은 시간 동안 다른 카드는 94% 크기로 줄며 사라진다",
+        "to": "같은 시간 동안 다른 카드는 94% 크기로 줄며 반쯤만 흐려진다",
+        "effect": "카드가 커지는 0.6~1.5초 동안, 나머지 카드가 더 진하게 남아 목록 속에서 커진다는 맥락이 유지됩니다. 카드가 화면을 다 채우면 가려져 보이지 않습니다."
+      }
+    ],
+    "steps": [],
+    "terms": [],
+    "levels": 0
+  },
+  "poster": "/lab/posters/container-transform.jpg"
+}
