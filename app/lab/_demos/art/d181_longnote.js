@@ -3,6 +3,10 @@
 // 만들어진 파일 — 원본: source/pages/sound-ui-feedback/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el, rng, rr } from "./helpers.js";
 
+const PAL = { bg0: '#171615', bg1: '#232120', ink: '#f2efe9', muted: '#9a958c', accent: '#5ad1c8', accent2: '#f2b84b', surface: '#1f1d1b', line: 'rgba(242,239,233,.14)' };
+const al = (h, a) => `rgba(${[1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)).join(',')},${a})`;   // PAL 색에 투명도를 준다
+const C_N = PAL.accent2, C_S = PAL.accent, C_F = '#ff7a8a';   // 알림, 성공, 실패 줄 색
+
 // 알림·성공·실패 세 가지 안내음이 처음에는 똑같은 삑 소리인 상태에서, 음의 방향(올라감/내려감)과 모티프·부드러움을 단계별로 더한 소리의 '모양'을 코드로 합성해 파형·스펙트럼·음높이 수치로 보여 준다. 재생은 없다.
 const NOTE_DUR = 0.4;        // 음 하나의 소리가 줄어드는 시간상수(초). 클수록 길게 울린다
 const RISE_SEMI = 7;         // 성공음에서 둘째 음이 첫째 음보다 올라가는 폭(반음 수). 7 = 완전5도
@@ -11,7 +15,7 @@ const N_T = 0.2, S_T = 1.35, F_T = 2.5, TOT = 3.6;
 const REF = 31;              // 스펙트럼 색 눈금의 기준 크기(dB). 이 합성 결과의 가장 센 값에 맞춘 표시용 눈금
 const SR = 16000, TAU = Math.PI * 2;
 const SANS = "'IBM Plex Sans KR','Malgun Gothic',sans-serif", MONO = "'JetBrains Mono',monospace";
-const TX2 = '#98a2b5';
+const TX2 = PAL.muted, INK = PAL.ink;
 
 // ---- 신호 처리 도구 ----
 const mk = (s) => new Float32Array(Math.round(s * SR));
@@ -76,18 +80,18 @@ function build(L) {
 // ---- 그리기 도구 ----
 function tx(c, s, x, y, size, col, wt, al, font) { c.save(); c.fillStyle = col; c.font = (wt || 500) + ' ' + size + 'px ' + (font || SANS); c.textAlign = al || 'left'; c.textBaseline = 'alphabetic'; c.fillText(s, x, y); c.restore(); }
 function bgFill(c, grain) {
-  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, '#0b0f1a'); g.addColorStop(1, '#070a12'); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
-  const r = c.createRadialGradient(470, 120, 10, 470, 120, 330); r.addColorStop(0, 'rgba(255,138,61,.07)'); r.addColorStop(1, 'rgba(255,138,61,0)'); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
+  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+  const r = c.createRadialGradient(470, 120, 10, 470, 120, 330); r.addColorStop(0, al(PAL.accent2, .07)); r.addColorStop(1, al(PAL.accent2, 0)); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
   c.globalAlpha = .05; c.fillStyle = c.createPattern(grain, 'repeat'); c.fillRect(0, 0, 640, 360); c.globalAlpha = 1;
 }
-function panel(c, x, y, w, h) { rr(c, x, y, w, h, 6); c.fillStyle = 'rgba(255,255,255,.035)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.09)'; c.lineWidth = 1; c.stroke(); }
+function panel(c, x, y, w, h) { rr(c, x, y, w, h, 6); c.fillStyle = PAL.surface; c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke(); }
 function wave(c, pk, x, y, w, h, col, rev, gain) {
   panel(c, x, y, w, h); const mid = y + h / 2, k = h / 2 * gain;
   for (let i = 0; i < pk.mn.length; i++) { c.fillStyle = i / pk.mn.length <= rev ? col : col + '4d'; const a = mid - pk.mx[i] * k, b = mid - pk.mn[i] * k; c.fillRect(x + i, a, 1, Math.max(1, b - a)); }
-  c.fillStyle = 'rgba(255,255,255,.14)'; c.fillRect(x, mid - .3, w, .6);
+  c.fillStyle = al(PAL.ink, .16); c.fillRect(x, mid - .3, w, .6);
 }
 function heat(v) {
-  const S = [[0, 11, 15, 26], [.3, 62, 40, 124], [.6, 222, 92, 62], [.85, 255, 170, 70], [1, 255, 238, 196]];
+  const S = [[0, 23, 22, 21], [.3, 30, 88, 96], [.6, 90, 209, 200], [.85, 242, 184, 75], [1, 255, 244, 214]];
   for (let i = 1; i < S.length; i++) if (v <= S[i][0]) { const p = (v - S[i - 1][0]) / (S[i][0] - S[i - 1][0]); return `rgb(${Math.round(lerp(S[i - 1][1], S[i][1], p))},${Math.round(lerp(S[i - 1][2], S[i][2], p))},${Math.round(lerp(S[i - 1][3], S[i][3], p))})`; }
   return 'rgb(255,238,196)';
 }
@@ -110,31 +114,31 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 1 : (lv == null ? 3 : lv), c = s.ctx, X = 124, W = 500, ph = Math.min(1, t / TOT), D = s.get(L), b = D.b, pk = D.pk;
     c.setTransform(2, 0, 0, 2, 0, 0); c.globalAlpha = 1; bgFill(c, s.grain);
-    const rows = [['알림', '#6fd3ff', 'n'], ['성공', '#3ecf8e', 's'], ['실패', '#ff7a8a', 'f']];
+    const rows = [['알림', C_N, 'n'], ['성공', C_S, 's'], ['실패', C_F, 'f']];
     rows.forEach(([n, col, key], i) => { const y = 46 + i * 30; tx(c, n, 16, y + 17, 12, col, 600); wave(c, pk[key], X, y, W, 26, col, ph, 1.2); });
-    wave(c, pk.mix, X, 140, W, 34, '#f4efe4', ph, 1);
-    tx(c, '합친 소리', 16, 161, 12, '#f4efe4', 700);
+    wave(c, pk.mix, X, 140, W, 34, INK, ph, 1);
+    tx(c, '합친 소리', 16, 161, 12, INK, 700);
     specDraw(c, D.sp, s.T, X, 182, W, 92, s.ref, ph);
     [[100, '100'], [1000, '1k'], [5000, '5k']].forEach(([f, l]) => tx(c, l, X - 6, fy(f, 182, 92) + 4, 10, TX2, 500, 'right', MONO));
-    tx(c, '스펙트럼', 16, 232, 12, '#ffb27f', 700);
+    tx(c, '스펙트럼', 16, 232, 12, PAL.accent2, 700);
     if (L >= 3) {   // 실패음의 높은 소리를 깎는 선(저역통과 주파수)
       const yy = fy(FAIL_LP, 182, 92), x0 = X + F_T / TOT * W; c.fillStyle = 'rgba(255,90,110,.27)'; c.fillRect(x0, 182, X + W - x0, yy - 182); c.save(); c.setLineDash([4, 3]); c.strokeStyle = 'rgba(255,159,176,.9)'; c.lineWidth = 1; c.beginPath(); c.moveTo(x0, yy); c.lineTo(X + W, yy); c.stroke(); c.restore();
       tx(c, `깎는 선 ${FAIL_LP}Hz · 위쪽은 깎여 나감`, X + W - 4, 195, 10, '#ffd0d8', 600, 'right', MONO);
     }
-    const xx = X + ph * W; c.fillStyle = 'rgba(255,138,61,.95)'; c.fillRect(xx - .7, 42, 1.4, 232);
+    const xx = X + ph * W; c.fillStyle = al(PAL.ink, .92); c.fillRect(xx - .7, 42, 1.4, 232);
     let y = 292;
     rows.forEach(([n, col, key]) => {
       const q = b.st[key];
       tx(c, `${n}  음 ${q.n}개 · ${q.p0.toFixed(0)}Hz → ${q.p1.toFixed(0)}Hz (${q.dir}) · 소리가 -40dB까지 ${q.tail.toFixed(0)}ms`, 16, y, 10.5, col, 500, 'left', MONO); y += 15;
     });
-    tx(c, '재생 버튼 없음 · 파형·스펙트럼은 코드로 합성한 값입니다. 소리는 직접 들어 보고 판단하세요.', 16, 348, 10.5, TX2, 500);
+    tx(c, '재생 버튼 없음. 파형과 스펙트럼은 코드로 합성한 값이며, 소리는 직접 들어 보고 판단하세요.', 624, 26, 10.5, TX2, 500, 'right');
     let post;
     if (L === 1) post = '연출 전 · 알림·성공·실패가 모두 같은 삑 소리';
     else if (t < N_T) post = '곧 알림';
     else if (t < S_T) post = L >= 3 ? '알림: 짧은 세 음 모티프' : '알림: 아직 삑 한 번';
     else if (t < F_T) post = '성공: 음이 위로 올라감';
     else post = L >= 3 ? '실패: 음이 아래로 · 고역을 깎아 부드럽게' : '실패: 음이 아래로 · 날카로움 그대로';
-    c.font = '500 12px ' + SANS; const pw = c.measureText(post).width + 24; rr(c, 14, 12, pw, 24, 12); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.12)'; c.stroke(); tx(c, post, 26, 28, 12, '#fff', 500);
+    c.fillStyle = PAL.line; c.fillRect(16, 334, 608, 1); tx(c, post, 16, 350, 12, TX2, 500, 'left', MONO);   // 이름표(caption-bl): 왼쪽 아래, 배경 없이 얇은 선 위에
   },
 };
 export default demo;

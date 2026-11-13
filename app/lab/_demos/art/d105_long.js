@@ -12,29 +12,35 @@ const FPS = 12;     // 글리치 값이 바뀌는 횟수(초당) — 뚝뚝 끊�
 const T1 = 1.2, T2 = 3.0;   // 두 번의 글리치가 시작하는 시각(초)
 const W = 1280, H = 720;
 const FONT = '40px "Black Han Sans"';
+const PAL = { bg0: '#0c1814', bg1: '#15271f', ink: '#e8f1ea', muted: '#86a091', accent: '#7fe0a8', accent2: '#e8d27a', surface: '#12231c', line: 'rgba(232,241,234,.22)' };
+const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
 
 function cv(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 
 function paint(c) {
   const x = c.getContext('2d');
   let g = x.createLinearGradient(0, 0, W * .55, H);
-  g.addColorStop(0, '#0b0f1a'); g.addColorStop(.6, '#14203a'); g.addColorStop(1, '#1d3350');
+  g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1);
   x.fillStyle = g; x.fillRect(0, 0, W, H);
-  [[.5, .5, 620, .38], [.5, .5, 240, .35]].forEach(([gx, gy, r, a]) => {     // 빛은 반경이 다른 두 겹
+  [[.5, .5, 620, .26], [.5, .5, 240, .3]].forEach(([gx, gy, r, a]) => {     // 빛은 반경이 다른 두 겹
     const rg = x.createRadialGradient(W * gx, H * gy, 0, W * gx, H * gy, r);
-    rg.addColorStop(0, `rgba(80,190,200,${a})`); rg.addColorStop(1, 'rgba(80,190,200,0)');
+    rg.addColorStop(0, rgba(PAL.accent, a)); rg.addColorStop(1, rgba(PAL.accent, 0));
     x.fillStyle = rg; x.fillRect(0, 0, W, H);
   });
-  x.strokeStyle = 'rgba(255,255,255,.55)'; x.lineWidth = 4;                 // 뷰파인더 모서리
+  x.strokeStyle = rgba(PAL.ink, .55); x.lineWidth = 4;                 // 뷰파인더 모서리
   [[70, 60, 1, 1], [W - 70, 60, -1, 1], [70, H - 60, 1, -1], [W - 70, H - 60, -1, -1]].forEach(([px, py, sx, sy]) => {
     x.beginPath(); x.moveTo(px, py + 56 * sy); x.lineTo(px, py); x.lineTo(px + 56 * sx, py); x.stroke();
   });
   x.textAlign = 'center'; x.textBaseline = 'alphabetic';
   x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 40; x.shadowOffsetY = 12;
-  x.fillStyle = '#fff'; x.font = '280px "Black Han Sans", sans-serif'; x.fillText('SIGNAL', W / 2, 430);
+  x.fillStyle = PAL.ink; x.font = '280px "Black Han Sans", sans-serif'; x.fillText('SIGNAL', W / 2, 430);
   x.shadowColor = 'transparent';
-  x.fillStyle = 'rgba(255,255,255,.88)'; x.font = '500 38px "IBM Plex Sans KR", sans-serif'; x.fillText('수신 상태를 확인하는 중', W / 2, 520);
-  x.fillStyle = 'rgba(255,255,255,.7)'; x.font = '500 28px "JetBrains Mono", monospace'; x.fillText('CH 07 · 00:42:18', W / 2, 580);
+  x.fillStyle = rgba(PAL.ink, .88); x.font = '500 38px "IBM Plex Sans KR", sans-serif'; x.fillText('수신 상태를 확인하는 중', W / 2, 520);
+  x.fillStyle = rgba(PAL.ink, .7); x.font = '500 28px "JetBrains Mono", monospace'; x.fillText('CH 07 · 00:42:18', W / 2, 580);
+  // 필름 그레인: 그라디언트 밴딩을 풀어 준다(고정 시드)
+  const r = rng(5), id = x.getImageData(0, 0, W, H), d = id.data;
+  for (let i = 0; i < d.length; i += 4) { const n = (r() - .5) * 5; d[i] += n; d[i + 1] += n; d[i + 2] += n; }
+  x.putImageData(id, 0, 0);
 }
 
 function tint(src, col) {
@@ -50,19 +56,24 @@ const demo = {
     const base = cv(W, H), chs = [cv(W, H), cv(W, H), cv(W, H)];
     const main = el('canvas', null, sp);
     main.width = W; main.height = H; Object.assign(main.style, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
-    const pill = el('div', null, sp);
-    Object.assign(pill.style, { position: 'absolute', left: '20px', top: '18px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.7)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif" });
+    // 세로 이름표: 왼쪽 가장자리, 번호는 muted, 지금 상태는 ink
+    const lab = el('div', null, sp);
+    Object.assign(lab.style, { position: 'absolute', left: '9px', top: '50%', transform: 'translateY(-50%)', writingMode: 'vertical-rl', letterSpacing: '.1em', font: "500 12px/1 'IBM Plex Sans KR',sans-serif", whiteSpace: 'nowrap', borderRight: `1px solid ${PAL.line}`, paddingRight: '7px', textShadow: '0 1px 6px rgba(0,0,0,.6)' });
+    const idx = el('span', null, lab);
+    Object.assign(idx.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '8px' });
+    const pill = el('span', null, lab);
+    Object.assign(pill.style, { color: PAL.ink });
     const mono = el('div', null, sp);
-    Object.assign(mono.style, { position: 'absolute', right: '20px', top: '18px', padding: '7px 12px', borderRadius: '8px', background: 'rgba(8,10,20,.7)', color: '#fff', font: "500 14px/1 'JetBrains Mono',monospace", opacity: '0' });
+    Object.assign(mono.style, { position: 'absolute', right: '20px', top: '18px', padding: '6px 10px', borderRadius: '2px', borderLeft: `3px solid ${PAL.accent}`, background: PAL.surface, color: PAL.ink, font: "600 12px/1 'JetBrains Mono',monospace", opacity: '0' });
     const track = el('div', null, sp);
-    Object.assign(track.style, { position: 'absolute', left: '20px', right: '100px', bottom: '22px', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,.25)' });
+    Object.assign(track.style, { position: 'absolute', left: '36px', right: '100px', bottom: '22px', height: '6px', borderRadius: '3px', background: rgba(PAL.ink, .2) });
     [T1, T2].forEach((t0) => {
       const z = el('div', null, track);
-      Object.assign(z.style, { position: 'absolute', top: '0', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,.9)', left: (t0 / 5 * 100) + '%', width: (BURST / 5 * 100) + '%' });
+      Object.assign(z.style, { position: 'absolute', top: '0', height: '6px', borderRadius: '3px', background: PAL.accent, left: (t0 / 5 * 100) + '%', width: (BURST / 5 * 100) + '%' });
     });
     const head = el('div', null, track);
-    Object.assign(head.style, { position: 'absolute', top: '-4px', width: '3px', height: '16px', borderRadius: '2px', background: '#fff', boxShadow: '0 0 8px rgba(255,255,255,.7)' });
-    const s = { R, base, chs, main, pill, mono, head, ok: null };
+    Object.assign(head.style, { position: 'absolute', top: '-4px', width: '3px', height: '14px', borderRadius: '2px', background: PAL.ink, boxShadow: `0 0 8px ${rgba(PAL.ink, .7)}` });
+    const s = { R, base, chs, main, pill, idx, mono, head, ok: null };
     s.repaint = () => { paint(base); [['#ff0000'], ['#00ff00'], ['#0000ff']].forEach(([col], i) => { chs[i] = tint(base, col); }); };
     s.repaint();
     return s;
@@ -94,16 +105,17 @@ const demo = {
       if (L >= 3) {
         x.fillStyle = 'rgba(0,0,0,.24)';
         for (let y = 0; y < H; y += 4) x.fillRect(0, y, W, 2);
-        if (rr(3) > .72) { x.fillStyle = 'rgba(255,255,255,.14)'; x.fillRect(0, 0, W, H); }
+        if (rr(3) > .72) { x.fillStyle = rgba(PAL.ink, .14); x.fillRect(0, 0, W, H); }
         for (let j = 0; j < 3; j++) {
           const by = Math.floor(rr(60 + j) * 600), bw = 240 + Math.floor(rr(70 + j) * 360), bx = Math.floor(rr(80 + j) * (W - bw)), off = (rr(90 + j) - .5) * 220;
           x.drawImage(s.base, bx, by, bw, 34, bx + off, by, bw, 34);
         }
       }
     }
-    s.pill.textContent = L <= 1 ? '원본 · 효과 없음' : k < 0 ? '정상 화면 · 다음 글리치를 기다림' : L === 2 ? `RGB 분리 · 좌우 ${SPLIT}px` : 'RGB 분리 + 줄 찢기 + 주사선';
+    s.idx.textContent = L <= 1 ? '01' : k < 0 ? '02' : L === 2 ? '03' : '04';
+    s.pill.textContent = L <= 1 ? '원본 효과 없음' : k < 0 ? '정상 화면 대기' : L === 2 ? `RGB 분리 ${SPLIT}px` : 'RGB 분리 + 줄 찢기';
     s.mono.style.opacity = L >= 2 && k >= 0 ? 1 : 0;
-    s.mono.textContent = `R −${SPLIT} · B +${SPLIT}`;
+    s.mono.textContent = `R −${SPLIT}  B +${SPLIT}`;
     s.head.style.left = `calc(${(t / 5 * 100).toFixed(2)}% - 1px)`;
   },
 };

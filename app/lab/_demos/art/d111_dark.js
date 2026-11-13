@@ -13,6 +13,8 @@ const T_START = .3;           // 영상이 시작하고 공이 움직이기 전�
 const DUR = 6.6, HZ = 240, TEND = 3.2;
 const FONT = '40px "Black Han Sans"';
 const RIM = [500, 168];       // 림 중심(640×360 기준)
+const PAL = { bg0: '#171615', bg1: '#232120', ink: '#f2efe9', muted: '#9a958c', accent: '#5ad1c8', accent2: '#f2b84b', surface: '#1f1d1b', line: 'rgba(242,239,233,.22)' };
+const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
 
 function cv(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 
@@ -50,10 +52,10 @@ function ballAt(c) {          // 장면 시간 c 에서 공의 위치(640×360 �
 function paintBg(c, r) {
   const x = c.getContext('2d'), W = 1280, H = 720;
   let g = x.createLinearGradient(0, 0, 0, H);
-  g.addColorStop(0, '#0b0f1a'); g.addColorStop(.55, '#1a2238'); g.addColorStop(.62, '#2a1d14'); g.addColorStop(1, '#14100c');
+  g.addColorStop(0, PAL.bg0); g.addColorStop(.55, PAL.bg1); g.addColorStop(.62, '#2a1d14'); g.addColorStop(1, '#14100c');
   x.fillStyle = g; x.fillRect(0, 0, W, H);
   for (let i = 0; i < 28; i++) {                                // 관중석 불빛(반경이 다른 보케)
-    const px = r() * W, py = 30 + r() * 330, rad = 14 + r() * 38, hue = [[255, 190, 110], [150, 190, 255], [255, 140, 120]][Math.floor(r() * 3)];
+    const px = r() * W, py = 30 + r() * 330, rad = 14 + r() * 38, hue = [[255, 190, 110], [90, 209, 200], [255, 140, 120]][Math.floor(r() * 3)];
     const rg = x.createRadialGradient(px, py, 0, px, py, rad); rg.addColorStop(0, `rgba(${hue},${.14 + r() * .2})`); rg.addColorStop(1, `rgba(${hue},0)`);
     x.fillStyle = rg; x.fillRect(px - rad, py - rad, rad * 2, rad * 2);
   }
@@ -65,10 +67,10 @@ function paintBg(c, r) {
   const gl = x.createLinearGradient(0, 600, 0, 640); gl.addColorStop(0, 'rgba(255,230,190,.35)'); gl.addColorStop(1, 'rgba(255,230,190,0)');
   x.fillStyle = gl; x.fillRect(0, 600, W, 40);
   const [rx, ry] = RIM.map((v) => v * 2);
-  x.fillStyle = '#2c3140'; x.fillRect(rx + 84, ry + 8, 18, 640 - ry - 8 - 40);          // 기둥
-  const bb = x.createLinearGradient(rx + 60, 0, rx + 140, 0); bb.addColorStop(0, 'rgba(210,225,245,.42)'); bb.addColorStop(1, 'rgba(160,185,220,.22)');
+  x.fillStyle = '#34312e'; x.fillRect(rx + 84, ry + 8, 18, 640 - ry - 8 - 40);          // 기둥
+  const bb = x.createLinearGradient(rx + 60, 0, rx + 140, 0); bb.addColorStop(0, rgba(PAL.ink, .38)); bb.addColorStop(1, rgba(PAL.ink, .16));
   x.fillStyle = bb; x.fillRect(rx + 56, ry - 150, 78, 190);                                // 백보드
-  x.strokeStyle = 'rgba(255,255,255,.75)'; x.lineWidth = 4; x.strokeRect(rx + 56, ry - 150, 78, 190); x.strokeRect(rx + 66, ry - 40, 48, 46);
+  x.strokeStyle = rgba(PAL.ink, .75); x.lineWidth = 4; x.strokeRect(rx + 56, ry - 150, 78, 190); x.strokeRect(rx + 66, ry - 40, 48, 46);
   x.strokeStyle = '#e8641c'; x.lineWidth = 9;                                            // 림 뒤쪽 반
   x.beginPath(); x.ellipse(rx, ry, 48, 12, 0, Math.PI, Math.PI * 2); x.stroke();
   x.fillStyle = '#e8641c'; x.fillRect(rx + 44, ry - 6, 16, 10);
@@ -76,7 +78,7 @@ function paintBg(c, r) {
 
 function paintFg(c) {
   const x = c.getContext('2d'), [rx, ry] = RIM.map((v) => v * 2);
-  x.strokeStyle = 'rgba(255,255,255,.55)'; x.lineWidth = 2.5;                              // 그물
+  x.strokeStyle = rgba(PAL.ink, .55); x.lineWidth = 2.5;                              // 그물
   for (let i = 0; i <= 8; i++) { const a = i / 8, tx = lerp(-46, 46, a), bx = lerp(-26, 26, a); x.beginPath(); x.moveTo(rx + tx, ry + 4); x.lineTo(rx + bx, ry + 90); x.stroke(); }
   for (let j = 1; j <= 4; j++) { const q = j / 4.5, w = lerp(46, 26, q); x.beginPath(); x.ellipse(rx, ry + 4 + 86 * q, w, 5, 0, 0, Math.PI); x.stroke(); }
   x.strokeStyle = '#ff7a2a'; x.lineWidth = 9;                                              // 림 앞쪽 반
@@ -104,12 +106,17 @@ const demo = {
     const r = rng(33), css = (e, o) => Object.assign(e.style, o);
     const main = el('canvas', null, sp);
     main.width = 1280; main.height = 720; css(main, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
-    const pill = el('div', null, sp);
-    css(pill, { position: 'absolute', left: '20px', top: '18px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.72)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif" });
+    // 숫자 이름표: 큰 숫자 = 지금 단계(1 일정한 속도, 2 속도 램프, 3 정지 프레임)
+    const lab = el('div', null, sp);
+    css(lab, { position: 'absolute', left: '18px', top: '12px', display: 'flex', alignItems: 'center', gap: '10px', textShadow: '0 2px 10px rgba(0,0,0,.7)' });
+    const num = el('span', null, lab);
+    css(num, { color: PAL.accent, font: "40px/1 'Black Han Sans',sans-serif" });
+    const pill = el('span', null, lab);
+    css(pill, { color: PAL.ink, font: "500 13px/1.2 'IBM Plex Sans KR',sans-serif", whiteSpace: 'nowrap' });
     const badge = el('div', null, sp);
-    css(badge, { position: 'absolute', right: '20px', top: '14px', padding: '6px 12px', borderRadius: '8px', background: 'rgba(8,10,20,.72)', color: '#fff', font: "500 22px/1 'JetBrains Mono',monospace", minWidth: '88px', textAlign: 'center' });
+    css(badge, { position: 'absolute', right: '20px', top: '14px', padding: '6px 12px', borderRadius: '2px', borderLeft: `3px solid ${PAL.accent}`, background: PAL.surface, color: PAL.ink, font: "600 22px/1 'JetBrains Mono',monospace", minWidth: '88px', textAlign: 'center' });
     const modes = [0, 1, 2].map(sim);
-    const s = { main, pill, badge, modes, bg: cv(1280, 720), fg: cv(1280, 720), ok: null };
+    const s = { main, pill, num, badge, modes, bg: cv(1280, 720), fg: cv(1280, 720), ok: null };
     paintBg(s.bg, r); paintFg(s.fg);
     return s;
   },
@@ -136,24 +143,26 @@ const demo = {
       x.fillStyle = vg; x.fillRect(0, 0, 640, 360);
       x.globalCompositeOperation = 'saturation'; x.fillStyle = `rgba(128,128,128,${(.55 * k).toFixed(3)})`; x.fillRect(0, 0, 640, 360); x.globalCompositeOperation = 'source-over';
       const fl = Math.max(0, 1 - (t - m.fs) / .16); if (fl > 0) { x.fillStyle = `rgba(255,255,255,${(.38 * fl).toFixed(3)})`; x.fillRect(0, 0, 640, 360); }
-      for (let q = 0; q < 2; q++) { const u = ((t - m.fs) * 1.6 + q * .5) % 1; x.strokeStyle = `rgba(255,236,200,${(.7 * (1 - u) * k).toFixed(3)})`; x.lineWidth = 2.5; x.beginPath(); x.arc(bx, by, 18 + u * 80, 0, Math.PI * 2); x.stroke(); }
-      const g = x.createRadialGradient(bx, by, 0, bx, by, 46); g.addColorStop(0, `rgba(255,214,150,${(.5 * k).toFixed(3)})`); g.addColorStop(1, 'rgba(255,214,150,0)'); x.fillStyle = g; x.fillRect(bx - 50, by - 50, 100, 100);
-      x.globalAlpha = k; x.fillStyle = '#fff'; x.font = '400 40px "Black Han Sans", sans-serif'; x.textAlign = 'left'; x.fillText('FREEZE', 24, 106); x.globalAlpha = 1;
+      for (let q = 0; q < 2; q++) { const u = ((t - m.fs) * 1.6 + q * .5) % 1; x.strokeStyle = `rgba(90,209,200,${(.85 * (1 - u) * k).toFixed(3)})`; x.lineWidth = 2.5; x.beginPath(); x.arc(bx, by, 18 + u * 80, 0, Math.PI * 2); x.stroke(); }
+      const g = x.createRadialGradient(bx, by, 0, bx, by, 46); g.addColorStop(0, `rgba(242,184,75,${(.5 * k).toFixed(3)})`); g.addColorStop(1, 'rgba(242,184,75,0)'); x.fillStyle = g; x.fillRect(bx - 50, by - 50, 100, 100);
+      x.globalAlpha = k; x.fillStyle = PAL.ink; x.font = '400 40px "Black Han Sans", sans-serif'; x.textAlign = 'left'; x.fillText('FREEZE', 24, 106); x.globalAlpha = 1;
     }
     const gx0 = 20, gy0 = 296, gw = 330, gh = 46;                                             // 재생 속도 그래프
-    x.fillStyle = 'rgba(8,10,20,.72)'; x.fillRect(gx0 - 8, gy0 - 14, gw + 16, gh + 22);
-    x.fillStyle = 'rgba(255,255,255,.8)'; x.font = '500 10px "JetBrains Mono", monospace'; x.textAlign = 'left'; x.fillText('재생 속도(1× = 원래 속도)', gx0, gy0 - 3);
+    x.fillStyle = rgba(PAL.surface, .88); x.fillRect(gx0 - 8, gy0 - 14, gw + 16, gh + 22);
+    x.strokeStyle = PAL.line; x.lineWidth = 1; x.strokeRect(gx0 - 7.5, gy0 - 13.5, gw + 15, gh + 21);
+    x.fillStyle = PAL.muted; x.font = '500 10px "JetBrains Mono", monospace'; x.textAlign = 'left'; x.fillText('재생 속도(1× = 원래 속도)', gx0, gy0 - 3);
     const sy = (v) => gy0 + gh - (v / 1.6) * gh;
-    x.strokeStyle = 'rgba(255,255,255,.35)'; x.lineWidth = 1; x.setLineDash([3, 3]); x.beginPath(); x.moveTo(gx0, sy(1)); x.lineTo(gx0 + gw, sy(1)); x.stroke(); x.setLineDash([]);
+    x.strokeStyle = rgba(PAL.ink, .35); x.lineWidth = 1; x.setLineDash([3, 3]); x.beginPath(); x.moveTo(gx0, sy(1)); x.lineTo(gx0 + gw, sy(1)); x.stroke(); x.setLineDash([]);
     x.beginPath(); x.moveTo(gx0, sy(0));
     for (let q = 0; q <= 220; q++) { const ti = Math.min(m.tau.length - 2, Math.round(q / 220 * DUR * HZ)); x.lineTo(gx0 + q / 220 * gw, sy(Math.min(1.6, rate(ti)))); }
     x.lineTo(gx0 + gw, sy(0)); x.closePath();
-    const fg = x.createLinearGradient(0, gy0, 0, gy0 + gh); fg.addColorStop(0, 'rgba(255,170,80,.75)'); fg.addColorStop(1, 'rgba(255,170,80,.15)');
-    x.fillStyle = fg; x.fill(); x.strokeStyle = '#ffc47a'; x.lineWidth = 1.5; x.stroke();
-    x.fillStyle = '#fff'; x.fillRect(gx0 + t / DUR * gw - 1, gy0 - 2, 2, gh + 4);
-    s.pill.textContent = L <= 1 ? '일정한 속도 · 1.0배' : frozen ? `정지 프레임 · ${FREEZE.toFixed(1)}초 멈춤` : spd < .7 ? `슬로모션 · ${spd.toFixed(2)}배속` : spd > 1.05 ? `빨라지는 중 · ${spd.toFixed(1)}배속` : `속도 램프 · ${spd.toFixed(2)}배속`;
+    const fg = x.createLinearGradient(0, gy0, 0, gy0 + gh); fg.addColorStop(0, rgba(PAL.accent2, .75)); fg.addColorStop(1, rgba(PAL.accent2, .15));
+    x.fillStyle = fg; x.fill(); x.strokeStyle = PAL.accent2; x.lineWidth = 1.5; x.stroke();
+    x.fillStyle = PAL.ink; x.fillRect(gx0 + t / DUR * gw - 1, gy0 - 2, 2, gh + 4);
+    s.num.textContent = L <= 1 ? 1 : frozen ? 3 : 2;
+    s.pill.textContent = L <= 1 ? '일정한 속도 1.0배' : frozen ? `정지 프레임 ${FREEZE.toFixed(1)}초 멈춤` : spd < .7 ? `슬로모션 ${spd.toFixed(2)}배속` : spd > 1.05 ? `빨라지는 중 ${spd.toFixed(1)}배속` : `속도 램프 ${spd.toFixed(2)}배속`;
     s.badge.textContent = frozen ? '정지' : `${spd.toFixed(2)}×`;
-    s.badge.style.color = frozen ? '#ffd9a0' : spd < .7 ? '#9fd8ff' : '#fff';
+    s.badge.style.color = frozen ? PAL.accent2 : spd < .7 ? PAL.accent : PAL.ink;
   },
 };
 export default demo;

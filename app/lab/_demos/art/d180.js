@@ -3,6 +3,10 @@
 // 만들어진 파일 — 원본: source/pages/sound-glitch-shutter/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el, rng, rr } from "./helpers.js";
 
+const PAL = { bg0: '#0b0f1a', bg1: '#161d30', ink: '#f4efe4', muted: '#8b94a3', accent: '#ffb36b', accent2: '#ffd27a', surface: '#131a2b', line: 'rgba(244,239,228,.14)' };
+const al = (h, a) => `rgba(${[1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)).join(',')},${a})`;   // PAL 색에 투명도를 준다
+const C_CLEAN = '#7fd6c9', C_GL = PAL.accent2, C_SH = '#ff8fc4', C_DROP = '#ff6b6b';   // 층별 색(파형 줄, 색 띠)
+
 // 깨끗한 4음 + 클릭 한 번(기본)에, 글리치(조각 반복·비트 깎기·무음 구멍)와 2단 셔터 소리를 단계별로 얹은 소리의 '모양'을 코드로 합성해 파형·스펙트럼으로 보여 준다. 재생은 없다.
 const GL_SLICE = 0.06;       // 되풀이하는 소리 조각 하나의 길이(초). 작을수록 잘게 떨린다
 const GL_REPEAT = 6;         // 같은 조각을 이어 붙이는 횟수
@@ -13,8 +17,8 @@ const GL_START = 0.7, CR_A = 1.1, CR_B = 1.55, SH_T = 2.2, TOT = 3.6;
 const DROPS = [1.3, 1.45], DROP_LEN = 0.03;
 const REF = 29;              // 스펙트럼 색 눈금의 기준 크기(dB). 이 합성 결과의 가장 센 값에 맞춘 표시용 눈금
 const SR = 16000, TAU = Math.PI * 2;
-const SANS = "'IBM Plex Sans KR','Malgun Gothic',sans-serif", MONO = "'JetBrains Mono',monospace";
-const TX2 = '#98a2b5';
+const SANS = "'IBM Plex Sans KR','Malgun Gothic',sans-serif", MONO = "'JetBrains Mono',monospace", DISP = "'Black Han Sans','Malgun Gothic',sans-serif";
+const TX2 = PAL.muted, INK = PAL.ink;
 
 // ---- 신호 처리 도구 ----
 const mk = (s) => new Float32Array(Math.round(s * SR));
@@ -80,15 +84,15 @@ function synth() {
 // ---- 그리기 도구 ----
 function tx(c, s, x, y, size, col, wt, al, font) { c.save(); c.fillStyle = col; c.font = (wt || 500) + ' ' + size + 'px ' + (font || SANS); c.textAlign = al || 'left'; c.textBaseline = 'alphabetic'; c.fillText(s, x, y); c.restore(); }
 function bgFill(c, grain) {
-  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, '#0b0f1a'); g.addColorStop(1, '#070a12'); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
-  const r = c.createRadialGradient(470, 120, 10, 470, 120, 330); r.addColorStop(0, 'rgba(255,138,61,.07)'); r.addColorStop(1, 'rgba(255,138,61,0)'); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
+  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+  const r = c.createRadialGradient(470, 120, 10, 470, 120, 330); r.addColorStop(0, al(PAL.accent, .08)); r.addColorStop(1, al(PAL.accent, 0)); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
   c.globalAlpha = .05; c.fillStyle = c.createPattern(grain, 'repeat'); c.fillRect(0, 0, 640, 360); c.globalAlpha = 1;
 }
-function panel(c, x, y, w, h) { rr(c, x, y, w, h, 6); c.fillStyle = 'rgba(255,255,255,.035)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.09)'; c.lineWidth = 1; c.stroke(); }
+function panel(c, x, y, w, h) { rr(c, x, y, w, h, 6); c.fillStyle = PAL.surface; c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke(); }
 function wave(c, pk, x, y, w, h, col, rev, gain) {
   panel(c, x, y, w, h); const mid = y + h / 2, k = h / 2 * gain;
   for (let i = 0; i < pk.mn.length; i++) { c.fillStyle = i / pk.mn.length <= rev ? col : col + '4d'; const a = mid - pk.mx[i] * k, b = mid - pk.mn[i] * k; c.fillRect(x + i, a, 1, Math.max(1, b - a)); }
-  c.fillStyle = 'rgba(255,255,255,.14)'; c.fillRect(x, mid - .3, w, .6);
+  c.fillStyle = al(PAL.ink, .16); c.fillRect(x, mid - .3, w, .6);
 }
 function heat(v) {
   const S = [[0, 11, 15, 26], [.3, 62, 40, 124], [.6, 222, 92, 62], [.85, 255, 170, 70], [1, 255, 238, 196]];
@@ -114,35 +118,35 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 1 : (lv == null ? 3 : lv), c = s.ctx, X = 124, W = 500, ph = Math.min(1, t / TOT), q = s.b.st, px = (sec) => X + sec / TOT * W;
     c.setTransform(2, 0, 0, 2, 0, 0); c.globalAlpha = 1; bgFill(c, s.grain);
-    const lanes = [['깨끗한 4음', '#6fd3ff', s.pk.clean, 1], ['글리치 처리', '#ffd85c', s.pk.gd, 2], [L >= 3 ? '셔터(2단)' : '클릭 1번', '#ff7ac8', L >= 3 ? s.pk.sh : s.pk.c1, 1]];
+    const lanes = [['깨끗한 4음', C_CLEAN, s.pk.clean, 1], ['글리치 처리', C_GL, s.pk.gd, 2], [L >= 3 ? '셔터(2단)' : '클릭 1번', C_SH, L >= 3 ? s.pk.sh : s.pk.c1, 1]];
     lanes.forEach(([n, col, pk, need], i) => {
       const y = 46 + i * 30, on = L >= need;
-      tx(c, n, 16, y + 17, 12, on ? col : '#7d879a', 600);
-      if (on) wave(c, pk, X, y, W, 26, col, ph, 1.3); else { panel(c, X, y, W, 26); tx(c, '아직 없음', X + 10, y + 17, 11, '#7d879a', 500); }
+      tx(c, n, 16, y + 17, 12, on ? col : TX2, 600);
+      if (on) wave(c, pk, X, y, W, 26, col, ph, 1.3); else { panel(c, X, y, W, 26); tx(c, '아직 없음', X + 10, y + 17, 11, TX2, 500); }
     });
     if (L >= 2) {   // 글리치 줄 위에 어디가 어떻게 바뀌었는지 색 띠로 표시
-      const y = 76; c.fillStyle = '#ffb27f'; c.fillRect(px(GL_START), y, GL_REPEAT * GL_SLICE / TOT * W, 3);
-      c.fillStyle = '#6fd3ff'; c.fillRect(px(CR_A), y, (CR_B - CR_A) / TOT * W, 3);
-      c.fillStyle = '#ff6b6b'; DROPS.forEach((t0) => c.fillRect(px(t0) - 1, y - 1, Math.max(3, DROP_LEN / TOT * W), 28));
+      const y = 76; c.fillStyle = PAL.accent; c.fillRect(px(GL_START), y, GL_REPEAT * GL_SLICE / TOT * W, 3);
+      c.fillStyle = C_CLEAN; c.fillRect(px(CR_A), y, (CR_B - CR_A) / TOT * W, 3);
+      c.fillStyle = C_DROP; DROPS.forEach((t0) => c.fillRect(px(t0) - 1, y - 1, Math.max(3, DROP_LEN / TOT * W), 28));
     }
-    wave(c, s.pk.mix[L - 1], X, 140, W, 34, '#f4efe4', ph, 1);
-    tx(c, '합친 소리', 16, 161, 12, '#f4efe4', 700);
+    wave(c, s.pk.mix[L - 1], X, 140, W, 34, INK, ph, 1);
+    tx(c, '합친 소리', 16, 161, 12, INK, 700);
     specDraw(c, s.spec(L), s.T, X, 182, W, 92, s.ref, ph);
     [[100, '100'], [1000, '1k'], [5000, '5k']].forEach(([f, l]) => tx(c, l, X - 6, fy(f, 182, 92) + 4, 10, TX2, 500, 'right', MONO));
-    tx(c, '스펙트럼', 16, 232, 12, '#ffb27f', 700);
+    tx(c, '스펙트럼', 16, 232, 12, PAL.accent, 700);
     if (L >= 3 && q.on3.length > 1) {   // 첫 소리 ~ 둘째 막 소리 사이(셔터가 열려 있는 시간)를 띠로 표시
       const x0 = px(q.on3[0] / 1000), x1 = px(q.on3[1] / 1000);
-      c.fillStyle = 'rgba(255,122,200,.34)'; c.fillRect(x0, 106, x1 - x0, 168); c.fillStyle = 'rgba(255,122,200,.8)'; c.fillRect(x0 - .5, 106, 1, 168); c.fillRect(x1 - .5, 106, 1, 168);
-      if (x1 - x0 > 56) tx(c, '노출 시간', (x0 + x1) / 2, 197, 10.5, '#ffb3dd', 600, 'center');
+      c.fillStyle = al(C_SH, .32); c.fillRect(x0, 106, x1 - x0, 168); c.fillStyle = al(C_SH, .85); c.fillRect(x0 - .5, 106, 1, 168); c.fillRect(x1 - .5, 106, 1, 168);
+      if (x1 - x0 > 56) tx(c, '노출 시간', (x0 + x1) / 2, 197, 10.5, '#ffc4e0', 600, 'center');
     }
-    const xx = X + ph * W; c.fillStyle = 'rgba(255,138,61,.95)'; c.fillRect(xx - .7, 42, 1.4, 232);
+    const xx = X + ph * W; c.fillStyle = al(PAL.accent, .95); c.fillRect(xx - .7, 42, 1.4, 232);
     let y = 292;
-    if (L >= 2) { tx(c, `글리치  같은 ${(GL_SLICE * 1000).toFixed(0)}ms 조각 연속 ${q.rep}번 · 무음 구멍 ${q.holes0}개 → ${q.holes1}개 · 샘플 값 가짓수 ${q.v0} → ${q.v1}`, 16, y, 10.5, '#ffd85c', 500, 'left', MONO); y += 15; }
+    if (L >= 2) { tx(c, `글리치  같은 ${(GL_SLICE * 1000).toFixed(0)}ms 조각 연속 ${q.rep}번 · 무음 구멍 ${q.holes0}개 → ${q.holes1}개 · 샘플 값 가짓수 ${q.v0} → ${q.v1}`, 16, y, 10.5, C_GL, 500, 'left', MONO); y += 15; }
     else { tx(c, '글리치  없음(깨끗한 4음 그대로)', 16, y, 10.5, TX2, 500, 'left', MONO); y += 15; }
     const on = L >= 3 ? q.on3 : q.on1;
-    tx(c, L >= 3 ? `셔터  시작 ${on.length}번 · 첫 소리 → 둘째 막 소리 간격 ${on.length > 1 ? on[1] - on[0] : 0}ms` : `클릭  시작 ${on.length}번 (${on[0]}ms 지점)`, 16, y, 10.5, '#ff9fd6', 500, 'left', MONO);
+    tx(c, L >= 3 ? `셔터  시작 ${on.length}번 · 첫 소리 → 둘째 막 소리 간격 ${on.length > 1 ? on[1] - on[0] : 0}ms` : `클릭  시작 ${on.length}번 (${on[0]}ms 지점)`, 16, y, 10.5, '#ffa8d2', 500, 'left', MONO);
     tx(c, '재생 버튼 없음 · 파형·스펙트럼은 코드로 합성한 값입니다. 소리는 직접 들어 보고 판단하세요.', 16, 348, 10.5, TX2, 500);
-    if (L >= 2) { tx(c, '색 띠', 16, 328, 10.5, TX2, 500); [['#ffb27f', '조각 반복', 52], ['#6fd3ff', '비트 깎기', 112], ['#ff6b6b', '무음 구멍', 172]].forEach(([col, n, x]) => { c.fillStyle = col; c.fillRect(x, 321, 8, 8); tx(c, n, x + 12, 329, 10.5, TX2, 500); }); }
+    if (L >= 2) { tx(c, '색 띠', 16, 328, 10.5, TX2, 500); [[PAL.accent, '조각 반복', 52], [C_CLEAN, '비트 깎기', 112], [C_DROP, '무음 구멍', 172]].forEach(([col, n, x]) => { c.fillStyle = col; c.fillRect(x, 321, 8, 8); tx(c, n, x + 12, 329, 10.5, TX2, 500); }); }
     let post;
     if (L === 1) post = '연출 전 · 깨끗한 4음 + 클릭 한 번';
     else if (t < GL_START) post = '글리치 전 · 깨끗한 음';
@@ -151,7 +155,7 @@ const demo = {
     else if (t < SH_T) post = '글리치 구간이 끝남 · 다음은 셔터';
     else if (L >= 3) post = t < SH_T + SH_GAP ? '셔터 ①: 거울 + 첫 막 소리' : '셔터 ②: 둘째 막 소리(간격 = 노출 시간)';
     else post = '클릭 한 번 · 기본';
-    c.font = '500 12px ' + SANS; const pw = c.measureText(post).width + 24; rr(c, 14, 12, pw, 24, 12); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.12)'; c.stroke(); tx(c, post, 26, 28, 12, '#fff', 500);
+    tx(c, String(L), 16, 34, 40, PAL.accent, 400, 'left', DISP); tx(c, post, 50, 26, 13, INK, 500);   // 이름표(numeral): 큰 단계 번호와 한 줄 설명
   },
 };
 export default demo;

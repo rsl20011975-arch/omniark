@@ -25,8 +25,7 @@ export default function TipsPanel({ tips }: { tips: Tip[] }) {
                 <button type="button" className="btn small" aria-pressed={on} onClick={() => apply(on ? null : t.id)}>
                   {on ? "적용 끄기" : "이 팁 적용해서 보기"}
                 </button>
-                <span className="badge ok">확인</span>
-                <span className="tip-v">데모에서 이 값만 바꿔 같은 장면을 나란히 비교해 확인했습니다</span>
+                <span className="badge ok" title="데모에서 이 값만 바꿔 같은 장면과 비교해 확인했습니다">확인</span>
               </div>
             </div>
           </article>

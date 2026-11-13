@@ -8,6 +8,8 @@ const TRANS = .7;                 // 전환 시간(초). 원이 퍼지는 길이
 const ORIGIN = [320, 180];         // 원이 시작하는 점(토글 스위치의 가운데)
 const T_SW = 1;                   // 토글을 누른 뒤 전환이 시작하는 시각(초)
 const DARK_BG = '#0f1320';        // 다크 배경(순검정이 아니라 어두운 남색)
+// 장면(주문 현황 화면)의 라이트·다크 색은 이 페이지의 내용이라 그대로 두고, 아래 띠(이름표 자리)만 팔레트를 쓴다
+const PAL = { bg0: '#1b0e17', bg1: '#2b1424', ink: '#f6e9ee', muted: '#b095a3', accent: '#ff7aa8', accent2: '#ffd0a0', surface: '#26121f', line: 'rgba(246,233,238,.22)' };
 const box = (e, o) => Object.assign(e.style, o);
 
 const LIGHT = { bg: '#eef1f6', card: '#ffffff', text: '#161b26', sub: '#5b6578', line: '#d9dfea', accent: '#e8590c', accentText: '#ffffff', dim: '#cbd3e1', chip: '#e1f5ea', chipText: '#0f6a3e', shadow: '0 4px 14px rgba(20,30,60,.10)' };
@@ -22,7 +24,7 @@ const FONT = "'IBM Plex Sans KR',sans-serif";
 
 function ui(parent, P, dark) {
   const root = el('div', null, parent);
-  box(root, { position: 'absolute', inset: '0', background: P.bg, overflow: 'hidden' });
+  box(root, { position: 'absolute', left: '0', top: '0', right: '0', bottom: '44px', background: P.bg, overflow: 'hidden' });
   const put = (css, text, par) => { const e = el('div', null, par || root, text); box(e, Object.assign({ position: 'absolute' }, css)); return e; };
   const hd = put({ left: '0', top: '0', right: '0', height: '44px', background: P.card, borderBottom: '1px solid ' + P.line }, '');
   put({ left: '20px', top: '13px', font: `700 16px/1 ${FONT}`, color: P.text }, '주문 현황');
@@ -57,11 +59,15 @@ const demo = {
     const naive = ui(sp, INVERT, true), designed = ui(sp, DESIGNED, true);
     const ring = el('div', null, sp);
     box(ring, { position: 'absolute', borderRadius: '50%', border: '2px solid rgba(255,255,255,.35)', opacity: '0', boxSizing: 'border-box' });
+    const bar = el('div', null, sp);
+    box(bar, { position: 'absolute', left: '0', right: '0', bottom: '0', height: '44px', background: `linear-gradient(180deg,${PAL.bg1} 0%,${PAL.bg0} 100%)`, borderTop: `1px solid ${PAL.line}` });
+    const num = el('div', null, sp);
+    box(num, { position: 'absolute', left: '18px', top: '319px', font: "400 40px/1 'Black Han Sans',sans-serif", color: PAL.accent });
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '324px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.78)', color: '#fff', font: `500 14px/1 ${FONT}` });
+    box(pill, { position: 'absolute', left: '54px', top: '331px', font: `500 13px/1.2 ${FONT}`, color: PAL.ink });
     const rd = el('div', null, sp);
-    box(rd, { position: 'absolute', right: '20px', top: '324px', padding: '7px 12px', borderRadius: '8px', background: 'rgba(8,10,20,.78)', color: '#fff', font: "500 13px/1 'JetBrains Mono',monospace" });
-    return { lightUI, naive, designed, ring, pill, rd };
+    box(rd, { position: 'absolute', right: '18px', top: '332px', font: "400 12px/1.2 'JetBrains Mono',monospace", color: PAL.muted });
+    return { lightUI, naive, designed, ring, pill, rd, num };
   },
   render(s, t, a, lv) {
     const L = !a ? 1 : (lv == null ? 3 : lv);   // 1 = 색만 뒤집고 컷, 2 = 다크 색을 따로 정해 컷, 3 = + 원이 퍼지는 전환
@@ -81,8 +87,9 @@ const demo = {
     dk.knob.style.left = '26px';
     const darkNow = p > .5;
     const P = darkNow ? (L >= 2 ? DESIGNED : INVERT) : LIGHT;
-    s.pill.textContent = L === 1 ? (darkNow ? '색만 뒤집은 다크 · 컷' : '라이트') : (L === 2 ? (darkNow ? '다크 색을 따로 정함 · 컷' : '라이트') : (p > 0 && p < 1 ? '전환 중 · ' + TRANS + '초, 토글에서 원이 퍼짐' : (darkNow ? '다크 · 설계한 색' : '라이트')));
-    s.rd.textContent = '글자 대비 ' + ratio(P.text, P.card).toFixed(1) + ':1 · 배경 ' + P.bg;
+    s.num.textContent = p <= 0 ? '1' : (p < 1 ? '2' : '3');
+    s.pill.textContent = L === 1 ? (darkNow ? '색만 뒤집은 다크, 컷으로 전환' : '라이트') : (L === 2 ? (darkNow ? '다크 색을 따로 정함, 컷으로 전환' : '라이트') : (p > 0 && p < 1 ? '전환 중: ' + TRANS + '초 동안 토글에서 원이 퍼짐' : (darkNow ? '다크: 따로 설계한 색' : '라이트')));
+    s.rd.textContent = '글자 대비 ' + ratio(P.text, P.card).toFixed(1) + ':1, 배경 ' + P.bg;
   },
 };
 export default demo;

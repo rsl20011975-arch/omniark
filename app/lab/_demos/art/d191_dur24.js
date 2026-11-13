@@ -8,15 +8,30 @@ import { seg, lerp, E, rng, canvas, rr } from "./helpers.js";
 const DIST = 480;                 // 공이 오른쪽으로 가는 거리
 const DUR = 2.4;                  // 움직이는 시간(초)
 const DELAY = 0.4;                // 출발 전 기다리는 시간(초)
+const PAL = { bg0: "#1f3a8a", bg1: "#172a63", ink: "#f3f6ff", muted: "#aebcf0", accent: "#ffd166", accent2: "#7fe0ff", surface: "#1b3274", line: "rgba(243,246,255,.22)" };
 const SANS = '"IBM Plex Sans KR","Malgun Gothic",sans-serif', MONO = '"JetBrains Mono","Malgun Gothic",monospace';
 const T = (c, s, x, y, z, col, w, al, f) => { c.save(); c.fillStyle = col; c.font = (w || 500) + " " + z + "px " + (f || SANS); c.textAlign = al || "left"; c.textBaseline = "alphabetic"; c.fillText(s, x, y); c.restore(); };
 function grainTile(seed) { const g = document.createElement("canvas"); g.width = g.height = 96; const x = g.getContext("2d"), im = x.createImageData(96, 96), r = rng(seed); for (let i = 0; i < 96 * 96; i++) { const v = (r() * 255) | 0; im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = v; im.data[i * 4 + 3] = 255; } x.putImageData(im, 0, 0); return g; }
 function backdrop(c, grain) {
-  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, "#0e1424"); g.addColorStop(1, "#080b13"); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
-  const r = c.createRadialGradient(320, 150, 20, 320, 150, 360); r.addColorStop(0, "rgba(70,110,190,.10)"); r.addColorStop(1, "rgba(70,110,190,0)"); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
+  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+  const r = c.createRadialGradient(320, 150, 20, 320, 150, 360); r.addColorStop(0, "rgba(127,224,255,.10)"); r.addColorStop(1, "rgba(127,224,255,0)"); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
   c.save(); c.globalAlpha = 0.045; c.fillStyle = c.createPattern(grain, "repeat"); c.fillRect(0, 0, 640, 360); c.restore();
 }
-function pill(c, s) { c.save(); c.font = "500 12px " + SANS; const w = c.measureText(s).width + 22; rr(c, 14, 12, w, 22, 11); c.fillStyle = "rgba(8,10,20,.78)"; c.fill(); c.strokeStyle = "rgba(255,255,255,.16)"; c.lineWidth = 1; c.stroke(); c.restore(); T(c, s, 25, 27, 12, "#fff", 500); }
+// 왼쪽 가장자리 세로 이름표(글자를 위에서 아래로 세워 쌓는다). 지금 단계만 ink, 나머지는 muted
+function vlabel(c, items, cur) {
+  c.save(); c.textBaseline = "middle"; c.textAlign = "center";
+  c.fillStyle = PAL.line; c.fillRect(13, 40, 1, 306);
+  let y = 42;
+  items.forEach((s, i) => {
+    const on = i === cur, adv = (ch) => (ch === " " ? 6 : (/[A-Za-z0-9.]/.test(ch) ? 9 : 13.5));
+    const len = [...s].reduce((a, ch) => a + adv(ch), 0);
+    if (on) { c.fillStyle = PAL.accent; c.fillRect(12, y - 2, 3, len + 4); }
+    c.font = (on ? 600 : 500) + " 12px " + SANS; c.fillStyle = on ? PAL.ink : PAL.muted;
+    let yy = y; [...s].forEach((ch) => { if (ch !== " ") c.fillText(ch, 24, yy + adv(ch) / 2); yy += adv(ch); });
+    y += len + 14;
+  });
+  c.restore();
+}
 function ball(c, x, y, r) {
   const sh = c.createRadialGradient(x + 3, y + r + 4, 1, x + 3, y + r + 4, r * 1.3); sh.addColorStop(0, "rgba(0,0,0,.5)"); sh.addColorStop(1, "rgba(0,0,0,0)");
   c.save(); c.translate(0, y + r + 4); c.scale(1, 0.28); c.translate(0, -(y + r + 4)); c.fillStyle = sh; c.beginPath(); c.arc(x + 3, y + r + 4, r * 1.3, 0, 7); c.fill(); c.restore();
@@ -32,14 +47,14 @@ function codeLine(c, line, x, y) {
   c.font = "500 10px " + MONO; c.textBaseline = "alphabetic"; c.textAlign = "left";
   const put = (s, col) => { c.fillStyle = col; c.fillText(s, cx, y); cx += c.measureText(s).width; };
   while ((m = re.exec(line))) {
-    if (m.index > last) put(line.slice(last, m.index), "#c9d1e0");
-    const k = m[0]; put(k, k[0] === '"' || k[0] === "'" ? "#9be7a5" : (k.startsWith("//") ? "#7d8aa3" : (/^\d/.test(k) ? "#ffb870" : "#8ec1ff")));
+    if (m.index > last) put(line.slice(last, m.index), PAL.ink);
+    const k = m[0]; put(k, k[0] === '"' || k[0] === "'" ? "#9be7a5" : (k.startsWith("//") ? PAL.muted : (/^\d/.test(k) ? PAL.accent : PAL.accent2)));
     last = m.index + k.length;
   }
-  if (last < line.length) put(line.slice(last), "#c9d1e0");
+  if (last < line.length) put(line.slice(last), PAL.ink);
 }
 const f1 = (v) => String(+v.toFixed(1));
-const CELL = [[14, 40], [320, 40], [14, 196], [320, 196]], CW = 306, CH = 150;
+const CELL = [[36, 40], [332, 40], [36, 196], [332, 196]], CW = 290, CH = 150;
 
 // 칸마다 배경(그 도구가 그리는 장면의 분위기)과 공 모양
 const STRIP = {
@@ -80,18 +95,20 @@ const demo = {
     cells.forEach((cl, i) => {
       const [x, y] = CELL[i];
       if (i >= count) {
-        c.fillStyle = "rgba(255,255,255,.03)"; rr(c, x, y, CW, CH, 10); c.fill(); c.strokeStyle = "rgba(255,255,255,.1)"; c.lineWidth = 1; c.setLineDash([4, 5]); c.stroke(); c.setLineDash([]);
-        T(c, cl.n + " — " + (i + 2) + "단계에서", x + CW / 2, y + CH / 2 + 4, 12, "#6f7a8f", 500, "center"); return;
+        c.fillStyle = "rgba(243,246,255,.04)"; rr(c, x, y, CW, CH, 10); c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.setLineDash([4, 5]); c.stroke(); c.setLineDash([]);
+        T(c, cl.n + " — " + (i + 2) + "단계에서", x + CW / 2, y + CH / 2 + 4, 12, PAL.muted, 500, "center"); return;
       }
-      c.fillStyle = "rgba(255,255,255,.055)"; rr(c, x, y, CW, CH, 10); c.fill(); c.strokeStyle = "rgba(255,255,255,.12)"; c.lineWidth = 1; c.stroke();
-      c.fillStyle = cl.col; rr(c, x + 10, y + 8, 8, 8, 2); c.fill(); T(c, cl.n, x + 24, y + 16, 12, "#fff", 700); T(c, cl.d, x + 24 + cl.n.length * 7.4 + 8, y + 16, 10.5, "#a9b3c4", 500);
+      c.fillStyle = PAL.surface; rr(c, x, y, CW, CH, 10); c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke();
+      c.fillStyle = cl.col; rr(c, x + 10, y + 8, 8, 8, 2); c.fill(); T(c, cl.n, x + 24, y + 16, 12, PAL.ink, 700); T(c, cl.d, x + 24 + cl.n.length * 7.4 + 8, y + 16, 10.5, PAL.muted, 500);
       const sx = x + 10, sy = y + 24, sw = CW - 20, sh = 56;
       STRIP[cl.key](c, sx, sy, sw, sh);
       const bx = sx + 30 + travel * pr, by = sy + (cl.key === "d3" ? 22 : 24);
       if (cl.ball === 0) ball(c, bx, by, 10); else if (cl.ball === 1) flat(c, bx, by + 2, 10.5, "#1d2433"); else flat(c, bx, by, 10, "#ffffff");
       cl.lines.forEach((l, k) => codeLine(c, l, x + 12, y + 96 + k * 11.8));
     });
-    pill(c, L === 0 ? "연출 전 · 같은 속도로 가는 공(직선)" : (L === 1 ? "Three.js · 프레임마다 위치를 직접 계산(직선)" : (L === 2 ? "Three.js · 끝에서 감속(easeOut)" : (L === 3 ? "Babylon.js 도 같은 방식(렌더 루프)" : (L === 4 ? "p5.js · draw() 가 반복 실행되는 스케치" : "D3 · 전환(transition)이 보간을 대신 해 준다")))));
+    const names = ["등속", "감속", "Babylon", "p5.js", "D3"], cur = L <= 1 ? 0 : L - 1;
+    names[cur] = ["연출 전", "Three 등속", "Three 감속", "Babylon", "p5.js", "D3 전환"][L];
+    vlabel(c, names, cur);
   },
 };
 export default demo;

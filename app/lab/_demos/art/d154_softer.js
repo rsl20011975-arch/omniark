@@ -3,6 +3,9 @@
 // 만들어진 파일 — 원본: source/pages/soft-body/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el } from "./helpers.js";
 
+const PAL = { bg0: '#f4efe4', bg1: '#e9e2d3', ink: '#1d1a16', muted: '#6b6458', accent: '#d4472b', accent2: '#2b5d8a', surface: '#fbf8f1', line: 'rgba(29,26,22,.22)' };
+const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+
 // 스프링-질량 소프트바디: 질량 점 35개를 스프링으로 격자처럼 이으면, 떨어져 닿을 때 스프링이 줄었다 늘었다 하며 젤리처럼 출렁인다. mount 에서 미리 계산해 t 로 찾아 쓴다.
 const K = 500;                    // 스프링 세기(클수록 단단함)
 const DAMP = 6;                   // 감쇠(클수록 출렁임이 빨리 멎음)
@@ -64,41 +67,44 @@ const demo = {
   mount(sp) {
     const sim = simulate();
     const bg = el('div', null, sp);
-    box(bg, { position: 'absolute', inset: '0', background: 'linear-gradient(160deg,#0b0f1a 0%,#161d30 100%)' });
-    box(el('div', null, bg), { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.06', mixBlendMode: 'overlay' });
+    box(bg, { position: 'absolute', inset: '0', background: `linear-gradient(160deg,${PAL.bg0} 0%,${PAL.bg1} 100%)` });
+    box(el('div', null, bg), { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.09', mixBlendMode: 'multiply' });
     const svg = sv('svg', { width: 640, height: 360, viewBox: '0 0 640 360' }, sp);
     box(svg, { position: 'absolute', left: '0', top: '0' });
     const defs = sv('defs', {}, svg);
     const jg = sv('linearGradient', { id: 'sbj', x1: 0, y1: 0, x2: 0.4, y2: 1 }, defs);
-    sv('stop', { offset: 0, 'stop-color': '#ff9ab8' }, jg); sv('stop', { offset: 1, 'stop-color': '#ff4f7e' }, jg);
+    sv('stop', { offset: 0, 'stop-color': '#f2866b' }, jg); sv('stop', { offset: 1, 'stop-color': '#b8321a' }, jg);
     const hg = sv('linearGradient', { id: 'sbh', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
     sv('stop', { offset: 0, 'stop-color': '#fff', 'stop-opacity': .55 }, hg); sv('stop', { offset: 1, 'stop-color': '#fff', 'stop-opacity': 0 }, hg);
     const bl = sv('filter', { id: 'sbb', x: '-30%', y: '-60%', width: '160%', height: '220%' }, defs); sv('feGaussianBlur', { stdDeviation: 6 }, bl);
     const fg = sv('linearGradient', { id: 'sbf', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
-    sv('stop', { offset: 0, 'stop-color': 'rgba(255,255,255,.12)' }, fg); sv('stop', { offset: 1, 'stop-color': 'rgba(255,255,255,0)' }, fg);
+    sv('stop', { offset: 0, 'stop-color': 'rgba(29,26,22,.12)' }, fg); sv('stop', { offset: 1, 'stop-color': 'rgba(29,26,22,0)' }, fg);
     sv('rect', { x: 20, y: FLOOR, width: 440, height: 56, fill: 'url(#sbf)' }, svg);
-    sv('line', { x1: 20, y1: FLOOR, x2: 460, y2: FLOOR, stroke: 'rgba(255,255,255,.35)' }, svg);
-    const shadow = sv('ellipse', { cx: CX, cy: FLOOR + 3, rx: 70, ry: 8, fill: 'rgba(0,0,0,.6)', filter: 'url(#sbb)' }, svg);
+    sv('line', { x1: 20, y1: FLOOR, x2: 460, y2: FLOOR, stroke: rgba(PAL.ink, .4) }, svg);
+    const shadow = sv('ellipse', { cx: CX, cy: FLOOR + 3, rx: 70, ry: 8, fill: rgba(PAL.ink, .5), filter: 'url(#sbb)' }, svg);
     const jelly = sv('g', {}, svg);
-    const body = sv('path', { fill: 'url(#sbj)', stroke: 'rgba(255,230,240,.55)', 'stroke-width': 1.4, 'stroke-linejoin': 'round', 'fill-opacity': .94 }, jelly);
+    const body = sv('path', { fill: 'url(#sbj)', stroke: 'rgba(255,225,210,.6)', 'stroke-width': 1.4, 'stroke-linejoin': 'round', 'fill-opacity': .94 }, jelly);
     const inner = sv('path', { fill: 'url(#sbh)', transform: 'translate(-3,-5)' }, jelly);
     const spec = sv('ellipse', { rx: 13, ry: 4.5, fill: 'rgba(255,255,255,.75)' }, jelly);
-    const rigid = sv('rect', { x: CX - 66 - 11, width: 154, height: 110, rx: 10, fill: 'url(#sbj)', stroke: 'rgba(255,230,240,.55)' }, svg);
+    const rigid = sv('rect', { x: CX - 66 - 11, width: 154, height: 110, rx: 10, fill: 'url(#sbj)', stroke: 'rgba(255,225,210,.6)' }, svg);
     const skel = sv('g', {}, svg);
-    const sl = [0, 1, 2].map((k) => sv('path', { fill: 'none', stroke: ['#9fb4d8', '#7fd6ff', '#ffb36b'][k], 'stroke-width': 1.3, opacity: [.5, .9, .9][k] }, skel));
-    const dots = Array.from({ length: NX * NY }, () => sv('circle', { r: 3, fill: '#fff', stroke: '#0b0f1a', 'stroke-width': 1 }, skel));
+    const sl = [0, 1, 2].map((k) => sv('path', { fill: 'none', stroke: [PAL.muted, PAL.accent2, PAL.accent][k], 'stroke-width': 1.3, opacity: [.6, .95, .95][k] }, skel));
+    const dots = Array.from({ length: NX * NY }, () => sv('circle', { r: 3, fill: PAL.surface, stroke: PAL.ink, 'stroke-width': 1 }, skel));
     // 오른쪽: 스프링 하나(훅의 법칙)
-    sv('rect', { x: 480, y: 50, width: 150, height: 296, rx: 12, fill: 'rgba(255,255,255,.045)', stroke: 'rgba(255,255,255,.09)' }, svg);
+    sv('rect', { x: 480, y: 50, width: 150, height: 296, rx: 12, fill: rgba(PAL.surface, .9), stroke: PAL.line }, svg);
     const tx = (x, y, s, sz, fill, f, a) => { const e = sv('text', { x, y, fill, 'font-size': sz, 'font-family': f || SANS, 'text-anchor': a || 'start' }, svg); e.textContent = s; return e; };
-    tx(492, 72, '스프링 하나', 12.5, '#fff').setAttribute('font-weight', 700);
-    tx(492, 88, '(맨 아랫줄 가운데)', 9.5, 'rgba(255,255,255,.6)');
-    const zz = sv('path', { fill: 'none', stroke: '#ffb36b', 'stroke-width': 2.4, 'stroke-linejoin': 'round' }, svg);
-    const m1 = sv('circle', { cx: 520, r: 6, fill: '#fff', stroke: '#0b0f1a', 'stroke-width': 1.5 }, svg), m2 = sv('circle', { cx: 520, r: 6, fill: '#fff', stroke: '#0b0f1a', 'stroke-width': 1.5 }, svg);
-    const rd = [0, 1, 2, 3].map((k) => tx(552, 120 + k * 15, '', 10, k === 3 ? '#ffe27a' : 'rgba(255,255,255,.8)', MONO));
-    const nt = [0, 1, 2, 3].map((k) => tx(492, 262 + k * 14, '', 9.5, 'rgba(255,255,255,.68)'));
+    tx(492, 72, '스프링 하나', 12.5, PAL.ink).setAttribute('font-weight', 700);
+    tx(492, 88, '(맨 아랫줄 가운데)', 9.5, PAL.muted);
+    const zz = sv('path', { fill: 'none', stroke: PAL.accent, 'stroke-width': 2.4, 'stroke-linejoin': 'round' }, svg);
+    const m1 = sv('circle', { cx: 520, r: 6, fill: PAL.surface, stroke: PAL.ink, 'stroke-width': 1.5 }, svg), m2 = sv('circle', { cx: 520, r: 6, fill: PAL.surface, stroke: PAL.ink, 'stroke-width': 1.5 }, svg);
+    const rd = [0, 1, 2, 3].map((k) => tx(552, 120 + k * 15, '', 10, k === 3 ? PAL.accent : PAL.ink, MONO));
+    const nt = [0, 1, 2, 3].map((k) => tx(492, 262 + k * 14, '', 9.5, PAL.muted));
+    // 이름표(numeral): 왼쪽 위에 큰 단계 숫자 + 옆에 13px 설명
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '14px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 14px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
-    return { sim, shadow, body, inner, spec, jelly, rigid, skel, sl, dots, zz, m1, m2, rd, nt, pill };
+    box(pill, { position: 'absolute', left: '20px', top: '8px', display: 'flex', alignItems: 'flex-start', gap: '8px', zIndex: 5 });
+    const pk = el('div', null, pill); box(pk, { font: "400 40px/1 'Black Han Sans',sans-serif", color: PAL.accent });
+    const pv = el('div', null, pill); box(pv, { width: '104px', paddingTop: '2px', font: "500 13px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
+    return { sim, shadow, body, inner, spec, jelly, rigid, skel, sl, dots, zz, m1, m2, rd, nt, pill, pk, pv };
   },
   render(s, t, a, lv) {
     const L = !a ? 0 : (lv == null ? 3 : lv);   // 1 = 딱딱한 상자, 2 = + 스프링-질량 격자(뼈대), 3 = + 젤리 표면
@@ -133,13 +139,14 @@ const demo = {
     const y0 = 112, yb = y0 + l1 * 4.6; s.m1.setAttribute('cy', y0); s.m2.setAttribute('cy', yb.toFixed(1));
     let zd = `M 520 ${y0 + 6}`; const n = 8, h2 = (yb - 6) - (y0 + 6);
     for (let k = 0; k < n; k++) zd += ` L ${520 + (k % 2 ? -12 : 12)} ${(y0 + 6 + h2 * (k + .5) / n).toFixed(1)}`;
-    zd += ` L 520 ${(yb - 6).toFixed(1)}`; s.zz.setAttribute('d', L >= 2 ? zd : 'M 0 0'); s.zz.setAttribute('stroke', x1 < -.5 ? '#7fd6ff' : x1 > .5 ? '#ffb36b' : '#9fb4d8');
+    zd += ` L 520 ${(yb - 6).toFixed(1)}`; s.zz.setAttribute('d', L >= 2 ? zd : 'M 0 0'); s.zz.setAttribute('stroke', x1 < -.5 ? PAL.accent2 : x1 > .5 ? PAL.accent : PAL.muted);
     s.m1.style.display = s.m2.style.display = L >= 2 ? 'block' : 'none';
     const rdt = L >= 2 ? [`원래 ${r0.toFixed(0)}px`, `지금 ${l1.toFixed(1)}px`, `x = ${x1.toFixed(1)}px`, `F = ${Math.round(K * x1)}`] : ['', '', '', ''];
     s.rd.forEach((e, k) => { e.textContent = rdt[k]; });
-    const nts = L >= 2 ? ['힘 F = k × x (k=스프링 세기)', '줄면 밀어내고(청록)', '늘면 당깁니다(주황).', `k = ${K}, 감쇠 ${DAMP}`] : ['', '', '', ''];
+    const nts = L >= 2 ? ['힘 F = k × x (k=스프링 세기)', '줄면 밀어내고(파랑)', '늘면 당깁니다(빨강).', `k = ${K}, 감쇠 ${DAMP}`] : ['', '', '', ''];
     s.nt.forEach((e, k) => { e.textContent = nts[k]; });
-    s.pill.textContent = L <= 1 ? '연출 전 · 딱딱한 상자가 닿으면 그대로 멈춤' : L === 2 ? `스프링-질량 격자 · 점 ${NX * NY}개를 스프링으로 이음` : '젤리 표면 · 닿을 때 눌렸다 출렁이며 멎음';
+    s.pk.textContent = String(Math.max(1, L));
+    s.pv.textContent = L <= 1 ? (a ? '딱딱한 상자가 닿으면 멈춤' : '연출 전: 딱딱한 상자') : L === 2 ? `점 ${NX * NY}개를 스프링으로 이은 격자` : '젤리 표면: 눌렸다 출렁이며 멎음';
   },
 };
 export default demo;

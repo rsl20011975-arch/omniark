@@ -3,6 +3,8 @@
 // 만들어진 파일 — 원본: source/pages/phone-gestures/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el, rr, rng } from "./helpers.js";
 
+const PAL = { bg0: '#eef2f7', bg1: '#dfe6f0', ink: '#0f1b2d', muted: '#5a6a80', accent: '#2b6cff', accent2: '#ff8a3d', surface: '#ffffff', line: 'rgba(15,27,45,.14)' };
+
 // 폰 화면 위 가상 터치 점으로 스와이프(옆으로 쓸기)와 핀치(두 손가락 벌리기)를 보여 준다. 사진이 손가락을 따라 움직이고, 대체 버튼(‹ › − +)도 함께 둔다. 화면은 시간 t 의 함수다.
 const SWIPE_PX = 30;      // 손가락이 왼쪽으로 쓸어 가는 거리 px
 const THRESH = 40;        // 이 거리 이상 쓸면 다음 사진으로 넘어가고, 미만이면 되돌아간다
@@ -14,7 +16,7 @@ const PX = 440, PY = 195, PW = 156, PH = 300, BZ = 8, PR = 28;          // 폰 �
 const SW = PW - 2 * BZ, SH = PH - 2 * BZ, SX = PX - SW / 2, SYY = PY - SH / 2, IMH = 180, IY = SYY + 40;   // 화면과 사진 영역
 const T = (c, s, x, y, size, col, w = 500, al = 'left', f = SANS) => { c.save(); c.fillStyle = col; c.font = `${w} ${size}px ${f}`; c.textAlign = al; c.textBaseline = 'alphabetic'; c.fillText(s, x, y); c.restore(); };
 const lg = (c, x0, y0, x1, y1, stops) => { const g = c.createLinearGradient(x0, y0, x1, y1); stops.forEach(([o, col]) => g.addColorStop(o, col)); return g; };
-const drop = (c, x, y, w, h, r, dy, blur, al) => { c.save(); for (let i = 0; i < 8; i++) { const g = blur * (i + 1) / 8; c.fillStyle = `rgba(0,0,0,${(al / 8).toFixed(3)})`; rr(c, x - g, y + dy - g, w + 2 * g, h + 2 * g, r + g); c.fill(); } c.restore(); };
+const drop = (c, x, y, w, h, r, dy, blur, al) => { c.save(); for (let i = 0; i < 8; i++) { const g = blur * (i + 1) / 8; c.fillStyle = `rgba(15,27,45,${(al * .38 / 8).toFixed(3)})`; rr(c, x - g, y + dy - g, w + 2 * g, h + 2 * g, r + g); c.fill(); } c.restore(); };
 function grainTile(seed) {
   const g = document.createElement('canvas'); g.width = g.height = 128;
   const x = g.getContext('2d'), im = x.createImageData(128, 128), r = rng(seed);
@@ -48,17 +50,17 @@ function trail(c, pts) {   // 손가락이 지나간 자리(꼬리)
 }
 function btn(c, cx, cy, kind) {   // 대체 버튼(26×26)
   drop(c, cx - 13, cy - 13, 26, 26, 13, 2, 3, .4); c.beginPath(); c.arc(cx, cy, 13, 0, 6.2832); c.fillStyle = 'rgba(255,255,255,.95)'; c.fill();
-  c.save(); c.strokeStyle = '#1a2038'; c.lineWidth = 2.2; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath();
+  c.save(); c.strokeStyle = PAL.ink; c.lineWidth = 2.2; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath();
   if (kind === 'l') { c.moveTo(cx + 2.5, cy - 5); c.lineTo(cx - 2.5, cy); c.lineTo(cx + 2.5, cy + 5); } else if (kind === 'r') { c.moveTo(cx - 2.5, cy - 5); c.lineTo(cx + 2.5, cy); c.lineTo(cx - 2.5, cy + 5); }
   else { c.moveTo(cx - 5, cy); c.lineTo(cx + 5, cy); if (kind === 'p') { c.moveTo(cx, cy - 5); c.lineTo(cx, cy + 5); } } c.stroke(); c.restore();
 }
 const lab = (c, x, y, w, h, on, done, n, title, l1, l2, extra) => {   // 왼쪽 설명 카드
-  drop(c, x, y, w, h, 12, 3, 6, .3); rr(c, x, y, w, h, 12); c.fillStyle = on ? 'rgba(79,124,255,.22)' : 'rgba(255,255,255,.06)'; c.fill();
-  c.strokeStyle = on ? 'rgba(122,155,255,.95)' : 'rgba(255,255,255,.1)'; c.lineWidth = on ? 1.6 : 1; rr(c, x + .5, y + .5, w - 1, h - 1, 11.5); c.stroke();
-  c.beginPath(); c.arc(x + 20, y + 22, 11, 0, 6.2832); c.fillStyle = done ? '#2fb67c' : (on ? '#4f7cff' : 'rgba(255,255,255,.16)'); c.fill();
-  if (done) { c.strokeStyle = '#08331f'; c.lineWidth = 2; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath(); c.moveTo(x + 15, y + 22); c.lineTo(x + 19, y + 26); c.lineTo(x + 25.5, y + 18); c.stroke(); } else T(c, String(n), x + 20, y + 26.5, 12, '#fff', 700, 'center', MONO);
-  T(c, title, x + 40, y + 27, 15, '#fff', 700); T(c, l1, x + 16, y + 48, 12.5, '#c5cde2', 500); T(c, l2, x + 16, y + 65, 12.5, '#c5cde2', 500);
-  if (extra) T(c, extra, x + w - 14, y + 27, 12, '#9fb4ff', 600, 'right', MONO);
+  drop(c, x, y, w, h, 12, 3, 6, .3); rr(c, x, y, w, h, 12); c.fillStyle = on ? '#e6eeff' : PAL.surface; c.fill();
+  c.strokeStyle = on ? PAL.accent : PAL.line; c.lineWidth = on ? 1.6 : 1; rr(c, x + .5, y + .5, w - 1, h - 1, 11.5); c.stroke();
+  c.beginPath(); c.arc(x + 20, y + 22, 11, 0, 6.2832); c.fillStyle = done ? PAL.ink : (on ? PAL.accent : 'rgba(15,27,45,.12)'); c.fill();
+  if (done) { c.strokeStyle = '#ffffff'; c.lineWidth = 2; c.lineCap = 'round'; c.lineJoin = 'round'; c.beginPath(); c.moveTo(x + 15, y + 22); c.lineTo(x + 19, y + 26); c.lineTo(x + 25.5, y + 18); c.stroke(); } else T(c, String(n), x + 20, y + 26.5, 12, on ? '#ffffff' : PAL.ink, 700, 'center', MONO);
+  T(c, title, x + 40, y + 27, 15, PAL.ink, 700); T(c, l1, x + 16, y + 48, 12.5, PAL.muted, 500); T(c, l2, x + 16, y + 65, 12.5, PAL.muted, 500);
+  if (extra) T(c, extra, x + w - 14, y + 27, 12, PAL.accent, 600, 'right', MONO);
 };
 
 const demo = {
@@ -70,8 +72,8 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 0 : (lv == null ? 4 : lv);   // 1 = 터치 점만 보이고 화면은 즉시 바뀜, 2 = + 스와이프 따라옴·넘김 기준, 3 = + 핀치 확대 따라옴, 4 = + 대체 버튼·터치 영역 표시
     const c = s.c; c.setTransform(2, 0, 0, 2, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
-    c.fillStyle = lg(c, 0, 0, 0, 360, [[0, '#141b2f'], [1, '#0b0f1a']]); c.fillRect(0, 0, 640, 360);
-    const gl = c.createRadialGradient(440, 190, 10, 440, 190, 300); gl.addColorStop(0, 'rgba(100,130,255,.18)'); gl.addColorStop(1, 'rgba(100,130,255,0)'); c.fillStyle = gl; c.fillRect(0, 0, 640, 360);
+    c.fillStyle = lg(c, 0, 0, 0, 360, [[0, PAL.bg0], [1, PAL.bg1]]); c.fillRect(0, 0, 640, 360);
+    const gl = c.createRadialGradient(440, 190, 10, 440, 190, 300); gl.addColorStop(0, 'rgba(255,255,255,.7)'); gl.addColorStop(1, 'rgba(255,255,255,0)'); c.fillStyle = gl; c.fillRect(0, 0, 640, 360);
     // 스와이프 진행: 손가락 위치와 사진 어긋남(off)
     const done = SWIPE_PX >= THRESH, prog = E.inOutC(seg(t, T_MOVE0, T_MOVE1)), fx = SX + SW - 36 - SWIPE_PX * prog;
     const IW = SW - 12;           // 사진 한 장의 가로
@@ -86,17 +88,17 @@ const demo = {
     // 폰 몸체
     const x = PX - PW / 2, y = PY - PH / 2;
     drop(c, x, y, PW, PH, PR, 14, 22, .65);
-    rr(c, x, y, PW, PH, PR); c.fillStyle = lg(c, x, y, x + PW, y + PH, [[0, '#59627a'], [.5, '#2b3144'], [1, '#12151f']]); c.fill();
-    rr(c, x + 1.6, y + 1.6, PW - 3.2, PH - 3.2, PR - 1.6); c.fillStyle = '#06080e'; c.fill();
+    rr(c, x, y, PW, PH, PR); c.fillStyle = lg(c, x, y, x + PW, y + PH, [[0, '#5a6a80'], [.5, '#26324a'], [1, '#0f1b2d']]); c.fill();
+    rr(c, x + 1.6, y + 1.6, PW - 3.2, PH - 3.2, PR - 1.6); c.fillStyle = '#07101e'; c.fill();
     rr(c, x + .6, y + .6, PW - 1.2, PH - 1.2, PR - .6); c.strokeStyle = 'rgba(255,255,255,.28)'; c.lineWidth = 1; c.stroke();
     // 화면
-    c.save(); rr(c, SX, SYY, SW, SH, PR - BZ); c.clip(); c.fillStyle = '#10152a'; c.fillRect(SX, SYY, SW, SH);
-    T(c, '사진', SX + 14, SYY + 30, 14, '#fff', 700); T(c, `${cur + 1} / 3`, SX + SW - 14, SYY + 30, 12, '#aab3c7', 600, 'right', MONO);
+    c.save(); rr(c, SX, SYY, SW, SH, PR - BZ); c.clip(); c.fillStyle = '#0f1b2d'; c.fillRect(SX, SYY, SW, SH);
+    T(c, '사진', SX + 14, SYY + 30, 14, '#ffffff', 700); T(c, `${cur + 1} / 3`, SX + SW - 14, SYY + 30, 12, '#b8c4d6', 600, 'right', MONO);
     c.save(); rr(c, SX + 6, IY, SW - 12, IMH, 8); c.clip();
     [0, 1].forEach((k) => { const pxx = SX + 6 + (k - page) * IW - off, cx0 = pxx + IW / 2, cy0 = IY + IMH / 2, z = (k === page) ? zoom : 1;
       c.save(); c.translate(cx0, cy0); c.scale(z, z); c.translate(-cx0, -cy0); scene(c, k, pxx, IY, IW, IMH, s.stars); c.restore(); });
     c.restore();
-    if (L >= 3 && zoom > 1.02) { rr(c, SX + SW - 62, IY + 8, 48, 20, 10); c.fillStyle = 'rgba(8,10,20,.7)'; c.fill(); T(c, `${Math.round(zoom * 100)}%`, SX + SW - 38, IY + 22, 12, '#fff', 700, 'center', MONO); }
+    if (L >= 3 && zoom > 1.02) { rr(c, SX + SW - 62, IY + 8, 48, 20, 10); c.fillStyle = 'rgba(15,27,45,.78)'; c.fill(); T(c, `${Math.round(zoom * 100)}%`, SX + SW - 38, IY + 22, 12, '#fff', 700, 'center', MONO); }
     [0, 1, 2].forEach((k) => { c.beginPath(); c.arc(SX + SW / 2 + (k - 1) * 12, IY + IMH + 12, k === cur ? 3.4 : 2.6, 0, 6.2832); c.fillStyle = k === cur ? '#fff' : 'rgba(255,255,255,.35)'; c.fill(); });
     if (L >= 4) { const by = SYY + SH - 26, bx = SX + SW / 2; btn(c, bx - 45, by, 'l'); btn(c, bx - 15, by, 'r'); btn(c, bx + 15, by, 'm'); btn(c, bx + 45, by, 'p'); }
     c.restore();
@@ -119,8 +121,9 @@ const demo = {
       if (L >= 4) lab(c, 30, 236, 296, 76, t >= 4.0, false, 3, '대체 버튼', '이전·다음·축소·확대 버튼은 한 번 누르면', '같은 일(버튼 26px, 최소 24px 이상)', '');
     }
     c.globalCompositeOperation = 'overlay'; c.globalAlpha = .06; c.fillStyle = c.createPattern(s.grain, 'repeat'); c.fillRect(0, 0, 640, 360); c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
-    const labp = ['연출 전: 손가락 표시 없이 결과만 바뀜', '1단계: 터치 점만 보임(화면은 즉시 바뀜)', '2단계: + 사진이 손가락을 따라 쓸림', '3단계: + 핀치로 사진이 따라 커짐', '4단계: + 대체 버튼 · 터치 영역'][L];
-    c.font = `500 14px ${SANS}`; const pw = c.measureText(labp).width + 24; rr(c, 16, 14, pw, 26, 13); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill(); T(c, labp, 28, 32, 14, '#fff', 500);
+    const labp = ['연출 전: 손가락 없이 결과만 바뀜', '1단계: 터치 점만, 화면은 즉시 바뀜', '2단계: 사진이 손가락을 따라 쓸림', '3단계: 핀치로 사진이 따라 커짐', '4단계: 대체 버튼과 터치 영역'][L];
+    c.font = `600 12px ${SANS}`; const tw2 = c.measureText(labp).width + 24, tx2 = 624 - tw2;
+    drop(c, tx2, 12, tw2, 24, 2, 2, 4, .5); rr(c, tx2, 12, tw2, 24, 2); c.fillStyle = PAL.surface; c.fill(); c.fillStyle = PAL.accent; c.fillRect(tx2, 12, 3, 24); T(c, labp, tx2 + 14, 28, 12, PAL.ink, 600);
   },
 };
 export default demo;

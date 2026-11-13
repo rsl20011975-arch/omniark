@@ -5,23 +5,34 @@ import { seg, lerp, E, rng, canvas, rr } from "./helpers.js";
 
 // 모프 타깃: 같은 꼭짓점 수·순서를 가진 '다른 모양'들을 미리 만들어 두고, 가중치(0~1)만 조절해 모양 사이를 섞는다.
 // 위치 = 기본 모양 + 가중치1 x (타깃1 - 기본) + 가중치2 x (타깃2 - 기본)
+const PAL = { bg0: '#171615', bg1: '#232120', ink: '#f2efe9', muted: '#9a958c', accent: '#5ad1c8', accent2: '#f2b84b', surface: '#1f1d1b', line: '#3a3733' };
 const W_CUBE = 0.5;       // 타깃 1(정육면체)의 최종 가중치
 const W_BLOB = 0.8;     // 타깃 2(울퉁불퉁한 덩어리)의 최종 가중치
 const BLOB = 0.35;      // 타깃 2 의 돌기 높이(구 반지름 1 기준)
 const CUBE_HALF = 0.82; // 타깃 1 의 정육면체 반변 길이
 const NLON = 28, NLAT = 18;
 const CX = 365, CY = 180, CAM = 4.2, F = 330;
-const pillDraw = (c, text) => {
-  c.font = "500 14px 'IBM Plex Sans KR',sans-serif"; const w = c.measureText(text).width + 26;
-  rr(c, 16, 14, w, 28, 14); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill();
-  c.fillStyle = '#fff'; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText(text, 29, 29);
+const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const mixv = (a, b, p) => rgb(a).map((v, i) => v + (rgb(b)[i] - v) * p);
+const rgba = (h, al) => { const [r, g, b] = rgb(h); return `rgba(${r},${g},${b},${al})`; };
+const DARK = mixv(PAL.bg0, PAL.accent, .22), LIGHT = mixv(PAL.accent, PAL.ink, .55);      // 면 색: 어두운 곳에서 밝은 곳으로(청록 계열)
+const NAMES = ['연출 전', '정육면체 섞기', '타깃 2 함께', '가중치 막대'];
+const verticalDraw = (c, cur) => {      // 왼쪽 가장자리 세로 글: 지금 단계만 풀어 쓰고 ink, 나머지는 숫자만 muted
+  c.save(); c.translate(14, 18); c.rotate(Math.PI / 2); c.font = "500 12px 'IBM Plex Sans KR',sans-serif"; c.textBaseline = 'middle'; c.textAlign = 'left';
+  let x = 0;
+  NAMES.forEach((nm, i) => {
+    const txt = i === cur ? i + '  ' + nm : String(i); c.fillStyle = i === cur ? PAL.ink : rgba(PAL.muted, .8);
+    for (const ch of txt) { c.fillText(ch, x, 0); x += c.measureText(ch).width + 1.5; }
+    x += 16;
+  });
+  c.restore();
 };
 const vid = (i, j) => (i % NLON) * (NLAT + 1) + j;
 
 const demo = {
   dur: 4.6, rest: 4.2, noCompare: false, levels: 4,
   mount(sp) {
-    sp.style.background = '#0b0f1a';
+    sp.style.background = PAL.bg0;
     const c = canvas(sp), nv = NLON * (NLAT + 1), base = new Float32Array(nv * 3), cube = new Float32Array(nv * 3), blob = new Float32Array(nv * 3);
     for (let i = 0; i < NLON; i++) for (let j = 0; j <= NLAT; j++) {
       const th = i / NLON * 6.2832, ph = j / NLAT * Math.PI, k = vid(i, j) * 3;
@@ -47,7 +58,7 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 0 : (lv == null ? 3 : lv - 1);   // 0 = 구 하나, 1 = + 타깃1(정육면체), 2 = + 타깃2(울퉁불퉁) 동시에 섞기, 3 = + 가중치 막대와 원본 구 겹쳐 보기
     const c = s.c; c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, 640, 360);
-    let g = c.createRadialGradient(CX, CY, 10, CX, CY, 360); g.addColorStop(0, '#16203a'); g.addColorStop(1, '#0b0f1a'); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+    let g = c.createRadialGradient(CX, CY, 10, CX, CY, 360); g.addColorStop(0, PAL.bg1); g.addColorStop(1, PAL.bg0); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
     const w1 = L >= 1 ? W_CUBE * E.inOutC(seg(t, .4, 1.5)) : 0, w2 = L >= 2 ? W_BLOB * E.inOutC(seg(t, 1.9, 3.0)) : 0;
     const yaw = .5 + .5 * t, cy = Math.cos(yaw), sy = Math.sin(yaw), cp = Math.cos(.35), sp = Math.sin(.35), { base, cube, blob, P } = s;
     const M = new Float32Array(3);
@@ -74,27 +85,27 @@ const demo = {
     list.sort((p, q) => q[0] - p[0]);
     for (const [, f, nx, ny, nz] of list) {
       const dif = Math.max(0, (nx * LX + ny * LY + nz * LZ) / LN), fill = Math.max(0, (nx * .5 + ny * -.4 + nz * -.4) / .75) * .16;
-      const lum = Math.min(1, .06 + .92 * Math.pow(dif, 1.25) + fill); const R = Math.round(lerp(14, 150, lum * lum)), G = Math.round(lerp(42, 238, lum)), B = Math.round(lerp(64, 226, lum));
+      const lum = Math.min(1, .06 + .92 * Math.pow(dif, 1.25) + fill); const R = Math.round(lerp(DARK[0], LIGHT[0], lum * lum)), G = Math.round(lerp(DARK[1], LIGHT[1], lum)), B = Math.round(lerp(DARK[2], LIGHT[2], lum));
       c.beginPath(); f.q.forEach((v, n) => { const x = PX[v * 2], y = PX[v * 2 + 1]; n ? c.lineTo(x, y) : c.moveTo(x, y); }); c.closePath();
-      c.fillStyle = `rgb(${R},${G},${B})`; c.fill(); c.strokeStyle = 'rgba(4,20,36,.32)'; c.lineWidth = .5; c.stroke();
+      c.fillStyle = `rgb(${R},${G},${B})`; c.fill(); c.strokeStyle = rgba(PAL.bg0, .4); c.lineWidth = .5; c.stroke();
     }
     if (L >= 3) {       // 원본 구(타깃을 섞기 전의 모양)를 가는 선으로 겹쳐 비교
-      c.strokeStyle = 'rgba(255,255,255,.55)'; c.lineWidth = .8; c.setLineDash([3, 3]);
+      c.strokeStyle = rgba(PAL.ink, .6); c.lineWidth = .8; c.setLineDash([3, 3]);
       for (let j = 3; j < NLAT; j += 3) { c.beginPath(); for (let i = 0; i <= NLON; i++) { const v = vid(i, j), x = BX[v * 2], y = BX[v * 2 + 1]; i ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke(); }
       for (let i = 0; i < NLON; i += 7) { c.beginPath(); for (let j = 0; j <= NLAT; j++) { const v = vid(i, j), x = BX[v * 2], y = BX[v * 2 + 1]; j ? c.lineTo(x, y) : c.moveTo(x, y); } c.stroke(); }
       c.setLineDash([]);
-      rr(c, 18, 236, 214, 82, 10); c.fillStyle = 'rgba(8,10,20,.72)'; c.fill();
+      rr(c, 44, 236, 214, 82, 6); c.fillStyle = rgba(PAL.surface, .9); c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke();
       c.font = "500 12px 'IBM Plex Sans KR',sans-serif"; c.textBaseline = 'middle'; c.textAlign = 'left';
-      [['구 → 정육면체', w1, '#ffb36b'], ['구 → 울퉁불퉁', w2, '#6ad5ff']].forEach(([nm, w, col], n) => {
-        const y = 256 + n * 34; c.fillStyle = 'rgba(255,255,255,.88)'; c.fillText(nm, 30, y - 8); c.fillStyle = 'rgba(255,255,255,.14)'; rr(c, 30, y + 2, 140, 8, 4); c.fill();
-        c.fillStyle = col; if (w > .005) { rr(c, 30, y + 2, Math.max(8, 140 * w), 8, 4); c.fill(); } c.font = "500 13px 'JetBrains Mono',monospace"; c.fillStyle = '#fff'; c.fillText(w.toFixed(2), 184, y + 6); c.font = "500 12px 'IBM Plex Sans KR',sans-serif";
+      [['구 → 정육면체', w1, PAL.accent2], ['구 → 울퉁불퉁', w2, PAL.accent]].forEach(([nm, w, col], n) => {
+        const y = 256 + n * 34; c.fillStyle = PAL.ink; c.fillText(nm, 56, y - 8); c.fillStyle = rgba(PAL.ink, .14); rr(c, 56, y + 2, 140, 8, 4); c.fill();
+        c.fillStyle = col; if (w > .005) { rr(c, 56, y + 2, Math.max(8, 140 * w), 8, 4); c.fill(); } c.font = "500 13px 'JetBrains Mono',monospace"; c.fillStyle = PAL.ink; c.fillText(w.toFixed(2), 210, y + 6); c.font = "500 12px 'IBM Plex Sans KR',sans-serif";
       });
     }
     c.fillStyle = c.createPattern(s.gr, 'repeat'); c.fillRect(0, 0, 640, 360);
-    c.fillStyle = 'rgba(8,10,20,.62)'; c.fillRect(0, 330, 640, 30);
-    c.font = "500 13px 'JetBrains Mono',monospace"; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = '#e8eefc';
+    c.fillStyle = rgba(PAL.bg0, .72); c.fillRect(0, 330, 640, 30); c.fillStyle = PAL.line; c.fillRect(0, 330, 640, 1);
+    c.font = "500 13px 'JetBrains Mono',monospace"; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = PAL.ink;
     c.fillText(['구 하나 · 모프 타깃 없음', `위치 = 구 + ${w1.toFixed(2)} x (정육면체 - 구)`, `위치 = 구 + ${w1.toFixed(2)} x (정육면체 - 구) + ${w2.toFixed(2)} x (덩어리 - 구)`, `점선 = 섞기 전의 원본 구 · 막대 = 가중치(0~1)`][L], 18, 345);
-    pillDraw(c, ['연출 전: 구 하나(타깃 없음)', '1단계: 타깃 1(정육면체)을 0에서 1까지 섞음', '2단계: + 타깃 2(울퉁불퉁)를 함께 섞음', '3단계: + 가중치 막대와 원본 구 겹쳐 보기'][L]);
+    verticalDraw(c, L);
   },
 };
 export default demo;

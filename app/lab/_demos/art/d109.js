@@ -11,8 +11,10 @@ const BLUR = .03;             // 줌 블러 세기(0 = 없음)
 const RIN = 48, TH = 26;      // O 고리의 안쪽 반지름 · 두께(px, 640×360 기준)
 const DUR = 4.6;
 const FONT = '40px "Black Han Sans"';
-const A = { top: '#0f1a3a', mid: '#27306e', bot: '#5a3f9a', glow: '150,170,255' };
-const B = { top: '#3a1b2c', mid: '#c25b4a', bot: '#f6c079', glow: '255,214,150' };
+const PAL = { bg0: '#1f3a8a', bg1: '#172a63', ink: '#f3f6ff', muted: '#aebcf0', accent: '#ffd166', accent2: '#7fe0ff', surface: '#1b3274', line: 'rgba(243,246,255,.24)' };
+const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+const A = { top: PAL.bg1, mid: PAL.bg0, bot: '#3b56b8', glow: '127,224,255' };
+const B = { top: '#4a2434', mid: '#e0763e', bot: PAL.accent, glow: '255,214,150' };
 
 function cv(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 
@@ -28,8 +30,8 @@ function bg(c, d, grain, label) {
   });
   if (label) {
     x.shadowColor = 'rgba(0,0,0,.4)'; x.shadowBlur = 30; x.shadowOffsetY = 8;
-    x.fillStyle = '#fff'; x.textAlign = 'center'; x.font = '110px "Black Han Sans", sans-serif'; x.fillText('NEXT DAY', 640, 375);
-    x.shadowColor = 'transparent'; x.fillStyle = 'rgba(255,255,255,.92)'; x.font = '500 34px "IBM Plex Sans KR", sans-serif'; x.fillText('다음 날 아침 8:00', 640, 430);
+    x.fillStyle = PAL.ink; x.textAlign = 'center'; x.font = '110px "Black Han Sans", sans-serif'; x.fillText('NEXT DAY', 640, 375);
+    x.shadowColor = 'transparent'; x.fillStyle = rgba(PAL.ink, .92); x.font = '500 34px "IBM Plex Sans KR", sans-serif'; x.fillText('다음 날 아침 8:00', 640, 430);
   }
   x.globalCompositeOperation = 'overlay'; x.globalAlpha = .12;
   for (let px = 0; px < W; px += 256) for (let py = 0; py < H; py += 256) x.drawImage(grain, px, py);
@@ -41,15 +43,15 @@ function title(x) {          // 글자 "N ◯ W": O 는 속이 빈 두꺼운 고
   x.font = '205px "Black Han Sans", sans-serif'; x.textBaseline = 'alphabetic';
   const asc = x.measureText('N').actualBoundingBoxAscent, base = cy + asc / 2;
   const gr = x.createLinearGradient(0, cy - rout, 0, cy + rout);
-  gr.addColorStop(0, '#ffffff'); gr.addColorStop(1, '#c9d3ea');
+  gr.addColorStop(0, PAL.ink); gr.addColorStop(1, PAL.muted);
   x.save(); x.shadowColor = 'rgba(0,0,0,.4)'; x.shadowBlur = 22; x.shadowOffsetY = 6;
   x.fillStyle = gr; x.textAlign = 'right'; x.fillText('N', cx - rout - 12, base);
   x.textAlign = 'left'; x.fillText('W', cx + rout + 12, base);
   x.beginPath(); x.arc(cx, cy, rout, 0, Math.PI * 2); x.arc(cx, cy, RIN, 0, Math.PI * 2, true); x.fill('evenodd');
   x.restore();
-  x.lineWidth = 1.2; x.strokeStyle = 'rgba(255,255,255,.7)';
+  x.lineWidth = 1.2; x.strokeStyle = rgba(PAL.ink, .7);
   x.beginPath(); x.arc(cx, cy, RIN, 0, Math.PI * 2); x.stroke();
-  x.fillStyle = 'rgba(255,255,255,.9)'; x.textAlign = 'center'; x.font = '500 22px "IBM Plex Sans KR", sans-serif'; x.fillText('오늘의 이야기', cx, cy + rout + 40);
+  x.fillStyle = rgba(PAL.ink, .9); x.textAlign = 'center'; x.font = '500 22px "IBM Plex Sans KR", sans-serif'; x.fillText('오늘의 이야기', cx, cy + rout + 40);
 }
 
 const demo = {
@@ -60,15 +62,20 @@ const demo = {
     gx.putImageData(gd, 0, 0);
     const main = el('canvas', null, sp);
     main.width = 1280; main.height = 720; Object.assign(main.style, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
-    const pill = el('div', null, sp);
-    Object.assign(pill.style, { position: 'absolute', left: '20px', top: '18px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.7)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif" });
+    // 숫자 이름표: 큰 숫자 = 지금 단계(1 제목 카드, 2 확대 중, 3 다음 장면)
+    const lab = el('div', null, sp);
+    Object.assign(lab.style, { position: 'absolute', left: '18px', top: '12px', display: 'flex', alignItems: 'center', gap: '10px', textShadow: '0 2px 10px rgba(5,10,35,.7)' });
+    const num = el('span', null, lab);
+    Object.assign(num.style, { color: PAL.accent, font: "40px/1 'Black Han Sans',sans-serif" });
+    const pill = el('span', null, lab);
+    Object.assign(pill.style, { color: PAL.ink, font: "500 13px/1.25 'IBM Plex Sans KR',sans-serif", whiteSpace: 'nowrap' });
     const track = el('div', null, sp);
-    Object.assign(track.style, { position: 'absolute', left: '20px', right: '100px', bottom: '22px', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,.25)' });
+    Object.assign(track.style, { position: 'absolute', left: '20px', right: '100px', bottom: '22px', height: '8px', borderRadius: '4px', background: rgba(PAL.bg1, .72), boxShadow: `0 0 0 1px ${PAL.line}` });
     const z = el('div', null, track);
-    Object.assign(z.style, { position: 'absolute', top: '0', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,.9)', left: (T0 / DUR * 100) + '%', width: (ZDUR / DUR * 100) + '%' });
+    Object.assign(z.style, { position: 'absolute', top: '0', height: '8px', borderRadius: '4px', background: PAL.accent, left: (T0 / DUR * 100) + '%', width: (ZDUR / DUR * 100) + '%' });
     const head = el('div', null, track);
-    Object.assign(head.style, { position: 'absolute', top: '-4px', width: '3px', height: '16px', borderRadius: '2px', background: '#fff', boxShadow: '0 0 8px rgba(255,255,255,.7)', zIndex: 3 });
-    const s = { main, pill, z, head, a: cv(1280, 720), b: cv(1280, 720), fr: cv(1280, 720), grain, ok: null };
+    Object.assign(head.style, { position: 'absolute', top: '-4px', width: '3px', height: '16px', borderRadius: '2px', background: PAL.ink, boxShadow: `0 0 8px ${rgba(PAL.ink, .7)}`, zIndex: 3 });
+    const s = { main, pill, num, z, head, a: cv(1280, 720), b: cv(1280, 720), fr: cv(1280, 720), grain, ok: null };
     s.repaint = () => { bg(s.a, A, grain, false); bg(s.b, B, grain, true); };
     s.repaint();
     return s;
@@ -106,7 +113,11 @@ const demo = {
       x.drawImage(s.fr, 0, 0, 640, 360); x.restore();
     }
     const inZ = L >= 2 && t > T0 && t < T0 + ZDUR;
-    s.pill.textContent = L <= 1 ? '컷 · 효과 없음' : inZ ? (L >= 3 ? `글자 확대 ×${sc.toFixed(1)} · O 의 구멍 안이 다음 장면` : `글자 확대 ×${sc.toFixed(1)} · 구멍 안은 앞 배경`) : t < T0 ? '장면 1 · 제목 카드' : '장면 2';
+    s.num.textContent = inZ ? 2 : (done ? 3 : 1);
+    s.pill.textContent = L <= 1 ? '컷 효과 없음' : inZ ? (L >= 3 ? `글자 확대 ×${sc.toFixed(1)}
+O 의 구멍 안이 다음 장면` : `글자 확대 ×${sc.toFixed(1)}
+구멍 안은 앞 배경`) : t < T0 ? '제목 카드' : '다음 장면';
+    s.pill.style.whiteSpace = 'pre';
     s.z.style.display = L >= 2 ? 'block' : 'none';
     s.head.style.left = `calc(${(t / DUR * 100).toFixed(2)}% - 1px)`;
   },

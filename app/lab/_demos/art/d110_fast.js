@@ -11,8 +11,10 @@ const SOFT = .16;             // 다음 장면이 나타나는 경계의 폭
 const DUR = 4.6;
 const FONT = '40px "Black Han Sans"';
 const LW = 320, LH = 180;
+const PAL = { bg0: '#0c1814', bg1: '#15271f', ink: '#e8f1ea', muted: '#86a091', accent: '#7fe0a8', accent2: '#e8d27a', surface: '#12231c', line: 'rgba(232,241,234,.22)' };
+const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
 const A = { n: 'SUMMER 1998', c: '그해 여름 · 할머니 댁', top: '#2a1a10', mid: '#8a5a30', bot: '#e4b878', glow: '255,214,150' };
-const B = { n: 'TODAY', c: '오늘 · 서울', top: '#0f2236', mid: '#1e5f8a', bot: '#9fd6e8', glow: '200,235,255' };
+const B = { n: 'TODAY', c: '오늘 · 서울', top: PAL.bg0, mid: '#1d5a43', bot: '#8fe6b8', glow: '200,255,225' };
 const RAMP = [[0, 30, 10, 6], [.05, 70, 20, 8], [.1, 205, 60, 10], [.2, 255, 130, 25], [.32, 255, 205, 80], [.46, 255, 245, 220], [.6, 255, 252, 240]];
 
 function cv(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
@@ -29,10 +31,10 @@ function paint(c, d, grain) {
   });
   x.beginPath(); x.moveTo(0, H);
   for (let px = 0; px <= W; px += 16) x.lineTo(px, 560 + Math.sin(px / 150) * 30 + Math.sin(px / 57) * 8);
-  x.lineTo(W, H); x.closePath(); x.fillStyle = 'rgba(8,8,14,.78)'; x.fill();
+  x.lineTo(W, H); x.closePath(); x.fillStyle = rgba(PAL.bg0, .8); x.fill();
   x.shadowColor = 'rgba(0,0,0,.4)'; x.shadowBlur = 30; x.shadowOffsetY = 8;
-  x.fillStyle = '#fff'; x.textAlign = 'left'; x.font = '170px "Black Han Sans", sans-serif'; x.fillText(d.n, 70, 270);
-  x.shadowColor = 'transparent'; x.fillStyle = 'rgba(255,255,255,.92)'; x.font = '500 42px "IBM Plex Sans KR", sans-serif'; x.fillText(d.c, 76, 336);
+  x.fillStyle = PAL.ink; x.textAlign = 'left'; x.font = '140px "Black Han Sans", sans-serif'; x.fillText(d.n, 70, 270);
+  x.shadowColor = 'transparent'; x.fillStyle = rgba(PAL.ink, .92); x.font = '500 42px "IBM Plex Sans KR", sans-serif'; x.fillText(d.c, 76, 336);
   x.globalCompositeOperation = 'overlay'; x.globalAlpha = .14;
   for (let px = 0; px < W; px += 256) for (let py = 0; py < H; py += 256) x.drawImage(grain, px, py);
   x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
@@ -69,17 +71,22 @@ const demo = {
     const main = el('canvas', null, sp);
     main.width = 1280; main.height = 720; Object.assign(main.style, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
     const css = (e, o) => Object.assign(e.style, o);
-    const pill = el('div', null, sp);
-    css(pill, { position: 'absolute', left: '20px', top: '18px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.7)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif" });
+    // 세로 이름표: 왼쪽 가장자리 탭, 번호는 muted, 지금 상태는 ink
+    const lab = el('div', null, sp);
+    css(lab, { position: 'absolute', left: '0', top: '50%', transform: 'translateY(-50%)', writingMode: 'vertical-rl', letterSpacing: '.08em', padding: '10px 5px 10px 6px', borderRadius: '0 4px 4px 0', background: rgba(PAL.bg0, .6), borderRight: `1px solid ${PAL.line}`, whiteSpace: 'nowrap' });
+    const idx = el('span', null, lab);
+    css(idx, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '8px' });
+    const pill = el('span', null, lab);
+    css(pill, { color: PAL.ink, font: "500 12px/1 'IBM Plex Sans KR',sans-serif" });
     const mono = el('div', null, sp);
-    css(mono, { position: 'absolute', right: '20px', top: '18px', padding: '7px 12px', borderRadius: '8px', background: 'rgba(8,10,20,.7)', color: '#fff', font: "500 14px/1 'JetBrains Mono',monospace", opacity: '0' });
+    css(mono, { position: 'absolute', right: '20px', top: '18px', padding: '6px 10px', borderRadius: '2px', borderLeft: `3px solid ${PAL.accent}`, background: PAL.surface, color: PAL.ink, font: "600 12px/1 'JetBrains Mono',monospace", opacity: '0' });
     const track = el('div', null, sp);
-    css(track, { position: 'absolute', left: '20px', right: '100px', bottom: '22px', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,.25)' });
+    css(track, { position: 'absolute', left: '36px', right: '100px', bottom: '22px', height: '6px', borderRadius: '3px', background: rgba(PAL.bg0, .6), boxShadow: `0 0 0 1px ${PAL.line}` });
     const z = el('div', null, track);
-    css(z, { position: 'absolute', top: '0', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,.9)', left: (T0 / DUR * 100) + '%', width: (BURN / DUR * 100) + '%' });
+    css(z, { position: 'absolute', top: '0', height: '6px', borderRadius: '3px', background: PAL.accent, left: (T0 / DUR * 100) + '%', width: (BURN / DUR * 100) + '%' });
     const head = el('div', null, track);
-    css(head, { position: 'absolute', top: '-4px', width: '3px', height: '16px', borderRadius: '2px', background: '#fff', boxShadow: '0 0 8px rgba(255,255,255,.7)' });
-    const s = { main, pill, mono, z, head, fld, rnd, grain, a: cv(1280, 720), b: cv(1280, 720), ov: cv(LW, LH), mk: cv(LW, LH), tmp: cv(1280, 720), ok: null };
+    css(head, { position: 'absolute', top: '-4px', width: '3px', height: '14px', borderRadius: '2px', background: PAL.ink, boxShadow: `0 0 8px ${rgba(PAL.ink, .7)}` });
+    const s = { main, pill, idx, mono, z, head, fld, rnd, grain, a: cv(1280, 720), b: cv(1280, 720), ov: cv(LW, LH), mk: cv(LW, LH), tmp: cv(1280, 720), ok: null };
     s.repaint = () => { paint(s.a, A, grain); paint(s.b, B, grain); };
     s.repaint();
     return s;
@@ -133,7 +140,8 @@ const demo = {
       x.fillStyle = 'rgba(255,255,255,.12)';
       for (let k = 0; k < 3; k++) if (rr(10 + k) > .5) x.fillRect(Math.floor(rr(20 + k) * 640), 0, .8, 360);
     }
-    s.pill.textContent = L <= 1 ? '컷 · 효과 없음' : on && p1 < 1 ? '필름 번 · 한 점에서 타들어 가는 중' : on ? '필름 번 · 하얗게 탄 곳에서 다음 장면이 나타남' : t <= T0 ? '장면 1 · 옛 영상' : '장면 2 · 오늘';
+    s.idx.textContent = L <= 1 ? '01' : on && p1 < 1 ? '02' : on ? '03' : '01';
+    s.pill.textContent = L <= 1 ? '컷 효과 없음' : on && p1 < 1 ? '필름 번 타들어 가는 중' : on ? '다음 장면이 나타남' : t <= T0 ? '장면 1 옛 영상' : '장면 2 오늘';
     s.mono.style.opacity = on ? 1 : 0; s.mono.textContent = `화면의 ${pct}% 탐`;
     s.z.style.display = L >= 2 ? 'block' : 'none';
     s.head.style.left = `calc(${(t / DUR * 100).toFixed(2)}% - 1px)`;

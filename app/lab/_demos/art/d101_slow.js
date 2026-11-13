@@ -3,6 +3,10 @@
 // 만들어진 파일 — 원본: source/pages/animatable-properties/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el } from "./helpers.js";
 
+const PAL = { bg0: '#1b0e17', bg1: '#2b1424', ink: '#f6e9ee', muted: '#b095a3', accent: '#ff7aa8', accent2: '#ffd0a0', surface: '#26121f', line: '#4a2a40' };
+const rgba = (h, a) => `rgba(${parseInt(h.slice(1, 3), 16)},${parseInt(h.slice(3, 5), 16)},${parseInt(h.slice(5, 7), 16)},${a})`;
+const CARD = `linear-gradient(150deg,${PAL.ink} 0%,#e0a3c0 100%)`;   // 칸마다 쓰는 같은 카드의 기본 색
+
 // 같은 카드 한 장이 12칸에서 서로 다른 값 하나만 바꿔 왕복한다. 화면은 시간 t 의 함수다.
 const PERIOD = 4.0;               // 한 번 왕복(갔다 오기)에 걸리는 시간(초)
 const AMP = 1;                    // 변화 폭의 배율. 1 이면 기본 폭 100%
@@ -30,31 +34,31 @@ const demo = {
   dur: 4.8, rest: 1.2, noCompare: false, levels: 4,
   mount(sp) {
     const bg = el('div', null, sp);
-    box(bg, { position: 'absolute', inset: '0', background: 'linear-gradient(160deg,#0b0f1a 0%,#171f33 100%)' });
+    box(bg, { position: 'absolute', inset: '0', background: `linear-gradient(160deg,${PAL.bg0} 0%,${PAL.bg1} 100%)` });
     const gr = el('div', null, bg);
     box(gr, { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.06', mixBlendMode: 'overlay' });
     const cells = CELLS.map((d, i) => {
       const col = i % 4, row = Math.floor(i / 4);
       const t = el('div', null, sp);
-      box(t, { position: 'absolute', left: (14 + col * 156) + 'px', top: (14 + row * 114) + 'px', width: '144px', height: '102px', borderRadius: '10px', background: 'rgba(255,255,255,.045)', border: '1px solid rgba(255,255,255,.09)', overflow: 'hidden' });
+      box(t, { position: 'absolute', left: (14 + col * 156) + 'px', top: (36 + row * 108) + 'px', width: '144px', height: '100px', borderRadius: '10px', background: PAL.surface, border: `1px solid ${PAL.line}`, overflow: 'hidden' });
       const stage = el('div', null, t);
       box(stage, { position: 'absolute', left: '0', top: '0', width: '144px', height: '52px' });
       const card = el('div', null, stage);
-      box(card, { position: 'absolute', left: '50px', top: '10px', width: '44px', height: '32px', borderRadius: '8px', background: 'linear-gradient(150deg,#8fe0ff 0%,#6f7bff 100%)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.55), 0 6px 14px rgba(0,0,0,.4)', transformOrigin: '50% 50%' });
+      box(card, { position: 'absolute', left: '50px', top: '10px', width: '44px', height: '32px', borderRadius: '8px', background: CARD, boxShadow: 'inset 0 1px 0 rgba(255,255,255,.7), 0 6px 14px rgba(0,0,0,.45)', transformOrigin: '50% 50%' });
       const line = el('div', null, card);
-      box(line, { position: 'absolute', left: '7px', top: '8px', right: '12px', height: '4px', borderRadius: '2px', background: 'rgba(255,255,255,.75)' });
+      box(line, { position: 'absolute', left: '7px', top: '8px', right: '12px', height: '4px', borderRadius: '2px', background: rgba(PAL.bg1, .55) });
       const pv = el('div', null, stage);
-      box(pv, { position: 'absolute', left: '47px', top: '7px', width: '7px', height: '7px', borderRadius: '50%', background: '#ffb347', boxShadow: '0 0 8px #ffb347', opacity: '0' });
+      box(pv, { position: 'absolute', left: '47px', top: '7px', width: '7px', height: '7px', borderRadius: '50%', background: '#ffb347', boxShadow: `0 0 0 1.5px ${PAL.bg0}, 0 0 8px #ffb347`, opacity: '0' });
       const nm = el('div', null, t, d.n);
-      box(nm, { position: 'absolute', left: '10px', top: '55px', font: "700 13px/1 'IBM Plex Sans KR',sans-serif", color: '#fff' });
+      box(nm, { position: 'absolute', left: '10px', top: '55px', font: "700 13px/1 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
       const cs = el('div', null, t, d.css);
-      box(cs, { position: 'absolute', left: '10px', top: '72px', font: "500 10.5px/1 'JetBrains Mono',monospace", color: 'rgba(255,255,255,.55)' });
+      box(cs, { position: 'absolute', left: '10px', top: '72px', font: "500 10.5px/1 'JetBrains Mono',monospace", color: PAL.muted });
       const val = el('div', null, t, '');
-      box(val, { position: 'absolute', left: '10px', top: '86px', font: "500 10.5px/1 'JetBrains Mono',monospace", color: '#ffb347' });
+      box(val, { position: 'absolute', left: '10px', top: '86px', font: "500 10.5px/1 'JetBrains Mono',monospace", color: PAL.accent2 });
       return { card, pv, nm, cs, val, t };
     });
-    const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '0', right: '0', bottom: '3px', textAlign: 'center', font: "500 11px/1 'IBM Plex Sans KR',sans-serif", color: 'rgba(255,255,255,.7)' });
+    const pill = el('div', null, sp);   // 이름표(tag-tr): 오른쪽 위, 왼쪽 accent 줄
+    box(pill, { position: 'absolute', right: '14px', top: '7px', padding: '5px 10px 5px 9px', borderRadius: '2px', background: PAL.surface, color: PAL.ink, borderLeft: `3px solid ${PAL.accent}`, boxShadow: `0 3px 10px rgba(0,0,0,.35), inset 0 0 0 1px ${PAL.line}`, font: "600 12px/1.1 'IBM Plex Sans KR',sans-serif" });
     return { cells, pill };
   },
   render(s, t, a, lv) {
@@ -66,16 +70,16 @@ const demo = {
       const on = L >= 2 && d.g === 1 || L >= 3 && d.g === 2 || L >= 4 && d.g === 3 || d.css === 'opacity';
       ['transform', 'opacity', 'filter', 'clipPath', 'borderRadius', 'transformOrigin'].forEach((p) => { c.card.style[p] = ''; });
       c.card.style.width = '44px';
-      c.card.style.background = 'linear-gradient(150deg,#8fe0ff 0%,#6f7bff 100%)';
+      c.card.style.background = CARD;
       c.pv.style.opacity = '0';
       if (on) {
         c.val.textContent = d.f(c.card, v, AMP, c.pv);
-        c.cs.style.color = 'rgba(255,255,255,.55)'; c.val.style.color = '#ffb347';
+        c.cs.style.color = PAL.muted; c.val.style.color = PAL.accent2;
       } else {                                   // 아직 이 칸의 값을 안 쓰는 단계: 투명도만 바뀐다
         const o = lerp(.15, 1, v);
         c.card.style.opacity = o.toFixed(2);
         c.val.textContent = `opacity: ${o.toFixed(2)}`;
-        c.cs.style.color = 'rgba(255,255,255,.3)'; c.val.style.color = 'rgba(255,255,255,.4)';
+        c.cs.style.color = rgba(PAL.muted, .75); c.val.style.color = rgba(PAL.muted, .9);
       }
     });
     s.pill.textContent = L <= 1 ? '연출 전 · 12칸 모두 투명도만 바뀜' : `한 칸에 한 가지 값만 바뀜 · 한 번 왕복 ${PERIOD}초`;

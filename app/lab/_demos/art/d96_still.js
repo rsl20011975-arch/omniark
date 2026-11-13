@@ -3,6 +3,8 @@
 // 만들어진 파일 — 원본: source/pages/match-cut/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, E, el } from "./helpers.js";
 
+const PAL = { bg0: '#e6f2ec', bg1: '#d4e8de', ink: '#0f2a22', muted: '#4f6e63', accent: '#0f9d6b', accent2: '#c2410c', surface: '#f6fbf8', line: '#a9cbbd' };
+
 // 밤하늘의 달에서 한낮의 해로, 같은 자리·같은 크기의 동그란 빛으로 컷한다. 화면은 시간 t 의 함수다.
 const CUT = 2.6;                  // 컷이 일어나는 시각(초)
 const DRIFT = 0;                // 컷 앞뒤 1초 동안 이어지는 크기 변화(0.12 = 1.0↔1.12)
@@ -19,7 +21,7 @@ function shot(sp, o) {
   const g = el('div', null, s);
   box(g, { position: 'absolute', left: '-40px', right: '-40px', bottom: '-70px', height: '170px', borderRadius: '50% 50% 0 0 / 60px 60px 0 0', background: o.ground, boxShadow: '0 -10px 40px rgba(0,0,0,.25)' });
   const cap = el('div', null, s, o.cap);
-  box(cap, { position: 'absolute', left: '0', right: '0', bottom: '34px', textAlign: 'center', font: "500 20px/1 'IBM Plex Sans KR',sans-serif", color: 'rgba(255,255,255,.92)', textShadow: '0 2px 10px rgba(0,0,0,.45)' });
+  box(cap, { position: 'absolute', left: '0', right: '0', bottom: '48px', textAlign: 'center', font: "500 20px/1 'IBM Plex Sans KR',sans-serif", color: PAL.surface, textShadow: '0 2px 10px rgba(0,0,0,.45)' });
   const gr = el('div', null, s);
   box(gr, { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.07', mixBlendMode: 'overlay' });
   return { s, glowWide, glowTight, disk };
@@ -30,19 +32,19 @@ function place(sh, o, k, cx, cy, d) {
   box(sh.glowWide, { position: 'absolute', left: (cx - w * 1.7) + 'px', top: (cy - w * 1.7) + 'px', width: (w * 3.4) + 'px', height: (w * 3.4) + 'px', borderRadius: '50%', background: `radial-gradient(circle, ${o.glow}, transparent 62%)` });
   box(sh.glowTight, { position: 'absolute', left: (cx - w * .85) + 'px', top: (cy - w * .85) + 'px', width: (w * 1.7) + 'px', height: (w * 1.7) + 'px', borderRadius: '50%', background: `radial-gradient(circle, ${o.glow2}, transparent 66%)` });
 }
-const NIGHT = { sky: 'linear-gradient(180deg,#050912 0%,#0f1c3a 55%,#27406e 100%)', ground: 'linear-gradient(180deg,#0b101c,#05070d)', cap: '밤 · 달',
-  disk: 'radial-gradient(circle at 36% 32%, #fffaf0, #e9dfc6 52%, #b9aa88 100%)', shadow: 'inset -10px -12px 26px rgba(80,70,50,.35)', glow: 'rgba(210,225,255,.34)', glow2: 'rgba(255,248,225,.55)' };
-const DAY = { sky: 'linear-gradient(180deg,#5aa6ec 0%,#9fd0f7 52%,#ffe6b4 100%)', ground: 'linear-gradient(180deg,#2e6a45,#18402a)', cap: '낮 · 해',
+const NIGHT = { sky: `linear-gradient(180deg,#06120e 0%,${PAL.ink} 55%,#2b5a4a 100%)`, ground: 'linear-gradient(180deg,#0b1a15,#050d0a)', cap: '밤 · 달',
+  disk: 'radial-gradient(circle at 36% 32%, #fffaf0, #e9dfc6 52%, #b9aa88 100%)', shadow: 'inset -10px -12px 26px rgba(80,70,50,.35)', glow: 'rgba(200,235,225,.34)', glow2: 'rgba(255,248,225,.55)' };
+const DAY = { sky: `linear-gradient(180deg,#8fd0b8 0%,${PAL.bg0} 55%,#ffe2b8 100%)`, ground: 'linear-gradient(180deg,#1f6a4f,#0f3b2c)', cap: '낮 · 해',
   disk: 'radial-gradient(circle at 50% 50%, #fffdf0, #ffe98a 55%, #ffb73f 100%)', shadow: '0 0 30px rgba(255,200,80,.8)', glow: 'rgba(255,214,120,.5)', glow2: 'rgba(255,244,200,.7)' };
 
 const demo = {
   dur: 5.2, rest: 4.6, noCompare: false, levels: 3,
   mount(sp) {
     const a = shot(sp, NIGHT), b = shot(sp, DAY);
-    const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '18px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
+    const pill = el('div', null, sp);   // 이름표(caption-bl): 왼쪽 아래, 배경 없음, 위에 1px 선
+    box(pill, { position: 'absolute', left: '20px', bottom: '12px', paddingTop: '6px', borderTop: `1px solid ${PAL.line}`, color: PAL.line, font: "400 12px/1.2 'JetBrains Mono',monospace", zIndex: 5, textShadow: '0 1px 6px rgba(0,0,0,.5)' });
     const ring = el('div', null, sp);   // 두 장면의 중심·지름이 같다는 것을 보여 주는 점선 고리(컷 순간 근처에서만)
-    box(ring, { position: 'absolute', left: (CX - D / 2 - 8) + 'px', top: (CY - D / 2 - 8) + 'px', width: (D + 16) + 'px', height: (D + 16) + 'px', borderRadius: '50%', border: '2px dashed rgba(255,255,255,.75)', opacity: '0', zIndex: 4 });
+    box(ring, { position: 'absolute', left: (CX - D / 2 - 8) + 'px', top: (CY - D / 2 - 8) + 'px', width: (D + 16) + 'px', height: (D + 16) + 'px', borderRadius: '50%', border: `2px dashed ${PAL.accent}`, opacity: '0', zIndex: 4 });
     return { a, b, pill, ring };
   },
   render(s, t, a, lv) {

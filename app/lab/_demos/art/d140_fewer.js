@@ -4,6 +4,9 @@
 import { cl, seg, lerp, E, el, rng } from "./helpers.js";
 
 // 노을 풍경을 '색 단계가 20개뿐인 화면'(줄무늬=밴딩이 눈에 보이게 일부러 줄임)에 그린 뒤, ①그레인(디더)으로 줄무늬를 풀고 ②작은 3D LUT(9×9×9 색 변환표)를 코드로 적용한다. 화면은 시간 t 의 함수다.
+// 장면(노을 바다 풍경)의 색은 이 페이지의 내용이라 그대로 두고, 위에 얹는 카드·이름표만 팔레트(mint)를 쓴다
+const PAL = { bg0: '#e6f2ec', bg1: '#d4e8de', ink: '#0f2a22', muted: '#4f6e63', accent: '#0f9d6b', accent2: '#c2410c', surface: '#f6fbf8', line: 'rgba(15,42,34,.22)' };
+const CARD = 'rgba(246,251,248,.93)';
 const LEVELS = 4;                // 화면이 한 색 성분에 낼 수 있는 단계 수(실제 화면은 256단계 — 여기서는 밴딩을 보이게 줄였다)
 const GRAIN = 1;                  // 그레인 세기 배율(1 = 단계 하나의 ±0.6배 흔들림)
 const LUT_MIX = 1;                // LUT 를 얼마나 적용할지(1 = 100%)
@@ -90,13 +93,13 @@ const demo = {
     const T = (css, text) => { const e = el('div', null, sp, text); box(e, Object.assign({ position: 'absolute', whiteSpace: 'nowrap' }, css)); return e; };
     return {
       base, nz, off, ctx: cv.getContext('2d'), img: off.getContext('2d').createImageData(W, H),
-      pill: T({ left: '14px', top: '12px', padding: '7px 13px', borderRadius: '999px', background: 'rgba(8,10,20,.78)', color: '#fff', font: `500 14px/1 ${FONT}` }, ''),
-      mag: T({ left: '452px', top: '20px', padding: '3px 7px', borderRadius: '6px', background: 'rgba(8,10,20,.78)', color: '#fff', font: `500 11px/1 ${MONO}` }, '확대 ×3'),
-      pt: T({ left: '24px', top: '51px', font: `700 11px/1 ${MONO}`, color: '#fff' }, ''),
-      pin: T({ left: '124px', top: '71px', font: `500 11px/1.5 ${MONO}`, color: '#dfe5ee' }, ''),
-      st: T({ left: '24px', top: '296px', font: `700 11px/1 ${MONO}`, color: '#fff' }, ''),
-      lA: T({ top: '330px', padding: '3px 8px', borderRadius: '6px', background: 'rgba(8,10,20,.78)', color: '#fff', font: `500 12px/1 ${FONT}`, opacity: '0' }, 'LUT 적용'),
-      lB: T({ top: '330px', padding: '3px 8px', borderRadius: '6px', background: 'rgba(8,10,20,.78)', color: '#fff', font: `500 12px/1 ${FONT}`, opacity: '0' }, '원본'),
+      pill: T({ left: '14px', top: '12px', padding: '7px 13px', borderRadius: '999px', background: CARD, border: `1px solid ${PAL.line}`, boxShadow: '0 4px 12px rgba(15,42,34,.3)', color: PAL.ink, font: `500 14px/1 ${FONT}` }, ''),
+      mag: T({ left: '452px', top: '20px', padding: '3px 7px', borderRadius: '6px', background: CARD, color: PAL.ink, font: `500 11px/1 ${MONO}` }, '확대 ×3'),
+      pt: T({ left: '24px', top: '51px', font: `700 11px/1 ${MONO}`, color: PAL.ink }, ''),
+      pin: T({ left: '124px', top: '71px', font: `500 11px/1.5 ${MONO}`, color: PAL.ink }, ''),
+      st: T({ left: '24px', top: '296px', font: `700 11px/1 ${MONO}`, color: PAL.ink }, ''),
+      lA: T({ top: '330px', padding: '3px 8px', borderRadius: '6px', background: CARD, color: PAL.ink, font: `500 12px/1 ${FONT}`, opacity: '0' }, 'LUT 적용'),
+      lB: T({ top: '330px', padding: '3px 8px', borderRadius: '6px', background: CARD, color: PAL.ink, font: `500 12px/1 ${FONT}`, opacity: '0' }, '원본'),
     };
   },
   render(s, t, a, lv) {
@@ -113,28 +116,28 @@ const demo = {
     s.off.getContext('2d').putImageData(s.img, 0, 0);
     const c = s.ctx; c.setTransform(2, 0, 0, 2, 0, 0); c.imageSmoothingEnabled = false;
     c.drawImage(s.off, 0, 0);
-    const card = (x, y, w, h) => { c.fillStyle = 'rgba(8,10,20,.78)'; c.beginPath(); c.roundRect(x, y, w, h, 8); c.fill(); };
+    const card = (x, y, w, h) => { c.save(); c.shadowColor = 'rgba(15,42,34,.4)'; c.shadowBlur = 10; c.shadowOffsetY = 3; c.fillStyle = CARD; c.beginPath(); c.roundRect(x, y, w, h, 8); c.fill(); c.restore(); };
     // 확대 상자: 하늘의 한 조각을 4배로 키워 줄무늬/알갱이를 본다
-    card(446, 14, 180, 104); c.drawImage(s.off, 250, 52, 57.3, 24.7, 450, 40, 172, 74);
-    c.strokeStyle = '#ff8a3d'; c.lineWidth = 1; c.strokeRect(250, 52, 57.3, 24.7);
+    card(446, 14, 180, 104); c.drawImage(s.off, 296, 100, 57.3, 24.7, 450, 40, 172, 74);
+    c.strokeStyle = PAL.surface; c.lineWidth = 3; c.strokeRect(296, 100, 57.3, 24.7); c.strokeStyle = PAL.accent; c.lineWidth = 1.4; c.strokeRect(296, 100, 57.3, 24.7);
     s.mag.style.opacity = '1';
     // 3D LUT 표 보기와 한 점 찾아보기
     const on = L >= 3 && lp >= 1;
     if (L >= 3) {
       if (lp > 0 && lp < 1) {   // 경계선
         c.fillStyle = 'rgba(255,255,255,.95)'; c.fillRect(wx - 1, 0, 2, H);
-        c.fillStyle = '#fff'; c.beginPath(); c.arc(wx, 180, 10, 0, Math.PI * 2); c.fill();
-        c.strokeStyle = '#10141c'; c.lineWidth = 1.8; c.lineCap = 'round'; c.beginPath(); c.moveTo(wx - 3, 175); c.lineTo(wx - 6, 180); c.lineTo(wx - 3, 185); c.moveTo(wx + 3, 175); c.lineTo(wx + 6, 180); c.lineTo(wx + 3, 185); c.stroke();
+        c.fillStyle = PAL.surface; c.beginPath(); c.arc(wx, 180, 10, 0, Math.PI * 2); c.fill();
+        c.strokeStyle = PAL.ink; c.lineWidth = 1.8; c.lineCap = 'round'; c.beginPath(); c.moveTo(wx - 3, 175); c.lineTo(wx - 6, 180); c.lineTo(wx - 3, 185); c.moveTo(wx + 3, 175); c.lineTo(wx + 6, 180); c.lineTo(wx + 3, 185); c.stroke();
       }
       const pa = E.outC(seg(t, 2.7, 3.1));
       c.globalAlpha = pa;
-      card(14, 44, 190, 66);
+      card(14, 44, 236, 66);
       const px = 330, py = 150, pi = (py * W + px) * 3, ir = base[pi] / 255, ig = base[pi + 1] / 255, ib = base[pi + 2] / 255;
-      lut3(ir, ig, ib, o); const or = ir + (o[0] - ir) * LUT_MIX, og = ig + (o[1] - ig) * LUT_MIX, ob = ib + (o[2] - ib) * LUT_MIX;
+      lut3(ir, ig, ib, o); const or = cl(ir + (o[0] - ir) * LUT_MIX), og = cl(ig + (o[1] - ig) * LUT_MIX), ob = cl(ib + (o[2] - ib) * LUT_MIX);
       const rgb = (a1, b1, c1) => `rgb(${Math.round(a1 * 255)},${Math.round(b1 * 255)},${Math.round(c1 * 255)})`;
       c.fillStyle = rgb(ir, ig, ib); c.fillRect(22, 70, 30, 30); c.fillStyle = rgb(or, og, ob); c.fillRect(84, 70, 30, 30);
-      c.strokeStyle = '#fff'; c.lineWidth = 1.5; c.lineCap = 'round'; c.beginPath(); c.moveTo(58, 85); c.lineTo(78, 85); c.moveTo(73, 80); c.lineTo(78, 85); c.lineTo(73, 90); c.stroke();
-      c.strokeStyle = '#fff'; c.lineWidth = 1.6; c.beginPath(); c.arc(px, py, 7, 0, Math.PI * 2); c.stroke();
+      c.strokeStyle = PAL.ink; c.lineWidth = 1.5; c.lineCap = 'round'; c.beginPath(); c.moveTo(58, 85); c.lineTo(78, 85); c.moveTo(73, 80); c.lineTo(78, 85); c.lineTo(73, 90); c.stroke();
+      c.strokeStyle = PAL.surface; c.lineWidth = 3.2; c.beginPath(); c.arc(px, py, 7, 0, Math.PI * 2); c.stroke(); c.strokeStyle = PAL.accent; c.lineWidth = 1.6; c.beginPath(); c.arc(px, py, 7, 0, Math.PI * 2); c.stroke();
       card(14, 290, 190, 62);
       [0, 3, 5, 8].forEach((bi, k) => { for (let gi = 0; gi < N; gi++) for (let ri = 0; ri < N; ri++) { const j = ((bi * N + gi) * N + ri) * 3; c.fillStyle = rgb(TABLE[j], TABLE[j + 1], TABLE[j + 2]); c.fillRect(22 + k * 44 + ri * 4, 310 + gi * 4, 4, 4); } });
       c.globalAlpha = 1;
@@ -146,7 +149,7 @@ const demo = {
     const sweeping = L >= 3 && lp > 0 && lp < 1;
     s.lA.style.opacity = sweeping ? '1' : '0'; s.lB.style.opacity = sweeping ? '1' : '0';
     s.lA.style.left = Math.max(12, wx - 72) + 'px'; s.lB.style.left = Math.min(W - 52, wx + 16) + 'px';
-    s.pill.textContent = lp > 0 ? '3D LUT 적용 · 색을 표에서 찾아 바꿈' : (grain > .05 ? '그레인 얹기 · 줄무늬가 알갱이로 풀림' : '연출 전 · 색 단계 ' + LEVELS + '개뿐인 하늘 → 줄무늬(밴딩)');
+    s.pill.textContent = lp > 0 ? '3D LUT 적용: 색을 표에서 찾아 바꿈' : (grain > .05 ? '그레인 얹기: 줄무늬가 알갱이로 풀림' : '연출 전: 색 단계 ' + LEVELS + '개뿐인 하늘, 줄무늬(밴딩)');
   },
 };
 export default demo;

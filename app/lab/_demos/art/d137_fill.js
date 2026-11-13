@@ -4,6 +4,7 @@
 import { seg, lerp, E, el } from "./helpers.js";
 
 // 같은 '카페' 뜻을 일러스트(분위기·이야기)와 픽토그램(한눈에 읽히는 기호)으로 그려, 같은 크기로 줄여 가며 비교한다. 그림은 직접 그린 SVG 이고, 화면은 시간 t 의 함수다.
+const PAL = { bg0: '#0c1814', bg1: '#15271f', ink: '#e8f1ea', muted: '#86a091', accent: '#7fe0a8', accent2: '#e8d27a', surface: '#12231c', line: 'rgba(232,241,234,.22)' };
 const TILE = '#1d4ed8';           // 픽토그램 바탕색(안내 표지 파랑)
 const FILL = .86;                 // 기호가 타일 한 변에서 차지하는 비율(나머지는 안쪽 여백)
 const SIZES = [150, 80, 44, 24];  // 줄여 보는 크기(px)
@@ -44,15 +45,15 @@ const demo = {
   dur: 4.8, rest: 4.4, noCompare: false, levels: 3,
   mount(sp) {
     const bg = el('div', null, sp);
-    box(bg, { position: 'absolute', inset: '0', background: 'linear-gradient(160deg,#0b0f1a 0%,#171e33 100%)' });
+    box(bg, { position: 'absolute', inset: '0', background: `radial-gradient(110% 80% at 80% 0%, rgba(127,224,168,.12), rgba(127,224,168,0) 60%), linear-gradient(160deg,${PAL.bg0} 0%,${PAL.bg1} 100%)` });
     const floor = el('div', null, sp);
-    box(floor, { position: 'absolute', left: '40px', right: '40px', top: '268px', height: '1px', background: 'rgba(255,255,255,.16)' });
+    box(floor, { position: 'absolute', left: '40px', right: '40px', top: '268px', height: '1px', background: PAL.line });
     const mk = (html, x, y, px, lab) => {
       const w = el('div', null, sp);
       box(w, { position: 'absolute', left: x + 'px', top: y + 'px', width: px + 'px', height: px + 'px', transformOrigin: '50% 100%', filter: 'drop-shadow(0 8px 10px rgba(0,0,0,.4))' });
       w.innerHTML = html;
       const l = el('div', null, sp, lab);
-      box(l, { position: 'absolute', left: (x - 20) + 'px', width: (px + 40) + 'px', top: (y + px + 8) + 'px', textAlign: 'center', font: "500 12px/1 'JetBrains Mono',monospace", color: 'rgba(255,255,255,.7)' });
+      box(l, { position: 'absolute', left: (x - 20) + 'px', width: (px + 40) + 'px', top: (y + px + 8) + 'px', textAlign: 'center', font: "500 12px/1 'JetBrains Mono',monospace", color: PAL.muted });
       return { w, l };
     };
     const total = SIZES.reduce((a, b) => a + b, 0) + (SIZES.length - 1) * 36;
@@ -62,13 +63,15 @@ const demo = {
     x = (640 - total) / 2;
     const pic = row(picto('cafe'));
     const keys = ['cafe', 'wc', 'info'];
-    const bigs = keys.map((k, i) => { const o = mk(picto(k), 100 + i * 160, 62, 120, NAMES[k] + ' · 120px'); return o; });
+    const bigs = keys.map((k, i) => { const o = mk(picto(k), 100 + i * 160, 62, 120, NAMES[k] + ' 120px'); return o; });
     const smalls = keys.map((k, i) => { const o = mk(picto(k), 100 + i * 160 + 46, 218, 28, '28px'); return o; });
     const cap = el('div', null, sp);
-    box(cap, { position: 'absolute', left: '40px', right: '40px', top: '312px', textAlign: 'center', font: "400 13px/1.4 'IBM Plex Sans KR',sans-serif", color: 'rgba(255,255,255,.66)' });
+    box(cap, { position: 'absolute', left: '40px', right: '40px', top: '312px', textAlign: 'center', font: "400 13px/1.4 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
+    const num = el('div', null, sp);
+    box(num, { position: 'absolute', left: '24px', top: '14px', font: "400 40px/1 'Black Han Sans',sans-serif", color: PAL.accent });
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '18px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif" });
-    return { ill, pic, bigs, smalls, cap, pill, floor };
+    box(pill, { position: 'absolute', left: '58px', top: '27px', font: "500 13px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
+    return { ill, pic, bigs, smalls, cap, pill, num, floor };
   },
   render(s, t, a, lv) {
     const L = !a ? 1 : (lv == null ? 3 : lv);   // 1 = 일러스트만, 2 = 픽토그램으로 교체, 3 = 픽토그램 세트
@@ -83,7 +86,8 @@ const demo = {
     s.bigs.forEach((o, i) => show(o, Math.min(1, seg(t, 3.4 + i * .12, 3.9 + i * .12)) * (L >= 3 ? 1 : 0), 1));
     s.smalls.forEach((o, i) => show(o, Math.min(1, seg(t, 3.6 + i * .12, 4.1 + i * .12)) * (L >= 3 ? 1 : 0), 1));
     s.floor.style.opacity = String(1 - s3);
-    s.pill.textContent = s3 > .5 ? '픽토그램 세트 · 바탕·여백·선 굵기를 맞춤' : (s2 > .5 ? '픽토그램 · 한 색과 단순한 도형' : '일러스트 · 크기를 줄여 보기');
+    s.num.textContent = s3 > .5 ? '3' : (s2 > .5 ? '2' : '1');
+    s.pill.textContent = s3 > .5 ? '픽토그램 세트: 바탕, 여백, 선 굵기를 맞춤' : (s2 > .5 ? '픽토그램: 한 색과 단순한 도형' : '일러스트: 크기를 줄여 보기');
     s.cap.textContent = s3 > .5 ? '같은 바탕색, 같은 안쪽 여백(' + Math.round(FILL * 100) + '%), 같은 선 굵기로 맞추면 한 표지판 계열로 읽힙니다.' : (s2 > .5 ? '150px 에서 24px 까지 줄여도 컵과 김이 한눈에 읽힙니다.' : '150px 에서는 멋지지만 24px 로 줄이면 창·탁자·김·컵을 구분하기 어렵습니다.');
   },
 };

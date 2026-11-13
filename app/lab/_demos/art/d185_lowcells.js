@@ -9,15 +9,16 @@ const COLS = 16;                  // 블록을 가로로 몇 개로 나누는가
 const HOLD = 0.7, GAP = 1.0, FADE = 0.45;   // 처음 멈춤(초), 단계 사이 간격(초), 단계가 바뀌는 데 걸리는 시간(초)
 const LADDER = [8, 4, 2, 1];      // 정보 칸 단계(가로·세로 개수)
 const SW = 800, SH = 450;
+const PAL = { bg0: "#0b0f1a", bg1: "#161d30", ink: "#f4efe4", muted: "#8b94a3", accent: "#ffb36b", accent2: "#ffd27a", surface: "#131a2b", line: "rgba(244,239,228,.22)" };
 const SANS = '"IBM Plex Sans KR","Malgun Gothic",sans-serif', MONO = '"JetBrains Mono","Malgun Gothic",monospace';
 const T = (c, s, x, y, z, col, w, al, f) => { c.save(); c.fillStyle = col; c.font = (w || 500) + " " + z + "px " + (f || SANS); c.textAlign = al || "left"; c.textBaseline = "alphabetic"; c.fillText(s, x, y); c.restore(); };
 function grainTile(seed) { const g = document.createElement("canvas"); g.width = g.height = 96; const x = g.getContext("2d"), im = x.createImageData(96, 96), r = rng(seed); for (let i = 0; i < 96 * 96; i++) { const v = (r() * 255) | 0; im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = v; im.data[i * 4 + 3] = 255; } x.putImageData(im, 0, 0); return g; }
 function backdrop(c, grain) {
-  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, "#0e1424"); g.addColorStop(1, "#080b13"); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
-  const r = c.createRadialGradient(320, 150, 20, 320, 150, 360); r.addColorStop(0, "rgba(70,110,190,.10)"); r.addColorStop(1, "rgba(70,110,190,0)"); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
+  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+  const r = c.createRadialGradient(320, 150, 20, 320, 150, 360); r.addColorStop(0, "rgba(255,179,107,.09)"); r.addColorStop(1, "rgba(255,179,107,0)"); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
   c.save(); c.globalAlpha = 0.045; c.fillStyle = c.createPattern(grain, "repeat"); c.fillRect(0, 0, 640, 360); c.restore();
 }
-function pill(c, s) { c.save(); c.font = "500 12px " + SANS; const w = c.measureText(s).width + 22; rr(c, 14, 12, w, 22, 11); c.fillStyle = "rgba(8,10,20,.78)"; c.fill(); c.strokeStyle = "rgba(255,255,255,.16)"; c.lineWidth = 1; c.stroke(); c.restore(); T(c, s, 25, 27, 12, "#fff", 500); }
+function pill(c, s) { c.save(); c.font = "500 12px " + SANS; const w = c.measureText(s).width + 22; rr(c, 14, 12, w, 22, 11); c.fillStyle = PAL.surface; c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke(); c.restore(); T(c, s, 25, 27, 12, PAL.ink, 500); }
 
 // 잔 디테일이 많은 원본 그림(고층 건물의 창, 줄무늬 현수막, 가는 글자, 풀잎)
 function drawSource(c) {
@@ -92,25 +93,25 @@ const demo = {
     // 확대할 블록
     const col = Math.floor(COLS * 0.56), row = Math.floor(rows * 0.5);
     const rx = PX + col * bw * q, ry = PY + row * bw * q;
-    if (L >= 1) { c.strokeStyle = "#ffd27a"; c.lineWidth = 2; c.strokeRect(rx, ry, bw * q, bw * q); }
+    if (L >= 1) { c.strokeStyle = PAL.accent2; c.lineWidth = 2; c.strokeRect(rx, ry, bw * q, bw * q); }
     // 오른쪽: 블록 하나 확대 + 파일 크기 계산
     const MX = 485, MY = 84, MS = 96;
-    T(c, "비트레이트 = 1초에 쓰는 정보량", 440, 62, 12, "#fff", 700);
+    T(c, "비트레이트 = 1초에 쓰는 정보량", 440, 62, 12, PAL.ink, 700);
     c.save(); c.beginPath(); c.rect(MX, MY, MS, MS); c.clip(); c.imageSmoothingEnabled = false;
     const sx = col * bw, sy = row * bw;
     c.drawImage(s.cv[m0], sx, sy, bw, bw, MX, MY, MS, MS); if (fr > 0.001) { c.globalAlpha = fr; c.drawImage(s.cv[m1], sx, sy, bw, bw, MX, MY, MS, MS); c.globalAlpha = 1; }
     c.restore();
-    c.strokeStyle = L >= 1 ? "#ffd27a" : "rgba(255,255,255,.3)"; c.lineWidth = 2; c.strokeRect(MX, MY, MS, MS);
-    T(c, L >= 1 ? "노란 블록 하나를 확대" : "한 부분을 확대", MX + MS / 2, MY + MS + 16, 11, "#c9d1e0", 500, "center");
+    c.strokeStyle = L >= 1 ? PAL.accent2 : "rgba(255,255,255,.3)"; c.lineWidth = 2; c.strokeRect(MX, MY, MS, MS);
+    T(c, L >= 1 ? "노란 블록 하나를 확대" : "한 부분을 확대", MX + MS / 2, MY + MS + 16, 11, PAL.muted, 500, "center");
     const hi = !a || mNow === 0 || mNow === 8 || L <= 1, lo = a && L >= 2 && !hi;
-    const rowc = (y, on, title, val) => { T(c, title, 440, y, 11, on ? "#ffd27a" : "#8b94a3", 700); T(c, val, 440, y + 16, 11, on ? "#ffffff" : "#8b94a3", 500, "left", MONO); };
+    const rowc = (y, on, title, val) => { T(c, title, 440, y, 11, on ? PAL.accent2 : PAL.muted, 700); T(c, val, 440, y + 16, 11, on ? PAL.ink : PAL.muted, 500, "left", MONO); };
     rowc(236, hi, "높은 비트레이트 예: 8 Mbit/s", "× 10초 ÷ 8 = 10 MB");
     rowc(276, lo, "낮은 비트레이트 예: 2 Mbit/s", "× 10초 ÷ 8 = 2.5 MB");
-    T(c, "예시 숫자이며 실제 화질은 영상·코덱마다 다름", 440, 326, 10, "#8b94a3", 500);
+    T(c, "예시 숫자이며 실제 화질은 영상·코덱마다 다름", 440, 326, 10, PAL.muted, 500);
     // 아래 설명
     const nm = mNow === 0 ? "원본 그대로" : (mNow === 1 ? "블록마다 평균색 하나(1×1)" : "블록마다 정보 칸 " + mNow + "×" + mNow);
-    T(c, !a || L < 2 ? "정보를 아끼지 않은 상태" : nm, PX, 312, 15, "#ffd27a", 700);
-    T(c, !a || L < 2 ? "블록 = 한 번에 다루는 작은 네모(도식)" : (mNow === 0 ? "블록 안의 잔 무늬가 모두 남아 있다" : (mNow === 1 ? "블록이 한 가지 색으로 뭉치고 경계가 보인다" : "블록 안의 잔 무늬가 흐려진다")), PX, 332, 12, "#c9d1e0", 500);
+    T(c, !a || L < 2 ? "정보를 아끼지 않은 상태" : nm, PX, 312, 15, PAL.accent2, 700);
+    T(c, !a || L < 2 ? "블록 = 한 번에 다루는 작은 네모(도식)" : (mNow === 0 ? "블록 안의 잔 무늬가 모두 남아 있다" : (mNow === 1 ? "블록이 한 가지 색으로 뭉치고 경계가 보인다" : "블록 안의 잔 무늬가 흐려진다")), PX, 332, 12, PAL.muted, 500);
     pill(c, !a ? "연출 전 · 정보를 아끼지 않은 원본" : "비트레이트가 낮아지는 도식(실제 코덱 아님)");
   },
 };

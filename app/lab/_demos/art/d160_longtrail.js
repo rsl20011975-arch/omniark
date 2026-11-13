@@ -4,6 +4,7 @@
 import { seg, lerp, E, rng, canvas, rr } from "./helpers.js";
 
 // 벡터 필드: 화면의 모든 자리에 '그 자리에서 움직이는 방향과 세기'를 주는 함수. 점들이 그 방향을 따라 흐르며 남긴 길이 '선 흐름'이다.
+const PAL = { bg0: '#0b0f1a', bg1: '#161d30', ink: '#f4efe4', muted: '#8b94a3', accent: '#ffb36b', accent2: '#ffd27a', surface: '#131a2b', line: '#2a3550' };
 const EDDY = 1.6;       // 화면 가로로 지나가는 소용돌이 물결 수(클수록 소용돌이가 작고 많아진다)
 const TRAIL = 1.2;     // 점이 남기는 꼬리의 길이(초)
 const SPEED = 90;       // 필드 세기 1 이 뜻하는 속도(px/초)
@@ -19,17 +20,19 @@ function field(x, y) {                 // 화면 좌표(px) -> [가로 세기, �
   return [dY / K + .35, -dX / K];      // 흐름 함수의 기울기에서 얻는 소용돌이 + 오른쪽으로 가는 약한 바람
 }
 const cls = (m) => (m < .55 ? 0 : m < 1.1 ? 1 : 2);
-const COL = ['70,140,255', '60,220,230', '255,176,90'];
+const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const rgba = (h, al) => { const [r, g, b] = rgb(h); return `rgba(${r},${g},${b},${al})`; };
+const COL = ['#468cff', '#3cdce6', PAL.accent];      // 느림 파랑, 보통 청록, 빠름 주황(팔레트 accent)
 const pillDraw = (c, text) => {
   c.font = "500 14px 'IBM Plex Sans KR',sans-serif"; const w = c.measureText(text).width + 26;
-  rr(c, 16, 14, w, 28, 14); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill();
-  c.fillStyle = '#fff'; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText(text, 29, 29);
+  rr(c, 16, 14, w, 28, 14); c.fillStyle = rgba(PAL.surface, .88); c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke();
+  c.fillStyle = PAL.ink; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText(text, 29, 29);
 };
 
 const demo = {
   dur: DUR, rest: 3.6, noCompare: false, levels: 4,
   mount(sp) {
-    sp.style.background = '#0b0f1a';
+    sp.style.background = PAL.bg0;
     const c = canvas(sp), r = rng(9), NS = Math.round((DUR + PRE) / DT) + 3;
     const px = new Float32Array(COUNT * NS), py = new Float32Array(COUNT * NS), cl = new Uint8Array(COUNT * NS), fa = new Float32Array(COUNT * NS), br = new Uint8Array(COUNT * NS);
     for (let p = 0; p < COUNT; p++) {          // 점마다 길을 미리 계산(수명이 끝나거나 화면 밖으로 나가면 새 자리에서 다시 시작)
@@ -52,9 +55,9 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 0 : (lv == null ? 3 : lv - 1);   // 0 = 필드 없이 직선, 1 = 화살표 격자 + 따라 흐르는 점, 2 = + 꼬리(선 흐름), 3 = + 속도 색·빛 번짐
     const c = s.c; c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, 640, 360);
-    let g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, '#0b0f1a'); g.addColorStop(1, '#131b30'); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+    let g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
     if (L === 0) {
-      c.fillStyle = 'rgba(255,255,255,.8)';
+      c.fillStyle = rgba(PAL.ink, .8);
       for (const p of s.lin) { const x = ((p.x + p.vx * t) % W + W) % W, y = ((p.y + p.vy * t) % H + H) % H; c.beginPath(); c.arc(x, y, 2, 0, 6.2832); c.fill(); }
     } else {
       if (L === 1) {          // 화살표 격자: 방향 = 화살 방향, 세기 = 화살 길이
@@ -64,7 +67,7 @@ const demo = {
           p.moveTo(x1, y1); p.lineTo(x2, y2); p.moveTo(x2 - Math.cos(ang - .5) * 5, y2 - Math.sin(ang - .5) * 5); p.lineTo(x2, y2); p.lineTo(x2 - Math.cos(ang + .5) * 5, y2 - Math.sin(ang + .5) * 5);
         }
         c.lineWidth = 1.3; c.lineCap = 'round'; c.lineJoin = 'round';
-        P.forEach((p, i) => { c.strokeStyle = `rgba(${COL[i]},.62)`; c.stroke(p); });
+        P.forEach((p, i) => { c.strokeStyle = rgba(COL[i], .62); c.stroke(p); });
       }
       const kf = (t + PRE) / DT, k0 = Math.floor(kf), fk = kf - k0, NS = s.NS, n = Math.round(TRAIL / DT);
       if (L >= 2) {
@@ -83,13 +86,13 @@ const demo = {
         }
         c.lineCap = 'round'; c.lineWidth = L >= 3 ? 1.6 : 1.4;
         const AL = [.95, .6, .34, .14];
-        for (let b = 0; b < nb; b++) for (let k = 0; k < 3; k++) { c.strokeStyle = L >= 3 ? `rgba(${COL[k]},${AL[b]})` : `rgba(170,215,255,${AL[b] * .9})`; c.stroke(paths[b * 3 + k]); }
+        for (let b = 0; b < nb; b++) for (let k = 0; k < 3; k++) { c.strokeStyle = L >= 3 ? rgba(COL[k], AL[b]) : rgba(PAL.ink, AL[b] * .9); c.stroke(paths[b * 3 + k]); }
         c.globalCompositeOperation = 'source-over';
       }
       for (let p = 0; p < COUNT; p++) {          // 점의 머리
         const i = p * NS + k0, hx = s.px[i] + (s.px[i + 1] - s.px[i]) * fk, hy = s.py[i] + (s.py[i + 1] - s.py[i]) * fk;
         if (s.br[i + 1] && fk > 0) continue;
-        c.globalAlpha = s.fa[i]; c.fillStyle = L >= 3 ? `rgb(${COL[s.cl[i]]})` : '#fff'; c.beginPath(); c.arc(hx, hy, L >= 3 ? 1.9 : 2.1, 0, 6.2832); c.fill();
+        c.globalAlpha = s.fa[i]; c.fillStyle = L >= 3 ? COL[s.cl[i]] : PAL.ink; c.beginPath(); c.arc(hx, hy, L >= 3 ? 1.9 : 2.1, 0, 6.2832); c.fill();
       }
       c.globalAlpha = 1;
     }
@@ -97,7 +100,7 @@ const demo = {
     pillDraw(c, ['연출 전: 점이 제각각 직선으로 움직임(필드 없음)', '1단계: 화살표 격자(벡터 필드)와 그 방향을 따르는 점', '2단계: 점이 지나간 길을 꼬리로 남김(선 흐름)', '3단계: + 속도 색(파랑 느림 → 주황 빠름) · 빛 번짐'][L]);
     if (L >= 3) {
       c.font = "500 12px 'IBM Plex Sans KR',sans-serif"; c.textBaseline = 'middle'; c.textAlign = 'left';
-      [['느림', 0], ['보통', 1], ['빠름', 2]].forEach(([tx, i]) => { const x = 20 + i * 72; c.fillStyle = `rgb(${COL[i]})`; c.fillRect(x, 332, 14, 4); c.fillStyle = 'rgba(255,255,255,.85)'; c.fillText(tx, x + 20, 334); });
+      [['느림', 0], ['보통', 1], ['빠름', 2]].forEach(([tx, i]) => { const x = 20 + i * 72; c.fillStyle = COL[i]; c.fillRect(x, 332, 14, 4); c.fillStyle = PAL.ink; c.fillText(tx, x + 20, 334); });
     }
   },
 };

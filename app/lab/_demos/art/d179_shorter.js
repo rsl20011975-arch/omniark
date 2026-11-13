@@ -3,6 +3,10 @@
 // 만들어진 파일 — 원본: source/pages/sound-risers/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el, rng, rr } from "./helpers.js";
 
+const PAL = { bg0: '#1b0e17', bg1: '#2b1424', ink: '#f6e9ee', muted: '#b095a3', accent: '#ff7aa8', accent2: '#ffd0a0', surface: '#26121f', line: 'rgba(246,233,238,.16)' };
+const al = (h, a) => `rgba(${[1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)).join(',')},${a})`;   // PAL 색에 투명도를 준다
+const C_IMP = PAL.accent2, C_DL = '#9bb8ff', C_ST = PAL.accent;   // 층별 색(파형 줄, 설명 글자)
+
 // 임팩트(쿵) 하나에 다운리프터(에너지가 내려가는 소리)와 스팅어(짧은 마침표)를 단계별로 얹은 소리의 '모양'을 코드로 합성해 파형·스펙트럼으로 보여 준다. 재생은 없다. 화면은 시간 t 의 함수다.
 const DL_LEN = 0.6;          // 다운리프터가 내려가는 데 걸리는 시간(초)
 const DL_F0 = 3000;          // 다운리프터가 시작할 때의 밝기(대역통과 중심 주파수, Hz). 150Hz까지 내려간다
@@ -13,7 +17,7 @@ const TOT = 3.6;             // 소리 전체 길이(초)
 const REF = 36;              // 스펙트럼 색 눈금의 기준 크기(dB). 이 합성 결과의 가장 센 값에 맞춘 표시용 눈금
 const SR = 16000, TAU = Math.PI * 2;
 const SANS = "'IBM Plex Sans KR','Malgun Gothic',sans-serif", MONO = "'JetBrains Mono',monospace";
-const TX2 = '#98a2b5';
+const TX2 = PAL.muted, INK = PAL.ink;
 
 // ---- 신호 처리 도구 ----
 const mk = (s) => new Float32Array(Math.round(s * SR));
@@ -72,18 +76,18 @@ function synth() {
 // ---- 그리기 도구 ----
 function tx(c, s, x, y, size, col, wt, al, font) { c.save(); c.fillStyle = col; c.font = (wt || 500) + ' ' + size + 'px ' + (font || SANS); c.textAlign = al || 'left'; c.textBaseline = 'alphabetic'; c.fillText(s, x, y); c.restore(); }
 function bgFill(c, grain) {
-  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, '#0b0f1a'); g.addColorStop(1, '#070a12'); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
-  const r = c.createRadialGradient(470, 120, 10, 470, 120, 330); r.addColorStop(0, 'rgba(255,138,61,.07)'); r.addColorStop(1, 'rgba(255,138,61,0)'); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
+  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+  const r = c.createRadialGradient(470, 120, 10, 470, 120, 330); r.addColorStop(0, al(PAL.accent, .09)); r.addColorStop(1, al(PAL.accent, 0)); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
   c.globalAlpha = .05; c.fillStyle = c.createPattern(grain, 'repeat'); c.fillRect(0, 0, 640, 360); c.globalAlpha = 1;
 }
-function panel(c, x, y, w, h) { rr(c, x, y, w, h, 6); c.fillStyle = 'rgba(255,255,255,.035)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.09)'; c.lineWidth = 1; c.stroke(); }
+function panel(c, x, y, w, h) { rr(c, x, y, w, h, 6); c.fillStyle = PAL.surface; c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke(); }
 function wave(c, pk, x, y, w, h, col, rev, gain) {
   panel(c, x, y, w, h); const mid = y + h / 2, k = h / 2 * gain;
   for (let i = 0; i < pk.mn.length; i++) { c.fillStyle = i / pk.mn.length <= rev ? col : col + '4d'; const a = mid - pk.mx[i] * k, b = mid - pk.mn[i] * k; c.fillRect(x + i, a, 1, Math.max(1, b - a)); }
-  c.fillStyle = 'rgba(255,255,255,.14)'; c.fillRect(x, mid - .3, w, .6);
+  c.fillStyle = al(PAL.ink, .16); c.fillRect(x, mid - .3, w, .6);
 }
 function heat(v) {
-  const S = [[0, 11, 15, 26], [.3, 62, 40, 124], [.6, 222, 92, 62], [.85, 255, 170, 70], [1, 255, 238, 196]];
+  const S = [[0, 27, 14, 23], [.3, 96, 32, 92], [.6, 226, 84, 112], [.85, 255, 172, 124], [1, 255, 236, 214]];
   for (let i = 1; i < S.length; i++) if (v <= S[i][0]) { const p = (v - S[i - 1][0]) / (S[i][0] - S[i - 1][0]); return `rgb(${Math.round(lerp(S[i - 1][1], S[i][1], p))},${Math.round(lerp(S[i - 1][2], S[i][2], p))},${Math.round(lerp(S[i - 1][3], S[i][3], p))})`; }
   return 'rgb(255,238,196)';
 }
@@ -109,30 +113,30 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 1 : (lv == null ? 3 : lv), c = s.ctx, X = 124, W = 500, ph = Math.min(1, t / TOT);
     c.setTransform(2, 0, 0, 2, 0, 0); c.globalAlpha = 1; bgFill(c, s.grain);
-    const lanes = [['임팩트', '#6fd3ff', s.pk.imp, 1], ['다운리프터', '#b49cff', s.pk.dl, 2], ['스팅어', '#ff7ac8', s.pk.st, 3]];
+    const lanes = [['임팩트', C_IMP, s.pk.imp, 1], ['다운리프터', C_DL, s.pk.dl, 2], ['스팅어', C_ST, s.pk.st, 3]];
     lanes.forEach(([n, col, pk, need], i) => {
       const y = 46 + i * 30, on = L >= need;
-      tx(c, n, 16, y + 17, 12, on ? col : '#7d879a', 600);
-      if (on) wave(c, pk, X, y, W, 26, col, ph, 1.5); else { panel(c, X, y, W, 26); tx(c, '아직 없음', X + 10, y + 17, 11, '#7d879a', 500); }
+      tx(c, n, 16, y + 17, 12, on ? col : TX2, 600);
+      if (on) wave(c, pk, X, y, W, 26, col, ph, 1.5); else { panel(c, X, y, W, 26); tx(c, '아직 없음', X + 10, y + 17, 11, TX2, 500); }
     });
-    wave(c, s.pk.mix[L - 1], X, 140, W, 34, '#f4efe4', ph, 1);
-    tx(c, '합친 소리', 16, 161, 12, '#f4efe4', 700);
+    wave(c, s.pk.mix[L - 1], X, 140, W, 34, INK, ph, 1);
+    tx(c, '합친 소리', 16, 161, 12, INK, 700);
     specDraw(c, s.spec(L), s.T, X, 182, W, 92, s.ref, ph);
     [[100, '100'], [1000, '1k'], [5000, '5k']].forEach(([f, l]) => tx(c, l, X - 6, fy(f, 182, 92) + 4, 10, TX2, 500, 'right', MONO));
-    tx(c, '스펙트럼', 16, 232, 12, '#ffb27f', 700);
+    tx(c, '스펙트럼', 16, 232, 12, PAL.accent2, 700);
     if (L >= 2) {   // 다운리프터가 이어지는 구간을 옅은 띠로 표시
       const x0 = X + (HIT_T + .05) / TOT * W, x1 = X + (HIT_T + .05 + DL_LEN) / TOT * W;
-      c.fillStyle = 'rgba(180,156,255,.10)'; c.fillRect(x0, 76, x1 - x0, 198); c.fillStyle = 'rgba(180,156,255,.7)'; c.fillRect(x0 - .5, 76, 1, 198); c.fillRect(x1 - .5, 76, 1, 198);
-      if (x1 - x0 > 60) tx(c, `다운리프터 구간 ${DL_LEN.toFixed(1)}초`, (x0 + x1) / 2, 198, 10.5, '#c4b5fd', 600, 'center');
+      c.fillStyle = al(C_DL, .12); c.fillRect(x0, 76, x1 - x0, 198); c.fillStyle = al(C_DL, .75); c.fillRect(x0 - .5, 76, 1, 198); c.fillRect(x1 - .5, 76, 1, 198);
+      if (x1 - x0 > 60) tx(c, `다운리프터 구간 ${DL_LEN.toFixed(1)}초`, (x0 + x1) / 2, 198, 10.5, '#bcd0ff', 600, 'center');
     }
-    const px = X + ph * W; c.fillStyle = 'rgba(255,138,61,.95)'; c.fillRect(px - .7, 42, 1.4, 232);
+    const px = X + ph * W; c.fillStyle = al(PAL.ink, .92); c.fillRect(px - .7, 42, 1.4, 232);
     const q = s.sig; let y = 292;
     tx(c, `임팩트  최대까지 ${q.imp.atk.toFixed(0)}ms · 최대치의 -30dB 아래로 내려가기까지 ${q.imp.dec.toFixed(0)}ms`, 16, y, 10.5, TX2, 500, 'left', MONO); y += 15;
-    if (L >= 2) tx(c, `다운리프터  밝기(무게중심) ${q.c0.toFixed(0)}Hz → ${q.c1.toFixed(0)}Hz · 크기 ${q.r0.toFixed(0)}dB → ${q.r1.toFixed(0)}dB`, 16, y, 10.5, '#c4b5fd', 500, 'left', MONO); y += 15;
-    if (L >= 3) tx(c, `스팅어  최대까지 ${q.st.atk.toFixed(0)}ms · -30dB 아래까지 ${q.st.dec.toFixed(0)}ms`, 16, y, 10.5, '#ff9fd6', 500, 'left', MONO);
-    tx(c, '재생 버튼 없음 · 파형·스펙트럼은 코드로 합성한 값입니다. 소리는 직접 들어 보고 판단하세요.', 16, 348, 10.5, TX2, 500);
+    if (L >= 2) tx(c, `다운리프터  밝기(무게중심) ${q.c0.toFixed(0)}Hz → ${q.c1.toFixed(0)}Hz · 크기 ${q.r0.toFixed(0)}dB → ${q.r1.toFixed(0)}dB`, 16, y, 10.5, '#bcd0ff', 500, 'left', MONO); y += 15;
+    if (L >= 3) tx(c, `스팅어  최대까지 ${q.st.atk.toFixed(0)}ms · -30dB 아래까지 ${q.st.dec.toFixed(0)}ms`, 16, y, 10.5, C_ST, 500, 'left', MONO);
+    tx(c, '재생 버튼 없음. 파형과 스펙트럼은 코드로 합성한 값이며, 소리는 직접 들어 보고 판단하세요.', 16, 24, 10.5, TX2, 500);
     const post = t < HIT_T ? '임팩트 직전' : (L >= 2 && t < STING_T ? '다운리프터: 임팩트 뒤 에너지가 아래로 내려감' : (L >= 3 ? '스팅어: 짧고 날카로운 마침표' : (L >= 2 ? '다운리프터가 끝남' : '임팩트 하나만 · 뒤가 이어지지 않음')));
-    c.font = '500 12px ' + SANS; const pw = c.measureText(post).width + 24; rr(c, 14, 12, pw, 24, 12); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.12)'; c.stroke(); tx(c, post, 26, 28, 12, '#fff', 500);
+    c.fillStyle = PAL.line; c.fillRect(16, 334, 608, 1); tx(c, post, 16, 350, 12, TX2, 500, 'left', MONO);   // 이름표(caption-bl): 왼쪽 아래, 배경 없이 얇은 선 위에
   },
 };
 export default demo;

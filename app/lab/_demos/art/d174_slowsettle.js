@@ -3,6 +3,8 @@
 // 만들어진 파일 — 원본: source/pages/drag-drop/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el, rr, rng } from "./helpers.js";
 
+const PAL = { bg0: '#171615', bg1: '#232120', ink: '#f2efe9', muted: '#9a958c', accent: '#5ad1c8', accent2: '#f2b84b', surface: '#1f1d1b', line: 'rgba(242,239,233,.12)' };
+
 // 칸반 보드에서 가상 커서가 카드 하나를 집어 다른 칸으로 옮긴다. 기본은 놓는 순간 옮겨지고, 단계마다 들어 올림·놓을 자리 표시·이웃 카드 비켜남을 더한다. 화면은 시간 t 의 함수다.
 const LIFT = 1.05;        // 집어 든 카드의 크기 배율(1 = 그대로)
 const TILT = 3;           // 집어 든 카드가 기울어지는 각도(도)
@@ -12,8 +14,8 @@ const SANS = "'IBM Plex Sans KR','Malgun Gothic',sans-serif";
 const COLX = [42, 232, 422], CW = 176, CARDW = 160, CARDH = 50, SY = (i) => 94 + i * 58, COLTOP = 58, COLH = 268;
 const NAMES = ['할 일', '진행 중', '완료'];
 const CARDS = {   // [제목, 보조 글, 색]
-  A: ['로그인 화면 만들기', '담당 · 지아', '#4f7cff'], B: ['버튼 색 정리', '담당 · 민준', '#ff9a4d'], C: ['아이콘 교체', '담당 · 서연', '#a77bff'], G: ['문서 정리', '담당 · 하준', '#2fb67c'],
-  D: ['오류 문구 수정', '담당 · 지아', '#2fb67c'], E: ['배포 점검', '담당 · 민준', '#4f7cff'], F: ['회원가입 테스트', '담당 · 서연', '#a77bff'],
+  A: ['로그인 화면 만들기', '담당 · 지아', '#5ad1c8'], B: ['버튼 색 정리', '담당 · 민준', '#f2b84b'], C: ['아이콘 교체', '담당 · 서연', '#e07a5f'], G: ['문서 정리', '담당 · 하준', '#9a958c'],
+  D: ['오류 문구 수정', '담당 · 지아', '#5ad1c8'], E: ['배포 점검', '담당 · 민준', '#f2b84b'], F: ['회원가입 테스트', '담당 · 서연', '#9a958c'],
 };
 const SRC = [130, SY(2) + CARDH / 2], DST = [COLX[1] + CW / 2, SY(1) + CARDH / 2];   // 집은 카드의 처음 중심, 놓을 칸의 중심
 const GRAB = [110, SRC[1] + 6], OFF = [GRAB[0] - SRC[0], GRAB[1] - SRC[1]], HOVER_AT = [DST[0] + 24, DST[1] - 34];   // 커서가 잡은 자리, 놓는 순간 카드 중심(슬롯보다 살짝 위)
@@ -30,16 +32,16 @@ function card(c, k, cx, cy, sc, rot, lift) {   // 카드 한 장(중심 cx,cy). 
   const [ti, sub, col] = CARDS[k], w = CARDW, h = CARDH;
   c.save(); c.translate(cx, cy); c.rotate(rot * Math.PI / 180); c.scale(sc, sc);
   drop(c, -w / 2, -h / 2, w, h, 12, 3 + 14 * lift, 5 + 14 * lift, .3 + .3 * lift);
-  rr(c, -w / 2, -h / 2, w, h, 12); c.fillStyle = lg(c, 0, -h / 2, 0, h / 2, [[0, '#2c3868'], [1, '#222c54']]); c.fill();
-  c.strokeStyle = `rgba(190,205,255,${(.18 + .3 * lift).toFixed(2)})`; c.lineWidth = 1; rr(c, -w / 2 + .5, -h / 2 + .5, w - 1, h - 1, 11.5); c.stroke();
+  rr(c, -w / 2, -h / 2, w, h, 12); c.fillStyle = lg(c, 0, -h / 2, 0, h / 2, [[0, '#34312e'], [1, '#272422']]); c.fill();
+  c.strokeStyle = `rgba(242,239,233,${(.14 + .3 * lift).toFixed(2)})`; c.lineWidth = 1; rr(c, -w / 2 + .5, -h / 2 + .5, w - 1, h - 1, 11.5); c.stroke();
   rr(c, -w / 2 + 8, -h / 2 + 10, 4, h - 20, 2); c.fillStyle = col; c.fill();
-  T(c, ti, -w / 2 + 22, -3, 14, '#fff', 600); T(c, sub, -w / 2 + 22, 15, 11.5, '#a9b3cc', 500);
+  T(c, ti, -w / 2 + 22, -3, 14, PAL.ink, 600); T(c, sub, -w / 2 + 22, 15, 11.5, PAL.muted, 500);
   c.restore();
 }
 function cursor(c, x, y, sc) {
   c.save(); c.translate(x, y); c.scale(sc, sc); c.beginPath();
   [[0, 0], [0, 17], [4.4, 13.2], [7.4, 20], [10, 18.9], [7, 12.2], [12.6, 12.2]].forEach(([a, b], i) => i ? c.lineTo(a, b) : c.moveTo(a, b));
-  c.closePath(); c.fillStyle = '#fff'; c.fill(); c.lineWidth = 1.2; c.strokeStyle = '#10141c'; c.lineJoin = 'round'; c.stroke(); c.restore();
+  c.closePath(); c.fillStyle = PAL.ink; c.fill(); c.lineWidth = 1.2; c.strokeStyle = PAL.bg0; c.lineJoin = 'round'; c.stroke(); c.restore();
 }
 const bow = (p, q, u, k) => [lerp(p[0], q[0], u) + Math.sin(u * Math.PI) * k * .35, lerp(p[1], q[1], u) - Math.sin(u * Math.PI) * k];
 function curPos(t) {   // 커서 경로: 시작 → 카드 잡기 → 다른 칸으로 끌기 → 놓고 떠나기
@@ -58,24 +60,24 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 0 : (lv == null ? 4 : lv);   // 1 = 끌어도 그대로·놓으면 옮겨짐(커서만), 2 = + 들어 올린 카드가 따라옴, 3 = + 놓을 칸 강조·빈 자리 표시, 4 = + 이웃 카드 비켜남·안착·개수 갱신
     const c = s.c; c.setTransform(2, 0, 0, 2, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
-    c.fillStyle = lg(c, 0, 0, 0, 360, [[0, '#141b2f'], [1, '#0b0f1a']]); c.fillRect(0, 0, 640, 360);
-    const gl = c.createRadialGradient(320, 200, 10, 320, 200, 320); gl.addColorStop(0, 'rgba(100,130,255,.14)'); gl.addColorStop(1, 'rgba(100,130,255,0)'); c.fillStyle = gl; c.fillRect(0, 0, 640, 360);
+    c.fillStyle = lg(c, 0, 0, 0, 360, [[0, PAL.bg0], [1, PAL.bg1]]); c.fillRect(0, 0, 640, 360);
+    const gl = c.createRadialGradient(320, 200, 10, 320, 200, 320); gl.addColorStop(0, 'rgba(90,209,200,.1)'); gl.addColorStop(1, 'rgba(90,209,200,0)'); c.fillStyle = gl; c.fillRect(0, 0, 640, 360);
     const dropped = t >= T_DROP, hov = L >= 3 && t >= T_HOVER && !dropped, smooth = L >= 4;
     // 칸
     COLX.forEach((x, k) => { const on = k === 1 && hov;
-      rr(c, x, COLTOP, CW, COLH, 14); c.fillStyle = on ? 'rgba(79,124,255,.16)' : 'rgba(255,255,255,.045)'; c.fill();
-      c.strokeStyle = on ? 'rgba(122,155,255,.9)' : 'rgba(255,255,255,.1)'; c.lineWidth = on ? 1.6 : 1; if (on) c.setLineDash([6, 4]); rr(c, x + .5, COLTOP + .5, CW - 1, COLH - 1, 13.5); c.stroke(); c.setLineDash([]);
+      rr(c, x, COLTOP, CW, COLH, 14); c.fillStyle = on ? 'rgba(90,209,200,.14)' : 'rgba(242,239,233,.05)'; c.fill();
+      c.strokeStyle = on ? 'rgba(90,209,200,.95)' : PAL.line; c.lineWidth = on ? 1.6 : 1; if (on) c.setLineDash([6, 4]); rr(c, x + .5, COLTOP + .5, CW - 1, COLH - 1, 13.5); c.stroke(); c.setLineDash([]);
       const n = k === 0 ? (dropped ? 3 : 4) : (k === 1 ? (dropped ? 3 : 2) : 1), pop = smooth && k < 2 ? 1 + .35 * Math.sin(Math.PI * seg(t, T_DROP, T_DROP + .3)) : 1;
-      T(c, NAMES[k], x + 16, COLTOP + 28, 14, '#e6ebf7', 700);
-      c.save(); c.translate(x + CW - 22, COLTOP + 23); c.scale(pop, pop); rr(c, -11, -10, 22, 20, 10); c.fillStyle = 'rgba(255,255,255,.14)'; c.fill(); T(c, String(n), 0, 4.5, 12, '#fff', 700, 'center'); c.restore(); });
+      T(c, NAMES[k], x + 16, COLTOP + 28, 14, PAL.ink, 700);
+      c.save(); c.translate(x + CW - 22, COLTOP + 23); c.scale(pop, pop); rr(c, -11, -10, 22, 20, 10); c.fillStyle = 'rgba(242,239,233,.14)'; c.fill(); T(c, String(n), 0, 4.5, 12, PAL.ink, 700, 'center'); c.restore(); });
     // 이웃 카드: 비켜나는 시각 — 3단계까지는 즉시, 4단계는 부드럽게
     const mv = (from, to, t0) => lerp(from, to, smooth ? E.outC(seg(t, t0, t0 + .25)) : (t >= t0 ? 1 : 0));
     const tG = L >= 3 ? T_GRAB : T_DROP, tE = L >= 3 ? T_HOVER : T_DROP;
     const pos = { A: [0, SY(0)], B: [0, SY(1)], G: [0, mv(SY(3), SY(2), tG)], D: [1, SY(0)], E: [1, mv(SY(1), SY(2), tE)], F: [2, SY(0)] };
-    if (L >= 3 && t >= T_GRAB && !dropped && !smooth) { c.setLineDash([5, 4]); c.strokeStyle = 'rgba(255,255,255,.16)'; rr(c, COLX[0] + 8, SY(2), CARDW, CARDH, 12); c.stroke(); c.setLineDash([]); }
+    if (L >= 3 && t >= T_GRAB && !dropped && !smooth) { c.setLineDash([5, 4]); c.strokeStyle = 'rgba(242,239,233,.2)'; rr(c, COLX[0] + 8, SY(2), CARDW, CARDH, 12); c.stroke(); c.setLineDash([]); }
     Object.entries(pos).forEach(([k, [col, y]]) => card(c, k, COLX[col] + CW / 2, y + CARDH / 2, 1, 0, 0));
     // 놓을 자리 표시(점선 빈칸)
-    if (L >= 3 && hov) { const u = E.outC(seg(t, T_HOVER, T_HOVER + .2)); c.save(); c.globalAlpha = u; c.setLineDash([6, 4]); rr(c, COLX[1] + 8, SY(1), CARDW, CARDH, 12); c.fillStyle = 'rgba(79,124,255,.18)'; c.fill(); c.strokeStyle = '#7a9bff'; c.lineWidth = 1.6; c.stroke(); c.restore(); c.setLineDash([]); }
+    if (L >= 3 && hov) { const u = E.outC(seg(t, T_HOVER, T_HOVER + .2)); c.save(); c.globalAlpha = u; c.setLineDash([6, 4]); rr(c, COLX[1] + 8, SY(1), CARDW, CARDH, 12); c.fillStyle = 'rgba(90,209,200,.16)'; c.fill(); c.strokeStyle = PAL.accent; c.lineWidth = 1.6; c.stroke(); c.restore(); c.setLineDash([]); }
     // 집은 카드
     const cur = curPos(t); let cx = SRC[0], cy = SRC[1], sc = 1, rot = 0, lift = 0;
     if (L >= 2 && t >= T_GRAB && !dropped) { cx = cur[0] - OFF[0]; cy = cur[1] - OFF[1]; lift = E.outC(seg(t, T_GRAB, T_GRAB + .15)); sc = 1 + (LIFT - 1) * lift; rot = TILT * lift; }
@@ -85,10 +87,10 @@ const demo = {
     // 커서
     if (L >= 1) { let cs = 1; if (t > T_GRAB - .1 && t < T_GRAB + .2) cs = 1 - .14 * Math.sin(Math.PI * seg(t, T_GRAB - .1, T_GRAB + .2)); if (t > T_DROP - .05 && t < T_DROP + .2) cs = 1 - .14 * Math.sin(Math.PI * seg(t, T_DROP - .05, T_DROP + .2));
       cursor(c, cur[0], cur[1], cs); }
-    if (L >= 4) T(c, '끌기만 쓰지 말고 ‘이동’ 버튼이나 메뉴로도 옮길 수 있게 하세요', 320, 346, 11.5, '#9aa4b8', 500, 'center');
+    if (L >= 4) T(c, '끌기만 쓰지 말고 ‘이동’ 버튼이나 메뉴로도 옮길 수 있게 하세요', 320, 346, 11.5, PAL.muted, 500, 'center');
     c.globalCompositeOperation = 'overlay'; c.globalAlpha = .06; c.fillStyle = c.createPattern(s.grain, 'repeat'); c.fillRect(0, 0, 640, 360); c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
     const lab = ['연출 전: 카드가 놓는 순간 옮겨짐(커서 없음)', '1단계: 끌어도 카드는 그대로, 놓으면 옮겨짐', '2단계: + 들어 올린 카드가 커서를 따라옴', '3단계: + 놓을 칸 강조 · 빈 자리 표시', '4단계: + 이웃 카드 비켜남 · 안착 · 개수 갱신'][L];
-    c.font = `500 14px ${SANS}`; const pw = c.measureText(lab).width + 24; rr(c, 16, 14, pw, 26, 13); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill(); T(c, lab, 28, 32, 14, '#fff', 500);
+    c.font = `500 14px ${SANS}`; const pw = c.measureText(lab).width + 24; rr(c, 16, 14, pw, 26, 13); c.fillStyle = PAL.surface; c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke(); T(c, lab, 28, 32, 14, PAL.ink, 500);
   },
 };
 export default demo;

@@ -3,6 +3,9 @@
 // 만들어진 파일 — 원본: source/pages/offset-path/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el } from "./helpers.js";
 
+const PAL = { bg0: '#f4efe4', bg1: '#e9e2d3', ink: '#1d1a16', muted: '#6b6458', accent: '#d4472b', accent2: '#2b5d8a', surface: '#fbf8f1', line: 'rgba(29,26,22,.22)' };
+const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+
 // 경로 따라 이동: offset-path 에 곡선을 주고 offset-distance 를 0% → 100% 로 바꾸면 요소가 곡선 위를 지나간다. 화면은 시간 t 의 함수다.
 const DUR = 1.2;                  // 곡선을 한 번 지나가는 시간(초)
 const ROT = 'auto';               // offset-rotate 값('auto' = 진행 방향으로 돎, 'auto 90deg' = 진행 방향에서 90° 더 돎)
@@ -20,33 +23,34 @@ const demo = {
   dur: 4, rest: 3.4, noCompare: false, levels: 3,
   mount(sp) {
     const bg = el('div', null, sp);
-    box(bg, { position: 'absolute', inset: '0', background: 'linear-gradient(160deg,#0b0f1a 0%,#161d30 100%)' });
-    box(el('div', null, bg), { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.06', mixBlendMode: 'overlay' });
+    box(bg, { position: 'absolute', inset: '0', background: `linear-gradient(160deg,${PAL.bg0} 0%,${PAL.bg1} 100%)` });
+    box(el('div', null, bg), { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.09', mixBlendMode: 'multiply' });
     const svg = sv('svg', { width: 640, height: 360, viewBox: '0 0 640 360' }, sp);
     box(svg, { position: 'absolute', left: '0', top: '0' });
     const defs = sv('defs', {}, svg);
     const lg = sv('linearGradient', { id: 'opg', x1: 0, y1: 0, x2: 1, y2: 0 }, defs);
-    sv('stop', { offset: 0, 'stop-color': '#7fd6ff' }, lg); sv('stop', { offset: 1, 'stop-color': '#c79bff' }, lg);
+    sv('stop', { offset: 0, 'stop-color': PAL.accent2 }, lg); sv('stop', { offset: 1, 'stop-color': PAL.accent }, lg);
     const gb = sv('filter', { id: 'opb', x: '-30%', y: '-30%', width: '160%', height: '160%' }, defs);
     sv('feGaussianBlur', { stdDeviation: 4 }, gb);
-    sv('path', { d: PATH, fill: 'none', stroke: 'rgba(255,255,255,.16)', 'stroke-width': 2, 'stroke-dasharray': '2 7', 'stroke-linecap': 'round' }, svg);
-    const line = sv('line', { x1: A[0], y1: A[1], x2: B[0], y2: B[1], stroke: 'rgba(255,255,255,.28)', 'stroke-width': 2, 'stroke-dasharray': '6 6' }, svg);
-    const glow = sv('path', { d: PATH, fill: 'none', stroke: '#9fb4ff', 'stroke-width': 9, pathLength: 100, 'stroke-linecap': 'round', filter: 'url(#opb)', opacity: .45 }, svg);
+    sv('path', { d: PATH, fill: 'none', stroke: PAL.line, 'stroke-width': 2, 'stroke-dasharray': '2 7', 'stroke-linecap': 'round' }, svg);
+    const line = sv('line', { x1: A[0], y1: A[1], x2: B[0], y2: B[1], stroke: rgba(PAL.ink, .38), 'stroke-width': 2, 'stroke-dasharray': '6 6' }, svg);
+    const glow = sv('path', { d: PATH, fill: 'none', stroke: PAL.accent2, 'stroke-width': 9, pathLength: 100, 'stroke-linecap': 'round', filter: 'url(#opb)', opacity: .3 }, svg);
     const trail = sv('path', { d: PATH, fill: 'none', stroke: 'url(#opg)', 'stroke-width': 3.4, pathLength: 100, 'stroke-linecap': 'round' }, svg);
     const ref = sv('path', { d: PATH, fill: 'none', stroke: 'none' }, svg), len = ref.getTotalLength();
     [0, 25, 50, 75, 100].forEach((q) => {
       const pt = ref.getPointAtLength(len * q / 100);
-      sv('circle', { cx: pt.x, cy: pt.y, r: 3.2, fill: '#0b0f1a', stroke: 'rgba(255,255,255,.6)', 'stroke-width': 1.4 }, svg);
-      const tx = sv('text', { x: pt.x + (q === 50 ? -24 : 0), y: pt.y + (q === 0 || q === 100 ? 20 : q === 50 ? 14 : -12), fill: 'rgba(255,255,255,.62)', 'font-size': 10, 'font-family': MONO, 'text-anchor': 'middle' }, svg); tx.textContent = q + '%';
+      sv('circle', { cx: pt.x, cy: pt.y, r: 3.4, fill: PAL.surface, stroke: PAL.ink, 'stroke-width': 1.4 }, svg);
+      const tx = sv('text', { x: pt.x + (q === 50 ? -24 : 0), y: pt.y + (q === 0 || q === 100 ? 20 : q === 50 ? 14 : -12), fill: PAL.muted, 'font-size': 10, 'font-family': MONO, 'text-anchor': 'middle' }, svg); tx.textContent = q + '%';
     });
-    // 움직이는 카드(앞쪽을 가리키는 꺾쇠가 있어 어느 쪽이 앞인지 보인다)
+    // 움직이는 카드(앞쪽을 가리키는 꺾쇠가 있어 어느 쪽이 앞인지 보인다). 종이 위에 놓인 붉은 카드: 윗면 하이라이트, 아래쪽 음영, 접지 그림자
     const card = el('div', null, sp);
-    box(card, { position: 'absolute', left: '0', top: '0', width: CW + 'px', height: CH + 'px', borderRadius: '12px', background: 'linear-gradient(150deg,#8ab4ff 0%,#5b6bff 55%,#7a45e6 100%)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.55), inset 0 -8px 14px rgba(40,20,120,.35), 0 10px 22px rgba(0,0,0,.5)' });
-    card.innerHTML = "<svg width='96' height='54' viewBox='0 0 96 54' style='position:absolute;left:0;top:0'><path d='M64 15 L82 27 L64 39' fill='none' stroke='#fff' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/><rect x='14' y='17' width='34' height='6' rx='3' fill='rgba(255,255,255,.75)'/><rect x='14' y='31' width='22' height='6' rx='3' fill='rgba(255,255,255,.4)'/></svg>";
+    box(card, { position: 'absolute', left: '0', top: '0', width: CW + 'px', height: CH + 'px', borderRadius: '12px', background: `linear-gradient(150deg,#ea6a4d 0%,${PAL.accent} 55%,#a8301b 100%)`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.5), inset 0 -8px 14px rgba(110,24,8,.35), 0 10px 20px ${rgba(PAL.ink, .3)}, 0 2px 4px ${rgba(PAL.ink, .25)}` });
+    card.innerHTML = `<svg width='96' height='54' viewBox='0 0 96 54' style='position:absolute;left:0;top:0'><path d='M64 15 L82 27 L64 39' fill='none' stroke='${PAL.surface}' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/><rect x='14' y='17' width='34' height='6' rx='3' fill='${PAL.surface}' fill-opacity='.8'/><rect x='14' y='31' width='22' height='6' rx='3' fill='${PAL.surface}' fill-opacity='.45'/></svg>`;
     const rd = el('div', null, sp);
-    box(rd, { position: 'absolute', left: '20px', bottom: '14px', font: "500 12px/1.5 'JetBrains Mono',monospace", color: 'rgba(255,255,255,.75)' });
+    box(rd, { position: 'absolute', left: '20px', top: '14px', font: "500 12px/1.5 'JetBrains Mono',monospace", color: PAL.ink });
+    // 이름표(caption-bl): 왼쪽 아래, 배경 없음, 위에 1px 얇은 선
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '14px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 14px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
+    box(pill, { position: 'absolute', left: '20px', bottom: '14px', maxWidth: '280px', paddingTop: '6px', borderTop: `1px solid ${PAL.line}`, color: PAL.muted, font: "500 12px/1.45 'JetBrains Mono','IBM Plex Sans KR',monospace", zIndex: 5 });
     return { card, rd, pill, line, trail, glow };
   },
   render(s, t, a, lv) {
@@ -62,9 +66,9 @@ const demo = {
     }
     s.line.style.opacity = L <= 1 ? 1 : 0;
     const tl = L <= 1 ? 0 : p * 100;
-    [s.trail, s.glow].forEach((e) => { e.setAttribute('stroke-dasharray', `${tl.toFixed(2)} 200`); e.style.opacity = tl <= 0 ? 0 : (e === s.glow ? .45 : 1); });
-    s.rd.innerHTML = L <= 1 ? 'transform: translate(x, y)<br>곡선과 상관없이 직선으로 이동' : `offset-path: path(…)<br>offset-distance: ${(p * 100).toFixed(0)}%  ·  offset-rotate: ${L >= 3 ? ROT : '0deg'}`;
-    s.pill.textContent = L <= 1 ? '연출 전 · translate 로 직선 이동(곡선을 벗어남)' : L === 2 ? 'offset-path · 곡선 위로 이동, 카드 방향은 그대로' : 'offset-rotate · 곡선의 방향에 맞춰 카드가 돎';
+    [s.trail, s.glow].forEach((e) => { e.setAttribute('stroke-dasharray', `${tl.toFixed(2)} 200`); e.style.opacity = tl <= 0 ? 0 : (e === s.glow ? .3 : 1); });
+    s.rd.innerHTML = L <= 1 ? 'transform: translate(x, y)<br>곡선과 상관없이 직선으로 이동' : `offset-path: path(…)<br>offset-distance: ${(p * 100).toFixed(0)}%, offset-rotate: ${L >= 3 ? ROT : '0deg'}`;
+    s.pill.textContent = L <= 1 ? '연출 전 / translate 직선 이동, 곡선을 벗어남' : L === 2 ? 'offset-path / 곡선 위로 이동, 카드 방향은 그대로' : 'offset-rotate / 곡선의 방향에 맞춰 카드가 돎';
   },
 };
 export default demo;

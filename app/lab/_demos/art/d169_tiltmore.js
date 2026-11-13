@@ -4,6 +4,7 @@
 import { seg, lerp, E, rng, canvas, rr } from "./helpers.js";
 
 // 지구본 = 평평한 정방형 지도(경도·위도 격자)를 구에 감은 것. 화면의 구 위 한 점마다 '이 점이 지도의 어디인지'를 거꾸로 계산해 색을 가져온다(정사영).
+const PAL = { bg0: '#1f3a8a', bg1: '#172a63', ink: '#f3f6ff', muted: '#aebcf0', accent: '#ffd166', accent2: '#7fe0ff', surface: '#1b3274', line: '#3c58b0' };
 const TILT = 60;      // 자전축이 기울어진 각도(도)
 const SPIN = 20;        // 자전 속도(도/초, 왼쪽에서 오른쪽으로)
 const RG = 140;         // 구의 반지름(px)
@@ -19,6 +20,10 @@ function n3(x, y, z) {
   const l = (a, b, t) => a + (b - a) * t;
   return l(l(l(h3(ix, iy, iz), h3(ix + 1, iy, iz), fx), l(h3(ix, iy + 1, iz), h3(ix + 1, iy + 1, iz), fx), fy), l(l(h3(ix, iy, iz + 1), h3(ix + 1, iy, iz + 1), fx), l(h3(ix, iy + 1, iz + 1), h3(ix + 1, iy + 1, iz + 1), fx), fy), fz);
 }
+const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const mixh = (a, b, p) => '#' + rgb(a).map((v, i) => Math.round(v + (rgb(b)[i] - v) * p).toString(16).padStart(2, '0')).join('');
+const rgba = (h, al) => { const [r, g, b] = rgb(h); return `rgba(${r},${g},${b},${al})`; };
+const INK = rgb(PAL.ink), ACC = rgb(PAL.accent), RIM = rgb(PAL.accent2);
 const mix3 = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
 function makeTexture() {          // 가상 행성: 바다 · 대륙 · 극지 얼음 · 어두운 쪽의 도시 불빛
   const tex = new Uint8Array(TW * TH * 3), lights = new Uint8Array(TW * TH), ocean = new Uint8Array(TW * TH), THR = .5;
@@ -36,16 +41,17 @@ function makeTexture() {          // 가상 행성: 바다 · 대륙 · 극지 �
 }
 const mm = (A, B) => [0, 1, 2].map((i) => [0, 1, 2].map((j) => A[i][0] * B[0][j] + A[i][1] * B[1][j] + A[i][2] * B[2][j]));
 const Rx = (a) => [[1, 0, 0], [0, Math.cos(a), -Math.sin(a)], [0, Math.sin(a), Math.cos(a)]], Rz = (a) => [[Math.cos(a), -Math.sin(a), 0], [Math.sin(a), Math.cos(a), 0], [0, 0, 1]], Ry = (a) => [[Math.cos(a), 0, Math.sin(a)], [0, 1, 0], [-Math.sin(a), 0, Math.cos(a)]];
-const pillDraw = (c, text) => {
-  c.font = "500 14px 'IBM Plex Sans KR',sans-serif"; const w = c.measureText(text).width + 26;
-  rr(c, 16, 14, w, 28, 14); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill();
-  c.fillStyle = '#fff'; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText(text, 29, 29);
+const tagDraw = (c, text) => {      // 오른쪽 위 직각 이름표: 왼쪽에 accent 줄
+  c.font = "600 12px 'IBM Plex Sans KR',sans-serif"; const w = c.measureText(text).width + 26, x = 640 - 16 - w;
+  rr(c, x, 14, w, 26, 2); c.fillStyle = rgba(PAL.surface, .96); c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke();
+  c.fillStyle = PAL.accent; c.fillRect(x, 14, 3, 26);
+  c.fillStyle = PAL.ink; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText(text, x + 14, 27.5);
 };
 
 const demo = {
   dur: 4.6, rest: 4.0, noCompare: false, levels: 4,
   mount(sp) {
-    sp.style.background = '#0b0f1a';
+    sp.style.background = PAL.bg1;
     const c = canvas(sp), T = makeTexture(), rs = rng(23);
     const stars = Array.from({ length: 90 }, () => [rs() * 640, rs() * 330, .4 + rs() * 1.0, .25 + rs() * .6]);
     // 구 위 각 픽셀의 법선(미리 계산): bbox BS x BS 안에서 반지름 RG 의 원
@@ -66,18 +72,18 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 0 : (lv == null ? 3 : lv - 1);   // 0 = 납작한 지도, 1 = 구에 감아 돌리기(빛 없음), 2 = + 빛·터미네이터·대기, 3 = + 축 기울기·격자·핀·야경
     const c = s.c; c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, 640, 360);
-    let g = c.createRadialGradient(CX, CY, 20, CX, CY, 420); g.addColorStop(0, '#121a33'); g.addColorStop(1, '#0b0f1a'); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
-    for (const [x, y, r, al] of s.stars) { c.fillStyle = `rgba(255,255,255,${al})`; c.fillRect(x, y, r, r); }
+    let g = c.createRadialGradient(CX, CY, 20, CX, CY, 420); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+    for (const [x, y, r, al] of s.stars) { c.fillStyle = rgba(PAL.ink, al); c.fillRect(x, y, r, r); }
     let cap = '';
     if (L === 0) {
-      c.imageSmoothingEnabled = true; c.drawImage(s.flat, 60, 62, 520, 260); c.strokeStyle = 'rgba(255,255,255,.35)'; c.lineWidth = 1; c.strokeRect(60.5, 62.5, 519, 259);
+      c.imageSmoothingEnabled = true; c.drawImage(s.flat, 60, 62, 520, 260); c.strokeStyle = rgba(PAL.ink, .4); c.lineWidth = 1; c.strokeRect(60.5, 62.5, 519, 259);
       cap = '평면 지도(가로 = 경도 360°, 세로 = 위도 180°) · 극지방이 가로로 크게 늘어나 있다';
     } else {
       const spin = (SPIN * t + 40) * Math.PI / 180, tilt = (L >= 3 ? TILT : 0) * Math.PI / 180;
       const F = mm(mm(Rx(PITCH), Rz(tilt)), Ry(spin)), M = [[F[0][0], F[1][0], F[2][0]], [F[0][1], F[1][1], F[2][1]], [F[0][2], F[1][2], F[2][2]]];   // M = F 의 전치(화면 → 지도 쪽 좌표)
       if (L >= 2) {          // 구 바깥으로 번지는 푸른 대기 빛(겹이 다른 두 겹)
         c.globalCompositeOperation = 'lighter';
-        [[RG * 1.42, .16], [RG * 1.16, .30]].forEach(([R, al]) => { g = c.createRadialGradient(CX, CY, RG * .96, CX, CY, R); g.addColorStop(0, `rgba(90,150,255,${al})`); g.addColorStop(1, 'rgba(90,150,255,0)'); c.fillStyle = g; c.fillRect(CX - R, CY - R, R * 2, R * 2); });
+        [[RG * 1.42, .16], [RG * 1.16, .30]].forEach(([R, al]) => { g = c.createRadialGradient(CX, CY, RG * .96, CX, CY, R); g.addColorStop(0, rgba(PAL.accent2, al)); g.addColorStop(1, rgba(PAL.accent2, 0)); c.fillStyle = g; c.fillRect(CX - R, CY - R, R * 2, R * 2); });
         c.globalCompositeOperation = 'source-over';
       }
       const D = s.u32, { tex, lights, ocean } = s.T, N = s.idx.length, HX = LS[0], HY = LS[1], HZ = LS[2] + 1, HL = Math.hypot(HX, HY, HZ);
@@ -92,11 +98,11 @@ const demo = {
           const spec = ocean[q] ? Math.pow(Math.max(0, (nx * HX + ny * HY + nz * HZ) / HL), 200) * .6 * day : 0;
           const fr = Math.pow(1 - nz, 3) * (.25 + .75 * Math.max(0, Math.min(1, (lam + .35) / .9)));
           const nl = lights[q] / 255 * (1 - day) * (L >= 3 ? 1 : 0);
-          r = r * k2 + spec * 255 + fr * 110 + nl * 255; g2 = g2 * k2 + spec * 255 + fr * 170 + nl * 200; b = b * k2 + spec * 240 + fr * 255 + nl * 110;
+          r = r * k2 + spec * 255 + fr * RIM[0] * .85 + nl * ACC[0]; g2 = g2 * k2 + spec * 255 + fr * RIM[1] * .85 + nl * ACC[1]; b = b * k2 + spec * 240 + fr * RIM[2] * .9 + nl * ACC[2] * .7;
         }
         if (L >= 3) {          // 위경도 격자: 30° 간격의 옅은 선
           const latd = lat * 57.2958, lond = lon * 57.2958, dl = Math.abs(((latd + 15) % 30 + 30) % 30 - 15), dn = Math.abs(((lond + 15) % 30 + 30) % 30 - 15) * Math.cos(lat);
-          const ln = Math.max(0, 1 - Math.min(dl, dn) / .55) * .38; r += (255 - r) * ln; g2 += (255 - g2) * ln; b += (255 - b) * ln;
+          const ln = Math.max(0, 1 - Math.min(dl, dn) / .55) * .38; r += (INK[0] - r) * ln; g2 += (INK[1] - g2) * ln; b += (INK[2] - b) * ln;
         }
         D[s.idx[k]] = ((Math.round(s.COV[k] * 255)) << 24) | (Math.min(255, b) << 16) | (Math.min(255, g2) << 8) | Math.min(255, r);
       }
@@ -107,18 +113,18 @@ const demo = {
           const lt = la * Math.PI / 180, ln = lo * Math.PI / 180, v = [Math.cos(lt) * Math.sin(ln), Math.sin(lt), Math.cos(lt) * Math.cos(ln)];
           const w = [0, 1, 2].map((i) => F[i][0] * v[0] + F[i][1] * v[1] + F[i][2] * v[2]); if (w[2] < .12) continue;
           const al = Math.min(1, (w[2] - .12) / .3), x0 = CX + w[0] * RG, y0 = CY - w[1] * RG, x1 = CX + w[0] * RG * 1.1, y1 = CY - w[1] * RG * 1.1 - 8;
-          c.globalAlpha = al; c.strokeStyle = 'rgba(255,255,255,.85)'; c.lineWidth = 1.2; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke();
-          const pr = (t * .9) % 1; c.strokeStyle = `rgba(255,170,100,${(.8 * (1 - pr)).toFixed(2)})`; c.beginPath(); c.ellipse(x0, y0, 3 + 9 * pr, (3 + 9 * pr) * (.35 + .65 * w[2]), 0, 0, 6.2832); c.stroke();
-          g = c.createRadialGradient(x1 - 1, y1 - 1, .5, x1, y1, 5); g.addColorStop(0, '#fff3dc'); g.addColorStop(.5, '#ff9a55'); g.addColorStop(1, '#c44a20'); c.fillStyle = g; c.beginPath(); c.arc(x1, y1, 4.6, 0, 6.2832); c.fill();
-          c.font = "500 11px 'IBM Plex Sans KR',sans-serif"; c.fillStyle = '#fff'; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(nm, x1 + 8, y1); c.globalAlpha = 1;
+          c.globalAlpha = al; c.strokeStyle = rgba(PAL.ink, .85); c.lineWidth = 1.2; c.beginPath(); c.moveTo(x0, y0); c.lineTo(x1, y1); c.stroke();
+          const pr = (t * .9) % 1; c.strokeStyle = rgba(PAL.accent, (.8 * (1 - pr)).toFixed(2)); c.beginPath(); c.ellipse(x0, y0, 3 + 9 * pr, (3 + 9 * pr) * (.35 + .65 * w[2]), 0, 0, 6.2832); c.stroke();
+          g = c.createRadialGradient(x1 - 1, y1 - 1, .5, x1, y1, 5); g.addColorStop(0, mixh(PAL.accent, PAL.ink, .75)); g.addColorStop(.5, PAL.accent); g.addColorStop(1, mixh(PAL.accent, '#5a2a00', .6)); c.fillStyle = g; c.beginPath(); c.arc(x1, y1, 4.6, 0, 6.2832); c.fill();
+          c.font = "500 11px 'IBM Plex Sans KR',sans-serif"; c.fillStyle = PAL.ink; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(nm, x1 + 8, y1); c.globalAlpha = 1;
         }
       }
       cap = ['', `구에 감음: 화면 (x, y) → 위도 = asin(y), 경도 = atan2(x, z) · 자전 ${SPIN}°/초`, `+ 빛: 밝기 = 법선 · 해 방향, 경계(터미네이터)와 푸른 테두리(프레넬)`, `+ 축 ${TILT}° 기울임 · 30° 격자 · 핀 · 어두운 쪽의 도시 불빛`][L];
     }
     c.fillStyle = c.createPattern(s.gr, 'repeat'); c.fillRect(0, 0, 640, 360);
-    c.fillStyle = 'rgba(8,10,20,.62)'; c.fillRect(0, 330, 640, 30);
-    c.font = "500 13px 'JetBrains Mono',monospace"; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = '#e8eefc'; c.fillText(cap, 18, 345);
-    pillDraw(c, ['연출 전: 납작한 평면 지도', '1단계: 지도를 구에 감아 돌림(빛 없음)', '2단계: + 빛과 대기(밝은 쪽·어두운 쪽)', '3단계: + 축 기울기 · 격자 · 핀 · 야경'][L]);
+    c.fillStyle = rgba(PAL.bg1, .82); c.fillRect(0, 330, 640, 30); c.fillStyle = PAL.line; c.fillRect(0, 330, 640, 1);
+    c.font = "500 13px 'JetBrains Mono',monospace"; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = PAL.ink; c.fillText(cap, 18, 345);
+    tagDraw(c, ['연출 전: 납작한 평면 지도', '1단계: 지도를 구에 감아 돌림(빛 없음)', '2단계: + 빛과 대기(밝은 쪽·어두운 쪽)', '3단계: + 축 기울기 · 격자 · 핀 · 야경'][L]);
   },
 };
 export default demo;

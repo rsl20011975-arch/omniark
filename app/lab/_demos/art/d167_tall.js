@@ -4,6 +4,7 @@
 import { seg, lerp, E, rng, canvas, rr } from "./helpers.js";
 
 // 아이소메트릭 = 원근 없이(평행 투영) 카메라를 수평에서 35.264° 내려다보고 45° 돌려 본 3D. 로우폴리 = 면 수가 적고 면마다 한 색으로 칠한 모델.
+const PAL = { bg0: '#0b0f1a', bg1: '#161d30', ink: '#f4efe4', muted: '#8b94a3', accent: '#ffb36b', accent2: '#ffd27a', surface: '#131a2b', line: '#2a3550' };
 const TILT = 35.264;    // 카메라가 내려다보는 각도(도). 35.264° 가 정확한 아이소메트릭
 const STEP_H = 1.0;     // 지형 한 단계의 높이(한 칸 폭 = 1)
 const FACETS = 6;       // 나무 원뿔의 옆면 개수(적을수록 각져 보이는 로우폴리)
@@ -11,10 +12,13 @@ const TURN_T0 = 1.8, TURN_D = 2.4;   // 마지막 단계에서 장면이 45°에
 const G = 10, S = 29, CX = 320, CY = 184;
 const LHAT = (() => { const v = [-.55, .8, .35], l = Math.hypot(...v); return v.map((x) => x / l); })();
 const TOP = [[96, 178, 214], [232, 212, 154], [112, 196, 106], [80, 168, 90], [166, 172, 188]];   // 물, 모래, 풀(낮음), 풀(높음), 바위
-const pillDraw = (c, text) => {
-  c.font = "500 14px 'IBM Plex Sans KR',sans-serif"; const w = c.measureText(text).width + 26;
-  rr(c, 16, 14, w, 28, 14); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill();
-  c.fillStyle = '#fff'; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText(text, 29, 29);
+const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const rgba = (h, al) => { const [r, g, b] = rgb(h); return `rgba(${r},${g},${b},${al})`; };
+const FLAT = rgb(PAL.ink).map((v, i) => Math.round(v * .72 + rgb(PAL.muted)[i] * .28));      // 1단계: 면 구분 없이 한 색
+const numeralDraw = (c, n, text) => {      // 왼쪽 위 큰 숫자(지금 단계 번호) + 옆에 짧은 설명
+  c.font = "400 40px 'Black Han Sans',sans-serif"; c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.fillStyle = PAL.accent; c.fillText(String(n), 18, 50);
+  const nw = c.measureText(String(n)).width;
+  c.font = "500 13px 'IBM Plex Sans KR',sans-serif"; c.textBaseline = 'middle'; c.fillStyle = PAL.ink; c.fillText(text, 18 + nw + 10, 31);
 };
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
 const cross = (a, b) => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
@@ -70,7 +74,7 @@ function build() {
 const demo = {
   dur: 4.8, rest: 4.4, noCompare: false, levels: 4,
   mount(sp) {
-    sp.style.background = '#0b0f1a';
+    sp.style.background = PAL.bg0;
     const gr = document.createElement('canvas'); gr.width = gr.height = 128; const gx = gr.getContext('2d'), gi = gx.createImageData(128, 128), q = rng(3);
     for (let i = 0; i < 128 * 128; i++) { const v = q() > .5 ? 255 : 0; gi.data[i * 4] = gi.data[i * 4 + 1] = gi.data[i * 4 + 2] = v; gi.data[i * 4 + 3] = 12 + q() * 12; }
     gx.putImageData(gi, 0, 0);
@@ -79,7 +83,7 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 0 : (lv == null ? 3 : lv - 1);   // 0 = 위에서 본 평면, 1 = 아이소메트릭 입체(면 구분 없음), 2 = + 면마다 밝기(평면 셰이딩), 3 = + 로우폴리 나무·집·바위와 회전
     const c = s.c; c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, 640, 360);
-    let g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, '#0b0f1a'); g.addColorStop(1, '#1a2340'); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+    let g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
     const k = L === 0 ? 0 : E.inOutC(seg(t, .3, 1.4)), th = lerp(90, TILT, k) * Math.PI / 180, yawDeg = lerp(0, 45, k) + (L >= 3 ? 90 * E.inOutC(seg(t, TURN_T0, TURN_T0 + TURN_D)) : 0), ps = yawDeg * Math.PI / 180;
     const cp = Math.cos(th), sp = Math.sin(th), cy = Math.cos(ps), sy = Math.sin(ps), sc = lerp(S * 1.05, S, k);
     const rot = (p) => { const x1 = p[0] * cy + p[2] * sy, z1 = -p[0] * sy + p[2] * cy; return [CX + sc * x1, CY - sc * (p[1] * cp + z1 * sp), -p[1] * sp + z1 * cp]; };
@@ -95,16 +99,16 @@ const demo = {
     list.sort((a2, b2) => b2[0] - a2[0]);
     for (const [, pr, p] of list) {
       let col = p.col;
-      if (L === 1) col = [206, 214, 232]; else if (L === 0) col = p.col; else { const lam = Math.max(0, p.n[0] * LHAT[0] + p.n[1] * LHAT[1] + p.n[2] * LHAT[2]), kk = .34 + .82 * lam; col = col.map((x) => Math.min(255, x * kk)); }
+      if (L === 1) col = FLAT; else if (L === 0) col = p.col; else { const lam = Math.max(0, p.n[0] * LHAT[0] + p.n[1] * LHAT[1] + p.n[2] * LHAT[2]), kk = .34 + .82 * lam; col = col.map((x) => Math.min(255, x * kk)); }
       c.beginPath(); pr.forEach((q, n) => (n ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1]))); c.closePath();
       c.fillStyle = `rgb(${col[0] | 0},${col[1] | 0},${col[2] | 0})`; c.fill();
-      c.lineJoin = 'round'; c.lineWidth = L === 1 ? 1.2 : .6; c.strokeStyle = L === 1 ? 'rgba(20,28,52,.85)' : `rgba(${col[0] * .5 | 0},${col[1] * .5 | 0},${col[2] * .5 | 0},.55)`; c.stroke();
+      c.lineJoin = 'round'; c.lineWidth = L === 1 ? 1.2 : .6; c.strokeStyle = L === 1 ? rgba(PAL.bg0, .85) : `rgba(${col[0] * .5 | 0},${col[1] * .5 | 0},${col[2] * .5 | 0},.55)`; c.stroke();
     }
     c.fillStyle = c.createPattern(s.gr, 'repeat'); c.fillRect(0, 0, 640, 360);
-    c.fillStyle = 'rgba(8,10,20,.62)'; c.fillRect(0, 330, 640, 30);
-    c.font = "500 13px 'JetBrains Mono',monospace"; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = '#e8eefc';
+    c.fillStyle = rgba(PAL.bg0, .72); c.fillRect(0, 330, 640, 30); c.fillStyle = PAL.line; c.fillRect(0, 330, 640, 1);
+    c.font = "500 13px 'JetBrains Mono',monospace"; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillStyle = PAL.ink;
     c.fillText(['위에서 본 평면 · 카메라 90° · 높이 정보가 안 보임', `평행 투영: 카메라 ${TILT}° 내려다봄, 45° 회전 — 멀어도 같은 크기`, `+ 면마다 밝기: 밝기 = 면의 방향 · 빛의 방향`, `+ 로우폴리 모델(나무 옆면 ${FACETS}개) · 45°→135° 회전`][L], 18, 345);
-    pillDraw(c, ['연출 전: 위에서 내려다본 평면 지도', '1단계: 아이소메트릭 입체(면 구분 없음)', '2단계: + 면마다 다른 밝기(평면 셰이딩)', '3단계: + 로우폴리 나무·집·바위, 천천히 회전'][L]);
+    numeralDraw(c, L, ['위에서 본 평면 지도', '아이소메트릭 입체', '면마다 다른 밝기', '로우폴리와 회전'][L]);
   },
 };
 export default demo;

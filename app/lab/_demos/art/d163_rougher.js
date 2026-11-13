@@ -4,30 +4,35 @@
 import { seg, lerp, E, rng, canvas, rr } from "./helpers.js";
 
 // 후처리: 장면을 한 장의 그림으로 먼저 그린 뒤, 그 그림 전체에 효과를 한 겹씩 덧씌운다(블룸 → 피사계 심도 → 색수차·비네트 → 필름 그레인).
+const PAL = { bg0: '#0c1814', bg1: '#15271f', ink: '#e8f1ea', muted: '#86a091', accent: '#7fe0a8', accent2: '#e8d27a', surface: '#12231c', line: '#2c4a3d' };
 const BLOOM = 0.9;      // 블룸 세기(밝은 곳이 번져 더해지는 양)
 const CA = 5;           // 색수차: 화면 가장자리에서 빨강·파랑이 어긋나는 거리(px)
 const VIG = 0.55;       // 비네트: 모서리가 어두워지는 정도(0~1)
 const GRAIN = 0.2;     // 필름 그레인 세기
 const RW = 320, RH = 180, N = RW * RH, K = RW / 640;
 
+const rgb = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const mix = (a, b, p) => { const x = rgb(a), y = rgb(b); return '#' + x.map((v, i) => Math.round(v + (y[i] - v) * p).toString(16).padStart(2, '0')).join(''); };
+const rgba = (h, al) => { const [r, g, b] = rgb(h); return `rgba(${r},${g},${b},${al})`; };
+const rgbs = (h) => rgb(h).join(',');
 function mk(w, h) { const c = document.createElement('canvas'); c.width = w; c.height = h; return c; }
 function farLayer(x, bokeh, r) {
   x.save(); x.scale(K, K); let g;
   if (!bokeh) {
-  g = x.createLinearGradient(0, 0, 0, 216); g.addColorStop(0, '#060917'); g.addColorStop(.6, '#150f33'); g.addColorStop(1, '#4a1a55'); x.fillStyle = g; x.fillRect(0, 0, 640, 216);
-  g = x.createRadialGradient(330, 216, 10, 330, 216, 320); g.addColorStop(0, 'rgba(255,90,170,.35)'); g.addColorStop(1, 'rgba(255,90,170,0)'); x.fillStyle = g; x.fillRect(0, 60, 640, 160);
+  g = x.createLinearGradient(0, 0, 0, 216); g.addColorStop(0, mix(PAL.bg0, '#000000', .35)); g.addColorStop(.6, PAL.bg1); g.addColorStop(1, mix(PAL.bg1, PAL.accent, .3)); x.fillStyle = g; x.fillRect(0, 0, 640, 216);
+  g = x.createRadialGradient(330, 216, 10, 330, 216, 320); g.addColorStop(0, rgba(PAL.accent, .3)); g.addColorStop(1, rgba(PAL.accent, 0)); x.fillStyle = g; x.fillRect(0, 60, 640, 160);
   let bx = -10; const rb = rng(31);
   while (bx < 640) {                              // 먼 빌딩과 창문
-    const w = 38 + rb() * 54, h = 48 + rb() * 96; g = x.createLinearGradient(0, 216 - h, 0, 216); g.addColorStop(0, '#111733'); g.addColorStop(1, '#0a0e22'); x.fillStyle = g; x.fillRect(bx, 216 - h, w, h);
-    x.fillStyle = 'rgba(255,255,255,.07)'; x.fillRect(bx, 216 - h, w, 1.5);
-    for (let wy = 216 - h + 8; wy < 208; wy += 9) for (let wx = bx + 6; wx < bx + w - 6; wx += 8) { const q = rb(); if (q < .34) { x.fillStyle = q < .06 ? '#7fe3ff' : `rgba(255,${200 + Math.floor(q * 40)},140,${(.55 + q).toFixed(2)})`; x.fillRect(wx, wy, 3.5, 4.5); } }
+    const w = 38 + rb() * 54, h = 48 + rb() * 96; g = x.createLinearGradient(0, 216 - h, 0, 216); g.addColorStop(0, mix(PAL.surface, PAL.ink, .06)); g.addColorStop(1, mix(PAL.bg0, '#000000', .3)); x.fillStyle = g; x.fillRect(bx, 216 - h, w, h);
+    x.fillStyle = rgba(PAL.ink, .09); x.fillRect(bx, 216 - h, w, 1.5);
+    for (let wy = 216 - h + 8; wy < 208; wy += 9) for (let wx = bx + 6; wx < bx + w - 6; wx += 8) { const q = rb(); if (q < .34) { x.fillStyle = q < .06 ? PAL.accent : `rgba(232,${196 + Math.floor(q * 50)},122,${(.55 + q).toFixed(2)})`; x.fillRect(wx, wy, 3.5, 4.5); } }
     bx += w + 3 + rb() * 4;
   }
-  x.fillStyle = '#080b1b'; x.fillRect(0, 216, 640, 144);   // 길
-  g = x.createLinearGradient(0, 216, 0, 360); g.addColorStop(0, '#16193a'); g.addColorStop(1, '#05070f'); x.fillStyle = g; x.fillRect(0, 216, 640, 144);
-  x.strokeStyle = '#ff4fd8'; x.lineWidth = 3.2; x.strokeRect(452, 104, 92, 34); x.strokeStyle = '#ffc0f0'; x.lineWidth = 1.2; x.strokeRect(452, 104, 92, 34);   // 먼 곳 네온 간판
+  x.fillStyle = mix(PAL.bg0, '#000000', .4); x.fillRect(0, 216, 640, 144);   // 길
+  g = x.createLinearGradient(0, 216, 0, 360); g.addColorStop(0, mix(PAL.surface, PAL.accent, .1)); g.addColorStop(1, mix(PAL.bg0, '#000000', .55)); x.fillStyle = g; x.fillRect(0, 216, 640, 144);
+  x.strokeStyle = PAL.accent2; x.lineWidth = 3.2; x.strokeRect(452, 104, 92, 34); x.strokeStyle = mix(PAL.accent2, PAL.ink, .65); x.lineWidth = 1.2; x.strokeRect(452, 104, 92, 34);   // 먼 곳 네온 간판
   }
-  const cols = ['255,236,200', '255,236,200', '120,230,255', '255,90,120', '255,150,80', '255,100,220'];
+  const cols = [rgbs(PAL.ink), rgbs(PAL.ink), rgbs(PAL.accent), '255,100,115', rgbs(PAL.accent2), '110,205,255'];
   for (let i = 0; i < 34; i++) {                  // 먼 불빛들(DOF 에서 보케가 된다)
     const lx = 14 + r() * 612, ly = 176 + r() * 56, col = cols[i % cols.length], R = 1.8 + r() * 1.6, R2 = 9 + r() * 6;
     if (bokeh) { x.globalCompositeOperation = 'lighter'; g = x.createRadialGradient(lx, ly, R2 * .55, lx, ly, R2); g.addColorStop(0, `rgba(${col},.42)`); g.addColorStop(.85, `rgba(${col},.55)`); g.addColorStop(1, `rgba(${col},0)`); x.fillStyle = g; x.beginPath(); x.arc(lx, ly, R2, 0, 6.2832); x.fill(); x.globalCompositeOperation = 'source-over'; }
@@ -40,13 +45,13 @@ function farLayer(x, bokeh, r) {
 function nearLayer(x) {
   x.save(); x.scale(K, K);
   x.save(); x.translate(320, 300); x.scale(1, .22); const sg = x.createRadialGradient(0, 0, 10, 0, 0, 96); sg.addColorStop(0, 'rgba(0,0,0,.85)'); sg.addColorStop(1, 'rgba(0,0,0,0)'); x.fillStyle = sg; x.fillRect(-100, -100, 200, 200); x.restore();
-  x.lineCap = 'round'; x.strokeStyle = 'rgb(40,200,255)'; x.lineWidth = 9; x.beginPath(); x.arc(320, 222, 98, 3.5, 5.9); x.stroke();     // 구슬 뒤의 네온 링
-  x.strokeStyle = '#d9fbff'; x.lineWidth = 3.4; x.beginPath(); x.arc(320, 222, 98, 3.5, 5.9); x.stroke();
-  let g = x.createRadialGradient(296, 202, 3, 322, 236, 66); g.addColorStop(0, '#f3f8ff'); g.addColorStop(.18, '#a9c1ea'); g.addColorStop(.55, '#33456f'); g.addColorStop(1, '#0a1022');
+  x.lineCap = 'round'; x.strokeStyle = PAL.accent; x.lineWidth = 9; x.beginPath(); x.arc(320, 222, 98, 3.5, 5.9); x.stroke();     // 구슬 뒤의 네온 링
+  x.strokeStyle = mix(PAL.accent, PAL.ink, .75); x.lineWidth = 3.4; x.beginPath(); x.arc(320, 222, 98, 3.5, 5.9); x.stroke();
+  let g = x.createRadialGradient(296, 202, 3, 322, 236, 66); g.addColorStop(0, PAL.ink); g.addColorStop(.18, mix(PAL.muted, PAL.ink, .35)); g.addColorStop(.55, mix(PAL.surface, PAL.muted, .45)); g.addColorStop(1, mix(PAL.bg0, '#000000', .4));
   x.beginPath(); x.arc(320, 240, 62, 0, 6.2832); x.fillStyle = g; x.fill();
-  g = x.createRadialGradient(320, 300, 8, 320, 288, 66); g.addColorStop(0, 'rgba(255,90,200,.55)'); g.addColorStop(1, 'rgba(255,90,200,0)'); x.save(); x.beginPath(); x.arc(320, 240, 62, 0, 6.2832); x.clip(); x.fillStyle = g; x.fillRect(250, 220, 140, 90); x.restore();
-  x.strokeStyle = 'rgba(120,230,255,.75)'; x.lineWidth = 3; x.beginPath(); x.arc(320, 240, 57, 2.2, 3.2); x.stroke();
-  x.fillStyle = '#ffffff'; x.beginPath(); x.ellipse(298, 210, 11, 6, -.7, 0, 6.2832); x.fill();
+  g = x.createRadialGradient(320, 300, 8, 320, 288, 66); g.addColorStop(0, rgba(PAL.accent2, .5)); g.addColorStop(1, rgba(PAL.accent2, 0)); x.save(); x.beginPath(); x.arc(320, 240, 62, 0, 6.2832); x.clip(); x.fillStyle = g; x.fillRect(250, 220, 140, 90); x.restore();
+  x.strokeStyle = rgba(PAL.accent, .75); x.lineWidth = 3; x.beginPath(); x.arc(320, 240, 57, 2.2, 3.2); x.stroke();
+  x.fillStyle = PAL.ink; x.beginPath(); x.ellipse(298, 210, 11, 6, -.7, 0, 6.2832); x.fill();
   x.restore();
 }
 function floats(cv) { const d = cv.getContext('2d').getImageData(0, 0, RW, RH).data, o = [new Float32Array(N), new Float32Array(N), new Float32Array(N)]; for (let i = 0; i < N; i++) { o[0][i] = d[i * 4] / 255; o[1][i] = d[i * 4 + 1] / 255; o[2][i] = d[i * 4 + 2] / 255; } return o; }
@@ -63,16 +68,16 @@ function bloomOf(ch) {       // 밝은 곳만 뽑아(bright pass) 작게·크게
   for (let i = 0; i < N; i++) { const w = Math.max(0, Math.min(1, (lum(i) - .6) / .4)), k = w * w; bp[0][i] = ch[0][i] * k; bp[1][i] = ch[1][i] * k; bp[2][i] = ch[2][i] * k; }
   return bp.map((b) => { const s = boxBlur(b, 3, 2), l = boxBlur(b, 13, 2), o = new Float32Array(N); for (let i = 0; i < N; i++) o[i] = 1.6 * s[i] + 4.5 * l[i]; return o; });
 }
-const pillDraw = (c, text) => {
-  c.font = "500 14px 'IBM Plex Sans KR',sans-serif"; const w = c.measureText(text).width + 26;
-  rr(c, 16, 14, w, 28, 14); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill();
-  c.fillStyle = '#fff'; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText(text, 29, 29);
+const captionDraw = (c, text) => {      // 왼쪽 아래, 배경 없는 작은 설명글 + 위에 얇은 선
+  c.font = "400 12px 'JetBrains Mono',monospace"; const w = c.measureText(text).width;
+  c.fillStyle = PAL.line; c.fillRect(16, 330, w, 1);
+  c.fillStyle = PAL.muted; c.textBaseline = 'alphabetic'; c.textAlign = 'left'; c.fillText(text, 16, 347);
 };
 
 const demo = {
   dur: 3.2, rest: 2.6, noCompare: false, levels: 5,
   mount(sp) {
-    sp.style.background = '#0b0f1a';
+    sp.style.background = PAL.bg1;
     const c = canvas(sp), r = rng(77);
     const far = mk(RW, RH), fx = far.getContext('2d'); farLayer(fx, false, rng(77));
     const farB = mk(RW, RH), bx = farB.getContext('2d'); bx.filter = 'blur(2.2px)'; bx.drawImage(far, 0, 0); bx.filter = 'none';
@@ -107,7 +112,7 @@ const demo = {
     }
     s.buf.getContext('2d').putImageData(s.im, 0, 0);
     c.imageSmoothingEnabled = true; c.imageSmoothingQuality = 'high'; c.drawImage(s.buf, 0, 0, 640, 360);
-    pillDraw(c, ['연출 전: 렌더한 그대로(후처리 없음)', '1단계: 블룸 — 밝은 곳이 번져 빛남', '2단계: + 피사계 심도(DOF) — 뒤쪽 불빛이 보케로', '3단계: + 색수차 · 비네트', '4단계: + 필름 그레인'][L]);
+    captionDraw(c, ['연출 전: 렌더한 그대로(후처리 없음)', '1단계: 블룸 — 밝은 곳이 번져 빛남', '2단계: + 피사계 심도(DOF) — 뒤쪽 불빛이 보케로', '3단계: + 색수차 · 비네트', '4단계: + 필름 그레인'][L]);
   },
 };
 export default demo;

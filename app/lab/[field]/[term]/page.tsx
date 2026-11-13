@@ -84,19 +84,17 @@ export default async function TermPage({ params }: Props) {
             <div className="chips">
               <span className="chip">{t.level}</span>
               {t.purposes.map((p) => <span key={p} className="chip line">{p}</span>)}
-              {t.media.map((m) => <span key={m} className="chip line">{m}</span>)}
-            </div>
+                          </div>
 
             <DemoWorkbench>
             <section className="blk" id="demo">
               <h2><i>01</i>직접 돌려 보기</h2>
-              <p className="sub">‘연출 전’은 AI에게 대충 시켰을 때 흔히 나올 법한 결과를 가정해 만든 화면입니다(실제 AI 결과가 늘 이렇지는 않습니다). 두 상태를 눌러 바꿔 보고, 슬라이더를 끌어 중간 장면에서 멈춰 보세요.</p>
+              <p className="sub">‘연출 전’은 대충 시켰을 때를 가정해 만든 화면이고 실제 AI 결과와 다를 수 있습니다.</p>
               <DemoSlot demo={d.demo} label={t.name} tipTitle={Object.fromEntries(d.tips.map((x) => [x.id, x.title]))} />
             </section>
 
             <section className="blk" id="prompt">
               <h2><i>02</i>이름으로 시키는 지시문</h2>
-              <p className="sub">같은 장면을 이렇게 다르게 말하면 결과가 달라집니다.</p>
               {d.vs && (
                 <div className="vs">
                   <div className="bad"><b>대충 시킴</b><q>{d.vs.bad}</q>→ {d.vs.badResult}</div>
@@ -110,7 +108,7 @@ export default async function TermPage({ params }: Props) {
             {d.tips.length > 0 && (
             <section className="blk" id="tips">
               <h2><i>{nTips}</i>응용 팁</h2>
-              <p className="sub">지시문을 한 줄만 고쳐서 다른 느낌을 만드는 법입니다. ‘이 팁 적용해서 보기’를 누르면 위의 데모가 그 값으로 바뀝니다. 데모에서 값만 바꿔 확인한 것이고, AI가 같은 결과를 만드는지는 직접 해 보셔야 합니다.</p>
+              <p className="sub">팁은 데모에서 값만 바꿔 같은 장면과 비교한 것입니다. AI가 같은 결과를 내는지는 직접 해 보셔야 합니다.</p>
               <TipsPanel tips={d.tips} />
             </section>
             )}
@@ -118,7 +116,7 @@ export default async function TermPage({ params }: Props) {
             {hasSteps && (
               <section className="blk" id="steps">
                 <h2><i>{nSteps}</i>만드는 순서</h2>
-                <p className="sub">{d.levels > 0 ? "한 단계씩 쌓아 가며 만듭니다. ‘여기까지 적용한 모습 보기’를 누르면 위의 데모가 그 단계까지의 모습으로 바뀝니다." : "처음 만들 때 이 순서로 하면 덜 헤맵니다."}</p>
+                <p className="sub">{d.levels > 0 ? "각 단계의 버튼을 누르면 위의 데모가 그 단계까지의 모습으로 바뀝니다." : "처음 만들 때 이 순서로 하면 덜 헤맵니다."}</p>
                 <StepsPanel steps={d.steps} levels={d.levels} />
               </section>
             )}
@@ -127,7 +125,6 @@ export default async function TermPage({ params }: Props) {
             {hasTerms && (
               <section className="blk" id="words">
                 <h2><i>{nTerms}</i>전문용어 풀이</h2>
-                <p className="sub">AI에게 이 말로 지시하면 결과가 정확해집니다. 아래 ‘AI에게’ 줄은 그대로 가져다 써도 됩니다.</p>
                 <div className="term-grid">
                   {d.terms.map((w) => (
                     <div className="term" key={w.w}>

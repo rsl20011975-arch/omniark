@@ -4,6 +4,8 @@
 import { seg, lerp, E, el } from "./helpers.js";
 
 // 주황 배너 위의 흰 글씨(대비 부족)를 글자색만 바꿔 WCAG 기준(큰 글씨 3:1 · 작은 글씨 4.5:1)에 맞춘다. 대비는 코드에서 실제로 계산해 보여 준다.
+const PAL = { bg0: '#0c1814', bg1: '#15271f', ink: '#e8f1ea', muted: '#86a091', accent: '#7fe0a8', accent2: '#e8d27a', surface: '#12231c', line: '#2b4a3c' };
+const FAIL = '#ff9a8a';           // 미달을 나타내는 빨강(의미색)
 const HEAD_COL = "#2a1208";       // 1단계에서 제목 글자가 바뀌는 색
 const NOTE_DIM = "#5a3a22";       // 3단계에서 보조 문구가 바뀌는 색(조금 연하게)
 const HEAD_PX = 34;               // 제목 글자 크기(px). 24px 이상(굵으면 18.5px 이상)이면 큰 글씨로 본다
@@ -21,14 +23,16 @@ const ratio = (c1, c2) => { const a = lum(c1), b = lum(c2); return (Math.max(a, 
 const worst = (c) => Math.min(...BG.map((b) => ratio(c, rgb(b))));
 const need = (px, bold) => (px >= 24 || (px >= 18.5 && bold)) ? 3 : 4.5;
 const WHITE = '#ffffff';
+const hx = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const rgba = (h, a) => 'rgba(' + hx(h).join(',') + ',' + a + ')';
 
 const demo = {
   dur: 4.2, rest: 3.8, noCompare: false, levels: 4,
   mount(sp) {
     const bg = el('div', null, sp);
-    box(bg, { position: 'absolute', inset: '0', background: 'linear-gradient(160deg,#0b0f1a 0%,#1a2238 100%)', overflow: 'hidden' });
+    box(bg, { position: 'absolute', inset: '0', background: `radial-gradient(70% 90% at 25% 15%, ${rgba(PAL.accent, 0.1)}, rgba(0,0,0,0) 70%), linear-gradient(160deg,${PAL.bg0} 0%,${PAL.bg1} 100%)`, overflow: 'hidden' });
     const gr = el('div', null, bg);
-    box(gr, { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.06', mixBlendMode: 'overlay' });
+    box(gr, { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.07', mixBlendMode: 'overlay' });
     const ban = el('div', null, sp);
     box(ban, { position: 'absolute', left: '28px', top: '62px', width: '372px', height: '232px', borderRadius: '16px', background: `linear-gradient(120deg,${BG[0]} 0%,${BG[1]} 100%)`, boxShadow: 'inset 0 1px 0 rgba(255,255,255,.5), 0 18px 32px rgba(0,0,0,.5)', overflow: 'hidden' });
     const gl = el('div', null, ban);
@@ -40,28 +44,28 @@ const demo = {
     const note = el('div', null, ban, '5만 원 이상 주문 시<br>일부 지역 제외');
     box(note, { position: 'absolute', left: '28px', top: '108px', font: `500 ${NOTE_PX}px/1.5 'IBM Plex Sans KR',sans-serif`, whiteSpace: 'nowrap' });
     const hexl = el('div', null, sp);
-    box(hexl, { position: 'absolute', left: '28px', top: '304px', font: "500 11px/1.4 'JetBrains Mono',monospace", color: '#9aa4ba' });
+    box(hexl, { position: 'absolute', left: '28px', top: '304px', font: "500 11px/1.4 'JetBrains Mono',monospace", color: PAL.muted });
     const meters = [['제목', 0], ['보조 문구', 1]].map(([k, i]) => {
       const m = el('div', null, sp);
-      box(m, { position: 'absolute', left: '424px', top: (66 + i * 112) + 'px', width: '188px', height: '100px', borderRadius: '12px', background: 'linear-gradient(160deg,#222c47,#151c31)', border: '1px solid rgba(255,255,255,.12)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.12)' });
+      box(m, { position: 'absolute', left: '424px', top: (66 + i * 112) + 'px', width: '188px', height: '100px', borderRadius: '12px', background: `linear-gradient(160deg,${PAL.line},${PAL.surface} 60%)`, border: `1px solid ${PAL.line}`, boxShadow: `inset 0 1px 0 ${rgba(PAL.ink, 0.14)}, 0 10px 20px rgba(0,0,0,.35)` });
       const lab = el('div', null, m, k);
-      box(lab, { position: 'absolute', left: '14px', top: '10px', font: "500 12px/1 'IBM Plex Sans KR',sans-serif", color: '#aeb7cb' });
+      box(lab, { position: 'absolute', left: '14px', top: '10px', font: "500 12px/1 'IBM Plex Sans KR',sans-serif", color: PAL.muted });
       const num = el('div', null, m);
-      box(num, { position: 'absolute', left: '14px', top: '26px', font: "500 28px/1 'JetBrains Mono',monospace", color: '#fff' });
+      box(num, { position: 'absolute', left: '14px', top: '26px', font: "500 28px/1 'JetBrains Mono',monospace", color: PAL.ink });
       const track = el('div', null, m);
-      box(track, { position: 'absolute', left: '14px', top: '64px', width: '160px', height: '14px', borderRadius: '7px', background: 'rgba(255,255,255,.12)' });
+      box(track, { position: 'absolute', left: '14px', top: '64px', width: '160px', height: '14px', borderRadius: '7px', background: rgba(PAL.ink, 0.12) });
       const fill = el('div', null, track);
       box(fill, { position: 'absolute', left: '0', top: '0', bottom: '0', borderRadius: '7px' });
       const tick = el('div', null, track);
-      box(tick, { position: 'absolute', top: '-4px', width: '2px', height: '22px', background: '#fff' });
+      box(tick, { position: 'absolute', top: '-4px', width: '2px', height: '22px', background: PAL.ink });
       const needEl = el('div', null, m);
-      box(needEl, { position: 'absolute', left: '14px', top: '84px', font: "500 11px/1 'JetBrains Mono',monospace", color: '#9aa4ba' });
+      box(needEl, { position: 'absolute', left: '14px', top: '84px', font: "500 11px/1 'JetBrains Mono',monospace", color: PAL.muted });
       const badge = el('div', null, m);
       box(badge, { position: 'absolute', right: '12px', top: '10px', padding: '3px 9px', borderRadius: '999px', font: "700 11px/1.2 'IBM Plex Sans KR',sans-serif" });
       return { num, fill, tick, need: needEl, badge };
     });
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '14px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif" });
+    box(pill, { position: 'absolute', left: '20px', top: '14px', padding: '7px 14px', borderRadius: '999px', background: rgba(PAL.surface, 0.9), border: `1px solid ${PAL.line}`, color: PAL.ink, font: "500 15px/1 'IBM Plex Sans KR',sans-serif" });
     return { head, note, hexl, meters, pill };
   },
   render(s, t, a, lv) {
@@ -76,19 +80,19 @@ const demo = {
     items.forEach(([c, th, px], i) => {
       const r = worst(c), ok = r >= th, m = s.meters[i];
       m.num.textContent = r.toFixed(1) + ' : 1';
-      m.num.style.color = ok ? '#ffffff' : '#ff9a8a';
+      m.num.style.color = ok ? PAL.ink : FAIL;
       m.fill.style.width = (Math.min(1, r / 10) * 160).toFixed(1) + 'px';
-      m.fill.style.background = ok ? 'linear-gradient(90deg,#3fbf7a,#7be0a6)' : 'linear-gradient(90deg,#e0503f,#ff8a78)';
+      m.fill.style.background = ok ? `linear-gradient(90deg,#3fbf7a,${PAL.accent})` : 'linear-gradient(90deg,#e0503f,#ff8a78)';
       m.tick.style.left = (th / 10 * 160 - 1) + 'px';
       m.need.textContent = '기준 ' + th + ' : 1 (' + px + 'px)';
       m.badge.textContent = ok ? '통과' : '미달';
-      m.badge.style.background = ok ? 'rgba(63,191,122,.2)' : 'rgba(224,80,63,.22)';
-      m.badge.style.color = ok ? '#7be0a6' : '#ff9a8a';
+      m.badge.style.background = ok ? rgba(PAL.accent, 0.18) : 'rgba(224,80,63,.22)';
+      m.badge.style.color = ok ? PAL.accent : FAIL;
     });
-    s.hexl.textContent = '배경 ' + BG[0] + ' ~ ' + BG[1] + ' · 둘 중 나쁜 쪽 대비';
+    s.hexl.textContent = '배경 ' + BG[0] + ' ~ ' + BG[1] + ' 중 나쁜 쪽으로 대비 계산';
     const stage = t < 1.7 ? 1 : (t < 2.8 ? 2 : 3);
-    const names = ['', '1단계 · 제목 글자색을 바꿈', '2단계 · 보조 문구도 바꿈', '3단계 · 보조 문구를 살짝 연하게'];
-    s.pill.textContent = L === 0 ? '연출 전 · 주황 배경에 흰 글씨' : names[Math.min(stage, L)];
+    const names = ['', '1단계: 제목 글자색을 바꿈', '2단계: 보조 문구도 바꿈', '3단계: 보조 문구를 살짝 연하게'];
+    s.pill.textContent = L === 0 ? '연출 전: 주황 배경에 흰 글씨' : names[Math.min(stage, L)];
   },
 };
 export default demo;

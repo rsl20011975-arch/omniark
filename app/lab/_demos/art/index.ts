@@ -85,7 +85,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d105: {
     base: () => import("./d105.js"),
     "wide": () => import("./d105_wide.js"),
-    "long": () => import("./d105_long.js")
+    "long": () => import("./d105_long.js"),
+    "tear": () => import("./d105_tear.js")
   },
   d106: {
     base: () => import("./d106.js"),
@@ -105,7 +106,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d109: {
     base: () => import("./d109.js"),
     "blur": () => import("./d109_blur.js"),
-    "flat": () => import("./d109_flat.js")
+    "flat": () => import("./d109_flat.js"),
+    "slow": () => import("./d109_slow.js")
   },
   d11: {
     base: () => import("./d11.js"),
@@ -135,7 +137,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d114: {
     base: () => import("./d114.js"),
     "more": () => import("./d114_more.js"),
-    "fog": () => import("./d114_fog.js")
+    "fog": () => import("./d114_fog.js"),
+    "long": () => import("./d114_long.js")
   },
   d115: {
     base: () => import("./d115.js"),
@@ -145,12 +148,14 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d116: {
     base: () => import("./d116.js"),
     "longintro": () => import("./d116_longintro.js"),
-    "longoutro": () => import("./d116_longoutro.js")
+    "longoutro": () => import("./d116_longoutro.js"),
+    "gap": () => import("./d116_gap.js")
   },
   d117: {
     base: () => import("./d117.js"),
     "moremsg": () => import("./d117_moremsg.js"),
-    "swing": () => import("./d117_swing.js")
+    "swing": () => import("./d117_swing.js"),
+    "slow": () => import("./d117_slow.js")
   },
   d118: {
     base: () => import("./d118.js"),
@@ -180,7 +185,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d122: {
     base: () => import("./d122.js"),
     "nolost": () => import("./d122_nolost.js"),
-    "solid": () => import("./d122_solid.js")
+    "solid": () => import("./d122_solid.js"),
+    "wider": () => import("./d122_wider.js")
   },
   d123: {
     base: () => import("./d123.js"),
@@ -200,7 +206,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d126: {
     base: () => import("./d126.js"),
     "stronger": () => import("./d126_stronger.js"),
-    "edge": () => import("./d126_edge.js")
+    "edge": () => import("./d126_edge.js"),
+    "widemore": () => import("./d126_widemore.js")
   },
   d127: {
     base: () => import("./d127.js"),
@@ -235,7 +242,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d132: {
     base: () => import("./d132.js"),
     "manyslices": () => import("./d132_manyslices.js"),
-    "higher": () => import("./d132_higher.js")
+    "higher": () => import("./d132_higher.js"),
+    "slowstag": () => import("./d132_slowstag.js")
   },
   d133: {
     base: () => import("./d133.js"),
@@ -250,7 +258,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d135: {
     base: () => import("./d135.js"),
     "narrower": () => import("./d135_narrower.js"),
-    "bigger": () => import("./d135_bigger.js")
+    "bigger": () => import("./d135_bigger.js"),
+    "startnarrow": () => import("./d135_startnarrow.js")
   },
   d136: {
     base: () => import("./d136.js"),
@@ -270,7 +279,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d139: {
     base: () => import("./d139.js"),
     "three": () => import("./d139_three.js"),
-    "blue": () => import("./d139_blue.js")
+    "blue": () => import("./d139_blue.js"),
+    "base": () => import("./d139_base.js")
   },
   d14: {
     base: () => import("./d14.js"),
@@ -280,7 +290,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d140: {
     base: () => import("./d140.js"),
     "fewer": () => import("./d140_fewer.js"),
-    "mono": () => import("./d140_mono.js")
+    "mono": () => import("./d140_mono.js"),
+    "mixless": () => import("./d140_mixless.js")
   },
   d141: {
     base: () => import("./d141.js"),
@@ -300,7 +311,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d144: {
     base: () => import("./d144.js"),
     "deeper": () => import("./d144_deeper.js"),
-    "below": () => import("./d144_below.js")
+    "below": () => import("./d144_below.js"),
+    "fullbar": () => import("./d144_fullbar.js")
   },
   d145: {
     base: () => import("./d145.js"),
@@ -370,7 +382,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d157: {
     base: () => import("./d157.js"),
     "heavy": () => import("./d157_heavy.js"),
-    "lingering": () => import("./d157_lingering.js")
+    "lingering": () => import("./d157_lingering.js"),
+    "wide": () => import("./d157_wide.js")
   },
   d158: {
     base: () => import("./d158.js"),
@@ -380,7 +393,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d159: {
     base: () => import("./d159.js"),
     "denser": () => import("./d159_denser.js"),
-    "windy": () => import("./d159_windy.js")
+    "windy": () => import("./d159_windy.js"),
+    "streak": () => import("./d159_streak.js")
   },
   d16: {
     base: () => import("./d16.js"),
@@ -390,12 +404,14 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d160: {
     base: () => import("./d160.js"),
     "longtrail": () => import("./d160_longtrail.js"),
-    "smalleddy": () => import("./d160_smalleddy.js")
+    "smalleddy": () => import("./d160_smalleddy.js"),
+    "moredots": () => import("./d160_moredots.js")
   },
   d161: {
     base: () => import("./d161.js"),
     "widebluer": () => import("./d161_widebluer.js"),
-    "tightecho": () => import("./d161_tightecho.js")
+    "tightecho": () => import("./d161_tightecho.js"),
+    "longecho": () => import("./d161_longecho.js")
   },
   d162: {
     base: () => import("./d162.js"),
@@ -420,7 +436,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d166: {
     base: () => import("./d166.js"),
     "moon": () => import("./d166_moon.js"),
-    "superball": () => import("./d166_superball.js")
+    "superball": () => import("./d166_superball.js"),
+    "manyballs": () => import("./d166_manyballs.js")
   },
   d167: {
     base: () => import("./d167.js"),
@@ -430,7 +447,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d168: {
     base: () => import("./d168.js"),
     "steep": () => import("./d168_steep.js"),
-    "sparse": () => import("./d168_sparse.js")
+    "sparse": () => import("./d168_sparse.js"),
+    "lowcam": () => import("./d168_lowcam.js")
   },
   d169: {
     base: () => import("./d169.js"),
@@ -450,7 +468,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d171: {
     base: () => import("./d171.js"),
     "closecam": () => import("./d171_closecam.js"),
-    "thickbody": () => import("./d171_thickbody.js")
+    "thickbody": () => import("./d171_thickbody.js"),
+    "steeppitch": () => import("./d171_steeppitch.js")
   },
   d172: {
     base: () => import("./d172.js"),
@@ -460,7 +479,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d173: {
     base: () => import("./d173.js"),
     "slowdebounce": () => import("./d173_slowdebounce.js"),
-    "fewrows": () => import("./d173_fewrows.js")
+    "fewrows": () => import("./d173_fewrows.js"),
+    "fasttype": () => import("./d173_fasttype.js")
   },
   d174: {
     base: () => import("./d174.js"),
@@ -480,7 +500,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d177: {
     base: () => import("./d177.js"),
     "bigtext": () => import("./d177_bigtext.js"),
-    "darker": () => import("./d177_darker.js")
+    "darker": () => import("./d177_darker.js"),
+    "darkorange": () => import("./d177_darkorange.js")
   },
   d178: {
     base: () => import("./d178.js"),
@@ -490,7 +511,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d179: {
     base: () => import("./d179.js"),
     "shorter": () => import("./d179_shorter.js"),
-    "longtail": () => import("./d179_longtail.js")
+    "longtail": () => import("./d179_longtail.js"),
+    "darkstart": () => import("./d179_darkstart.js")
   },
   d18: {
     base: () => import("./d18.js"),
@@ -515,7 +537,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d183: {
     base: () => import("./d183.js"),
     "slowattack": () => import("./d183_slowattack.js"),
-    "lowthresh": () => import("./d183_lowthresh.js")
+    "lowthresh": () => import("./d183_lowthresh.js"),
+    "slowrelease": () => import("./d183_slowrelease.js")
   },
   d184: {
     base: () => import("./d184.js"),
@@ -535,7 +558,8 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d187: {
     base: () => import("./d187.js"),
     "shadow90": () => import("./d187_shadow90.js"),
-    "night": () => import("./d187_night.js")
+    "night": () => import("./d187_night.js"),
+    "glass80": () => import("./d187_glass80.js")
   },
   d188: {
     base: () => import("./d188.js"),
@@ -555,22 +579,26 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d190: {
     base: () => import("./d190.js"),
     "dist300": () => import("./d190_dist300.js"),
-    "dur24": () => import("./d190_dur24.js")
+    "dur24": () => import("./d190_dur24.js"),
+    "delay10": () => import("./d190_delay10.js")
   },
   d191: {
     base: () => import("./d191.js"),
     "dist300": () => import("./d191_dist300.js"),
-    "dur24": () => import("./d191_dur24.js")
+    "dur24": () => import("./d191_dur24.js"),
+    "delay10": () => import("./d191_delay10.js")
   },
   d192: {
     base: () => import("./d192.js"),
     "end8": () => import("./d192_end8.js"),
-    "handle80": () => import("./d192_handle80.js")
+    "handle80": () => import("./d192_handle80.js"),
+    "dur32": () => import("./d192_dur32.js")
   },
   d193: {
     base: () => import("./d193.js"),
     "zoom4": () => import("./d193_zoom4.js"),
-    "xf05": () => import("./d193_xf05.js")
+    "xf05": () => import("./d193_xf05.js"),
+    "xfstart": () => import("./d193_xfstart.js")
   },
   d194: {
     base: () => import("./d194.js"),
@@ -950,12 +978,14 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d94: {
     base: () => import("./d94.js"),
     "slow": () => import("./d94_slow.js"),
-    "stronger": () => import("./d94_stronger.js")
+    "stronger": () => import("./d94_stronger.js"),
+    "soft": () => import("./d94_soft.js")
   },
   d95: {
     base: () => import("./d95.js"),
     "dreamy": () => import("./d95_dreamy.js"),
-    "heavy": () => import("./d95_heavy.js")
+    "heavy": () => import("./d95_heavy.js"),
+    "zoom": () => import("./d95_zoom.js")
   },
   d96: {
     base: () => import("./d96.js"),
@@ -975,6 +1005,7 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
   d99: {
     base: () => import("./d99.js"),
     "slow": () => import("./d99_slow.js"),
-    "dissolve": () => import("./d99_dissolve.js")
+    "dissolve": () => import("./d99_dissolve.js"),
+    "mono": () => import("./d99_mono.js")
   },
 };

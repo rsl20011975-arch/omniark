@@ -4,6 +4,7 @@
 import { seg, lerp, E, el } from "./helpers.js";
 
 // 같은 낱말 "봄맞이" 에 아웃라인 → 그림자 → 엠보싱을 하나씩 더한다. 세 칸 모두 DOM 글자에 CSS(-webkit-text-stroke · text-shadow)를 그대로 건다. 화면은 시간 t 의 함수다.
+const PAL = { bg0: '#f2f2f0', bg1: '#e4e4e1', ink: '#111111', muted: '#666666', accent: '#ff3b1f', accent2: '#111111', surface: '#ffffff', line: '#c9c9c4' };
 const STROKE = 3;                 // 아웃라인 두께(px)
 const SH_DY = 16;                  // 그림자가 아래로 떨어지는 거리(px)
 const SH_BLUR = 6;                // 그림자 번짐(px). 0 이면 딱딱한 그림자
@@ -21,12 +22,12 @@ const demo = {
   dur: 4.6, rest: 4.2, noCompare: false, levels: 4,
   mount(sp) {
     const bg = el('div', null, sp);
-    box(bg, { position: 'absolute', inset: '0', background: 'linear-gradient(160deg,#0b0f1a 0%,#1a2238 100%)', overflow: 'hidden' });
+    box(bg, { position: 'absolute', inset: '0', background: `radial-gradient(70% 90% at 50% 0%, rgba(255,255,255,.7), rgba(255,255,255,0) 70%), linear-gradient(160deg,${PAL.bg0} 0%,${PAL.bg1} 100%)`, overflow: 'hidden' });
     const gr = el('div', null, bg);
-    box(gr, { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.06', mixBlendMode: 'overlay' });
+    box(gr, { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.08', mixBlendMode: 'multiply' });
     const tiles = TILES.map((T, i) => {
       const tile = el('div', null, sp);
-      box(tile, { position: 'absolute', left: (X0 + i * (TW + GAP)) + 'px', top: '64px', width: TW + 'px', height: '176px', borderRadius: '14px', background: T.bg, overflow: 'hidden', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.35), 0 14px 26px rgba(0,0,0,.45)' });
+      box(tile, { position: 'absolute', left: (X0 + i * (TW + GAP)) + 'px', top: '64px', width: TW + 'px', height: '176px', borderRadius: '14px', background: T.bg, overflow: 'hidden', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.45), 0 2px 4px rgba(17,17,17,.12), 0 16px 26px -8px rgba(17,17,17,.34)' });
       const g = el('div', null, tile);
       box(g, { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.09', mixBlendMode: 'multiply' });
       const w = el('div', null, tile, '봄맞이');
@@ -34,13 +35,13 @@ const demo = {
       const cap = el('div', null, sp);
       box(cap, { position: 'absolute', left: (X0 + i * (TW + GAP)) + 'px', top: '254px', width: TW + 'px' });
       const nm = el('div', null, cap, T.name);
-      box(nm, { font: "700 15px/1.3 'IBM Plex Sans KR',sans-serif", color: '#fff', marginBottom: '4px' });
+      box(nm, { font: "700 15px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink, marginBottom: '4px' });
       const code = el('div', null, cap);
-      box(code, { font: "500 11px/1.5 'JetBrains Mono',monospace", color: '#9aa4ba', whiteSpace: 'pre' });
+      box(code, { font: "500 11px/1.5 'JetBrains Mono',monospace", color: PAL.muted, whiteSpace: 'pre' });
       return { w, code };
     });
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '14px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif" });
+    box(pill, { position: 'absolute', right: '20px', top: '14px', padding: '7px 12px 7px 11px', borderRadius: '2px', background: PAL.surface, borderLeft: `3px solid ${PAL.accent}`, boxShadow: '0 1px 2px rgba(17,17,17,.14), 0 6px 12px -4px rgba(17,17,17,.2)', color: PAL.ink, font: "600 12px/1.2 'IBM Plex Sans KR',sans-serif" });
     return { tiles, pill };
   },
   render(s, t, a, lv) {
@@ -50,19 +51,19 @@ const demo = {
     const p3 = L >= 3 ? E.outC(seg(t, 3.2, 4.1)) : 0;
     const sw = STROKE * p1;
     const o = s.tiles[0];
-    o.w.style.webkitTextStroke = sw.toFixed(2) + 'px #1a2238';
+    o.w.style.webkitTextStroke = sw.toFixed(2) + 'px ' + PAL.ink;
     o.w.style.paintOrder = 'stroke fill';
-    o.code.textContent = '-webkit-text-stroke:\n' + sw.toFixed(1) + 'px #1a2238';
+    o.code.textContent = '-webkit-text-stroke:\n' + sw.toFixed(1) + 'px ' + PAL.ink;
     const dy = SH_DY * p2, bl = SH_BLUR * p2;
     const h = s.tiles[1];
-    h.w.style.textShadow = p2 > 0 ? `0 ${(dy * .35).toFixed(2)}px 0 rgba(10,18,60,.55), 0 ${dy.toFixed(2)}px ${bl.toFixed(2)}px rgba(0,0,0,${(.55 * p2).toFixed(2)})` : 'none';
+    h.w.style.textShadow = p2 > 0 ? `0 ${(dy * .35).toFixed(2)}px 0 rgba(17,17,17,.55), 0 ${dy.toFixed(2)}px ${bl.toFixed(2)}px rgba(0,0,0,${(.55 * p2).toFixed(2)})` : 'none';
     h.code.textContent = 'text-shadow: 0 ' + dy.toFixed(1) + 'px ' + bl.toFixed(1) + 'px\nrgba(0,0,0,.55)';
     const e = EMB * p3, m = s.tiles[2];
-    m.w.style.textShadow = p3 > 0 ? `${(-e).toFixed(2)}px ${(-e).toFixed(2)}px 0 rgba(255,255,255,.85), ${e.toFixed(2)}px ${e.toFixed(2)}px 0 rgba(30,36,60,.5)` : 'none';
-    m.code.textContent = 'text-shadow:\n' + (-e).toFixed(1) + 'px ' + (-e).toFixed(1) + 'px 0 #fff,\n' + e.toFixed(1) + 'px ' + e.toFixed(1) + 'px 0 #1e243c';
+    m.w.style.textShadow = p3 > 0 ? `${(-e).toFixed(2)}px ${(-e).toFixed(2)}px 0 rgba(255,255,255,.85), ${e.toFixed(2)}px ${e.toFixed(2)}px 0 rgba(17,17,17,.5)` : 'none';
+    m.code.textContent = 'text-shadow:\n' + (-e).toFixed(1) + 'px ' + (-e).toFixed(1) + 'px 0 #fff,\n' + e.toFixed(1) + 'px ' + e.toFixed(1) + 'px 0 ' + PAL.ink;
     const stage = t < 1.8 ? 1 : (t < 3.1 ? 2 : 3);
-    const names = ['', '1단계 · 아웃라인(글자 테두리)', '2단계 · 그림자', '3단계 · 엠보싱(양각)'];
-    s.pill.textContent = L === 0 ? '연출 전 · 세 칸 모두 효과 없음' : names[Math.min(stage, L)];
+    const names = ['', '1단계: 아웃라인(글자 테두리)', '2단계: 그림자', '3단계: 엠보싱(양각)'];
+    s.pill.textContent = L === 0 ? '연출 전: 세 칸 모두 효과 없음' : names[Math.min(stage, L)];
   },
 };
 export default demo;

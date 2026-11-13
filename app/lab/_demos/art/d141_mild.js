@@ -4,11 +4,13 @@
 import { seg, lerp, E, el } from "./helpers.js";
 
 // 같은 '서비스 상태' 화면을 보통 시각과 세 가지 색각 유형(적·녹·청)으로 나란히 본다. 변환은 Machado 등(2009)의 3×3 행렬을 선형 RGB 에 곱한다. 화면은 시간 t 의 함수다.
+// 칸 안의 '서비스 상태' 칩 색(초록·빨강·파랑·주황)은 이 페이지의 내용이라 그대로 두고, 무대 배경·칸 바탕·이름표만 팔레트(forest)를 쓴다
+const PAL = { bg0: '#0c1814', bg1: '#15271f', ink: '#e8f1ea', muted: '#86a091', accent: '#7fe0a8', accent2: '#e8d27a', surface: '#12231c', line: 'rgba(232,241,234,.22)' };
 const SEV = 0.4;                    // 색각 이상의 정도(1 = 그 색을 전혀 못 보는 경우, 0 = 보통 시각)
 const OK_COLOR = '#30a46c';       // 연출 전 '정상' 칩 색(초록)
 const ERR_COLOR = '#e5484d';      // 연출 전 '오류' 칩 색(빨강)
 const OK2 = '#4aa8ff', ERR2 = '#ffa31a';   // 마지막 단계의 파랑·주황
-const PW = 308, PH = 150;         // 칸 하나의 크기(CSS px)
+const PW = 308, PH = 140;         // 칸 하나의 크기(CSS px)
 const ROWS = [['결제', 0], ['로그인', 1], ['검색', 0], ['알림', 1], ['업로드', 0]];   // 1 = 오류
 const FONT = "'IBM Plex Sans KR',sans-serif";
 // Machado, Oliveira, Fernandes (2009) 표 1, 심각도 1.0
@@ -22,21 +24,21 @@ const L2S = new Uint8Array(4096).map((_, i) => { const v = i / 4095; return Math
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 const mixc = (a, b, p) => 'rgb(' + hex(a).map((v, i) => Math.round(lerp(v, hex(b)[i], p))).join(',') + ')';
 const PANELS = [['보통 시각', null], ['적색맹 (Protanopia)', 'protan'], ['녹색맹 (Deuteranopia)', 'deutan'], ['청색맹 (Tritanopia)', 'tritan']];
-const POS = [[10, 46], [322, 46], [10, 202], [322, 202]];
+const POS = [[10, 12], [322, 12], [10, 160], [322, 160]];
 
 function design(c, t, L) {   // 칸 하나 안의 화면. 단계가 올라가면 아이콘·글자, 파랑/주황이 더해진다
   c.setTransform(2, 0, 0, 2, 0, 0); c.clearRect(0, 0, PW, PH);
-  c.fillStyle = '#151b2e'; c.beginPath(); c.roundRect(0, 0, PW, PH, 10); c.fill();
-  c.font = `700 12px ${FONT}`; c.fillStyle = '#e6e9f0'; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText('서비스 상태', 14, 15);
+  c.fillStyle = PAL.surface; c.beginPath(); c.roundRect(0, 0, PW, PH, 10); c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.beginPath(); c.roundRect(.5, .5, PW - 1, PH - 1, 10); c.stroke();
+  c.font = `700 12px ${FONT}`; c.fillStyle = PAL.ink; c.textBaseline = 'middle'; c.textAlign = 'left'; c.fillText('서비스 상태', 14, 15);
   const k2 = L >= 2 ? E.inOutC(seg(t, 2, 2.6)) : 0, k3 = L >= 3 ? E.inOutC(seg(t, 2.8, 3.3)) : 0;
   ROWS.forEach(([n, err], i) => {
     const y = 40 + i * 21;
     c.fillStyle = 'rgba(255,255,255,.07)'; c.fillRect(14, y - 11, PW - 28, 1);
-    c.font = `500 12px ${FONT}`; c.fillStyle = '#e6e9f0'; c.textAlign = 'left'; c.fillText(n, 14, y);
+    c.font = `500 12px ${FONT}`; c.fillStyle = PAL.ink; c.textAlign = 'left'; c.fillText(n, 14, y);
     const col = mixc(err ? ERR_COLOR : OK_COLOR, err ? ERR2 : OK2, k3);
     c.fillStyle = col; c.beginPath(); c.roundRect(170, y - 8, 124, 16, 8); c.fill();
     if (k2 > 0) {
-      c.globalAlpha = k2; c.strokeStyle = '#0b0f1a'; c.fillStyle = '#0b0f1a'; c.lineWidth = 1.8; c.lineCap = 'round'; c.lineJoin = 'round';
+      c.globalAlpha = k2; c.strokeStyle = PAL.bg0; c.fillStyle = PAL.bg0; c.lineWidth = 1.8; c.lineCap = 'round'; c.lineJoin = 'round';
       c.beginPath();
       if (err) { c.moveTo(181, y - 3); c.lineTo(187, y + 3); c.moveTo(187, y - 3); c.lineTo(181, y + 3); } else { c.moveTo(180, y); c.lineTo(183.5, y + 3); c.lineTo(188.5, y - 3); }
       c.stroke();
@@ -64,25 +66,27 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 1 : (lv == null ? 3 : lv);   // 1 = 빨강·초록 색만, 2 = + 아이콘·글자, 3 = + 파랑·주황
     const c = s.ctx; c.setTransform(2, 0, 0, 2, 0, 0);
-    const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, '#0b0f1a'); g.addColorStop(1, '#171e33'); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+    const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+    const rg = c.createRadialGradient(520, 0, 10, 520, 0, 380); rg.addColorStop(0, 'rgba(127,224,168,.14)'); rg.addColorStop(1, 'rgba(127,224,168,0)'); c.fillStyle = rg; c.fillRect(0, 0, 640, 360);
     design(s.ac, t, L);
     const src = s.ac.getImageData(0, 0, PW * 2, PH * 2);
     const sev = SEV * E.inOutC(seg(t, .5, 1.5));
     PANELS.forEach(([name, key], i) => {
       const [x, y] = POS[i];
+      c.save(); c.shadowColor = 'rgba(0,0,0,.5)'; c.shadowBlur = 16; c.shadowOffsetY = 6;
       if (!key) c.drawImage(s.a, x, y, PW, PH);
       else {
         const M = MATS[key].map((row, r) => row.map((v, q) => lerp(r === q ? 1 : 0, v, sev)));
         simulate(src, s.dst, M); s.bc.putImageData(s.dst, 0, 0); c.drawImage(s.b, x, y, PW, PH);
       }
-      c.fillStyle = 'rgba(8,10,20,.8)'; c.font = `500 11px ${FONT}`; const w = c.measureText(name).width + 16;
+      c.restore();
+      c.fillStyle = 'rgba(12,24,20,.86)'; c.font = `500 11px ${FONT}`; const w = c.measureText(name).width + 16;
       c.beginPath(); c.roundRect(x + PW - w - 8, y + 6, w, 18, 9); c.fill();
-      c.fillStyle = '#fff'; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(name, x + PW - w, y + 15.5);
+      c.fillStyle = PAL.ink; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(name, x + PW - w, y + 15.5);
     });
-    const txt = L === 1 ? '연출 전 · 빨강/초록 색으로만 구분' : (t >= 2.8 && L >= 3 ? '모양·글자에 파랑/주황까지 더함' : (t >= 2 ? '아이콘과 글자를 더함' : '빨강/초록 색으로만 구분'));
-    c.font = `500 14px ${FONT}`; const pw = c.measureText(txt).width + 28;
-    c.fillStyle = 'rgba(8,10,20,.78)'; c.beginPath(); c.roundRect(10, 10, pw, 28, 14); c.fill();
-    c.fillStyle = '#fff'; c.textBaseline = 'middle'; c.fillText(txt, 24, 24.5);
+    const txt = L === 1 ? '연출 전 / 빨강과 초록 색으로만 구분' : (t >= 2.8 && L >= 3 ? '모양과 글자에 파랑, 주황까지 더함' : (t >= 2 ? '아이콘과 글자를 더함' : '빨강과 초록 색으로만 구분'));
+    c.fillStyle = PAL.line; c.fillRect(10, 316, 620, 1);
+    c.font = `400 12px 'JetBrains Mono','IBM Plex Sans KR',monospace`; c.fillStyle = PAL.muted; c.textAlign = 'left'; c.textBaseline = 'middle'; c.fillText(txt, 10, 333);
   },
 };
 export default demo;

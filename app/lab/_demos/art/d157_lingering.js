@@ -3,6 +3,9 @@
 // 만들어진 파일 — 원본: source/pages/flowmap-mouse/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el, rng } from "./helpers.js";
 
+const PAL = { bg0: '#0b0f1a', bg1: '#161d30', ink: '#f4efe4', muted: '#8b94a3', accent: '#ffb36b', accent2: '#ffd27a', surface: '#131a2b', line: 'rgba(244,239,228,.16)' };
+const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+
 // 플로우맵: 커서가 지나간 자리에 ‘움직인 방향’을 색(빨강=가로, 초록=세로)으로 기록하고, 그 기록만큼 그림의 픽셀을 밀어 시간이 지나면 서서히 사라지게 한다. 화면은 시간 t 의 함수다.
 const STRENGTH = 28;              // 그림이 밀리는 최대 거리(px)
 const FADE = 3.0;                 // 흔적이 완전히 사라지는 데 걸리는 시간(초)
@@ -17,17 +20,17 @@ const cur = (t) => { const u = E.inOutC(seg(t, T0, T0 + PATHT)); return [56 + 34
 function artwork() {   // 일그러짐이 잘 보이도록 원·격자·그라디언트로 그린 원본 그림
   const cv = document.createElement('canvas'); cv.width = IW; cv.height = IH;
   const g = cv.getContext('2d'), r = rng(8);
-  const bg = g.createLinearGradient(0, 0, IW, IH); bg.addColorStop(0, '#0f2a6b'); bg.addColorStop(.55, '#6b2fb0'); bg.addColorStop(1, '#ea5a7e');
+  const bg = g.createLinearGradient(0, 0, IW, IH); bg.addColorStop(0, '#12307a'); bg.addColorStop(.55, '#4a4aa6'); bg.addColorStop(1, PAL.accent);   // 짙은 남색에서 푸른 보라를 지나 주황으로
   g.fillStyle = bg; g.fillRect(0, 0, IW, IH);
-  const gl = g.createRadialGradient(150, 98, 4, 150, 98, 130); gl.addColorStop(0, 'rgba(255,200,100,.65)'); gl.addColorStop(1, 'rgba(255,200,100,0)');
+  const gl = g.createRadialGradient(150, 98, 4, 150, 98, 130); gl.addColorStop(0, rgba(PAL.accent2, .7)); gl.addColorStop(1, rgba(PAL.accent2, 0));
   g.fillStyle = gl; g.fillRect(0, 0, IW, IH);
-  g.strokeStyle = 'rgba(255,255,255,.22)'; g.lineWidth = 1;
+  g.strokeStyle = rgba(PAL.ink, .24); g.lineWidth = 1;
   for (let x = 0; x <= IW; x += 20) { g.beginPath(); g.moveTo(x + .5, 0); g.lineTo(x + .5, IH); g.stroke(); }
   for (let y = 0; y <= IH; y += 20) { g.beginPath(); g.moveTo(0, y + .5); g.lineTo(IW, y + .5); g.stroke(); }
-  g.strokeStyle = 'rgba(255,255,255,.6)'; g.lineWidth = 2;
+  g.strokeStyle = rgba(PAL.ink, .65); g.lineWidth = 2;
   for (let k = 1; k <= 6; k++) { g.beginPath(); g.arc(150, 98, k * 15, 0, 6.2832); g.stroke(); }
-  g.fillStyle = 'rgba(255,255,255,.9)'; g.beginPath(); g.arc(150, 98, 6, 0, 6.2832); g.fill();
-  for (let i = 0; i < 1500; i++) { g.fillStyle = `rgba(255,255,255,${(r() * .05).toFixed(3)})`; g.fillRect(r() * IW, r() * IH, 1, 1); }
+  g.fillStyle = rgba(PAL.ink, .92); g.beginPath(); g.arc(150, 98, 6, 0, 6.2832); g.fill();
+  for (let i = 0; i < 1500; i++) { g.fillStyle = `rgba(244,239,228,${(r() * .05).toFixed(3)})`; g.fillRect(r() * IW, r() * IH, 1, 1); }
   return cv;
 }
 
@@ -35,17 +38,17 @@ const demo = {
   dur: 5, rest: 4.3, noCompare: false, levels: 3,
   mount(sp) {
     const bg = el('div', null, sp);
-    box(bg, { position: 'absolute', inset: '0', background: 'linear-gradient(160deg,#0b0f1a 0%,#161d30 100%)' });
+    box(bg, { position: 'absolute', inset: '0', background: `linear-gradient(160deg,${PAL.bg0} 0%,${PAL.bg1} 100%)` });
     box(el('div', null, bg), { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.06', mixBlendMode: 'overlay' });
     const side = el('div', null, sp);
-    box(side, { position: 'absolute', left: '478px', top: '50px', width: '148px', height: '296px', borderRadius: '12px', background: 'rgba(255,255,255,.045)', border: '1px solid rgba(255,255,255,.09)' });
+    box(side, { position: 'absolute', left: '478px', top: '50px', width: '148px', height: '296px', borderRadius: '12px', background: rgba(PAL.surface, .9), border: `1px solid ${PAL.line}` });
     const cv = el('canvas', null, sp); cv.width = 1280; cv.height = 720;
     const tx = (x, y, s, sz, col, f, w) => { const e = el('div', null, sp, s); box(e, { position: 'absolute', left: x + 'px', top: y + 'px', font: `${w || 400} ${sz}px/1.3 ${f || "'IBM Plex Sans KR',sans-serif"}`, color: col, width: '132px' }); return e; };
-    tx(488, 58, '플로우맵', 12.5, '#fff', null, 700); tx(488, 76, '커서가 지나간 방향 기록', 9.5, 'rgba(255,255,255,.62)');
-    const rd = [0, 1, 2, 3].map((k) => tx(488, 190 + k * 15, '', 10, k === 0 ? '#ffe27a' : 'rgba(255,255,255,.8)', "'JetBrains Mono',monospace"));
-    const nt = [0, 1, 2, 3].map((k) => tx(488, 262 + k * 14, '', 9.5, 'rgba(255,255,255,.68)'));
+    tx(488, 58, '플로우맵', 12.5, PAL.ink, null, 700); tx(488, 76, '커서가 지나간 방향 기록', 9.5, PAL.muted);
+    const rd = [0, 1, 2, 3].map((k) => tx(488, 190 + k * 15, '', 10, k === 0 ? PAL.accent2 : rgba(PAL.ink, .85), "'JetBrains Mono',monospace"));
+    const nt = [0, 1, 2, 3].map((k) => tx(488, 262 + k * 14, '', 9.5, PAL.muted));
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '12px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 14px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
+    box(pill, { position: 'absolute', left: '20px', top: '12px', padding: '7px 14px', borderRadius: '999px', background: rgba(PAL.bg0, .72), border: `1px solid ${PAL.line}`, color: PAL.ink, font: "500 14px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
     const art = artwork(), sctx = art.getContext('2d'), src = sctx.getImageData(0, 0, IW, IH).data;
     const smp = []; for (let i = 0; i <= 5 * 30; i++) { const ts = i / 30, p = cur(ts), q = cur(Math.max(0, ts - 1 / 30)); smp.push({ ts, x: p[0], y: p[1], vx: (p[0] - q[0]) * 30 / 500, vy: (p[1] - q[1]) * 30 / 500 }); }
     const off = document.createElement('canvas'); off.width = IW; off.height = IH;
@@ -81,24 +84,24 @@ const demo = {
       octx.putImageData(out, 0, 0);
     } else { octx.drawImage(s.art, 0, 0); }
     c.save(); c.beginPath(); c.rect(PX, PY, PW, PH); c.clip(); c.imageSmoothingQuality = 'high'; c.drawImage(s.off, PX, PY, PW, PH); c.restore();
-    c.strokeStyle = 'rgba(255,255,255,.12)'; c.lineWidth = 1; c.strokeRect(PX + .5, PY + .5, PW - 1, PH - 1);
+    c.strokeStyle = PAL.line; c.lineWidth = 1; c.strokeRect(PX + .5, PY + .5, PW - 1, PH - 1);
     // 오른쪽 작은 플로우맵(빨강 = 가로, 초록 = 세로, 회색 = 흐름 없음)
     const fctx = s.fm.getContext('2d'), fi = fctx.createImageData(GW, GH);
     for (let i = 0; i < GW * GH; i++) { fi.data[4 * i] = 128 + 127 * F[2 * i]; fi.data[4 * i + 1] = 128 + 127 * F[2 * i + 1]; fi.data[4 * i + 2] = 128; fi.data[4 * i + 3] = 255; }
     fctx.putImageData(fi, 0, 0);
     c.save(); c.beginPath(); c.rect(486, 100, 132, 86); c.clip(); c.imageSmoothingEnabled = true; c.drawImage(s.fm, 486, 100, 132, 86); c.restore();
-    c.strokeStyle = 'rgba(255,255,255,.25)'; c.strokeRect(486.5, 100.5, 131, 85);
+    c.strokeStyle = rgba(PAL.ink, .3); c.strokeRect(486.5, 100.5, 131, 85);
     // 가상 커서(꼬리 + 화살표)
     const [cx0, cy0] = cur(t), cx = PX + cx0, cy = PY + cy0;
-    for (let k = 12; k >= 1; k--) { const p = cur(Math.max(0, t - k / 30)), q = cur(Math.max(0, t - (k - 1) / 30)); c.strokeStyle = `rgba(255,255,255,${((1 - k / 13) * .55).toFixed(3)})`; c.lineWidth = 4 * (1 - k / 14); c.lineCap = 'round'; c.beginPath(); c.moveTo(PX + p[0], PY + p[1]); c.lineTo(PX + q[0], PY + q[1]); c.stroke(); }
-    const rg = c.createRadialGradient(cx, cy, 2, cx, cy, 18); rg.addColorStop(0, 'rgba(160,230,255,.55)'); rg.addColorStop(1, 'rgba(160,230,255,0)'); c.fillStyle = rg; c.beginPath(); c.arc(cx, cy, 18, 0, 6.2832); c.fill();
-    c.save(); c.translate(cx, cy); c.shadowColor = 'rgba(0,0,0,.5)'; c.shadowBlur = 6; c.fillStyle = '#fff'; c.strokeStyle = '#0b0f1a'; c.lineWidth = 1.4; c.lineJoin = 'round';
+    for (let k = 12; k >= 1; k--) { const p = cur(Math.max(0, t - k / 30)), q = cur(Math.max(0, t - (k - 1) / 30)); c.strokeStyle = `rgba(244,239,228,${((1 - k / 13) * .6).toFixed(3)})`; c.lineWidth = 4 * (1 - k / 14); c.lineCap = 'round'; c.beginPath(); c.moveTo(PX + p[0], PY + p[1]); c.lineTo(PX + q[0], PY + q[1]); c.stroke(); }
+    const rg = c.createRadialGradient(cx, cy, 2, cx, cy, 18); rg.addColorStop(0, rgba(PAL.accent2, .55)); rg.addColorStop(1, rgba(PAL.accent2, 0)); c.fillStyle = rg; c.beginPath(); c.arc(cx, cy, 18, 0, 6.2832); c.fill();
+    c.save(); c.translate(cx, cy); c.shadowColor = 'rgba(0,0,0,.5)'; c.shadowBlur = 6; c.fillStyle = PAL.ink; c.strokeStyle = PAL.bg0; c.lineWidth = 1.4; c.lineJoin = 'round';
     c.beginPath(); [[0, 0], [0, 17], [4.4, 13], [7.4, 19.6], [10.2, 18.4], [7.3, 12], [12.8, 12]].forEach((p, i) => (i ? c.lineTo(p[0], p[1]) : c.moveTo(p[0], p[1]))); c.closePath(); c.fill(); c.stroke(); c.restore();
     const sp0 = Math.hypot(cx0 - cur(Math.max(0, t - 1 / 30))[0], cy0 - cur(Math.max(0, t - 1 / 30))[1]) * 30;
     s.rd[0].textContent = `커서 속도 ${Math.round(sp0)}px/초`; s.rd[1].textContent = L >= 2 ? `기록된 칸 ${cells}개` : '기록 안 함'; s.rd[2].textContent = L >= 3 ? `최대 이동 ${STRENGTH}px` : '그림 안 밀림'; s.rd[3].textContent = L >= 2 ? `흔적 지속 ${FADE}초` : '';
     const nts = L <= 1 ? ['커서 위치만 따라 빛이', '움직입니다. 지나간 방향은', '어디에도 남지 않아', '그림이 그대로예요.'] : ['회색 = 흐름 없음', '빨강 = 가로 방향', '초록 = 세로 방향', '시간이 지나면 회색으로'];
     s.nt.forEach((e, k) => { e.textContent = nts[k]; });
-    s.pill.textContent = L <= 1 ? '연출 전 · 가상 커서만 움직이고 그림은 그대로' : L === 2 ? '커서가 지난 방향을 플로우맵에 기록' : '플로우맵만큼 그림이 밀렸다가 제자리로 돌아옴';
+    s.pill.textContent = L <= 1 ? '연출 전: 가상 커서만 움직이고 그림은 그대로' : L === 2 ? '커서가 지난 방향을 플로우맵에 기록' : '플로우맵만큼 그림이 밀렸다가 제자리로 돌아옴';
   },
 };
 export default demo;

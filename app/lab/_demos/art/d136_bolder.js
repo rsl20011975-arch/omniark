@@ -4,11 +4,11 @@
 import { seg, lerp, E, el } from "./helpers.js";
 
 // 아이콘 6개를 '굵기·끝 모양·크기·색이 제각각인 상태'에서 '한 세트의 규칙(24 격자·선 2·둥근 끝)'으로 맞춘다. 그림은 직접 그린 선 경로이고, 화면은 시간 t 의 함수다.
+const PAL = { bg0: '#a9402c', bg1: '#8f3322', ink: '#fff4ec', muted: '#ffd9c9', accent: '#ffe27a', accent2: '#1d1a16', surface: '#b24a34', line: 'rgba(255,244,236,.3)' };
 const STROKE = 3.6;                 // 선 굵기(24 격자 기준 칸 수). 24px 로 볼 때 2px
 const ICON_PX = 48;               // 화면에 보이는 아이콘 크기(px). 24 격자를 2배로
-const COLOR = '#e8ecf4';          // 한 세트의 아이콘 색
+const COLOR = '#fff4ec';          // 한 세트의 아이콘 색
 const box = (e, o) => Object.assign(e.style, o);
-const NS = 'http://www.w3.org/2000/svg';
 
 // 24×24 격자 위에 직접 그린 선 경로(바깥 여백 1칸 이상)
 const ICONS = [
@@ -21,9 +21,9 @@ const ICONS = [
 ];
 // 연출 전: 아이콘마다 굵기·크기·채움·색·끝 모양이 다르다
 const MIX = [
-  { sw: 1, px: 34, dy: -7, fill: 0, c: '#e8ecf4' }, { sw: 3.4, px: 58, dy: 5, fill: 0, c: '#ffb36b' },
-  { sw: 1.5, px: 44, dy: 0, fill: 1, c: '#9ec5ff' }, { sw: 2.8, px: 62, dy: -5, fill: 1, c: '#e8ecf4' },
-  { sw: 1, px: 38, dy: 8, fill: 0, c: '#b6f0c0' }, { sw: 3.8, px: 52, dy: 2, fill: 0, c: '#ffd7d7' },
+  { sw: 1, px: 34, dy: -7, fill: 0, c: '#fff4ec' }, { sw: 3.4, px: 58, dy: 5, fill: 0, c: '#ffe27a' },
+  { sw: 1.5, px: 44, dy: 0, fill: 1, c: '#a8e4ff' }, { sw: 2.8, px: 62, dy: -5, fill: 1, c: '#ffd9c9' },
+  { sw: 1, px: 38, dy: 8, fill: 0, c: '#c6f2b0' }, { sw: 3.8, px: 52, dy: 2, fill: 0, c: '#ffc4dc' },
 ];
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 const mix = (a, b, p) => 'rgb(' + hex(a).map((v, i) => Math.round(lerp(v, hex(b)[i], p))).join(',') + ')';
@@ -33,34 +33,36 @@ const demo = {
   dur: 3.6, rest: 3.2, noCompare: false, levels: 3,
   mount(sp) {
     const bg = el('div', null, sp);
-    box(bg, { position: 'absolute', inset: '0', background: 'linear-gradient(160deg,#0b0f1a 0%,#171e33 100%)' });
+    box(bg, { position: 'absolute', inset: '0', background: `radial-gradient(120% 90% at 30% 10%, rgba(255,226,122,.16), rgba(255,226,122,0) 55%), linear-gradient(160deg,${PAL.bg0} 0%,${PAL.bg1} 100%)` });
+    const grain = el('div', null, sp);
+    box(grain, { position: 'absolute', inset: '0', opacity: '.16', mixBlendMode: 'overlay', backgroundImage: "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' seed='4'/></filter><rect width='120' height='120' filter='url(%23n)'/></svg>\")" });
     const guide = el('div', null, sp);
-    box(guide, { position: 'absolute', left: '28px', right: '28px', top: '154px', height: '0', borderTop: '1px dashed rgba(255,255,255,.18)' });
+    box(guide, { position: 'absolute', left: '28px', right: '28px', top: '108px', height: '0', borderTop: `1px dashed ${PAL.line}` });
     const cells = ICONS.map((ic, i) => {
       const x = 44 + i * 92;
       const c = el('div', null, sp);
-      box(c, { position: 'absolute', left: x + 'px', top: '84px', width: '84px', height: '140px', borderRadius: '16px', background: 'linear-gradient(170deg,#222b45,#161c30)', border: '1px solid rgba(255,255,255,.1)', boxShadow: 'inset 0 1px 0 rgba(255,255,255,.12), 0 14px 24px rgba(0,0,0,.38)' });
+      box(c, { position: 'absolute', left: x + 'px', top: '38px', width: '84px', height: '140px', borderRadius: '16px', background: 'linear-gradient(170deg,#c05942,#a3412c)', border: `1px solid ${PAL.line}`, boxShadow: 'inset 0 1px 0 rgba(255,244,236,.28), 0 14px 22px rgba(40,10,4,.45), 0 2px 4px rgba(40,10,4,.35)' });
       const wrap = el('div', null, sp);
-      box(wrap, { position: 'absolute', left: (x + 42) + 'px', top: '154px', width: '0', height: '0' });
-      wrap.innerHTML = `<svg viewBox="0 0 24 24" style="position:absolute;overflow:visible;left:0;top:0"><path class="gr" d="${GRID}" stroke="#9ec5ff" stroke-width=".08" fill="none" opacity="0"/><rect class="sf" x="1" y="1" width="22" height="22" rx="1" fill="none" stroke="#ff8a3d" stroke-width=".18" stroke-dasharray=".7 .5" opacity="0"/><g class="ic" fill="none">${ic.d.map((d) => `<path d="${d}"/>`).join('')}</g></svg>`;
+      box(wrap, { position: 'absolute', left: (x + 42) + 'px', top: '108px', width: '0', height: '0' });
+      wrap.innerHTML = `<svg viewBox="0 0 24 24" style="position:absolute;overflow:visible;left:0;top:0"><path class="gr" d="${GRID}" stroke="${PAL.ink}" stroke-width=".08" fill="none" opacity="0"/><rect class="sf" x="1" y="1" width="22" height="22" rx="1" fill="none" stroke="${PAL.accent}" stroke-width=".18" stroke-dasharray=".7 .5" opacity="0"/><g class="ic" fill="none">${ic.d.map((d) => `<path d="${d}"/>`).join('')}</g></svg>`;
       const svg = wrap.firstChild;
       const lab = el('div', null, sp, ic.n);
-      box(lab, { position: 'absolute', left: x + 'px', width: '84px', top: '196px', textAlign: 'center', font: "500 13px/1 'IBM Plex Sans KR',sans-serif", color: 'rgba(255,255,255,.72)' });
+      box(lab, { position: 'absolute', left: x + 'px', width: '84px', top: '150px', textAlign: 'center', font: "500 13px/1 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
       return { wrap, svg, g: svg.querySelector('.ic'), gr: svg.querySelector('.gr'), sf: svg.querySelector('.sf') };
     });
-    const chips = [['선 굵기 ' + STROKE + 'px로 통일', 2], ['끝·꺾임 둥글게', 2], ['크기 ' + ICON_PX + 'px · 한 색', 3]].map(([w, lv], i) => {
+    const chips = [['선 굵기 ' + STROKE + 'px로 통일', 2], ['끝·꺾임 둥글게', 2], ['크기 ' + ICON_PX + 'px, 한 색', 3]].map(([w, lv], i) => {
       const x = 44 + i * 188;
       const c = el('div', null, sp);
-      box(c, { position: 'absolute', left: x + 'px', top: '254px', width: '172px', height: '38px', borderRadius: '19px', border: '1px solid rgba(255,255,255,.18)', background: 'rgba(8,10,20,.5)' });
-      c.innerHTML = `<svg viewBox="0 0 24 24" style="position:absolute;left:10px;top:7px;width:24px;height:24px"><circle class="dot" cx="12" cy="12" r="9" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"/><path class="ck" d="M7.8 12.4 L10.7 15.2 L16.4 9.2" fill="none" stroke="#0b0f1a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0"/></svg>`;
+      box(c, { position: 'absolute', left: x + 'px', top: '204px', width: '172px', height: '38px', borderRadius: '10px', border: `1px solid ${PAL.line}`, background: 'rgba(60,14,6,.32)' });
+      c.innerHTML = `<svg viewBox="0 0 24 24" style="position:absolute;left:10px;top:7px;width:24px;height:24px"><circle class="dot" cx="12" cy="12" r="9" fill="none" stroke="rgba(255,244,236,.45)" stroke-width="2"/><path class="ck" d="M7.8 12.4 L10.7 15.2 L16.4 9.2" fill="none" stroke="${PAL.accent2}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" opacity="0"/></svg>`;
       const t = el('div', null, c, w);
-      box(t, { position: 'absolute', left: '42px', top: '0', lineHeight: '38px', font: "500 14px/38px 'IBM Plex Sans KR',sans-serif", color: '#fff' });
+      box(t, { position: 'absolute', left: '42px', top: '0', font: "500 14px/38px 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
       return { c, lv, dot: c.querySelector('.dot'), ck: c.querySelector('.ck') };
     });
-    const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '18px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif" });
     const note = el('div', null, sp);
-    box(note, { position: 'absolute', left: '44px', right: '44px', top: '312px', font: "400 13px/1.4 'IBM Plex Sans KR',sans-serif", color: 'rgba(255,255,255,.62)' });
+    box(note, { position: 'absolute', left: '44px', right: '44px', top: '262px', font: "400 13px/1.45 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
+    const pill = el('div', null, sp);
+    box(pill, { position: 'absolute', left: '28px', right: '28px', bottom: '16px', paddingTop: '8px', borderTop: `1px solid ${PAL.line}`, color: PAL.muted, font: "400 12px/1.3 'JetBrains Mono',monospace" });
     return { cells, chips, pill, note, guide };
   },
   render(s, t, a, lv) {
@@ -88,12 +90,12 @@ const demo = {
     s.guide.style.opacity = (.35 + .65 * p3).toFixed(2);
     s.chips.forEach((c) => {
       const on = L >= c.lv && (c.lv === 2 ? p2 > .5 : p3 > .5);
-      c.dot.setAttribute('fill', on ? '#ff8a3d' : 'none');
-      c.dot.setAttribute('stroke', on ? '#ff8a3d' : 'rgba(255,255,255,.3)');
+      c.dot.setAttribute('fill', on ? PAL.accent : 'none');
+      c.dot.setAttribute('stroke', on ? PAL.accent : 'rgba(255,244,236,.45)');
       c.ck.setAttribute('opacity', on ? '1' : '0');
-      c.c.style.borderColor = on ? 'rgba(255,138,61,.7)' : 'rgba(255,255,255,.18)';
+      c.c.style.borderColor = on ? PAL.accent : PAL.line;
     });
-    s.pill.textContent = L === 0 ? '연출 전 · 굵기·크기·채움이 제각각' : (p3 > .5 ? '한 세트 · 24 격자 위에 크기·색까지 통일' : (p2 > .3 ? '규칙 적용 중 · 선 굵기와 끝 모양' : '규칙 없이 모은 아이콘'));
+    s.pill.textContent = L === 0 ? '연출 전 / 굵기, 크기, 채움이 제각각' : (p3 > .5 ? '한 세트 / 24 격자 위에 크기와 색까지 통일' : (p2 > .3 ? '규칙 적용 중 / 선 굵기와 끝 모양' : '규칙 없이 모은 아이콘'));
     s.note.textContent = L >= 3 && p3 > .5 ? '점선 사각형은 안쪽 여백 1칸, 옅은 격자는 24×24 칸입니다. 모든 아이콘이 이 안에 들어옵니다.' : '같은 이름의 아이콘이어도 세트가 다르면 굵기와 크기가 달라 한 화면에서 어색해 보입니다.';
   },
 };

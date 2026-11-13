@@ -3,6 +3,10 @@
 // 만들어진 파일 — 원본: source/pages/sound-compressor/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el, rng, rr } from "./helpers.js";
 
+const PAL = { bg0: '#e6f2ec', bg1: '#d4e8de', ink: '#0f2a22', muted: '#4f6e63', accent: '#0f9d6b', accent2: '#c2410c', surface: '#f6fbf8', line: 'rgba(15,42,34,.16)' };
+const al = (h, a) => `rgba(${[1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16)).join(',')},${a})`;   // PAL 색에 투명도를 준다
+const RUST = '#a8350a', DKGRN = '#0a6b47';   // 밝은 배경에서 작은 글자도 4.5:1 이 넘도록 어둡게 맞춘 글자색
+
 // 크기가 들쭉날쭉한 말소리 비슷한 소리에 컴프레서(큰 소리를 눌러 크기 차이를 줄이는 도구)를 한 가지씩 더해 가며, 파형·줄인 양(게인 리덕션)·입출력 곡선이 어떻게 바뀌는지 코드로 계산해 보여 준다. 재생은 없다.
 const THRESH_DB = -30;       // 이 크기(dB)를 넘는 부분부터 누르기 시작한다
 const RATIO = 4;             // 비율 4:1 = 임계값을 4dB 넘으면 출력은 1dB만 넘는다
@@ -13,7 +17,7 @@ const FAST_ATT = 1, FAST_REL = 10;   // 2단계에서 일부러 너무 빠르게
 const TOT = 3.0, SR = 16000, TAU = Math.PI * 2;
 const SYL = [[.2, .75, .12], [.85, 1.4, .8], [1.5, 2.05, .25], [2.15, 2.7, .6]];   // [시작, 끝, 상대 크기]
 const SANS = "'IBM Plex Sans KR','Malgun Gothic',sans-serif", MONO = "'JetBrains Mono',monospace";
-const TX2 = '#98a2b5';
+const TX2 = '#44625a', INK = PAL.ink;
 
 // ---- 신호 처리 도구 ----
 const mk = (s) => new Float32Array(Math.round(s * SR));
@@ -59,15 +63,15 @@ function build() {
 // ---- 그리기 도구 ----
 function tx(c, s, x, y, size, col, wt, al, font) { c.save(); c.fillStyle = col; c.font = (wt || 500) + ' ' + size + 'px ' + (font || SANS); c.textAlign = al || 'left'; c.textBaseline = 'alphabetic'; c.fillText(s, x, y); c.restore(); }
 function bgFill(c, grain) {
-  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, '#0b0f1a'); g.addColorStop(1, '#070a12'); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
-  const r = c.createRadialGradient(470, 120, 10, 470, 120, 330); r.addColorStop(0, 'rgba(255,138,61,.07)'); r.addColorStop(1, 'rgba(255,138,61,0)'); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
+  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(.25, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+  const r = c.createRadialGradient(470, 120, 10, 470, 120, 330); r.addColorStop(0, al(PAL.accent, .12)); r.addColorStop(1, al(PAL.accent, 0)); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
   c.globalAlpha = .05; c.fillStyle = c.createPattern(grain, 'repeat'); c.fillRect(0, 0, 640, 360); c.globalAlpha = 1;
 }
-function panel(c, x, y, w, h) { rr(c, x, y, w, h, 6); c.fillStyle = 'rgba(255,255,255,.035)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.09)'; c.lineWidth = 1; c.stroke(); }
+function panel(c, x, y, w, h) { rr(c, x, y, w, h, 6); c.save(); c.shadowColor = al(PAL.ink, .10); c.shadowBlur = 8; c.shadowOffsetY = 3; c.fillStyle = PAL.surface; c.fill(); c.restore(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke(); }
 function wave(c, pk, x, y, w, h, col, rev, gain) {
   panel(c, x, y, w, h); const mid = y + h / 2, k = h / 2 * gain;
   for (let i = 0; i < pk.mn.length; i++) { c.fillStyle = i / pk.mn.length <= rev ? col : col + '4d'; const a = mid - pk.mx[i] * k, b = mid - pk.mn[i] * k; c.fillRect(x + i, a, 1, Math.max(1, b - a)); }
-  c.fillStyle = 'rgba(255,255,255,.14)'; c.fillRect(x, mid - .3, w, .6);
+  c.fillStyle = al(PAL.ink, .22); c.fillRect(x, mid - .3, w, .6);
 }
 
 const demo = {
@@ -81,38 +85,41 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 1 : (lv == null ? 4 : lv), c = s.ctx, ph = Math.min(1, t / TOT), X = 72, W = 330, l = s.lv[L - 1], st = s.st[L - 1], s0 = s.st[0];
     c.setTransform(2, 0, 0, 2, 0, 0); c.globalAlpha = 1; bgFill(c, s.grain);
+    c.save(); c.translate(8, 0);   // 왼쪽 8px 은 세로 이름표 자리
     const thA = Math.pow(10, THRESH_DB / 20);
-    tx(c, '원본', 16, 80, 12, '#9aa3b5', 600); wave(c, s.pkW[0], X, 46, W, 60, '#9aa3b5', ph, 1);
-    c.save(); c.setLineDash([4, 3]); c.strokeStyle = 'rgba(111,211,255,.9)'; c.lineWidth = 1; [-1, 1].forEach((sg) => { c.beginPath(); c.moveTo(X, 76 - sg * thA * 30); c.lineTo(X + W, 76 - sg * thA * 30); c.stroke(); }); c.restore();
-    tx(c, L > 1 ? '압축 후' : '압축 없음', 16, 146, 12, '#ffb27f', 700); wave(c, s.pkW[L - 1], X, 112, W, 60, '#ff9a55', ph, 1);
-    c.save(); c.setLineDash([4, 3]); c.strokeStyle = 'rgba(111,211,255,.5)'; [-1, 1].forEach((sg) => { c.beginPath(); c.moveTo(X, 142 - sg * thA * 30); c.lineTo(X + W, 142 - sg * thA * 30); c.stroke(); }); c.restore();
-    tx(c, '줄인 양', 16, 211, 12, '#6fd3ff', 600); panel(c, X, 178, W, 54);
-    const gp = s.pkG[L - 1]; for (let i = 0; i < gp.mn.length; i++) { c.fillStyle = i / gp.mn.length <= ph ? 'rgba(111,211,255,.85)' : 'rgba(111,211,255,.28)'; c.fillRect(X + i, 180, 1, Math.max(0, -Math.max(-20, gp.mn[i]) / 20 * 50)); }
+    tx(c, '원본', 16, 80, 12, PAL.muted, 600); wave(c, s.pkW[0], X, 46, W, 60, PAL.muted, ph, 1);
+    c.save(); c.setLineDash([4, 3]); c.strokeStyle = al(PAL.accent2, .9); c.lineWidth = 1; [-1, 1].forEach((sg) => { c.beginPath(); c.moveTo(X, 76 - sg * thA * 30); c.lineTo(X + W, 76 - sg * thA * 30); c.stroke(); }); c.restore();
+    tx(c, L > 1 ? '압축 후' : '압축 없음', 16, 146, 12, DKGRN, 700); wave(c, s.pkW[L - 1], X, 112, W, 60, PAL.accent, ph, 1);
+    c.save(); c.setLineDash([4, 3]); c.strokeStyle = al(PAL.accent2, .55); [-1, 1].forEach((sg) => { c.beginPath(); c.moveTo(X, 142 - sg * thA * 30); c.lineTo(X + W, 142 - sg * thA * 30); c.stroke(); }); c.restore();
+    tx(c, '줄인 양', 16, 211, 12, RUST, 600); panel(c, X, 178, W, 54);
+    const gp = s.pkG[L - 1]; for (let i = 0; i < gp.mn.length; i++) { c.fillStyle = i / gp.mn.length <= ph ? al(PAL.accent2, .85) : al(PAL.accent2, .28); c.fillRect(X + i, 180, 1, Math.max(0, -Math.max(-20, gp.mn[i]) / 20 * 50)); }
     tx(c, '0dB', X + 4, 191, 9.5, TX2, 500, 'left', MONO); tx(c, '-20dB', X + 4, 229, 9.5, TX2, 500, 'left', MONO);
-    c.fillStyle = 'rgba(255,138,61,.95)'; c.fillRect(X + ph * W - .7, 44, 1.4, 190);
+    c.fillStyle = al(PAL.ink, .85); c.fillRect(X + ph * W - .7, 44, 1.4, 190);
     // 오른쪽: 입력 → 출력 곡선(지금 위치의 점)
     const PX = 438, PY = 80, PW = 170, PH = 134, mx = (v) => PX + (v + 60) / 60 * PW, my = (v) => PY + PH - (v + 60) / 60 * PH;
     panel(c, 416, 46, 208, 188); tx(c, '입력 → 출력 곡선', 424, 60, 11, TX2, 600);
-    c.strokeStyle = 'rgba(255,255,255,.08)'; c.lineWidth = 1; [-60, -40, -20, 0].forEach((v) => { c.beginPath(); c.moveTo(mx(v), PY); c.lineTo(mx(v), PY + PH); c.moveTo(PX, my(v)); c.lineTo(PX + PW, my(v)); c.stroke(); });
+    c.strokeStyle = al(PAL.ink, .10); c.lineWidth = 1; [-60, -40, -20, 0].forEach((v) => { c.beginPath(); c.moveTo(mx(v), PY); c.lineTo(mx(v), PY + PH); c.moveTo(PX, my(v)); c.lineTo(PX + PW, my(v)); c.stroke(); });
     [-60, -30, 0].forEach((v) => { tx(c, String(v), mx(v), PY + PH + 11, 9, TX2, 500, 'center', MONO); tx(c, String(v), PX - 3, my(v) + 3, 9, TX2, 500, 'right', MONO); });
-    c.save(); c.setLineDash([3, 3]); c.strokeStyle = 'rgba(255,255,255,.28)'; c.beginPath(); c.moveTo(mx(-60), my(-60)); c.lineTo(mx(0), my(0)); c.stroke(); c.restore();
+    c.save(); c.setLineDash([3, 3]); c.strokeStyle = al(PAL.ink, .4); c.beginPath(); c.moveTo(mx(-60), my(-60)); c.lineTo(mx(0), my(0)); c.stroke(); c.restore();
     const kn = L >= 4 ? KNEE_DB : 0, mu = l.mk, curve = (v) => (L > 1 ? v + gainDb(v - THRESH_DB, RATIO, kn) + mu : v);
     c.beginPath(); for (let v = -60; v <= 0.01; v += 1) { const X1 = mx(v), Y1 = my(Math.max(-60, Math.min(0, curve(v)))); v === -60 ? c.moveTo(X1, Y1) : c.lineTo(X1, Y1); }
-    c.save(); c.shadowColor = 'rgba(255,138,61,.55)'; c.shadowBlur = 6; c.strokeStyle = '#ffa05a'; c.lineWidth = 2; c.stroke(); c.restore();
-    if (L > 1) { c.save(); c.setLineDash([4, 3]); c.strokeStyle = 'rgba(111,211,255,.8)'; c.beginPath(); c.moveTo(mx(THRESH_DB), PY); c.lineTo(mx(THRESH_DB), PY + PH); c.stroke(); c.restore(); tx(c, '임계값', mx(THRESH_DB) - 3, PY + 10, 9.5, '#8fdcff', 600, 'right'); }
+    c.save(); c.shadowColor = al(PAL.accent, .45); c.shadowBlur = 6; c.strokeStyle = PAL.accent; c.lineWidth = 2; c.stroke(); c.restore();
+    if (L > 1) { c.save(); c.setLineDash([4, 3]); c.strokeStyle = al(PAL.accent2, .85); c.beginPath(); c.moveTo(mx(THRESH_DB), PY); c.lineTo(mx(THRESH_DB), PY + PH); c.stroke(); c.restore(); tx(c, '임계값', mx(THRESH_DB) - 3, PY + 10, 9.5, RUST, 600, 'right'); }
     const ci = ix(Math.min(t, TOT - .01)); let pk = 0; for (let i = Math.max(0, ci - 80); i < Math.min(s.raw.length, ci + 80); i++) pk = Math.max(pk, Math.abs(s.raw[i]));
     const inDb = Math.max(-60, dbOf(pk)), outDb = Math.max(-60, Math.min(0, curve(inDb)));
-    c.beginPath(); c.arc(mx(inDb), my(outDb), 4.5, 0, TAU); c.fillStyle = '#fff'; c.fill(); c.lineWidth = 2; c.strokeStyle = '#ff8a3d'; c.stroke();
+    c.beginPath(); c.arc(mx(inDb), my(outDb), 4.5, 0, TAU); c.fillStyle = PAL.surface; c.fill(); c.lineWidth = 2.2; c.strokeStyle = PAL.accent2; c.stroke();
     tx(c, '입력(dB)', PX + PW, PY + PH + 22, 9.5, TX2, 500, 'right'); tx(c, '출력(dB)', PX + 2, PY - 5, 9.5, TX2, 500);
     // 숫자(신호에서 계산)
     let y = 256;
-    tx(c, `음절 크기 차이(가장 큰 − 가장 작은, RMS)  원본 ${s0.spread.toFixed(1)}dB → 지금 ${st.spread.toFixed(1)}dB`, 16, y, 10.5, '#ffd85c', 500, 'left', MONO); y += 15;
-    tx(c, `가장 작은 음절 RMS  원본 ${s0.soft.toFixed(1)}dB → 지금 ${st.soft.toFixed(1)}dB${L >= 4 ? '  (메이크업 +' + l.mk.toFixed(1) + 'dB)' : ''}`, 16, y, 10.5, '#ffb27f', 500, 'left', MONO); y += 15;
-    tx(c, `줄인 양  최대 ${st.grMax.toFixed(1)}dB · 평균 ${st.grAvg.toFixed(1)}dB · 이득이 오르내린 합 ${st.tv.toFixed(0)}dB`, 16, y, 10.5, '#8fdcff', 500, 'left', MONO);
-    c.save(); c.setLineDash([4, 3]); c.strokeStyle = 'rgba(111,211,255,.9)'; c.beginPath(); c.moveTo(16, 330); c.lineTo(36, 330); c.stroke(); c.restore(); tx(c, `점선 = 임계값 ${THRESH_DB}dB`, 42, 333, 10.5, TX2, 500);
+    tx(c, `음절 크기 차이(가장 큰 − 가장 작은, RMS)  원본 ${s0.spread.toFixed(1)}dB → 지금 ${st.spread.toFixed(1)}dB`, 16, y, 10.5, RUST, 500, 'left', MONO); y += 15;
+    tx(c, `가장 작은 음절 RMS  원본 ${s0.soft.toFixed(1)}dB → 지금 ${st.soft.toFixed(1)}dB${L >= 4 ? '  (메이크업 +' + l.mk.toFixed(1) + 'dB)' : ''}`, 16, y, 10.5, DKGRN, 500, 'left', MONO); y += 15;
+    tx(c, `줄인 양  최대 ${st.grMax.toFixed(1)}dB · 평균 ${st.grAvg.toFixed(1)}dB · 이득이 오르내린 합 ${st.tv.toFixed(0)}dB`, 16, y, 10.5, INK, 500, 'left', MONO);
+    c.save(); c.setLineDash([4, 3]); c.strokeStyle = al(PAL.accent2, .9); c.beginPath(); c.moveTo(16, 330); c.lineTo(36, 330); c.stroke(); c.restore(); tx(c, `점선 = 임계값 ${THRESH_DB}dB`, 42, 333, 10.5, TX2, 500);
     tx(c, '재생 버튼 없음 · 파형·곡선·수치는 코드로 계산한 값입니다. 소리는 직접 들어 보고 판단하세요.', 16, 350, 10.5, TX2, 500);
-    const post = ['압축 없음 · 원본(음절 크기 차이가 큼)', `① 임계값 ${THRESH_DB}dB · 비율 ${RATIO}:1 · 반응이 너무 빨라(${FAST_ATT}ms/${FAST_REL}ms) 이득이 마구 오르내림`, `② 어택 ${ATTACK_MS}ms · 릴리스 ${RELEASE_MS}ms · 줄인 양이 부드럽게 움직임`, `③ 소프트 니 ${KNEE_DB}dB + 메이크업 게인으로 전체 크기를 다시 올림`][L - 1];
-    c.font = '500 12px ' + SANS; const pwd = c.measureText(post).width + 24; rr(c, 14, 12, pwd, 24, 12); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.12)'; c.stroke(); tx(c, post, 26, 28, 12, '#fff', 500);
+    c.restore();
+    // 이름표(vertical): 왼쪽 가장자리에 세로쓰기, 지금 단계만 ink, 나머지는 muted
+    const items = ['원본', '급한 반응', '알맞은 반응', '니와 게인']; let vy = 22;
+    items.forEach((it, i) => { const cur = i === L - 1, ch = [...it]; if (cur) { c.fillStyle = PAL.accent; c.fillRect(2, vy - 11, 2, ch.length * 13.5 + 2); } ch.forEach((g) => { if (g !== ' ') tx(c, g, 11, vy, 12, cur ? INK : PAL.muted, cur ? 700 : 500, 'center'); vy += g === ' ' ? 6 : 13.5; }); vy += 14; });
   },
 };
 export default demo;

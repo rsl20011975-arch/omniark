@@ -7,15 +7,16 @@ import { seg, lerp, E, rng, canvas, rr } from "./helpers.js";
 const ZOOM_MAX = 1.5;             // zoompan: 최대 확대 배율(문서: 범위 1~10)
 const XF_DUR = 0.5;                 // xfade: 전환이 걸리는 시간(초)
 const XF_AT = 0.4;                // xfade: 전환이 시작하는 시각(초)
+const PAL = { bg0: "#171615", bg1: "#232120", ink: "#f2efe9", muted: "#9a958c", accent: "#5ad1c8", accent2: "#f2b84b", surface: "#1f1d1b", line: "rgba(242,239,233,.2)" };
 const SANS = '"IBM Plex Sans KR","Malgun Gothic",sans-serif', MONO = '"JetBrains Mono","Malgun Gothic",monospace';
 const T = (c, s, x, y, z, col, w, al, f) => { c.save(); c.fillStyle = col; c.font = (w || 500) + " " + z + "px " + (f || SANS); c.textAlign = al || "left"; c.textBaseline = "alphabetic"; c.fillText(s, x, y); c.restore(); };
 function grainTile(seed) { const g = document.createElement("canvas"); g.width = g.height = 96; const x = g.getContext("2d"), im = x.createImageData(96, 96), r = rng(seed); for (let i = 0; i < 96 * 96; i++) { const v = (r() * 255) | 0; im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = v; im.data[i * 4 + 3] = 255; } x.putImageData(im, 0, 0); return g; }
 function backdrop(c, grain) {
-  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, "#0e1424"); g.addColorStop(1, "#080b13"); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
-  const r = c.createRadialGradient(320, 150, 20, 320, 150, 360); r.addColorStop(0, "rgba(70,110,190,.10)"); r.addColorStop(1, "rgba(70,110,190,0)"); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
+  const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
+  const r = c.createRadialGradient(320, 150, 20, 320, 150, 360); r.addColorStop(0, "rgba(90,209,200,.08)"); r.addColorStop(1, "rgba(90,209,200,0)"); c.fillStyle = r; c.fillRect(0, 0, 640, 360);
   c.save(); c.globalAlpha = 0.045; c.fillStyle = c.createPattern(grain, "repeat"); c.fillRect(0, 0, 640, 360); c.restore();
 }
-function pill(c, s) { c.save(); c.font = "500 12px " + SANS; const w = c.measureText(s).width + 22; rr(c, 14, 12, w, 22, 11); c.fillStyle = "rgba(8,10,20,.78)"; c.fill(); c.strokeStyle = "rgba(255,255,255,.16)"; c.lineWidth = 1; c.stroke(); c.restore(); T(c, s, 25, 27, 12, "#fff", 500); }
+function pill(c, s) { c.save(); c.font = "500 12px " + SANS; const w = c.measureText(s).width + 22; rr(c, 14, 12, w, 22, 11); c.fillStyle = PAL.surface; c.fill(); c.strokeStyle = PAL.line; c.lineWidth = 1; c.stroke(); c.restore(); T(c, s, 25, 27, 12, PAL.ink, 500); }
 
 const PW = 110, PH = 62, QW = 220, QH = 124;   // 미리보기 크기, 처리용 2배 크기
 function sceneA(c) {   // 노을 장면
@@ -77,16 +78,16 @@ const demo = {
       (k) => { c.drawImage(s.A, 0, 0, PW, PH); c.globalAlpha = E.inOutC(seg(t, XF_AT, XF_AT + XF_DUR)); c.drawImage(s.B, 0, 0, PW, PH); c.globalAlpha = 1; },
       (k) => { c.drawImage(s.A, 0, 0, PW, PH); const al = seg(t, 0.6, 1.4), sc = 0.7 + 0.3 * E.outBack(seg(t, 0.6, 1.4)); c.save(); c.globalAlpha = al; c.translate(PW / 2, PH / 2 + 4); c.scale(sc, sc); c.font = "700 15px " + SANS; c.textAlign = "center"; c.lineWidth = 3; c.strokeStyle = "rgba(20,10,40,.8)"; c.strokeText("hello world", 0, 0); c.fillStyle = "#fff"; c.fillText("hello world", 0, 0); c.restore(); },
       (k) => { c.drawImage(s.A, 0, 0, PW, PH); c.save(); c.globalCompositeOperation = "difference"; c.drawImage(s.B, lerp(-34, 0, E.inOutC(seg(t, 0.5, 3.5))), 0, PW, PH); c.restore(); },
-      (k) => { c.fillStyle = "#0a1224"; c.fillRect(0, 0, PW, PH); const f = (tt) => 55 + 38 * Math.sin(tt * 2.4); miBall(c, f(t - 0.2), 31, 8, 0.5); miBall(c, f(t), 31, 8, 0.5); },
+      (k) => { c.fillStyle = "#12100f"; c.fillRect(0, 0, PW, PH); const f = (tt) => 55 + 38 * Math.sin(tt * 2.4); miBall(c, f(t - 0.2), 31, 8, 0.5); miBall(c, f(t), 31, 8, 0.5); },
       (k) => { const z = 1 + (ZOOM_MAX - 1) * E.inOutC(seg(t, 0.4, 4.6)); c.translate(PW / 2, PH / 2); c.scale(z, z); c.translate(-PW / 2, -PH / 2); c.drawImage(s.A, 0, 0, PW, PH); },
       (k) => {
-        c.fillStyle = "#0a1224"; c.fillRect(0, 0, PW, PH);
+        c.fillStyle = "#12100f"; c.fillRect(0, 0, PW, PH);
         const mode = t < 1.7 ? 0 : (t < 3 ? 1 : 2), fx = [4, 39, 74], lab = ["원본 1", "새 프레임", "원본 2"];
-        fx.forEach((x, i) => { c.fillStyle = "#17223d"; rr(c, x, 6, 32, 36, 3); c.fill(); c.strokeStyle = i === 1 ? "#ffd27a" : "rgba(255,255,255,.25)"; c.lineWidth = i === 1 ? 1.5 : 1; c.stroke(); T(c, lab[i], x + 16, 54, 9, i === 1 ? "#ffd27a" : "#a9b3c4", 700, "center"); });
+        fx.forEach((x, i) => { c.fillStyle = "#2a2723"; rr(c, x, 6, 32, 36, 3); c.fill(); c.strokeStyle = i === 1 ? PAL.accent2 : "rgba(242,239,233,.28)"; c.lineWidth = i === 1 ? 1.5 : 1; c.stroke(); T(c, lab[i], x + 16, 54, 9, i === 1 ? PAL.accent2 : PAL.muted, 700, "center"); });
         miBall(c, 4 + 9, 6 + 26, 5, 1); miBall(c, 74 + 23, 6 + 10, 5, 1);
         if (mode === 0) miBall(c, 39 + 9, 6 + 26, 5, 1); else if (mode === 1) { miBall(c, 39 + 9, 6 + 26, 5, 0.5); miBall(c, 39 + 23, 6 + 10, 5, 0.5); } else miBall(c, 39 + 16, 6 + 18, 5, 1);
       },
-      (k) => { c.fillStyle = "#0a1224"; c.fillRect(0, 0, PW, PH); const ins = 0.2 * E.inOutC(seg(t, 0.5, 3.5)); for (let r = 0; r < PH; r++) { const e = ins * PW * (1 - r / PH), w = PW - 2 * e; c.drawImage(s.A, 0, r * 2, QW, 2, e, r, w, 1.2); } },
+      (k) => { c.fillStyle = "#12100f"; c.fillRect(0, 0, PW, PH); const ins = 0.2 * E.inOutC(seg(t, 0.5, 3.5)); for (let r = 0; r < PH; r++) { const e = ins * PW * (1 - r / PH), w = PW - 2 * e; c.drawImage(s.A, 0, r * 2, QW, 2, e, r, w, 1.2); } },
       (k) => { c.drawImage(s.A, 0, 0, PW, PH); const sx = sweep(0) * PW; c.save(); c.beginPath(); c.rect(0, 0, sx, PH); c.clip(); c.drawImage(s.geq, 0, 0, PW, PH); c.restore(); split(sx); },
       (k) => { c.drawImage(s.A, 0, 0, PW, PH); const sx = sweep(1) * PW; c.save(); c.beginPath(); c.rect(0, 0, sx, PH); c.clip(); c.drawImage(s.lut, 0, 0, PW, PH); c.restore(); split(sx); },
       (k) => { c.drawImage(s.A, 0, 0, PW, PH); const sx = sweep(2) * PW; c.save(); c.beginPath(); c.rect(0, 0, sx, PH); c.clip(); c.drawImage(s.curves, 0, 0, PW, PH); c.restore(); split(sx); },
@@ -96,17 +97,17 @@ const demo = {
     const OPT = ["fade:duration=" + XF_DUR, "text='hello world'", "all_mode=difference", "all_mode=average", "z=min(zoom+…," + ZOOM_MAX + ")", "mi_mode=" + (L >= 2 ? MODES[mode] : "mci"), "x0:y0:x1:y1:…", "r='X/W*r(X,Y)'", "file=grade.cube", "preset=vintage"];
     NAMES.forEach((nm, i) => {
       const x = TX(i), y = TY(i), on = L >= GROUP[i];
-      c.fillStyle = on || !a ? "rgba(255,255,255,.055)" : "rgba(255,255,255,.025)"; rr(c, x, y, TW, TH, 9); c.fill(); c.strokeStyle = on || !a ? "rgba(255,255,255,.14)" : "rgba(255,255,255,.08)"; c.lineWidth = 1; if (!(on || !a)) c.setLineDash([4, 4]); c.stroke(); c.setLineDash([]);
+      c.fillStyle = on || !a ? PAL.surface : "rgba(242,239,233,.03)"; rr(c, x, y, TW, TH, 9); c.fill(); c.strokeStyle = on || !a ? PAL.line : "rgba(242,239,233,.12)"; c.lineWidth = 1; if (!(on || !a)) c.setLineDash([4, 4]); c.stroke(); c.setLineDash([]);
       const px = x + 4, py = y + 4;
       if (!a) { c.save(); rr(c, px, py, PW, PH, 6); c.clip(); c.translate(px, py); c.drawImage(s.A, 0, 0, PW, PH); c.restore(); }
-      else if (on) { c.save(); rr(c, px, py, PW, PH, 6); c.clip(); c.translate(px, py); PREV[i](); c.restore(); c.strokeStyle = "rgba(255,255,255,.25)"; c.lineWidth = 1; rr(c, px, py, PW, PH, 6); c.stroke(); }
-      else { c.fillStyle = "rgba(255,255,255,.03)"; rr(c, px, py, PW, PH, 6); c.fill(); T(c, GROUP[i] + "단계에서", px + PW / 2, py + PH / 2 + 4, 11, "#6f7a8f", 500, "center"); }
+      else if (on) { c.save(); rr(c, px, py, PW, PH, 6); c.clip(); c.translate(px, py); PREV[i](); c.restore(); c.strokeStyle = PAL.line; c.lineWidth = 1; rr(c, px, py, PW, PH, 6); c.stroke(); }
+      else { c.fillStyle = "rgba(242,239,233,.04)"; rr(c, px, py, PW, PH, 6); c.fill(); T(c, GROUP[i] + "단계에서", px + PW / 2, py + PH / 2 + 4, 11, PAL.muted, 500, "center"); }
       const vis = on || !a;
-      T(c, nm, x + 6, y + 82, 11.5, vis ? "#fff" : "#6f7a8f", 700, "left", MONO);
-      T(c, a && on ? OPT[i] : "(필터 없음)", x + 6, y + 95, 9, vis ? (a && on ? "#ffd27a" : "#8b94a3") : "#566074", 500, "left", MONO);
-      T(c, DESC[i][0], x + 6, y + 110, 10.5, vis ? "#c9d1e0" : "#6f7a8f", 500); T(c, DESC[i][1], x + 6, y + 124, 10.5, vis ? "#c9d1e0" : "#6f7a8f", 500);
+      T(c, nm, x + 6, y + 82, 11.5, vis ? PAL.ink : PAL.muted, 700, "left", MONO);
+      T(c, a && on ? OPT[i] : "(필터 없음)", x + 6, y + 95, 9, vis ? (a && on ? PAL.accent2 : PAL.muted) : PAL.muted, 500, "left", MONO);
+      T(c, DESC[i][0], x + 6, y + 110, 10.5, vis ? PAL.ink : PAL.muted, 500); T(c, DESC[i][1], x + 6, y + 124, 10.5, vis ? PAL.ink : PAL.muted, 500);
     });
-    T(c, 'ffmpeg -i in.mp4 -vf "필터=옵션" out.mp4', 14, 352, 10.5, "#8b94a3", 500, "left", MONO);
+    T(c, 'ffmpeg -i in.mp4 -vf "필터=옵션" out.mp4', 14, 352, 10.5, PAL.muted, 500, "left", MONO);
     pill(c, L === 0 ? "연출 전 · 필터를 걸기 전의 같은 장면" : (L === 1 ? "합치기 · 그리기 필터 4개" : (L === 2 ? "+ 움직임 · 시간 필터 3개" : "+ 색 · 수식 필터 3개")));
   },
 };

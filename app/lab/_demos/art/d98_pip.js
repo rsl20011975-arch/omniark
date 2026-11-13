@@ -3,6 +3,9 @@
 // 만들어진 파일 — 원본: source/pages/cross-cutting/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, E, el } from "./helpers.js";
 
+const PAL = { bg0: '#0c1814', bg1: '#15271f', ink: '#e8f1ea', muted: '#86a091', accent: '#7fe0a8', accent2: '#e8d27a', surface: '#12231c', line: '#2f5a47' };
+const rgba = (h, a) => `rgba(${parseInt(h.slice(1, 3), 16)},${parseInt(h.slice(3, 5), 16)},${parseInt(h.slice(5, 7), 16)},${a})`;
+
 // 같은 시각에 벌어지는 두 일(A: 열쇠 찾기, B: 열차 출발까지 카운트다운)을 번갈아 보여 주며 컷 길이를 점점 줄인다. 화면은 시간 t 의 함수다.
 const RHYTHM = [1.2, 1.0, .8, .6, .45, .35, .3, .3];   // 컷 하나하나의 길이(초). 점점 짧아지면 긴장이 오른다
 const PIP = 1;                                           // 안 보이는 쪽 상태를 구석에 작게 보여 주는 정도(0~1)
@@ -25,38 +28,38 @@ function base(sp, bg, glow, gx, gy) {
 }
 function label(s, txt, side) {
   const c = el('div', null, s, txt);
-  box(c, { position: 'absolute', [side]: '44px', bottom: '74px', font: "500 22px/1.2 'IBM Plex Sans KR',sans-serif", color: 'rgba(255,255,255,.95)', textShadow: '0 2px 12px rgba(0,0,0,.4)' });
+  box(c, { position: 'absolute', [side]: '44px', bottom: '74px', font: "500 22px/1.2 'IBM Plex Sans KR',sans-serif", color: PAL.ink, textShadow: '0 2px 12px rgba(0,0,0,.45)' });
 }
 
 const demo = {
   dur: 7.4, rest: 7.1, noCompare: false, levels: 3,
   mount(sp) {
-    const A = base(sp, 'linear-gradient(160deg,#2a1810 0%,#a6532c 56%,#f3b66f 100%)', 'rgba(255,196,120,.6)', '22%', '24%');
-    A.insertAdjacentHTML('beforeend', `<svg width="190" height="190" viewBox="0 0 190 190" style="position:absolute;left:225px;top:56px"><circle cx="95" cy="95" r="${R}" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="12"/><circle class="ring" cx="95" cy="95" r="${R}" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" transform="rotate(-90 95 95)"/></svg>`);
+    const A = base(sp, `linear-gradient(160deg,#241c0a 0%,#7d641c 56%,${PAL.accent2} 100%)`, 'rgba(255,230,140,.5)', '22%', '24%');
+    A.insertAdjacentHTML('beforeend', `<svg width="190" height="190" viewBox="0 0 190 190" style="position:absolute;left:225px;top:56px"><circle cx="95" cy="95" r="${R}" fill="none" stroke="${rgba(PAL.ink, .28)}" stroke-width="12"/><circle class="ring" cx="95" cy="95" r="${R}" fill="none" stroke="${PAL.ink}" stroke-width="12" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C}" transform="rotate(-90 95 95)"/></svg>`);
     const pa = el('div', null, A, '0%');
-    box(pa, { position: 'absolute', left: '225px', width: '190px', top: '116px', textAlign: 'center', font: "400 56px/1 'Black Han Sans',sans-serif", color: '#fff', textShadow: '0 4px 20px rgba(0,0,0,.35)' });
+    box(pa, { position: 'absolute', left: '225px', width: '190px', top: '116px', textAlign: 'center', font: "400 56px/1 'Black Han Sans',sans-serif", color: PAL.ink, textShadow: '0 4px 20px rgba(0,0,0,.4)' });
     label(A, 'A · 열쇠를 찾는 중', 'left');
-    const B = base(sp, 'linear-gradient(160deg,#0a1424 0%,#1d3f66 58%,#8fb4d8 100%)', 'rgba(190,220,255,.5)', '76%', '20%');
+    const B = base(sp, `linear-gradient(160deg,#0a1a1f 0%,#1a4a55 58%,#5aa5b0 100%)`, 'rgba(170,235,240,.45)', '76%', '20%');
     const pb = el('div', null, B, '00:12');
-    box(pb, { position: 'absolute', left: '0', right: '0', top: '92px', textAlign: 'center', font: "400 120px/1 'Black Han Sans',sans-serif", color: '#fff', textShadow: '0 6px 28px rgba(0,0,0,.4)' });
+    box(pb, { position: 'absolute', left: '0', right: '0', top: '92px', textAlign: 'center', font: "400 120px/1 'Black Han Sans',sans-serif", color: PAL.ink, textShadow: '0 6px 28px rgba(0,0,0,.45)' });
     label(B, 'B · 열차 출발까지', 'right');
-    const Cc = base(sp, 'linear-gradient(160deg,#10281f 0%,#2c7d59 58%,#b9e8c9 100%)', 'rgba(200,255,220,.5)', '50%', '30%');
+    const Cc = base(sp, `linear-gradient(160deg,${PAL.bg1} 0%,#2c7d59 58%,${PAL.accent} 100%)`, 'rgba(200,255,220,.45)', '50%', '30%');
     const pc = el('div', null, Cc, '탑승');
-    box(pc, { position: 'absolute', left: '0', right: '0', top: '96px', textAlign: 'center', font: "400 128px/1 'Black Han Sans',sans-serif", color: '#fff', textShadow: '0 6px 28px rgba(0,0,0,.35)' });
+    box(pc, { position: 'absolute', left: '0', right: '0', top: '96px', textAlign: 'center', font: "400 128px/1 'Black Han Sans',sans-serif", color: PAL.ink, textShadow: '0 6px 28px rgba(0,0,0,.4)' });
     label(Cc, '문이 열렸고 열차가 아직 떠나지 않았다', 'left');
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '18px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 15px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
+    box(pill, { position: 'absolute', left: '20px', top: '18px', padding: '7px 14px', borderRadius: '999px', background: rgba(PAL.surface, .9), color: PAL.ink, boxShadow: `0 3px 12px rgba(0,0,0,.35), inset 0 0 0 1px ${PAL.line}`, font: "500 15px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
     const pip = el('div', null, sp);
-    box(pip, { position: 'absolute', right: '20px', top: '18px', padding: '7px 12px', borderRadius: '8px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 14px/1 'JetBrains Mono',monospace", zIndex: 5, opacity: '0' });
+    box(pip, { position: 'absolute', right: '20px', top: '18px', padding: '7px 12px', borderRadius: '8px', background: rgba(PAL.surface, .9), color: PAL.ink, boxShadow: `inset 0 0 0 1px ${PAL.line}`, font: "500 14px/1 'JetBrains Mono',monospace", zIndex: 5, opacity: '0' });
     const track = el('div', null, sp);
-    box(track, { position: 'absolute', left: '20px', right: '100px', bottom: '22px', height: '8px', borderRadius: '4px', background: 'rgba(255,255,255,.2)', zIndex: 5 });
+    box(track, { position: 'absolute', left: '20px', right: '100px', bottom: '22px', height: '8px', borderRadius: '4px', background: rgba(PAL.bg0, .6), boxShadow: `inset 0 0 0 1px ${PAL.line}`, zIndex: 5 });
     const segs = RHYTHM.map((len, i) => {
       const z = el('div', null, track);
-      box(z, { position: 'absolute', top: '0', height: '8px', background: i % 2 ? 'rgba(143,180,216,.95)' : 'rgba(255,196,120,.95)', left: (ST[i] / 7.4 * 100) + '%', width: (len / 7.4 * 100) + '%', borderRight: '2px solid rgba(8,10,20,.55)' });
+      box(z, { position: 'absolute', top: '0', height: '8px', background: i % 2 ? PAL.accent : PAL.accent2, left: (ST[i] / 7.4 * 100) + '%', width: (len / 7.4 * 100) + '%', borderRight: `2px solid ${rgba(PAL.bg0, .8)}` });
       return z;
     });
     const head = el('div', null, track);
-    box(head, { position: 'absolute', top: '-4px', width: '3px', height: '16px', borderRadius: '2px', background: '#fff', boxShadow: '0 0 8px rgba(255,255,255,.7)' });
+    box(head, { position: 'absolute', top: '-4px', width: '3px', height: '16px', borderRadius: '2px', background: PAL.ink, boxShadow: `0 0 8px ${rgba(PAL.ink, .6)}` });
     return { A, B, Cc, pa, pb, ring: A.querySelector('.ring'), pill, pip, segs, head };
   },
   render(s, t, a, lv) {

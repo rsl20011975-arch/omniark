@@ -3,6 +3,8 @@
 // 만들어진 파일 — 원본: source/pages/device-3d-mockup/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el, rr, rng } from "./helpers.js";
 
+const PAL = { bg0: '#1f3a8a', bg1: '#172a63', ink: '#f3f6ff', muted: '#aebcf0', accent: '#ffd166', accent2: '#7fe0ff', surface: '#1b3274', line: 'rgba(243,246,255,.3)' };
+
 // 3D 기기 목업: 둥근 사각 판(폰)을 직접 3차원으로 돌려 보여 준다. 점을 회전·원근 투영하고, 화면 이미지는 삼각형 조각으로 입힌다. 화면은 시간 t 의 함수다.
 const ROT = 32;           // 좌우로 돌아가는 최대 각도(도)
 const DEPTH = 10;         // 기기 두께 px (옆면 길이)
@@ -30,25 +32,25 @@ function rrPoly(w, h, r, n = 7) {   // 둥근 사각형 윤곽(화면 기준 시
 // 폰 화면 이미지(어두운 앱 화면) — 한 번만 그려 둔다
 function phoneTex() {
   const k = mk(192, 424), c = k.getContext('2d'); c.scale(2, 2);
-  c.fillStyle = lg(c, 0, 0, 96, 212, [[0, '#243b8f'], [.55, '#5b3fa8'], [1, '#c2477b']]); c.fillRect(0, 0, 96, 212);
-  c.fillStyle = 'rgba(255,255,255,.06)'; c.beginPath(); c.arc(86, 28, 52, 0, 6.2832); c.fill();
-  T(c, '오늘', 12, 40, 18, '#fff', 700); T(c, '목표 3개 중 2개 완료', 12, 56, 8.5, 'rgba(255,255,255,.78)', 500);
-  c.lineWidth = 9; c.lineCap = 'round'; c.strokeStyle = 'rgba(255,255,255,.2)'; c.beginPath(); c.arc(48, 104, 30, 0, 6.2832); c.stroke();
-  c.strokeStyle = lg(c, 20, 80, 80, 130, [[0, '#7cf0c0'], [1, '#4f9dff']]); c.beginPath(); c.arc(48, 104, 30, -1.5708, -1.5708 + 6.2832 * .72); c.stroke();
-  T(c, '72%', 48, 109, 15, '#fff', 700, 'center', MONO);
-  [['걸음', '6,420'], ['수면', '7.2h']].forEach(([a, b], i) => { rr(c, 10 + i * 40, 148, 36, 30, 7); c.fillStyle = 'rgba(255,255,255,.16)'; c.fill(); T(c, a, 15 + i * 40, 160, 7.5, 'rgba(255,255,255,.8)'); T(c, b, 15 + i * 40, 172, 9.5, '#fff', 700, 'left', MONO); });
-  rr(c, 18, 190, 60, 14, 7); c.fillStyle = 'rgba(255,255,255,.22)'; c.fill();
+  c.fillStyle = lg(c, 0, 0, 96, 212, [[0, '#f3f6ff'], [1, '#d3ddfa']]); c.fillRect(0, 0, 96, 212);
+  c.fillStyle = 'rgba(31,58,138,.07)'; c.beginPath(); c.arc(86, 28, 52, 0, 6.2832); c.fill();
+  T(c, '오늘', 12, 40, 18, PAL.bg1, 700); T(c, '목표 3개 중 2개 완료', 12, 56, 8.5, '#3b4c8a', 500);
+  c.lineWidth = 9; c.lineCap = 'round'; c.strokeStyle = 'rgba(31,58,138,.16)'; c.beginPath(); c.arc(48, 104, 30, 0, 6.2832); c.stroke();
+  c.strokeStyle = lg(c, 20, 80, 80, 130, [[0, PAL.bg0], [1, '#2f86d6']]); c.beginPath(); c.arc(48, 104, 30, -1.5708, -1.5708 + 6.2832 * .72); c.stroke();
+  T(c, '72%', 48, 109, 15, PAL.bg1, 700, 'center', MONO);
+  [['걸음', '6,420'], ['수면', '7.2h']].forEach(([a, b], i) => { rr(c, 10 + i * 40, 148, 36, 30, 7); c.fillStyle = 'rgba(31,58,138,.1)'; c.fill(); T(c, a, 15 + i * 40, 160, 7.5, '#3b4c8a'); T(c, b, 15 + i * 40, 172, 9.5, PAL.bg1, 700, 'left', MONO); });
+  rr(c, 18, 190, 60, 14, 7); c.fillStyle = 'rgba(31,58,138,.2)'; c.fill();
   return k;
 }
 function cardTex(kind) {
   const k = mk(200, 88), c = k.getContext('2d'); c.scale(2, 2);
   rr(c, 0, 0, 100, 44, 10);
   if (kind === 0) {
-    c.fillStyle = '#fff'; c.fill(); T(c, '방문', 10, 16, 8.5, '#5d6678'); T(c, '1,284', 10, 34, 15, '#1a2030', 700, 'left', MONO); T(c, '+12%', 90, 35, 8.5, '#15803d', 700, 'right', MONO);
-    c.strokeStyle = '#4f7cff'; c.lineWidth = 1.6; c.beginPath(); [[56, 20], [62, 15], [68, 18], [74, 11], [82, 13]].forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.stroke();
+    c.fillStyle = PAL.ink; c.fill(); T(c, '방문', 10, 16, 8.5, '#3b4c8a'); T(c, '1,284', 10, 34, 15, PAL.bg1, 700, 'left', MONO); T(c, '+12%', 90, 35, 8.5, PAL.bg0, 700, 'right', MONO);
+    c.strokeStyle = '#2f86d6'; c.lineWidth = 1.6; c.beginPath(); [[56, 20], [62, 15], [68, 18], [74, 11], [82, 13]].forEach(([x, y], i) => i ? c.lineTo(x, y) : c.moveTo(x, y)); c.stroke();
   } else {
-    c.fillStyle = lg(c, 0, 0, 0, 44, [[0, '#2b3350'], [1, '#1a2036']]); c.fill(); c.strokeStyle = 'rgba(255,255,255,.18)'; c.lineWidth = 1; rr(c, .5, .5, 99, 43, 10); c.stroke();
-    c.fillStyle = '#ff9a4d'; c.beginPath(); c.arc(14, 15, 4.5, 0, 6.2832); c.fill(); T(c, '새 알림', 24, 18, 9, '#fff', 700); T(c, '주문이 도착했어요', 10, 34, 8.5, 'rgba(255,255,255,.75)');
+    c.fillStyle = lg(c, 0, 0, 0, 44, [[0, '#2a4392'], [1, '#162960']]); c.fill(); c.strokeStyle = 'rgba(255,255,255,.18)'; c.lineWidth = 1; rr(c, .5, .5, 99, 43, 10); c.stroke();
+    c.fillStyle = PAL.accent; c.beginPath(); c.arc(14, 15, 4.5, 0, 6.2832); c.fill(); T(c, '새 알림', 24, 18, 9, PAL.ink, 700); T(c, '주문이 도착했어요', 10, 34, 8.5, PAL.muted);
   }
   return k;
 }
@@ -75,8 +77,8 @@ const demo = {
   render(s, t, a, lv) {
     const L = !a ? 0 : (lv == null ? 4 : lv);   // 1 = 정면 평면, 2 = + 회전·원근, 3 = + 두께·모서리 빛, 4 = + 바닥 반사·떠 있는 카드·카메라 접근
     const c = s.c; c.setTransform(2, 0, 0, 2, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over';
-    c.fillStyle = lg(c, 0, 0, 0, 360, [[0, '#141b2f'], [1, '#0b0f1a']]); c.fillRect(0, 0, 640, 360);
-    const gl = c.createRadialGradient(320, 140, 10, 320, 140, 280); gl.addColorStop(0, 'rgba(110,130,255,.22)'); gl.addColorStop(1, 'rgba(110,130,255,0)'); c.fillStyle = gl; c.fillRect(0, 0, 640, 360);
+    c.fillStyle = lg(c, 0, 0, 0, 360, [[0, PAL.bg0], [1, PAL.bg1]]); c.fillRect(0, 0, 640, 360);
+    const gl = c.createRadialGradient(320, 140, 10, 320, 140, 280); gl.addColorStop(0, 'rgba(127,224,255,.22)'); gl.addColorStop(1, 'rgba(127,224,255,0)'); c.fillStyle = gl; c.fillRect(0, 0, 640, 360);
 
     const rot = L >= 2;
     const yaw = rot ? (t < 3.0 ? lerp(-ROT, ROT, E.inOutC(seg(t, .3, 3.0))) : lerp(ROT, ROT * .7, E.outC(seg(t, 3.0, 4.4)))) : 0;
@@ -105,14 +107,14 @@ const demo = {
           }
         }
         faces.sort((u, v) => v.z - u.z).forEach((f) => {
-          const k = Math.min(1, .12 + .95 * f.dif), col = [34, 40, 58].map((v, i) => v + ([188, 198, 222][i] - v) * k);
+          const k = Math.min(1, .12 + .95 * f.dif), col = [16, 28, 70].map((v, i) => v + ([196, 210, 248][i] - v) * k);
           path(f.P); g.fillStyle = `rgb(${col.map(Math.round)})`; g.fill(); g.strokeStyle = `rgba(255,255,255,${(.25 * f.dif).toFixed(2)})`; g.lineWidth = .6; g.stroke();
         });
       }
       // 앞면: 금속 테두리 → 검은 베젤 → 화면 이미지
       const F = poly(s.out, zf), xs = F.map((p) => p[0]), ys = F.map((p) => p[1]), x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
-      path(F); g.fillStyle = lg(g, x0, y0, x1, y1, [[0, '#59627a'], [.5, '#2b3144'], [1, '#12151f']]); g.fill();
-      path(poly(s.mid, zf)); g.fillStyle = '#06080e'; g.fill();
+      path(F); g.fillStyle = lg(g, x0, y0, x1, y1, [[0, '#8496cf'], [.5, '#2a3a78'], [1, '#0c1534']]); g.fill();
+      path(poly(s.mid, zf)); g.fillStyle = '#070d24'; g.fill();
       const sw = PW - 2 * BZ, sh = PH - 2 * BZ, S = poly(s.scr, zf - .1);
       g.save(); path(S); g.clip();
       const GX = 6, GY = 12, grid = [];
@@ -123,7 +125,7 @@ const demo = {
       if (L >= 3) { const q = -yaw / ROT * .5 + .5; g.globalCompositeOperation = 'screen';
         g.fillStyle = lg(g, x0 + (x1 - x0) * (q - .4), y0, x0 + (x1 - x0) * (q + .1), y0 + (y1 - y0) * .5, [[0, 'rgba(255,255,255,0)'], [.5, 'rgba(255,255,255,.22)'], [1, 'rgba(255,255,255,0)']]); g.fillRect(x0, y0, x1 - x0, y1 - y0); }
       g.restore();
-      const cam = proj(0, -PH / 2 + BZ + 9, zf - .2); g.fillStyle = '#05070c'; g.beginPath(); g.arc(cam[0], cam[1], 3.4, 0, 6.2832); g.fill();
+      const cam = proj(0, -PH / 2 + BZ + 9, zf - .2); g.fillStyle = '#050a1c'; g.beginPath(); g.arc(cam[0], cam[1], 3.4, 0, 6.2832); g.fill();
       path(F); g.strokeStyle = 'rgba(255,255,255,.26)'; g.lineWidth = .8; g.stroke();
       // 떠 있는 카드(원근 때문에 폰보다 크게, 시차가 생긴다)
       if (L >= 4) [[0, 66, -62, -34, 1.05], [1, -68, 56, -62, 1.5]].forEach(([k, px, py, pz, d0]) => {
@@ -149,8 +151,11 @@ const demo = {
     }
     drawScene(c);
     c.globalCompositeOperation = 'overlay'; c.globalAlpha = .06; c.fillStyle = c.createPattern(s.grain, 'repeat'); c.fillRect(0, 0, 640, 360); c.globalCompositeOperation = 'source-over'; c.globalAlpha = 1;
-    const lab = ['연출 전: 정면에서 본 평평한 카드', '1단계: 정면 · 평면', '2단계: + 회전 · 원근', '3단계: + 두께 · 모서리 빛', '4단계: + 바닥 반사 · 카드 · 카메라 접근'][L];
-    c.font = `500 14px ${SANS}`; const pw = c.measureText(lab).width + 24; rr(c, 16, 14, pw, 26, 13); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill(); T(c, lab, 28, 32, 14, '#fff', 500);
+    const names = ['연출 전', '평면', '회전 원근', '두께 빛', '반사 카드 접근'];
+    c.save(); c.font = `500 12px ${SANS}`; if ('letterSpacing' in c) c.letterSpacing = '2px'; c.textBaseline = 'middle';
+    c.fillStyle = PAL.line; c.fillRect(9, 16, 1, 300);
+    let yy = 18; names.forEach((n, i) => { const w = c.measureText(n).width; c.save(); c.translate(24, yy); c.rotate(Math.PI / 2); c.fillStyle = i === L ? PAL.ink : PAL.muted; c.globalAlpha = i === L ? 1 : .85; c.fillText(n, 0, 0); c.restore(); yy += w + 16; });
+    c.restore();
   },
 };
 export default demo;

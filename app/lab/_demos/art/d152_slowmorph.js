@@ -3,6 +3,9 @@
 // 만들어진 파일 — 원본: source/pages/text-morph/demo.js (build_pages.py). 직접 고치지 않는다
 import { seg, lerp, E, el } from "./helpers.js";
 
+const PAL = { bg0: '#eef2f7', bg1: '#dfe6f0', ink: '#0f1b2d', muted: '#5a6a80', accent: '#2b6cff', accent2: '#ff8a3d', surface: '#ffffff', line: 'rgba(15,27,45,.2)' };
+const rgba = (h, a) => { const n = parseInt(h.slice(1), 16); return `rgba(${n >> 16},${(n >> 8) & 255},${n & 255},${a})`; };
+
 // 글자→글자 모핑: 두 글자의 윤곽을 같은 수의 점으로 나누고, 점 i 를 점 i 로 옮기며 모양을 바꾼다. 점의 짝(시작점·방향)이 맞아야 깔끔하다. 화면은 시간 t 의 함수다.
 const MORPH = 2.0;                // 글자가 바뀌는 데 걸리는 시간(초)
 const PTS = 60;                   // 글자 윤곽을 나눈 점 수
@@ -28,34 +31,35 @@ function resample(poly, n) {
   return out;
 }
 const toD = (pts) => 'M ' + pts.map((p) => `${(CX + p[0]).toFixed(1)} ${(CY + p[1]).toFixed(1)}`).join(' L ');
-const DOTC = ['#ff7a8a', '#ffb36b', '#ffe27a', '#7fffd0', '#7fd6ff'];
+const DOTC = ['#e5484d', PAL.accent2, '#e0a800', '#0f9d6b', '#7a4dff'];   // 짝지음 색 점 5개(처음, 25%, 50%, 75%, 끝)
 
 const demo = {
   dur: 4, rest: 3.4, noCompare: false, levels: 3,
   mount(sp) {
     const bg = el('div', null, sp);
-    box(bg, { position: 'absolute', inset: '0', background: 'linear-gradient(160deg,#0b0f1a 0%,#161d30 100%)' });
-    box(el('div', null, bg), { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.06', mixBlendMode: 'overlay' });
+    box(bg, { position: 'absolute', inset: '0', background: `linear-gradient(160deg,${PAL.bg0} 0%,${PAL.bg1} 100%)` });
+    box(el('div', null, bg), { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.08', mixBlendMode: 'multiply' });
     const svg = sv('svg', { width: 640, height: 360, viewBox: '0 0 640 360' }, sp);
     box(svg, { position: 'absolute', left: '0', top: '0' });
     const defs = sv('defs', {}, svg);
     const lg = sv('linearGradient', { id: 'tmg', gradientUnits: 'userSpaceOnUse', x1: 240, y1: 80, x2: 400, y2: 260 }, defs);
-    sv('stop', { offset: 0, 'stop-color': '#7fd6ff' }, lg); sv('stop', { offset: 1, 'stop-color': '#c79bff' }, lg);
+    sv('stop', { offset: 0, 'stop-color': PAL.accent }, lg); sv('stop', { offset: 1, 'stop-color': PAL.ink }, lg);
     const gb = sv('filter', { id: 'tmb', x: '-30%', y: '-30%', width: '160%', height: '160%' }, defs);
     sv('feGaussianBlur', { stdDeviation: 9 }, gb);
-    sv('ellipse', { cx: CX, cy: CY + 8, rx: 190, ry: 120, fill: 'rgba(120,150,255,.07)' }, svg);
+    sv('ellipse', { cx: CX, cy: CY + 8, rx: 190, ry: 120, fill: rgba(PAL.accent, .08) }, svg);
     const A = resample(GN, PTS), B = resample(GM, PTS), Br = B.slice().reverse();
-    const ghost = (pts) => sv('path', { d: toD(pts), fill: 'none', stroke: 'rgba(255,255,255,.22)', 'stroke-width': 1.4, 'stroke-dasharray': '4 4', 'stroke-linejoin': 'round' }, svg);
+    const ghost = (pts) => sv('path', { d: toD(pts), fill: 'none', stroke: rgba(PAL.ink, .4), 'stroke-width': 1.4, 'stroke-dasharray': '4 4', 'stroke-linejoin': 'round' }, svg);
     const gh = [ghost(A), ghost(B)];
     const sty = { fill: 'none', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
-    const glow = sv('path', { ...sty, stroke: '#8fa6ff', 'stroke-width': 30, filter: 'url(#tmb)', opacity: .5 }, svg);
+    const glow = sv('path', { ...sty, stroke: PAL.accent, 'stroke-width': 30, filter: 'url(#tmb)', opacity: .32 }, svg);
     const pn = sv('path', { ...sty, stroke: 'url(#tmg)', 'stroke-width': 20 }, svg), pm = sv('path', { ...sty, stroke: 'url(#tmg)', 'stroke-width': 20 }, svg);
     const corr = DOTC.map((c) => sv('line', { stroke: c, 'stroke-width': 1.1, opacity: .75 }, svg));
-    const dots = DOTC.map((c) => sv('circle', { r: 4.6, fill: c, stroke: '#0b0f1a', 'stroke-width': 1.5 }, svg));
-    const l1 = sv('text', { x: 28, y: 322, fill: 'rgba(255,255,255,.75)', 'font-size': 11.5, 'font-family': MONO }, svg);
-    const l2 = sv('text', { x: 28, y: 340, fill: '#ffe27a', 'font-size': 11.5, 'font-family': SANS }, svg);
+    const dots = DOTC.map((c) => sv('circle', { r: 4.8, fill: c, stroke: PAL.surface, 'stroke-width': 1.8 }, svg));
+    const l1 = sv('text', { x: 28, y: 322, fill: PAL.muted, 'font-size': 11.5, 'font-family': MONO }, svg);
+    const l2 = sv('text', { x: 28, y: 340, fill: '#a14000', 'font-size': 11.5, 'font-family': SANS }, svg);
+    // 이름표(tag-tr): 오른쪽 위, 거의 직각 모서리, 왼쪽 3px 포인트 줄, 표면색 배경
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '20px', top: '14px', padding: '7px 14px', borderRadius: '999px', background: 'rgba(8,10,20,.66)', color: '#fff', font: "500 14px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
+    box(pill, { position: 'absolute', right: '14px', top: '14px', padding: '7px 12px 7px 11px', borderRadius: '2px', borderLeft: `3px solid ${PAL.accent}`, background: PAL.surface, color: PAL.ink, boxShadow: `0 2px 8px ${rgba(PAL.ink, .12)}`, font: "600 12px/1.2 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
     return { A, B, Br, gh, glow, pn, pm, corr, dots, l1, l2, pill };
   },
   render(s, t, a, lv) {
@@ -66,24 +70,24 @@ const demo = {
     s.dots.forEach((c) => { c.style.display = L >= 2 ? 'block' : 'none'; });
     if (L <= 1) {
       s.pn.setAttribute('d', toD(s.A)); s.pm.setAttribute('d', toD(s.B)); s.glow.setAttribute('d', toD(s.A));
-      s.pn.style.opacity = 1 - q; s.pm.style.opacity = q; s.glow.style.opacity = .5 * Math.max(1 - q, q) ;
+      s.pn.style.opacity = 1 - q; s.pm.style.opacity = q; s.glow.style.opacity = .32 * Math.max(1 - q, q);
       s.pm.style.display = 'block';
       s.l1.textContent = '점을 옮기지 않고 두 글자의 투명도만 교차'; s.l2.textContent = '중간에 N 도 M 도 아닌 흐릿한 겹침이 보입니다';
     } else {
       const T = L >= 3 ? s.B : s.Br;
       const mid = s.A.map((p, i) => [lerp(p[0], T[i][0], q), lerp(p[1], T[i][1], q)]);
       const d = toD(mid);
-      s.pn.setAttribute('d', d); s.glow.setAttribute('d', d); s.pn.style.opacity = 1; s.glow.style.opacity = .5; s.pm.style.display = 'none';
+      s.pn.setAttribute('d', d); s.glow.setAttribute('d', d); s.pn.style.opacity = 1; s.glow.style.opacity = .32; s.pm.style.display = 'none';
       DOTC.forEach((c, k) => {
         const i = Math.round(k * (PTS - 1) / 4), p0 = s.A[i], p1 = T[i], pc = mid[i];
         s.corr[k].setAttribute('x1', (CX + p0[0]).toFixed(1)); s.corr[k].setAttribute('y1', (CY + p0[1]).toFixed(1));
         s.corr[k].setAttribute('x2', (CX + p1[0]).toFixed(1)); s.corr[k].setAttribute('y2', (CY + p1[1]).toFixed(1));
         s.dots[k].setAttribute('cx', (CX + pc[0]).toFixed(1)); s.dots[k].setAttribute('cy', (CY + pc[1]).toFixed(1));
       });
-      s.l1.textContent = `점 ${PTS}개 · 점 i 를 점 i 로 옮김 (색 점 5개와 선은 짝을 보여 줌)`;
+      s.l1.textContent = `점 ${PTS}개, 점 i 를 점 i 로 옮김 (색 점 5개와 선은 짝을 보여 줌)`;
       s.l2.textContent = L >= 3 ? '시작점: N 의 왼쪽 아래 → M 의 왼쪽 아래 (짝이 맞음)' : '시작점: N 의 왼쪽 아래 → M 의 오른쪽 아래 (짝이 어긋나 꼬임)';
     }
-    s.pill.textContent = L <= 1 ? '연출 전 · N 이 M 으로 겹치며 흐려졌다 바뀜' : L === 2 ? '모핑 · 점이 어긋나 글자가 꼬이며 변함' : '모핑 · 시작점과 방향을 맞춰 깔끔하게 변함';
+    s.pill.textContent = L <= 1 ? '연출 전: N 이 M 으로 겹치며 흐려졌다 바뀜' : L === 2 ? '모핑: 점이 어긋나 글자가 꼬이며 변함' : '모핑: 시작점과 방향을 맞춰 깔끔하게 변함';
   },
 };
 export default demo;
