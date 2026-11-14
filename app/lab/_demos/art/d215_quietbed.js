@@ -160,7 +160,7 @@ const demo = {
     x.strokeStyle = PAL.accent2; x.lineWidth = 1.4; const PX = LX + upto * LW; x.beginPath(); x.moveTo(PX, 38); x.lineTo(PX, 301); x.stroke();
     // 결정 대기 카드
     card(x, LX - 4, 318, LW + 8, 38);
-    T(x, '결정 대기  쇼츠 공장 코드는 덕킹으로 깐다 [기록]', LX + 4, 332, 9.5, PAL.ink, 600);
+    T(x, '영상마다 고름  쇼츠 공장 코드는 덕킹으로 깐다 [기록]', LX + 4, 332, 9.5, PAL.ink, 600);
     T(x, '이미지→영상 연출 기준은 목소리가 있으면 배경음 없음 [지시]', LX + 4, 347, 9.5, PAL.muted, 500);
     // 오른쪽 읽기값
     const RX = 448, RW = 184, c0 = done ? PAL.ink : PAL.muted;
