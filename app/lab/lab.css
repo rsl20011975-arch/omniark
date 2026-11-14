@@ -554,3 +554,5 @@
 .lab-root .rv{margin:var(--s3) 0 var(--s2);font-weight:600}
 .lab-root .rb{color:var(--muted);font-size:var(--t14);margin-bottom:var(--s3)}
 @media (max-width:820px){.lab-root .rrow,.lab-root .rpend{grid-template-columns:1fr}}
+
+.lab-root .rgh{font-size:var(--t20);margin:var(--s6) 0 var(--s3)}

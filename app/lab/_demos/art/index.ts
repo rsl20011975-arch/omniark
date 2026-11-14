@@ -687,15 +687,81 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "leadwide": () => import("./d208_leadwide.js"),
     "zoombig": () => import("./d208_zoombig.js")
   },
+  d209: {
+    base: () => import("./d209.js"),
+    "wall60": () => import("./d209_wall60.js"),
+    "slowtalk": () => import("./d209_slowtalk.js")
+  },
   d21: {
     base: () => import("./d21.js"),
     "zoomend": () => import("./d21_zoomend.js"),
     "skyblue": () => import("./d21_skyblue.js")
   },
+  d210: {
+    base: () => import("./d210.js"),
+    "bottom672": () => import("./d210_bottom672.js"),
+    "top380": () => import("./d210_top380.js"),
+    "right216": () => import("./d210_right216.js")
+  },
+  d211: {
+    base: () => import("./d211.js"),
+    "halves": () => import("./d211_halves.js"),
+    "line45": () => import("./d211_line45.js"),
+    "linear": () => import("./d211_linear.js")
+  },
+  d212: {
+    base: () => import("./d212.js"),
+    "toohigh": () => import("./d212_toohigh.js"),
+    "longline": () => import("./d212_longline.js")
+  },
+  d213: {
+    base: () => import("./d213.js"),
+    "twowords": () => import("./d213_twowords.js"),
+    "narrow": () => import("./d213_narrow.js"),
+    "smaller": () => import("./d213_smaller.js")
+  },
+  d214: {
+    base: () => import("./d214.js"),
+    "calmrange": () => import("./d214_calmrange.js"),
+    "shortnote": () => import("./d214_shortnote.js")
+  },
+  d215: {
+    base: () => import("./d215.js"),
+    "quietbed": () => import("./d215_quietbed.js"),
+    "otherfactory": () => import("./d215_otherfactory.js"),
+    "lowtarget": () => import("./d215_lowtarget.js")
+  },
+  d216: {
+    base: () => import("./d216.js"),
+    "stricter": () => import("./d216_stricter.js"),
+    "tightfail": () => import("./d216_tightfail.js"),
+    "onepick": () => import("./d216_onepick.js")
+  },
+  d217: {
+    base: () => import("./d217.js"),
+    "lowfloor": () => import("./d217_lowfloor.js"),
+    "wideaxis": () => import("./d217_wideaxis.js")
+  },
+  d218: {
+    base: () => import("./d218.js"),
+    "fewer": () => import("./d218_fewer.js"),
+    "krlimit": () => import("./d218_krlimit.js")
+  },
+  d219: {
+    base: () => import("./d219.js"),
+    "pickfirst": () => import("./d219_pickfirst.js"),
+    "smalltitle": () => import("./d219_smalltitle.js"),
+    "tinyimg": () => import("./d219_tinyimg.js")
+  },
   d22: {
     base: () => import("./d22.js"),
     "gap": () => import("./d22_gap.js"),
     "contrast": () => import("./d22_contrast.js")
+  },
+  d220: {
+    base: () => import("./d220.js"),
+    "latestart": () => import("./d220_latestart.js"),
+    "oneauthor": () => import("./d220_oneauthor.js")
   },
   d23: {
     base: () => import("./d23.js"),

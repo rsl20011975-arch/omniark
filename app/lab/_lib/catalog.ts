@@ -35,7 +35,14 @@ export type Ideas = { sub: string; items: Idea[] };
 
 /** AI에게 읽히는 연출 규칙(결정 #94). 새 세션이 0부터 다시 정하지 않게, 증거 등급을 붙여 모은 것. */
 export type RuleLink = { href: string; name: string };
-export type Rule = { id: string; t: string; value: string; grade: "측정" | "지시" | "기록" | "추정" | "미확인"; basis: string; links: RuleLink[] };
+export type RuleGroup = "imgvid" | "shorts";
+export type Rule = { id: string; g?: RuleGroup; t: string; value: string; grade: "측정" | "지시" | "기록" | "추정" | "미확인"; basis: string; links: RuleLink[] };
+/** 규칙 묶음: g 를 안 쓴 규칙은 imgvid. */
+export const RULE_GROUPS: { id: RuleGroup; name: string; href: string }[] = [
+  { id: "imgvid", name: "이미지→영상 연출 규칙", href: "https://omniark.co/lab/imgvid" },
+  { id: "shorts", name: "쇼츠 제작 포맷 규칙", href: "https://omniark.co/lab/shorts" },
+];
+export const rulesOf = (rs: Rule[], g: RuleGroup) => rs.filter((x) => (x.g ?? "imgvid") === g);
 export type Rules = {
   title: string;
   updated: string;
@@ -66,12 +73,17 @@ export function rulesText(): string {
   L.push("", "## 지시 틀", ...r.frame, "", "## 번역표(막연한 말 → 쪼개기 → 이름으로 시키는 말)");
   r.translate.forEach((x) => L.push(`- ${x.word}: ${x.split} → 예) ${x.example}`));
   L.push("", "## 규칙(등급: 측정·지시·기록·추정·미확인)");
-  r.rules.forEach((x) => L.push(`- ${x.id} [${x.grade}] ${x.t}: ${x.value} (근거: ${x.basis})`));
+  RULE_GROUPS.forEach((g) => {
+    const list = rulesOf(r.rules, g.id);
+    if (!list.length) return;
+    L.push("", `### ${g.name}`);
+    list.forEach((x) => L.push(`- ${x.id} [${x.grade}] ${x.t}: ${x.value} (근거: ${x.basis})`));
+  });
   if (r.pending.length) {
     L.push("", "## 결정 대기(저장소마다 값이 다른 것)");
     r.pending.forEach((x) => L.push(`- ${x.t}: A) ${x.a} / B) ${x.b} → 지금: ${x.now}`));
   }
-  L.push("", "## 금지", ...r.bans.map((b) => `- ${b}`), "", "각 규칙의 데모와 지시문: https://omniark.co/lab/imgvid");
+  L.push("", "## 금지", ...r.bans.map((b) => `- ${b}`), "", `각 규칙의 데모와 지시문: ${RULE_GROUPS.filter((g) => rulesOf(r.rules, g.id).length).map((g) => g.href).join(" , ")}`);
   return L.join("\n");
 }
 export const mediaUrl = (file: string) => `/lab/media/${file}`;

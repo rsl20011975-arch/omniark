@@ -3,12 +3,12 @@ import type { Metadata } from "next";
 import LabTabs from "../_components/LabTabs";
 import CodeBlock from "../_components/CodeBlock";
 import { ArrowIcon } from "../_components/icons";
-import { rules, rulesText } from "../_lib/catalog";
+import { rules, rulesText, RULE_GROUPS, rulesOf } from "../_lib/catalog";
 
 export const metadata: Metadata = {
   title: "AI에게 읽히는 연출 규칙 — 막연한 말을 이름과 숫자로",
   description:
-    "예쁘게·멋있게·잘·제대로 같은 막연한 말을 이름과 숫자로 바꾸는 번역표와, 이미지를 활용한 영상 연출 규칙 20개(증거 등급 표시). 새 AI 세션에 붙여 넣으면 처음부터 다시 정하지 않아도 됩니다.",
+    "예쁘게·멋있게·잘·제대로 같은 막연한 말을 이름과 숫자로 바꾸는 번역표와, 이미지→영상 연출과 쇼츠 제작 포맷 규칙 32개(증거 등급 표시). 새 AI 세션에 붙여 넣으면 처음부터 다시 정하지 않아도 됩니다.",
   alternates: { canonical: "/lab/rules" },
 };
 
@@ -59,22 +59,31 @@ export default function RulesPage() {
       </section>
 
       <section className="blk" id="rules">
-        <h2><i>03</i>이미지→영상 연출 규칙</h2>
+        <h2><i>03</i>영상 연출 규칙</h2>
         <p className="sub">규칙마다 증거 등급이 붙어 있습니다: {Object.entries(GRADE_NOTE).map(([k, v]) => `${k}(${v})`).join(" · ")}.</p>
-        <ul className="rulelist">
-          {r.rules.map((x) => (
-            <li key={x.id}>
-              <div className="rh"><span className="rid">{x.id}</span><span className={`rg g-${x.grade}`}>{x.grade}</span><h3>{x.t}</h3></div>
-              <p className="rv">{x.value}</p>
-              <p className="rb">{x.basis}</p>
-              <div className="rlinks">
-                {x.links.map((l) => (
-                  <Link key={l.href} href={l.href}>{l.name} <ArrowIcon /></Link>
+        {RULE_GROUPS.map((g) => {
+          const list = rulesOf(r.rules, g.id);
+          if (!list.length) return null;
+          return (
+            <div key={g.id} id={`rules-${g.id}`}>
+              <h3 className="rgh">{g.name} · {list.length}개</h3>
+              <ul className="rulelist">
+                {list.map((x) => (
+                  <li key={x.id}>
+                    <div className="rh"><span className="rid">{x.id}</span><span className={`rg g-${x.grade}`}>{x.grade}</span><h3>{x.t}</h3></div>
+                    <p className="rv">{x.value}</p>
+                    <p className="rb">{x.basis}</p>
+                    <div className="rlinks">
+                      {x.links.map((l) => (
+                        <Link key={l.href} href={l.href}>{l.name} <ArrowIcon /></Link>
+                      ))}
+                    </div>
+                  </li>
                 ))}
-              </div>
-            </li>
-          ))}
-        </ul>
+              </ul>
+            </div>
+          );
+        })}
       </section>
 
       {r.pending.length > 0 && (
