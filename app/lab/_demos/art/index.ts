@@ -763,10 +763,72 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "latestart": () => import("./d220_latestart.js"),
     "oneauthor": () => import("./d220_oneauthor.js")
   },
+  d221: {
+    base: () => import("./d221.js"),
+    "smallbody": () => import("./d221_smallbody.js"),
+    "bigtitle": () => import("./d221_bigtitle.js")
+  },
+  d222: {
+    base: () => import("./d222.js"),
+    "tight": () => import("./d222_tight.js"),
+    "loose": () => import("./d222_loose.js")
+  },
+  d223: {
+    base: () => import("./d223.js"),
+    "fatround": () => import("./d223_fatround.js"),
+    "deeper": () => import("./d223_deeper.js")
+  },
+  d224: {
+    base: () => import("./d224.js"),
+    "midwidth": () => import("./d224_midwidth.js"),
+    "cardmin": () => import("./d224_cardmin.js")
+  },
+  d225: {
+    base: () => import("./d225.js"),
+    "loadend": () => import("./d225_loadend.js"),
+    "filterempty": () => import("./d225_filterempty.js"),
+    "rowheight": () => import("./d225_rowheight.js")
+  },
+  d226: {
+    base: () => import("./d226.js"),
+    "purplebg": () => import("./d226_purplebg.js"),
+    "samebrand": () => import("./d226_samebrand.js")
+  },
+  d227: {
+    base: () => import("./d227.js"),
+    "h36": () => import("./d227_h36.js"),
+    "pad40": () => import("./d227_pad40.js")
+  },
+  d228: {
+    base: () => import("./d228.js"),
+    "fade08": () => import("./d228_fade08.js"),
+    "bg05": () => import("./d228_bg05.js")
+  },
+  d229: {
+    base: () => import("./d229.js"),
+    "brandcolor": () => import("./d229_brandcolor.js"),
+    "main20": () => import("./d229_main20.js")
+  },
   d23: {
     base: () => import("./d23.js"),
     "curve": () => import("./d23_curve.js"),
     "land": () => import("./d23_land.js")
+  },
+  d230: {
+    base: () => import("./d230.js"),
+    "roomy20": () => import("./d230_roomy20.js"),
+    "accentgreen": () => import("./d230_accentgreen.js")
+  },
+  d231: {
+    base: () => import("./d231.js"),
+    "cardwide": () => import("./d231_cardwide.js"),
+    "darkearly": () => import("./d231_darkearly.js")
+  },
+  d232: {
+    base: () => import("./d232.js"),
+    "sketch2": () => import("./d232_sketch2.js"),
+    "notop": () => import("./d232_notop.js"),
+    "diff30": () => import("./d232_diff30.js")
   },
   d24: {
     base: () => import("./d24.js"),

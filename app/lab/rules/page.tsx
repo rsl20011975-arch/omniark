@@ -8,7 +8,7 @@ import { rules, rulesText, RULE_GROUPS, rulesOf } from "../_lib/catalog";
 export const metadata: Metadata = {
   title: "AI에게 읽히는 연출 규칙 — 막연한 말을 이름과 숫자로",
   description:
-    "예쁘게·멋있게·잘·제대로 같은 막연한 말을 이름과 숫자로 바꾸는 번역표와, 이미지→영상 연출과 쇼츠 제작 포맷 규칙 32개(증거 등급 표시). 새 AI 세션에 붙여 넣으면 처음부터 다시 정하지 않아도 됩니다.",
+    "예쁘게·멋있게·잘·제대로 같은 막연한 말을 이름과 숫자로 바꾸는 번역표와, 영상 연출·쇼츠 제작 포맷·앱·웹 화면 제작 규칙 44개(증거 등급 표시). 새 AI 세션에 붙여 넣으면 처음부터 다시 정하지 않아도 됩니다.",
   alternates: { canonical: "/lab/rules" },
 };
 
