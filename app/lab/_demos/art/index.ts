@@ -830,10 +830,74 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "notop": () => import("./d232_notop.js"),
     "diff30": () => import("./d232_diff30.js")
   },
+  d233: {
+    base: () => import("./d233.js"),
+    "bin2": () => import("./d233_bin2.js"),
+    "goal8": () => import("./d233_goal8.js")
+  },
+  d234: {
+    base: () => import("./d234.js"),
+    "q6": () => import("./d234_q6.js"),
+    "qflat": () => import("./d234_qflat.js"),
+    "flag45": () => import("./d234_flag45.js")
+  },
+  d235: {
+    base: () => import("./d235.js"),
+    "len20": () => import("./d235_len20.js"),
+    "first5": () => import("./d235_first5.js")
+  },
+  d236: {
+    base: () => import("./d236.js"),
+    "longresult": () => import("./d236_longresult.js"),
+    "longrace": () => import("./d236_longrace.js")
+  },
+  d237: {
+    base: () => import("./d237.js"),
+    "fastspeed": () => import("./d237_fastspeed.js"),
+    "fiveminutes": () => import("./d237_fiveminutes.js")
+  },
+  d238: {
+    base: () => import("./d238.js"),
+    "runshort": () => import("./d238_runshort.js"),
+    "sharecap": () => import("./d238_sharecap.js")
+  },
+  d239: {
+    base: () => import("./d239.js"),
+    "bigtv": () => import("./d239_bigtv.js"),
+    "shelf150": () => import("./d239_shelf150.js"),
+    "late": () => import("./d239_late.js")
+  },
   d24: {
     base: () => import("./d24.js"),
     "axis": () => import("./d24_axis.js"),
     "faster": () => import("./d24_faster.js")
+  },
+  d240: {
+    base: () => import("./d240.js"),
+    "slowmove": () => import("./d240_slowmove.js"),
+    "to85": () => import("./d240_to85.js")
+  },
+  d241: {
+    base: () => import("./d241.js"),
+    "bwins": () => import("./d241_bwins.js"),
+    "smalltext": () => import("./d241_smalltext.js")
+  },
+  d242: {
+    base: () => import("./d242.js"),
+    "fold2": () => import("./d242_fold2.js"),
+    "lastch": () => import("./d242_lastch.js"),
+    "notest": () => import("./d242_notest.js")
+  },
+  d243: {
+    base: () => import("./d243.js"),
+    "latelong": () => import("./d243_latelong.js"),
+    "slowconn": () => import("./d243_slowconn.js")
+  },
+  d244: {
+    base: () => import("./d244.js"),
+    "fewer": () => import("./d244_fewer.js"),
+    "still15": () => import("./d244_still15.js"),
+    "repmid": () => import("./d244_repmid.js")
   },
   d25: {
     base: () => import("./d25.js"),
