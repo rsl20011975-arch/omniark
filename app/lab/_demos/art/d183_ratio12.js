@@ -109,7 +109,7 @@ const demo = {
     tx(c, `가장 작은 음절 RMS  원본 ${s0.soft.toFixed(1)}dB → 지금 ${st.soft.toFixed(1)}dB${L >= 4 ? '  (메이크업 +' + l.mk.toFixed(1) + 'dB)' : ''}`, 16, y, 10.5, '#ffb27f', 500, 'left', MONO); y += 15;
     tx(c, `줄인 양  최대 ${st.grMax.toFixed(1)}dB · 소리 나는 구간 평균 ${st.grAvg.toFixed(1)}dB`, 16, y, 10.5, '#8fdcff', 500, 'left', MONO);
     c.save(); c.setLineDash([4, 3]); c.strokeStyle = 'rgba(111,211,255,.9)'; c.beginPath(); c.moveTo(16, 330); c.lineTo(36, 330); c.stroke(); c.restore(); tx(c, `점선 = 임계값 ${THRESH_DB}dB`, 42, 333, 10.5, TX2, 500);
-    tx(c, '재생 버튼 없음 · 파형·곡선·수치는 코드로 계산한 값입니다. 소리는 직접 들어 보고 판단하세요.', 16, 350, 10.5, TX2, 500);
+    tx(c, '재생 버튼 없음 · 파형·곡선·수치는 코드로 계산한 값입니다.', 16, 350, 10.5, TX2, 500);
     const post = ['압축 없음 · 원본(음절 크기 차이가 큼)', `① 임계값 ${THRESH_DB}dB · 비율 ${RATIO}:1 · 반응이 너무 빨라(${FAST_ATT}ms/${FAST_REL}ms) 줄인 양이 파형을 따라 떨림`, `② 어택 ${ATTACK_MS}ms · 릴리스 ${RELEASE_MS}ms · 줄인 양이 부드럽게 움직임`, `③ 소프트 니 ${KNEE_DB}dB + 메이크업 게인으로 전체 크기를 다시 올림`][L - 1];
     c.font = '500 12px ' + SANS; const pwd = c.measureText(post).width + 24; rr(c, 14, 12, pwd, 24, 12); c.fillStyle = 'rgba(8,10,20,.78)'; c.fill(); c.strokeStyle = 'rgba(255,255,255,.12)'; c.stroke(); tx(c, post, 26, 28, 12, '#fff', 500);
   },

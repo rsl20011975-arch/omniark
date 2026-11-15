@@ -34,7 +34,7 @@ const demo = {
     const yp=ys+48;sSpecDraw(c,sp,LX,yp,LW,64);txt2(c,'8k',LX-6,yp+8,9,'#5b6577',500,'right');txt2(c,'1k',LX-6,yp+36,9,'#5b6577',500,'right');txt2(c,'100',LX-6,yp+62,9,'#5b6577',500,'right');txt2(c,'스펙트럼',14,yp+36,10.5,'#ffb27f',700);
     c.fillStyle='#ff8a3d';c.fillRect(LX+ph*LW-.7,30,1.4,yp+64-30);
     txtm(c,sFmt(st)+' · 어택 '+st.attackMs.toFixed(0)+'ms',14,yp+80,9.5,'#9ba3ad');
-    cap(c,'(측정값만 확인함 — 소리는 직접 들어 보고 판단하세요)',14,yp+96);
+    cap(c,'(측정값만 확인함)',14,yp+96);
   }
 };
 export default demo;

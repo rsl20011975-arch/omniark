@@ -2,7 +2,7 @@
   "order": 163,
   "slug": "shader-glsl-sdf",
   "name": "물결 셰이더와 SDF 블롭",
-  "en": "Shader · GLSL · fbm · SDF · Fresnel",
+  "en": "Wave Shader and SDF Blob",
   "field": "webgl",
   "level": "고급",
   "purposes": [

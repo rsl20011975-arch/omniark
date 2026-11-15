@@ -115,7 +115,7 @@ const demo = {
     tx(c, `가장 작은 음절 RMS  원본 ${s0.soft.toFixed(1)}dB → 지금 ${st.soft.toFixed(1)}dB${L >= 4 ? '  (메이크업 +' + l.mk.toFixed(1) + 'dB)' : ''}`, 16, y, 10.5, DKGRN, 500, 'left', MONO); y += 15;
     tx(c, `줄인 양  최대 ${st.grMax.toFixed(1)}dB · 평균 ${st.grAvg.toFixed(1)}dB · 이득이 오르내린 합 ${st.tv.toFixed(0)}dB`, 16, y, 10.5, INK, 500, 'left', MONO);
     c.save(); c.setLineDash([4, 3]); c.strokeStyle = al(PAL.accent2, .9); c.beginPath(); c.moveTo(16, 330); c.lineTo(36, 330); c.stroke(); c.restore(); tx(c, `점선 = 임계값 ${THRESH_DB}dB`, 42, 333, 10.5, TX2, 500);
-    tx(c, '재생 버튼 없음 · 파형·곡선·수치는 코드로 계산한 값입니다. 소리는 직접 들어 보고 판단하세요.', 16, 350, 10.5, TX2, 500);
+    tx(c, '재생 버튼 없음 · 파형·곡선·수치는 코드로 계산한 값입니다.', 16, 350, 10.5, TX2, 500);
     c.restore();
     // 이름표(vertical): 왼쪽 가장자리에 세로쓰기, 지금 단계만 ink, 나머지는 muted
     const items = ['원본', '급한 반응', '알맞은 반응', '니와 게인']; let vy = 22;

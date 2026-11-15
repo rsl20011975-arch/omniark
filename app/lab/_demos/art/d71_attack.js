@@ -50,7 +50,7 @@ const demo = {
     const dB=buf.vsm,bx=14,by=224,bw=330;txt2(c,'말하는 구간의 목소리 ÷ 음악 (측정값)',bx,by-6,11,'#dfe5ee',700);rr(c,bx,by,bw,10,5);c.fillStyle='#1a2030';c.fill();c.fillStyle='#262e3d';c.fillRect(bx+bw*(10/30),by-3,1.5,16);txtm(c,'0 dB',bx+bw*(10/30),by+25,8.5,'#5b6577','center');txtm(c,'+10',bx+bw*(20/30),by+25,8.5,'#5b6577','center');txtm(c,'−10',bx,by+25,8.5,'#5b6577');
     const px=bx+bw*Math.max(0,Math.min(1,(dB+10)/30));c.fillStyle=dB>=6?'#3ecf8e':'#ff5f57';c.beginPath();c.arc(px,by+5,8,0,TAU);c.fill();txtm(c,(dB>=0?'+':'')+dB.toFixed(1)+' dB',bx+bw+14,by+9,13,dB>=6?'#3ecf8e':'#ff7a70');
     txt2(c,dB>=6?'목소리가 음악보다 6dB 이상 크다 ✓':'음악이 목소리와 비슷하거나 더 크다 ✗',14,268,12,dB>=6?'#3ecf8e':'#ff7a70',700);
-    txtm(c,sFmt(st)+'  (RMS는 LUFS가 아님)',14,288,9,'#9ba3ad');cap(c,'(측정값만 확인함 — 소리는 직접 들어 보고 판단하세요)',14,310);
+    txtm(c,sFmt(st)+'  (RMS는 LUFS가 아님)',14,288,9,'#9ba3ad');cap(c,'(측정값만 확인함)',14,310);
   }
 };
 export default demo;

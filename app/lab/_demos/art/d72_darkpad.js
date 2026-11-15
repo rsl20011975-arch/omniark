@@ -36,7 +36,7 @@ const demo = {
     buf.roll.forEach(e=>{const y=36+e.lane*26,x=LX+e.t0/4*LW,w=Math.max(3,(e.t1-e.t0)/4*LW-1),on=tn>=e.t0;c.fillStyle=on?buf.layers[e.lane].c:buf.layers[e.lane].c+'55';rr(c,x,y+3,w,18,3);c.fill();if(e.tx){txt2(c,e.tx,x+6,y+16,11,'#10141c',700);}});
     c.fillStyle='#ff8a3d';c.fillRect(LX+ph*LW-.7,30,1.4,5*26+10);
     const ys=36+Math.max(NL,5)*26+6;sSpecDraw(c,sp,LX,ys,LW,66);txt2(c,'스펙트럼',14,ys+36,10.5,'#ffb27f',700);
-    txtm(c,sFmt(st),14,ys+84,9.5,'#9ba3ad');cap(c,'(측정값만 확인함 — 소리는 직접 들어 보고 판단하세요)',14,310);
+    txtm(c,sFmt(st),14,ys+84,9.5,'#9ba3ad');cap(c,'(측정값만 확인함)',14,310);
   }
 };
 export default demo;

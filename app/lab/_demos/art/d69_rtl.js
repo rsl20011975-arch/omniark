@@ -32,7 +32,7 @@ const demo = {
     c.fillStyle='#ff8a3d';c.fillRect(LX+ph*LW-.7,30,1.4,200);
     /* 실제 좌우 균형(왼쪽·오른쪽 소리 크기로 계산) */
     const bl=balance(buf,ph);rr(c,LX,240,LW,6,3);c.fillStyle='#1a2030';c.fill();c.fillStyle='#fff';c.beginPath();c.arc(LX+LW*bl,243,7,0,TAU);c.fill();c.fillStyle='#ff8a3d';c.beginPath();c.arc(LX+LW*bl,243,4,0,TAU);c.fill();txt2(c,'L',LX-14,247,11,'#6fd3ff',700);txt2(c,'R',LX+LW+8,247,11,'#ff8a3d',700);txt2(c,'지금 소리의 좌우 위치(두 귀 소리 크기로 계산)',LX,266,10.5,'#9ba3ad',500);
-    txtm(c,sFmt(st),14,292,9.5,'#9ba3ad');cap(c,'(측정값만 확인함 — 소리는 직접 들어 보고 판단하세요)',14,310);
+    txtm(c,sFmt(st),14,292,9.5,'#9ba3ad');cap(c,'(측정값만 확인함)',14,310);
   }
 };
 export default demo;

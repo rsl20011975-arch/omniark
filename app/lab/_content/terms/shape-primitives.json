@@ -2,7 +2,7 @@
   "order": 151,
   "slug": "shape-primitives",
   "name": "도형 프리미티브와 선",
-  "en": "Shape Primitives & Lines",
+  "en": "Basic Shapes and Lines",
   "field": "mograph",
   "level": "기본",
   "purposes": [
@@ -111,7 +111,7 @@
         "situation": "도형 소개를 천천히 따라가고 싶을 때",
         "from": "0.25초 간격으로",
         "to": "0.5초 간격으로",
-        "effect": "나타나는 간격이 0.25초에서 0.5초로 늘어, 1.2초 지점에 보이는 칸이 4개에서 2개로 줄고 마지막 칸은 1.75초 늦게 나타납니다."
+        "effect": "나타나는 간격이 0.25초에서 0.5초로 늘어납니다. 그래서 1.2초 지점에 보이는 칸이 4개에서 2개로 줄어듭니다. 마지막 칸은 1.75초 늦게 나타납니다."
       },
       {
         "id": "thick",

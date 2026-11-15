@@ -39,7 +39,7 @@ const demo = {
       const nm = el('div', null, p, ln.name);
       box(nm, { position: 'absolute', left: '12px', top: '10px', font: "700 13px/1 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
       const cd = el('div', null, p, ln.code.replace('\n', '<br>'));
-      box(cd, { position: 'absolute', left: '12px', top: '32px', font: `500 9.5px/1.45 ${MONO}`, color: PAL.muted, width: '152px' });
+      box(cd, { position: 'absolute', left: '12px', top: '32px', font: `500 10px/1.4 ${MONO}`, color: PAL.muted, width: '152px' });
       const cards = [];
       for (let i = 0; i < CARDS; i++) {
         const c = el('div', null, p);

@@ -2,7 +2,7 @@
   "order": 103,
   "slug": "easing-power-curves",
   "name": "이징 계열 Quad에서 Expo까지",
-  "en": "Easing Families: Quad → Quint · Expo",
+  "en": "Easing Curve Families",
   "field": "motion",
   "level": "중급",
   "purposes": [

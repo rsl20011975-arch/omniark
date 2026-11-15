@@ -2,7 +2,7 @@
   "order": 164,
   "slug": "postprocessing",
   "name": "후처리 효과 한 겹씩",
-  "en": "Post-processing · Bloom · DOF · Chromatic Aberration · Vignette · Film Grain",
+  "en": "Post-Processing Effects",
   "field": "webgl",
   "level": "고급",
   "purposes": [
@@ -124,7 +124,7 @@
     ],
     "vs": {
       "bad": "영화 같은 느낌으로 후처리해줘",
-      "badResult": "대개 화면 전체가 뿌옇게 번지고 구슬까지 흐려지며, 효과마다 세기가 제각각으로 나옵니다",
+      "badResult": "대개 화면 전체가 뿌옇게 번지고 구슬까지 흐려지며, 효과마다 세기가 제각각으로 나온다",
       "good": "블룸(밝기 0.6↑, 세기 0.9) → DOF(구슬만 또렷) → 색수차 5px·비네트 0.55 → 그레인 0.06(24fps) 순서",
       "goodResult": "구슬 하이라이트 둘레만 번지고 멀리 불빛은 보케 원판이 되며, 모서리가 어두워지고 알갱이가 매 프레임 바뀌는 밤 도시"
     },

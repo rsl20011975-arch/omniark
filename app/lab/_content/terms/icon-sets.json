@@ -2,7 +2,7 @@
   "order": 137,
   "slug": "icon-sets",
   "name": "아이콘 세트",
-  "en": "Icon Set · Lucide · Phosphor · Tabler",
+  "en": "Icon Set",
   "field": "image",
   "level": "기본",
   "purposes": [
@@ -124,7 +124,7 @@
         "code": "g.setAttribute('stroke-width', m.sw);\nsvg.style.width = m.px + 'px';"
       },
       {
-        "t": "선 굵기와 끝 모양을 통일합니다",
+        "t": "선 굵기와 끝 모양을 통일한다",
         "d": "모든 아이콘의 선 굵기를 24 격자 기준 2칸으로, 끝과 꺾임을 둥글게 맞추고 채움을 뺍니다. 한 세트라는 인상의 대부분이 여기서 정해집니다.",
         "code": "g.setAttribute('stroke-width', STROKE);\ng.setAttribute('stroke-linecap', 'round');\ng.setAttribute('stroke-linejoin', 'round');"
       },

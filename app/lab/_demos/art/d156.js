@@ -57,8 +57,8 @@ const demo = {
     const T = (x, y, s, sz, fill, f, w) => { const e = sv('text', { x, y, fill, 'font-size': sz, 'font-family': f || SANS, 'font-weight': w || 400 }, svg); e.textContent = s; return e; };
     T(26, 72, '① feTurbulence(노이즈 지도)', 11.5, PAL.ink, SANS, 700);
     const rr = sv('rect', { x: MX, y: MY, width: MS, height: MS, fill: '#000', rx: 6, filter: 'url(#sdm)' }, svg);
-    const rd = [T(26, 88, '', 9.5, PAL.accent2, MONO), T(26, 274, '', 9.5, PAL.ink, MONO), T(26, 289, '', 9.5, PAL.ink, MONO), T(26, 304, '', 9.5, PAL.accent, MONO)];
-    T(26, 322, '빨강 → 가로, 초록 → 세로로 이동', 9.5, PAL.muted); T(26, 336, '회색(0.5)이면 안 움직여요', 9.5, PAL.muted);
+    const rd = [T(26, 88, '', 10.5, PAL.accent2, MONO), T(26, 274, '', 10.5, PAL.ink, MONO), T(26, 289, '', 10.5, PAL.ink, MONO), T(26, 304, '', 10.5, PAL.accent, MONO)];
+    T(26, 322, '빨강 → 가로, 초록 → 세로로 이동', 10.5, PAL.muted); T(26, 336, '회색(0.5)이면 안 움직여요', 10.5, PAL.muted);
     const pill = el('div', null, sp);
     box(pill, { position: 'absolute', left: '20px', top: '12px', padding: '7px 14px', borderRadius: '999px', background: rgba(PAL.bg1, .82), border: `1px solid ${PAL.line}`, color: PAL.ink, font: "500 14px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
     const cap = el('div', null, sp);

@@ -36,7 +36,7 @@ const demo = {
     sWave(c,buf.ch[0],LX,196,LW,44,'#6fd3ff',ph,1);c.fillStyle='#ff8a3d';c.fillRect(LX+ph*LW-.7,92,1.4,148);
     txtm(c,'세기 편차 '+s.B.velSd[k].toFixed(2)+' · 간격 편차 '+s.B.ivSd[k].toFixed(0)+'ms · '+sFmt(st),14,262,9.5,'#9ba3ad');
     txtm(c,'편차 0 = 기계적으로 똑같음(사람은 0이 아님)',14,278,9.5,'#5b6577');
-    cap(c,'(측정값만 확인함 — 소리는 직접 들어 보고 판단하세요)',14,310);
+    cap(c,'(측정값만 확인함)',14,310);
   }
 };
 export default demo;

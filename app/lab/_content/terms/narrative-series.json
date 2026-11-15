@@ -2,7 +2,7 @@
   "order": 120,
   "slug": "narrative-series",
   "name": "서사와 시리즈 떡밥 설계",
-  "en": "Narrative · Series Foreshadowing Plan",
+  "en": "Series Foreshadowing Plan",
   "field": "story",
   "level": "중급",
   "purposes": [
@@ -98,7 +98,7 @@
       "bad": "시리즈가 다음 편으로 이어지게 짜줘",
       "badResult": "대개 편마다 ‘다음 편에 계속’ 문구만 붙고, 어떤 단서가 어느 편에서 쓰이는지는 정해지지 않은 채 남습니다",
       "good": "떡밥 3개의 심는 편·상기하는 편·회수하는 편을 표로 정하고, 각 편 끝에 훅 1개",
-      "goodResult": "붉은 열쇠·낡은 지도·이름 없는 편지가 각각 1화·2화·1화에 심겨 4~5화에서 별로 회수되는 5편 지도"
+      "goodResult": "붉은 열쇠와 이름 없는 편지는 1화에, 낡은 지도는 2화에 심겨 4~5화에서 별로 회수되는 5편 지도"
     },
     "tips": [
       {

@@ -2,7 +2,7 @@
   "order": 139,
   "slug": "dark-light-mode",
   "name": "다크/라이트 모드와 전환 연출",
-  "en": "Dark / Light Mode · Theme Transition",
+  "en": "Dark and Light Mode",
   "field": "color",
   "level": "중급",
   "purposes": [
@@ -135,7 +135,7 @@
       },
       {
         "t": "다크 색을 따로 정한다",
-        "d": "배경은 어두운 남색 #0F1320, 카드는 한 단계 밝은 #181E30, 글자는 순백 대신 #E6E9F0. 강조색은 라이트의 진한 주황보다 밝고 차분한 #FF9A4D 로 두고, 깊이는 그림자가 아니라 표면의 밝기 차이로 냅니다.",
+        "d": "배경은 어두운 남색 #0F1320, 카드는 한 단계 밝은 #181E30을 씁니다. 글자는 순백 대신 #E6E9F0 입니다. 강조색은 라이트의 진한 주황보다 밝고 차분한 #FF9A4D 로 두고, 깊이는 그림자가 아니라 표면의 밝기 차이로 냅니다.",
         "code": "const DESIGNED = { bg: '#0f1320', card: '#181e30', text: '#e6e9f0', accent: '#ff9a4d' };"
       },
       {

@@ -144,7 +144,7 @@ const demo = {
       tx(c, `${n} ${lo >= 1000 ? lo / 1000 + '~' + hi / 1000 + 'kHz' : lo + '~' + hi + 'Hz'}  평균 ${a0.toFixed(0)}dB → ${a1.toFixed(0)}dB  (${Math.abs(dl) < .05 ? '변화 없음' : (dl > 0 ? '+' : '-') + Math.abs(dl).toFixed(1) + 'dB'})`, 16, y, 10.5, col, 500, 'left', MONO); y += 15;
     });
     c.fillStyle = PAL.muted; c.fillRect(16, 321, 8, 8); tx(c, '원본', 28, 329, 10.5, TX2, 500); c.fillStyle = PAL.accent; c.fillRect(66, 321, 8, 8); tx(c, 'EQ 후', 78, 329, 10.5, TX2, 500);
-    tx(c, '재생 버튼 없음 · 곡선과 주파수 모양은 코드로 계산한 값입니다. 소리는 직접 들어 보고 판단하세요.', 16, 348, 10.5, TX2, 500);
+    tx(c, '재생 버튼 없음 · 곡선과 주파수 모양은 코드로 계산한 값입니다.', 16, 348, 10.5, TX2, 500);
     const post = ['EQ 없음 · 원본 그대로(곡선이 평평)', `필터 ① 저음 자르기: ${HPF_HZ}Hz 아래를 깎아 웅웅을 줄임`, `필터 ② 먹먹함 줄이기: ${CUT_HZ}Hz 부근 ${CUT_DB}dB`, `필터 ③ 고음 올리기: ${SHELF_HZ}Hz 위 +${SHELF_DB}dB (쉬익도 같이 커짐)`][L - 1];
     c.font = '500 12px ' + SANS; const pwd = c.measureText(post).width + 24; rr(c, 14, 12, pwd, 24, 12); c.fillStyle = al(PAL.bg0, .9); c.fill(); c.strokeStyle = al(PAL.accent, .5); c.stroke(); tx(c, post, 26, 28, 12, INK, 500);
   },

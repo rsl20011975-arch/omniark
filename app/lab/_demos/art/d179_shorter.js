@@ -134,7 +134,7 @@ const demo = {
     tx(c, `임팩트  최대까지 ${q.imp.atk.toFixed(0)}ms · 최대치의 -30dB 아래로 내려가기까지 ${q.imp.dec.toFixed(0)}ms`, 16, y, 10.5, TX2, 500, 'left', MONO); y += 15;
     if (L >= 2) tx(c, `다운리프터  밝기(무게중심) ${q.c0.toFixed(0)}Hz → ${q.c1.toFixed(0)}Hz · 크기 ${q.r0.toFixed(0)}dB → ${q.r1.toFixed(0)}dB`, 16, y, 10.5, '#bcd0ff', 500, 'left', MONO); y += 15;
     if (L >= 3) tx(c, `스팅어  최대까지 ${q.st.atk.toFixed(0)}ms · -30dB 아래까지 ${q.st.dec.toFixed(0)}ms`, 16, y, 10.5, C_ST, 500, 'left', MONO);
-    tx(c, '재생 버튼 없음. 파형과 스펙트럼은 코드로 합성한 값이며, 소리는 직접 들어 보고 판단하세요.', 16, 24, 10.5, TX2, 500);
+    tx(c, '재생 버튼 없음. 파형과 스펙트럼은 코드로 합성한 값입니다.', 16, 24, 10.5, TX2, 500);
     const post = t < HIT_T ? '임팩트 직전' : (L >= 2 && t < STING_T ? '다운리프터: 임팩트 뒤 에너지가 아래로 내려감' : (L >= 3 ? '스팅어: 짧고 날카로운 마침표' : (L >= 2 ? '다운리프터가 끝남' : '임팩트 하나만 · 뒤가 이어지지 않음')));
     c.fillStyle = PAL.line; c.fillRect(16, 334, 608, 1); tx(c, post, 16, 350, 12, TX2, 500, 'left', MONO);   // 이름표(caption-bl): 왼쪽 아래, 배경 없이 얇은 선 위에
   },

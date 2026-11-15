@@ -9,7 +9,7 @@ const XF_DUR = 2;                 // xfade: 전환이 걸리는 시간(초)
 const XF_AT = 2.0;                // xfade: 전환이 시작하는 시각(초)
 const PAL = { bg0: "#171615", bg1: "#232120", ink: "#f2efe9", muted: "#9a958c", accent: "#5ad1c8", accent2: "#f2b84b", surface: "#1f1d1b", line: "rgba(242,239,233,.2)" };
 const SANS = '"IBM Plex Sans KR","Malgun Gothic",sans-serif', MONO = '"JetBrains Mono","Malgun Gothic",monospace';
-const T = (c, s, x, y, z, col, w, al, f) => { c.save(); c.fillStyle = col; c.font = (w || 500) + " " + z + "px " + (f || SANS); c.textAlign = al || "left"; c.textBaseline = "alphabetic"; c.fillText(s, x, y); c.restore(); };
+const T = (c, s, x, y, z, col, w, al, f, mw) => { c.save(); c.fillStyle = col; c.font = (w || 500) + " " + z + "px " + (f || SANS); c.textAlign = al || "left"; c.textBaseline = "alphabetic"; c.fillText(s, x, y, mw); c.restore(); };
 function grainTile(seed) { const g = document.createElement("canvas"); g.width = g.height = 96; const x = g.getContext("2d"), im = x.createImageData(96, 96), r = rng(seed); for (let i = 0; i < 96 * 96; i++) { const v = (r() * 255) | 0; im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = v; im.data[i * 4 + 3] = 255; } x.putImageData(im, 0, 0); return g; }
 function backdrop(c, grain) {
   const g = c.createLinearGradient(0, 0, 0, 360); g.addColorStop(0, PAL.bg0); g.addColorStop(1, PAL.bg1); c.fillStyle = g; c.fillRect(0, 0, 640, 360);
@@ -83,7 +83,7 @@ const demo = {
       (k) => {
         c.fillStyle = "#12100f"; c.fillRect(0, 0, PW, PH);
         const mode = t < 1.7 ? 0 : (t < 3 ? 1 : 2), fx = [4, 39, 74], lab = ["원본 1", "새 프레임", "원본 2"];
-        fx.forEach((x, i) => { c.fillStyle = "#2a2723"; rr(c, x, 6, 32, 36, 3); c.fill(); c.strokeStyle = i === 1 ? PAL.accent2 : "rgba(242,239,233,.28)"; c.lineWidth = i === 1 ? 1.5 : 1; c.stroke(); T(c, lab[i], x + 16, 54, 9, i === 1 ? PAL.accent2 : PAL.muted, 700, "center"); });
+        fx.forEach((x, i) => { c.fillStyle = "#2a2723"; rr(c, x, 6, 32, 36, 3); c.fill(); c.strokeStyle = i === 1 ? PAL.accent2 : "rgba(242,239,233,.28)"; c.lineWidth = i === 1 ? 1.5 : 1; c.stroke(); T(c, lab[i], x + 16, 54, 10, i === 1 ? PAL.accent2 : PAL.muted, 700, "center"); });
         miBall(c, 4 + 9, 6 + 26, 5, 1); miBall(c, 74 + 23, 6 + 10, 5, 1);
         if (mode === 0) miBall(c, 39 + 9, 6 + 26, 5, 1); else if (mode === 1) { miBall(c, 39 + 9, 6 + 26, 5, 0.5); miBall(c, 39 + 23, 6 + 10, 5, 0.5); } else miBall(c, 39 + 16, 6 + 18, 5, 1);
       },
@@ -104,7 +104,7 @@ const demo = {
       else { c.fillStyle = "rgba(242,239,233,.04)"; rr(c, px, py, PW, PH, 6); c.fill(); T(c, GROUP[i] + "단계에서", px + PW / 2, py + PH / 2 + 4, 11, PAL.muted, 500, "center"); }
       const vis = on || !a;
       T(c, nm, x + 6, y + 82, 11.5, vis ? PAL.ink : PAL.muted, 700, "left", MONO);
-      T(c, a && on ? OPT[i] : "(필터 없음)", x + 6, y + 95, 9, vis ? (a && on ? PAL.accent2 : PAL.muted) : PAL.muted, 500, "left", MONO);
+      T(c, a && on ? OPT[i] : "(필터 없음)", x + 6, y + 95, 10, vis ? (a && on ? PAL.accent2 : PAL.muted) : PAL.muted, 500, "left", MONO, TW - 10);
       T(c, DESC[i][0], x + 6, y + 110, 10.5, vis ? PAL.ink : PAL.muted, 500); T(c, DESC[i][1], x + 6, y + 124, 10.5, vis ? PAL.ink : PAL.muted, 500);
     });
     T(c, 'ffmpeg -i in.mp4 -vf "필터=옵션" out.mp4', 14, 352, 10.5, PAL.muted, 500, "left", MONO);

@@ -108,37 +108,36 @@ const demo = {
     const cv = el('canvas', null, sp); cv.width = 1280; cv.height = 720; cv.style.cssText = 'position:absolute;left:0;top:0;width:640px;height:360px';
     const gc = document.createElement('canvas'); gc.width = gc.height = 96; const g = gc.getContext('2d'), r = rng(3), im = g.createImageData(96, 96);
     for (let i = 0; i < 96 * 96; i++) { const v = Math.round(r() * 255); im.data[i * 4] = im.data[i * 4 + 1] = im.data[i * 4 + 2] = v; im.data[i * 4 + 3] = 255; } g.putImageData(im, 0, 0);
-    const T = 96, W = 384, P = (d) => peaks(d, 500), lv = [];
-    return { ctx: cv.getContext('2d'), grain: gc, ref: REF, T, lv, get(L) { return lv[L - 1] || (lv[L - 1] = (() => { const b = build(L); return { b, sp: spec(b.mix, T, W), pk: { n: P(b.n), s: P(b.s), f: P(b.f), mix: P(b.mix) } }; })()); } };
+    const T = 96, W = 384, P = (d) => peaks(d, 454), lv = [];
+    return { ctx: cv.getContext('2d'), grain: gc, ref: REF, T, lv, get(L) { return lv[L - 1] || (lv[L - 1] = (() => { const b = build(L); return { b, sp: spec(b.mix, T, W), pk: { n: P(b.n), s: P(b.s), f: P(b.f) } }; })()); } };
   },
   render(s, t, a, lv) {
-    const L = !a ? 1 : (lv == null ? 3 : lv), c = s.ctx, X = 124, W = 500, ph = Math.min(1, t / TOT), D = s.get(L), b = D.b, pk = D.pk;
+    const L = !a ? 1 : (lv == null ? 3 : lv), c = s.ctx, X = 170, W = 454, SY = 204, SH = 110, ph = Math.min(1, t / TOT), D = s.get(L), b = D.b, pk = D.pk;
     c.setTransform(2, 0, 0, 2, 0, 0); c.globalAlpha = 1; bgFill(c, s.grain);
     const rows = [['알림', C_N, 'n'], ['성공', C_S, 's'], ['실패', C_F, 'f']];
-    rows.forEach(([n, col, key], i) => { const y = 46 + i * 30; tx(c, n, 16, y + 17, 12, col, 600); wave(c, pk[key], X, y, W, 26, col, ph, 1.2); });
-    wave(c, pk.mix, X, 140, W, 34, INK, ph, 1);
-    tx(c, '합친 소리', 16, 161, 12, INK, 700);
-    specDraw(c, D.sp, s.T, X, 182, W, 92, s.ref, ph);
-    [[100, '100'], [1000, '1k'], [5000, '5k']].forEach(([f, l]) => tx(c, l, X - 6, fy(f, 182, 92) + 4, 10, TX2, 500, 'right', MONO));
-    tx(c, '스펙트럼', 16, 232, 12, PAL.accent2, 700);
-    if (L >= 3) {   // 실패음의 높은 소리를 깎는 선(저역통과 주파수)
-      const yy = fy(FAIL_LP, 182, 92), x0 = X + F_T / TOT * W; c.fillStyle = 'rgba(255,90,110,.27)'; c.fillRect(x0, 182, X + W - x0, yy - 182); c.save(); c.setLineDash([4, 3]); c.strokeStyle = 'rgba(255,159,176,.9)'; c.lineWidth = 1; c.beginPath(); c.moveTo(x0, yy); c.lineTo(X + W, yy); c.stroke(); c.restore();
-      tx(c, `깎는 선 ${FAIL_LP}Hz · 위쪽은 깎여 나감`, X + W - 4, 195, 10, '#ffd0d8', 600, 'right', MONO);
-    }
-    const xx = X + ph * W; c.fillStyle = al(PAL.ink, .92); c.fillRect(xx - .7, 42, 1.4, 232);
-    let y = 292;
-    rows.forEach(([n, col, key]) => {
-      const q = b.st[key];
-      tx(c, `${n}  음 ${q.n}개 · ${q.p0.toFixed(0)}Hz → ${q.p1.toFixed(0)}Hz (${q.dir}) · 소리가 -40dB까지 ${q.tail.toFixed(0)}ms`, 16, y, 10.5, col, 500, 'left', MONO); y += 15;
+    rows.forEach(([n, col, key], i) => {   // 줄마다 왼쪽에 이름·음 개수, 음높이 변화, 소리가 끝나기까지의 시간 / 오른쪽에 파형
+      const y = 40 + i * 52, q = b.st[key];
+      tx(c, n, 16, y + 14, 13.5, col, 700); tx(c, `음 ${q.n}개`, 56, y + 14, 12, TX2, 500);
+      tx(c, `${q.p0.toFixed(0)} → ${q.p1.toFixed(0)}Hz ${q.dir}`, 16, y + 30, 12, col, 600, 'left', MONO);
+      tx(c, `-40dB까지 ${q.tail.toFixed(0)}ms`, 16, y + 45, 11.5, TX2, 500, 'left', MONO);
+      wave(c, pk[key], X, y, W, 46, col, ph, 1.4);
     });
-    tx(c, '재생 버튼 없음. 파형과 스펙트럼은 코드로 합성한 값이며, 소리는 직접 들어 보고 판단하세요.', 624, 26, 10.5, TX2, 500, 'right');
+    specDraw(c, D.sp, s.T, X, SY, W, SH, s.ref, ph);
+    [[100, '100'], [1000, '1k'], [5000, '5k']].forEach(([f, l]) => tx(c, l, X - 6, fy(f, SY, SH) + 4, 11, TX2, 500, 'right', MONO));
+    tx(c, '스펙트럼', 16, SY + 16, 13.5, PAL.accent2, 700);
+    if (L >= 3) {   // 실패음의 높은 소리를 깎는 선(저역통과 주파수)
+      const yy = fy(FAIL_LP, SY, SH), x0 = X + F_T / TOT * W; c.fillStyle = 'rgba(255,90,110,.27)'; c.fillRect(x0, SY, X + W - x0, yy - SY); c.save(); c.setLineDash([4, 3]); c.strokeStyle = 'rgba(255,159,176,.9)'; c.lineWidth = 1; c.beginPath(); c.moveTo(x0, yy); c.lineTo(X + W, yy); c.stroke(); c.restore();
+      tx(c, `깎는 선 ${FAIL_LP}Hz · 위쪽은 깎여 나감`, X + 10, SY + 15, 11.5, '#ffd0d8', 600, 'left', MONO);
+    }
+    const xx = X + ph * W; c.fillStyle = al(PAL.ink, .92); c.fillRect(xx - .7, 36, 1.4, SY + SH - 36);
+    tx(c, '재생 버튼 없음. 파형과 스펙트럼은 코드로 합성한 값입니다.', 624, 24, 11, TX2, 500, 'right');
     let post;
     if (L === 1) post = '연출 전 · 알림·성공·실패가 모두 같은 삑 소리';
     else if (t < N_T) post = '곧 알림';
     else if (t < S_T) post = L >= 3 ? '알림: 짧은 세 음 모티프' : '알림: 아직 삑 한 번';
     else if (t < F_T) post = '성공: 음이 위로 올라감';
     else post = L >= 3 ? '실패: 음이 아래로 · 고역을 깎아 부드럽게' : '실패: 음이 아래로 · 날카로움 그대로';
-    c.fillStyle = PAL.line; c.fillRect(16, 334, 608, 1); tx(c, post, 16, 350, 12, TX2, 500, 'left', MONO);   // 이름표(caption-bl): 왼쪽 아래, 배경 없이 얇은 선 위에
+    c.fillStyle = PAL.line; c.fillRect(16, 334, 608, 1); tx(c, post, 16, 350, 12.5, TX2, 500, 'left', MONO);   // 이름표(caption-bl): 왼쪽 아래, 배경 없이 얇은 선 위에
   },
 };
 export default demo;
