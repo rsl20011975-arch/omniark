@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import PromptView from "./PromptView";
 
 export default function CodeBlock({ text }: { text: string }) {
   const [label, setLabel] = useState("복사");
@@ -19,7 +20,7 @@ export default function CodeBlock({ text }: { text: string }) {
         <span>Claude Code · Codex에 그대로 붙여 넣기</span>
         <button type="button" className="btn small" onClick={copy}>{label}</button>
       </div>
-      <pre>{text}</pre>
+      <PromptView text={text} />
     </div>
   );
 }
