@@ -899,10 +899,77 @@ export const LOADERS: Record<string, Record<string, Loader>> = {
     "still15": () => import("./d244_still15.js"),
     "repmid": () => import("./d244_repmid.js")
   },
+  d245: {
+    base: () => import("./d245.js"),
+    "wide": () => import("./d245_wide.js"),
+    "cap20": () => import("./d245_cap20.js"),
+    "short": () => import("./d245_short.js")
+  },
+  d246: {
+    base: () => import("./d246.js"),
+    "dusk": () => import("./d246_dusk.js"),
+    "high": () => import("./d246_high.js")
+  },
+  d247: {
+    base: () => import("./d247.js"),
+    "k4": () => import("./d247_k4.js"),
+    "feed": () => import("./d247_feed.js")
+  },
+  d248: {
+    base: () => import("./d248.js"),
+    "four": () => import("./d248_four.js"),
+    "left": () => import("./d248_left.js"),
+    "wide": () => import("./d248_wide.js")
+  },
+  d249: {
+    base: () => import("./d249.js"),
+    "timeout": () => import("./d249_timeout.js"),
+    "free": () => import("./d249_free.js"),
+    "skip": () => import("./d249_skip.js")
+  },
   d25: {
     base: () => import("./d25.js"),
     "thick": () => import("./d25_thick.js"),
     "nozoom": () => import("./d25_nozoom.js")
+  },
+  d250: {
+    base: () => import("./d250.js"),
+    "navy": () => import("./d250_navy.js"),
+    "narrow": () => import("./d250_narrow.js")
+  },
+  d251: {
+    base: () => import("./d251.js"),
+    "thick": () => import("./d251_thick.js"),
+    "limit": () => import("./d251_limit.js"),
+    "cols": () => import("./d251_cols.js")
+  },
+  d252: {
+    base: () => import("./d252.js"),
+    "flat": () => import("./d252_flat.js"),
+    "stone": () => import("./d252_stone.js")
+  },
+  d253: {
+    base: () => import("./d253.js"),
+    "eight": () => import("./d253_eight.js"),
+    "night": () => import("./d253_night.js"),
+    "nodot": () => import("./d253_nodot.js")
+  },
+  d254: {
+    base: () => import("./d254.js"),
+    "more": () => import("./d254_more.js"),
+    "fewer": () => import("./d254_fewer.js")
+  },
+  d255: {
+    base: () => import("./d255.js"),
+    "bigger": () => import("./d255_bigger.js"),
+    "face": () => import("./d255_face.js"),
+    "slow": () => import("./d255_slow.js")
+  },
+  d256: {
+    base: () => import("./d256.js"),
+    "strict": () => import("./d256_strict.js"),
+    "twoRules": () => import("./d256_twoRules.js"),
+    "judgeDown": () => import("./d256_judgeDown.js")
   },
   d26: {
     base: () => import("./d26.js"),

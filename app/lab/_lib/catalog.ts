@@ -35,7 +35,7 @@ export type Ideas = { sub: string; items: Idea[] };
 
 /** AI에게 읽히는 연출 규칙(결정 #94). 새 세션이 0부터 다시 정하지 않게, 증거 등급을 붙여 모은 것. */
 export type RuleLink = { href: string; name: string };
-export type RuleGroup = "imgvid" | "shorts" | "longform" | "appui";
+export type RuleGroup = "imgvid" | "shorts" | "longform" | "appui" | "aiimage";
 export type Rule = { id: string; g?: RuleGroup; t: string; value: string; grade: "측정" | "지시" | "기록" | "추정" | "미확인"; basis: string; links: RuleLink[] };
 /** 규칙 묶음: g 를 안 쓴 규칙은 imgvid. */
 export const RULE_GROUPS: { id: RuleGroup; name: string; href: string }[] = [
@@ -43,6 +43,7 @@ export const RULE_GROUPS: { id: RuleGroup; name: string; href: string }[] = [
   { id: "shorts", name: "쇼츠 제작 포맷 규칙", href: "https://omniark.co/lab/shorts" },
   { id: "longform", name: "롱폼 제작 포맷 규칙", href: "https://omniark.co/lab/longform" },
   { id: "appui", name: "앱·웹 화면 제작 규칙", href: "https://omniark.co/lab/appui" },
+  { id: "aiimage", name: "AI 이미지 생성 제작 규칙", href: "https://omniark.co/lab/aiimage" },
 ];
 export const rulesOf = (rs: Rule[], g: RuleGroup) => rs.filter((x) => (x.g ?? "imgvid") === g);
 export type Rules = {
