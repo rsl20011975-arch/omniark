@@ -1,0 +1,42 @@
+/* 002 설명 화면(explainer.js) 스타일. 무대 div 에 class="ex" 를 단다. 블로그 플레이어와 롱폼 장면이 같이 쓴다. */
+/* Screen 부품 스타일(001 롱폼 v2 와 같은 값) */
+.ex .scr { position:absolute; overflow:hidden }
+.ex .scr-cam { position:absolute; left:0; top:0; transform-origin:0 0 }
+.ex .scr-page { position:absolute; left:0; top:0; width:1280px; height:720px }
+.ex .scr-ov { position:absolute; left:0; top:0; overflow:visible; pointer-events:none; z-index:20 }
+.ex .scr-tags { position:absolute; left:0; top:0; z-index:22 }
+.ex .scr-tag { position:absolute; white-space:nowrap; font-size:24px; font-weight:800; padding:8px 18px 9px; border-radius:999px; transform-origin:0 50%; box-shadow:0 2px 4px #1c1b1826, 0 10px 24px #1c1b1840; color:#fff; letter-spacing:-.02em }
+.ex .scr-tag small { display:block; font-size:16px; font-weight:600; opacity:.88 }
+.ex .scr-tag.see { background:#6d28d9 }
+.ex .scr-tag::before { content:""; position:absolute; left:22px; bottom:-7px; width:14px; height:14px; background:inherit; transform:rotate(45deg); border-radius:2px }
+.ex .scr-tag.down::before { bottom:auto; top:-7px }
+.ex .scr-tag.right::before { left:-7px; bottom:auto; top:22px }
+.ex .scr-rip { position:absolute; border-radius:50%; border:4px solid #6d28d9; z-index:24 }
+.ex .scr-cur { position:absolute; width:34px; height:48px; transform-origin:0 0; filter:drop-shadow(0 2px 2px #0005) drop-shadow(0 6px 10px #0004); z-index:25 }
+
+/* 설명하는 화면: 매출 대시보드(가상의 숫자) */
+.dash { position:absolute; inset:0; background:#f6f4ef; color:#1c1b18 }
+.dash .card { position:absolute; background:#fff; border-radius:16px; box-shadow:0 1px 2px rgba(28,27,24,.06), 0 6px 18px rgba(28,27,24,.05) }
+.dash h1 { position:absolute; left:56px; top:36px; font-size:34px; font-weight:800; letter-spacing:-.03em }
+.dash .dsub { position:absolute; left:58px; top:84px; font-size:16px; color:#6f685f; font-weight:500 }
+.dash .exp { position:absolute; left:1052px; top:44px; height:48px; padding:0 22px; display:flex; align-items:center; gap:10px; border-radius:12px; background:#1c1b18; color:#fff; font-size:17px; font-weight:700 }
+.dash .exp svg { width:20px; height:20px }
+.dash .lbl { font-size:15px; font-weight:700; color:#6f685f }
+.dash .kpi-n { font-size:58px; font-weight:800; letter-spacing:-.04em; line-height:1 }
+.dash .kpi-n small { font-size:28px; font-weight:700; margin-left:4px }
+.dash .delta { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:999px; background:#dcf2e3; color:#166534; font-size:20px; font-weight:800 }
+.dash .delta svg { width:20px; height:20px; stroke-width:2.6 }
+.dash .bars { position:absolute; left:32px; right:32px; bottom:28px; height:190px; display:flex; align-items:flex-end; gap:22px }
+.dash .bars > div { flex:1; display:flex; flex-direction:column; align-items:center; gap:10px; height:100% ; justify-content:flex-end }
+.dash .bars i { width:100%; border-radius:8px 8px 4px 4px; background:#d8d3c8 }
+.dash .bars .top i { background:#2f6b4f }
+.dash .bars span { font-size:15px; font-weight:700; color:#6f685f }
+.dash .row { position:absolute; left:28px; right:28px; height:44px; display:grid; grid-template-columns:1.1fr 2fr 1fr 1fr; align-items:center; font-size:17px; font-weight:500; border-radius:8px; padding:0 12px }
+.dash .row.h { font-size:14px; font-weight:700; color:#6f685f }
+.dash .row b { font-weight:700 } .row .r { text-align:right }
+.dash .row.refund { color:#b91c1c; background:#fbe2e2 }
+.ex .spot { position:absolute; border-radius:14px; box-shadow:0 0 0 3000px rgba(12,10,18,.62); pointer-events:none; z-index:18 }
+
+/* 영상 위 글자 */
+.ex .cap { position:absolute; left:50%; bottom:28px; transform:translateX(-50%); max-width:1100px; padding:12px 26px 14px; border-radius:14px; background:rgba(12,10,18,.82); color:#fff; font-size:36px; font-weight:700; letter-spacing:-.02em; text-align:center; white-space:nowrap; z-index:40 }
+.ex .cap em { font-style:normal; color:#fde047 }

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스크롤 효과 켜고 끄기</title>
+<!-- 003 블로그 데모: 같은 홈페이지에 스크롤 효과 세 가지를 켜고 끈다(scrolldemo.js). 주소 옵션: ?on=all | reveal,stagger,parallax | none   ?controls=0   ?y=스크롤 위치(px)   ?auto=Y(혼자 Y 까지 내려갔다 올라오기 반복) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<link rel="stylesheet" href="scrolldemo.css">
+<style>
+  * { box-sizing:border-box; margin:0 }
+  html, body { height:100%; background:#0c0a12; color:#f2eee9; font-family:"Pretendard Variable",Pretendard,sans-serif; overflow:hidden }
+  body { display:flex; flex-direction:column }
+  #bar { display:flex; gap:8px; align-items:center; padding:10px 12px; background:#15121c; overflow-x:auto; scrollbar-width:none }
+  #bar::-webkit-scrollbar { display:none }
+  .tg { flex:none; padding:8px 14px 9px; border-radius:999px; border:0; background:#25212c; color:#cdc6bd; font:700 14px/1 inherit; cursor:pointer; transition:background .18s ease-out, color .18s ease-out }
+  .tg[aria-pressed="true"] { background:#6d28d9; color:#fff } .tg.all { background:transparent; color:#a78bfa; box-shadow:inset 0 0 0 1.5px #4c3a7a }
+  button:focus-visible { outline:2px solid #a78bfa; outline-offset:2px }
+  #host { position:relative; flex:1; min-height:0 }
+</style>
+</head>
+<body>
+<div id="bar"></div><div id="host"></div>
+<script src="scrolldemo.js"></script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s), q = new URLSearchParams(location.search), sd = ScrollDemo($("#host")), bar = $("#bar");
+  const TECH = [["reveal", "스크롤 리빌"], ["stagger", "스태거"], ["parallax", "패럴랙스"]], on = new Set();
+  (q.get("on") === "all" ? TECH.map(x => x[0]) : (q.get("on") || "").split(",")).forEach(x => TECH.some(t => t[0] === x) && on.add(x));
+  if (q.get("controls") === "0") bar.style.display = "none";
+  bar.innerHTML = `<button class="tg all" id="all"></button>` + TECH.map(([k, n]) => `<button class="tg" data-k="${k}" aria-pressed="false">${n}</button>`).join("");
+  const sync = () => { sd.set([...on]); bar.querySelectorAll("[data-k]").forEach(b => b.setAttribute("aria-pressed", on.has(b.dataset.k))); $("#all").textContent = on.size === TECH.length ? "전부 끄기" : "전부 켜기" };
+  bar.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return;
+    if (b.id === "all") { const full = on.size === TECH.length; on.clear(); if (!full) TECH.forEach(x => on.add(x[0])) } else on.has(b.dataset.k) ? on.delete(b.dataset.k) : on.add(b.dataset.k); sync() });
+  window.setScroll = y => { $("#host .sd-page").scrollTop = y; sd.render() };
+  // auto=Y: 블로그 비교 칸 - 혼자 Y 까지 내려갔다 올라오기를 되풀이한다(가감속, 사람이 스크롤하지 않아도 효과가 보이게). 사용자가 직접 스크롤하면 멈춘다
+  if (q.get("auto")) { const Y = +q.get("auto"), pg = $("#host .sd-page"), t0 = performance.now(), PER = 7000; let user = false; addEventListener("wheel", () => user = true, { passive: true }); addEventListener("touchstart", () => user = true, { passive: true });
+    const ease = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    (function f(n) { if (user) return; const k = ((n - t0) % PER) / PER, v = k < .5 ? ease(k / .5) : k < .6 ? 1 : 1 - ease((k - .6) / .4); pg.scrollTop = Y * v; requestAnimationFrame(f) })(t0) }
+  sync(); if (q.get("y")) window.setScroll(+q.get("y"));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<title>매출 대시보드 설명 영상</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face{
+  font-family:'Pretendard';
+  src:url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/woff2/PretendardVariable.woff2') format('woff2-variations');
+  font-weight:45 920;
+  font-display:swap;
+}
+:root{
+  --cream:#FBF6EC;
+  --ink:#1B1A17;
+  --ink-soft:#4A4640;
+  --muted:#8A8478;
+  --card:#FFFFFE;
+  --line:rgba(27,26,23,.07);
+  --green:#1E9E52;
+  --green-soft:#DFF6E6;
+  --green-text:#157A3F;
+  --red:#D23B3B;
+  --red-soft:#FCEBEB;
+  --red-line:#F3C9C9;
+  --black:#171614;
+  --sp1:4px; --sp2:8px; --sp3:12px; --sp4:16px; --sp5:24px; --sp6:32px; --sp7:48px; --sp8:64px;
+  --r-sm:6px; --r-md:10px; --r-lg:14px;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  width:100%;height:100vh;overflow:hidden;
+  background:radial-gradient(ellipse 120% 90% at 50% 0%, #26241f 0%, #141311 62%, #0b0a09 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Segoe UI',Roboto,'Malgun Gothic',sans-serif;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+#frame{
+  position:relative;
+  width:1280px;height:810px;
+  display:flex;flex-direction:column;
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,.55)) drop-shadow(0 4px 14px rgba(0,0,0,.4));
+  opacity:0; transition:opacity .5s ease;
+  transform-origin:50% 50%;
+}
+#frame.ready{opacity:1;}
+
+#viewport{
+  position:relative;width:1280px;height:720px;overflow:hidden;
+  border-radius:16px 16px 0 0;
+  border:1px solid rgba(255,255,255,.08);
+  background:var(--cream);
+}
+
+/* ---------- STAGE (content being filmed) ---------- */
+#stage{
+  position:absolute;top:0;left:0;width:1280px;height:720px;
+  background:
+    radial-gradient(ellipse 70% 50% at 15% 0%, rgba(255,255,255,.5), rgba(255,255,255,0) 60%),
+    var(--cream);
+  transform-origin:0 0;
+  will-change:transform;
+}
+
+.topbar{
+  position:absolute;top:0;left:0;width:1280px;height:92px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 var(--sp6);
+}
+#title{
+  margin:0;font-size:24px;font-weight:800;color:var(--ink);letter-spacing:-0.02em;
+}
+.btn-export{
+  display:flex;align-items:center;gap:var(--sp2);
+  background:var(--black);color:#fff;border:none;border-radius:999px;
+  padding:12px 22px;font-size:16px;font-weight:700;
+  box-shadow:0 1px 2px rgba(0,0,0,.25), 0 10px 20px rgba(0,0,0,.22);
+  font-family:inherit;cursor:pointer;
+  transform:translateZ(0);
+}
+.btn-export svg{width:18px;height:18px;}
+
+.cards-row{
+  position:absolute;top:108px;left:var(--sp6);right:var(--sp6);
+  display:flex;gap:var(--sp5);height:276px;
+}
+.card{
+  background:var(--card);border-radius:var(--r-lg);
+  border:1px solid var(--line);
+  box-shadow:0 1px 2px rgba(20,18,14,.04), 0 10px 28px rgba(20,18,14,.07);
+  padding:var(--sp5);
+}
+.card-label{
+  font-size:14px;font-weight:600;color:var(--muted);margin-bottom:var(--sp3);
+  letter-spacing:-0.01em;
+}
+.card-revenue{width:380px;display:flex;flex-direction:column;}
+.big-number{
+  font-size:48px;font-weight:800;color:var(--ink);letter-spacing:-0.025em;
+  margin-top:var(--sp4);
+}
+.pill{
+  display:inline-flex;align-items:center;gap:6px;
+  margin-top:var(--sp5);width:fit-content;
+  padding:8px 16px;border-radius:999px;font-size:16px;font-weight:700;
+  box-shadow:0 2px 6px rgba(21,122,63,.12);
+}
+.pill-up{background:var(--green-soft);color:var(--green-text);}
+.pill svg{width:14px;height:14px;}
+
+.card-chart{flex:1;display:flex;flex-direction:column;}
+.bars{display:flex;align-items:flex-end;gap:22px;height:176px;flex:1;padding-top:8px;}
+.bar-col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;height:100%;}
+.bar{
+  width:34px;border-radius:7px 7px 3px 3px;
+  background:linear-gradient(180deg,#ECEAE4 0%,#D8D5CC 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 2px 3px rgba(20,18,14,.04);
+  position:relative;
+}
+.bar::after{
+  content:'';position:absolute;left:3px;right:3px;bottom:-5px;height:7px;
+  background:radial-gradient(ellipse, rgba(20,18,14,.14), transparent 70%);
+  filter:blur(1px);
+}
+.bar.hi{
+  background:linear-gradient(180deg,#39C379 0%,#1E9E52 55%,#167F42 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35), 0 6px 14px rgba(30,158,82,.35);
+}
+.bar-col span{font-size:13px;font-weight:600;color:var(--muted);}
+
+.card-table{position:absolute;top:400px;left:var(--sp6);right:var(--sp6);height:196px;}
+table{width:100%;border-collapse:collapse;}
+thead th{
+  text-align:left;font-size:13px;font-weight:600;color:var(--muted);
+  padding:0 var(--sp3) var(--sp3) var(--sp3);border-bottom:1px solid var(--line);
+}
+tbody td{
+  font-size:16px;color:var(--ink-soft);padding:13px var(--sp3);border-bottom:1px solid var(--line);
+  font-weight:500;
+}
+tbody tr:last-child td{border-bottom:none;}
+tbody td:first-child{color:var(--muted);font-weight:600;width:90px;}
+tbody td:last-child{text-align:right;font-weight:700;color:var(--ink);width:200px;}
+tr.row-refund{background:var(--red-soft);}
+tr.row-refund td{color:var(--red)!important;}
+tr.row-refund td:first-child{color:var(--red)!important;opacity:.75;}
+tr.row-refund td:nth-child(2){font-weight:700;}
+
+/* ---------- overlays (screen space, not scaled) ---------- */
+#spotlight{
+  position:absolute;inset:0;pointer-events:none;
+}
+#spotlight .hole{
+  position:absolute;border-radius:50%;
+  box-shadow:0 0 0 2000px rgba(10,9,8,.6);
+  opacity:0;
+}
+#annoSvg{position:absolute;inset:0;pointer-events:none;overflow:visible;}
+#annoSvg path{
+  fill:none;stroke:#FFE066;stroke-width:4;stroke-linecap:round;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.35));
+  opacity:0;
+}
+
+#callout{
+  position:absolute;top:0;left:0;pointer-events:none;
+  background:rgba(23,22,20,.94);color:#fff;border-radius:12px;
+  padding:12px 16px;min-width:150px;max-width:230px;
+  box-shadow:0 2px 4px rgba(0,0,0,.2), 0 14px 32px rgba(0,0,0,.35);
+  opacity:0;transform:scale(.85) translateY(6px);
+}
+#callout::after{
+  content:'';position:absolute;width:14px;height:14px;background:rgba(23,22,20,.94);
+  bottom:-6px;left:28px;transform:rotate(45deg);border-radius:2px;
+}
+#callout .t{font-size:15px;font-weight:800;letter-spacing:-0.01em;}
+#callout .d{font-size:12.5px;color:#D8D5CC;margin-top:3px;font-weight:500;line-height:1.4;}
+
+#cursor{
+  position:absolute;top:0;left:0;width:34px;height:34px;pointer-events:none;
+  opacity:0;will-change:transform;
+}
+#cursor svg{filter:drop-shadow(0 2px 4px rgba(0,0,0,.45));}
+#ripple{
+  position:absolute;top:0;left:0;width:46px;height:46px;border-radius:50%;
+  border:2.5px solid #fff;pointer-events:none;opacity:0;
+}
+
+/* ---------- subtitle ---------- */
+#subtitleBar{
+  width:1280px;height:90px;background:#0e0d0c;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:0 0 16px 16px;border:1px solid rgba(255,255,255,.08);border-top:none;
+}
+#subtitleText{
+  font-size:22px;font-weight:600;color:#F3F1EC;letter-spacing:-0.01em;
+  text-align:center;padding:0 48px;
+  opacity:0;transform:translateY(8px);
+}
+</style>
+</head>
+<body>
+<div id="frame">
+  <div id="viewport">
+    <div id="stage">
+      <div class="topbar">
+        <h1 id="title">이번 달 매출</h1>
+        <button class="btn-export" id="exportBtn">
+          내보내기
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v11" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M7 10l5 5 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 18.5h16" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <div class="cards-row">
+        <div class="card card-revenue" id="cardRevenue">
+          <div class="card-label">총 매출</div>
+          <div class="big-number" id="bigNumber">4,820,000원</div>
+          <div class="pill pill-up" id="pillBadge">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M6 15l6-6 6 6" stroke="#157A3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            지난달보다 12%
+          </div>
+        </div>
+
+        <div class="card card-chart" id="cardChart">
+          <div class="card-label">요일별 매출</div>
+          <div class="bars">
+            <div class="bar-col"><div class="bar" style="height:92px"></div><span>월</span></div>
+            <div class="bar-col"><div class="bar" style="height:118px"></div><span>화</span></div>
+            <div class="bar-col"><div class="bar hi" id="barWed" style="height:160px"></div><span>수</span></div>
+            <div class="bar-col"><div class="bar" style="height:84px"></div><span>목</span></div>
+            <div class="bar-col"><div class="bar" style="height:104px"></div><span>금</span></div>
+            <div class="bar-col"><div class="bar" style="height:66px"></div><span>토</span></div>
+            <div class="bar-col"><div class="bar" style="height:56px"></div><span>일</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-table" id="cardTable">
+        <div class="card-label">최근 주문</div>
+        <table>
+          <thead><tr><th>주문번호</th><th>상품</th><th style="text-align:right">금액</th></tr></thead>
+          <tbody>
+            <tr><td>#2042</td><td>라탄 바구니 세트</td><td>132,000원</td></tr>
+            <tr><td>#2040</td><td>원목 트레이</td><td>58,000원</td></tr>
+            <tr class="row-refund" id="tableRow3"><td>#2039</td><td>유리 밀폐 용기 6종</td><td>−89,000원 환불</td></tr>
+            <tr><td>#2037</td><td>면 식탁보</td><td>44,000원</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="spotlight"><div class="hole" id="hole"></div></div>
+    <svg id="annoSvg"><path id="annoPath" d=""/></svg>
+    <div id="callout"><div class="t" id="calloutTitle"></div><div class="d" id="calloutDesc"></div></div>
+    <div id="cursor">
+      <svg width="34" height="34" viewBox="0 0 34 34">
+        <path d="M6 3 L6 26 L12 21 L16 29 L20 27 L16 19 L24 19 Z" fill="#fff" stroke="#171614" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div id="ripple"></div>
+  </div>
+  <div id="subtitleBar"><div id="subtitleText"></div></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var VW=1280, VH=720, LOOP=24.0;
+
+  var stage=document.getElementById('stage');
+  var hole=document.getElementById('hole');
+  var annoPath=document.getElementById('annoPath');
+  var callout=document.getElementById('callout');
+  var calloutTitle=document.getElementById('calloutTitle');
+  var calloutDesc=document.getElementById('calloutDesc');
+  var cursor=document.getElementById('cursor');
+  var ripple=document.getElementById('ripple');
+  var subtitleText=document.getElementById('subtitleText');
+  var frame=document.getElementById('frame');
+
+  function rectInStage(el){
+    var x=0,y=0,node=el;
+    while(node && node!==stage){ x+=node.offsetLeft; y+=node.offsetTop; node=node.offsetParent; }
+    return {x:x,y:y,w:el.offsetWidth,h:el.offsetHeight};
+  }
+
+  function easeInOutCubic(t){ return t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2; }
+  function easeOutCubic(t){ return 1-Math.pow(1-t,3); }
+  function easeOutBack(t){ var c1=1.70158,c3=c1+1; return 1+c3*Math.pow(t-1,3)+c1*Math.pow(t-1,2); }
+  function clamp(v,a,b){ return Math.max(a,Math.min(b,v)); }
+  function lerp(a,b,t){ return a+(b-a)*t; }
+
+  function fitScale(rect,padding){
+    return Math.min(VW/(rect.w*padding), VH/(rect.h*padding));
+  }
+  function stateFor(rect,scale){
+    var cx=rect.x+rect.w/2, cy=rect.y+rect.h/2;
+    return { tx: VW/2 - cx*scale, ty: VH/2 - cy*scale, scale: scale, cx:cx, cy:cy };
+  }
+  function toScreen(px,py,cam){
+    return { x: cam.tx+px*cam.scale, y: cam.ty+py*cam.scale };
+  }
+
+  var rects, overviewRect, cues, phases;
+
+  function buildTimeline(){
+    overviewRect = {x:0,y:0,w:VW,h:VH};
+    rects = {
+      number: rectInStage(document.getElementById('bigNumber')),
+      pill:   rectInStage(document.getElementById('pillBadge')),
+      chart:  rectInStage(document.getElementById('cardChart')),
+      bar:    rectInStage(document.getElementById('barWed')),
+      table:  rectInStage(document.getElementById('cardTable')),
+      row:    rectInStage(document.getElementById('tableRow3')),
+      btn:    rectInStage(document.getElementById('exportBtn'))
+    };
+
+    // union helper
+    function union(a,b){
+      var x1=Math.min(a.x,b.x), y1=Math.min(a.y,b.y);
+      var x2=Math.max(a.x+a.w,b.x+b.w), y2=Math.max(a.y+a.h,b.y+b.h);
+      return {x:x1,y:y1,w:x2-x1,h:y2-y1};
+    }
+
+    cues = [
+      { // cue0 overview
+        start:0, end:4.8, subtitle:"이 화면은 이번 달 매출을 한눈에 보여 줍니다.",
+        rect: {x:overviewRect.x-20,y:overviewRect.y-20,w:overviewRect.w+40,h:overviewRect.h+40},
+        scale: 1.0, creep: 0.14, spotlight:false, callout:null, cursorMode:'none'
+      },
+      { // cue1 big number + pill
+        start:4.8, end:9.6, subtitle:"맨 위 큰 숫자는, 지난달보다 12% 올랐다는 뜻이에요.",
+        rect: union(rects.number, rects.pill), scale:null, creep:0.07, spotlight:true,
+        callout:{title:"전월 대비 +12%", desc:"지난달보다 매출이 늘었어요", anchor:rects.pill, side:'right'},
+        cursorMode:'circle', cursorTarget:rects.pill
+      },
+      { // cue2 chart wed bar
+        start:9.6, end:14.4, subtitle:"아래 막대그래프에서는 수요일이 가장 높죠.",
+        rect: {x:rects.chart.x, y:rects.chart.y, w:rects.chart.w, h:rects.chart.h}, scale:null, creep:0.07, spotlight:true,
+        callout:{title:"수요일 최고 매출", desc:"요일 중 가장 높아요", anchor:rects.bar, side:'left'},
+        cursorMode:'circle', cursorTarget:rects.bar
+      },
+      { // cue3 table refund row
+        start:14.4, end:19.2, subtitle:"환불된 주문은 표에서 빨간 줄로 표시됩니다.",
+        rect: {x:rects.table.x, y:rects.row.y-10, w:rects.table.w, h:rects.row.h+40}, scale:null, creep:0.05, spotlight:true,
+        clampMin:0.94, clampMax:1.0,
+        callout:{title:"환불 주문", desc:"빨간 줄로 표시돼요", anchor:rects.row, side:'right'},
+        cursorMode:'underline', cursorTarget:rects.row
+      },
+      { // cue4 export button
+        start:19.2, end:24.0, subtitle:"자세한 자료는 오른쪽 위 내보내기 버튼으로 받으세요.",
+        rect: rects.btn, scale:null, creep:0.05, spotlight:true,
+        callout:{title:"내보내기", desc:"전체 데이터를 다운로드해요", anchor:rects.btn, side:'left'},
+        cursorMode:'click', cursorTarget:rects.btn
+      }
+    ];
+
+    cues.forEach(function(c){
+      if(c.scale===null){ c.scale = clamp(fitScale(c.rect,1.5), c.clampMin||1.55, c.clampMax||2.05); }
+      c.base = stateFor(c.rect, c.scale);
+      c.top  = stateFor(c.rect, c.scale + c.creep);
+    });
+
+    // build phase list: [arriveStart,arriveEnd] transition -> [holdEnd] hold -> ... -> loop back
+    phases = [];
+    var n = cues.length;
+    for(var i=0;i<n;i++){
+      var cue=cues[i];
+      var prev = cues[(i-1+n)%n];
+      var transStart, transEnd;
+      if(i===0){ transStart = LOOP-0.4; transEnd = LOOP; }
+      else { transStart = cue.start-0.2; transEnd = cue.start+0.3; }
+      phases.push({type:'trans', from:prev, to:cue, t0:transStart, t1:transEnd, cue:cue});
+      var holdStart = (i===0) ? 0 : transEnd;
+      var holdEnd = (i===n-1)? LOOP-0.4 : cue.end-0.2;
+      phases.push({type:'hold', cue:cue, t0:holdStart, t1:holdEnd});
+    }
+  }
+
+  function getCamera(t){
+    for(var i=0;i<phases.length;i++){
+      var p=phases[i];
+      if(t>=p.t0 && t<p.t1){
+        var local = p.t1>p.t0 ? (t-p.t0)/(p.t1-p.t0) : 1;
+        if(p.type==='trans'){
+          var e=easeInOutCubic(local);
+          return {
+            tx: lerp(p.from.top.tx, p.to.base.tx, e),
+            ty: lerp(p.from.top.ty, p.to.base.ty, e),
+            scale: lerp(p.from.top.scale, p.to.base.scale, e),
+            phase:p, local:local, active:null
+          };
+        } else {
+          var e2=easeOutCubic(local);
+          return {
+            tx: lerp(p.cue.base.tx, p.cue.top.tx, e2),
+            ty: lerp(p.cue.base.ty, p.cue.top.ty, e2),
+            scale: lerp(p.cue.base.scale, p.cue.top.scale, e2),
+            phase:p, local:local, active:p.cue
+          };
+        }
+      }
+    }
+    // fallback (end of loop edge)
+    var last = phases[phases.length-1];
+    return { tx:last.cue? last.cue.base.tx:0, ty:0, scale:1, phase:last, local:1, active:null };
+  }
+
+  // ---- svg path builders for hand-drawn annotations ----
+  function circlePath(cx,cy,rx,ry){
+    // slightly imperfect hand-drawn ellipse via two arcs with small jitter
+    var j=3;
+    return "M "+(cx-rx)+" "+cy+
+      " C "+(cx-rx)+" "+(cy-ry-j)+" "+(cx+rx*0.3)+" "+(cy-ry-j)+" "+(cx+rx)+" "+(cy-j*0.5)+
+      " C "+(cx+rx+j)+" "+(cy+ry*0.6)+" "+(cx-rx*0.2)+" "+(cy+ry+j)+" "+(cx-rx-1)+" "+(cy+2);
+  }
+  function underlinePath(x1,x2,y){
+    var midY=y+3;
+    return "M "+x1+" "+y+" Q "+((x1+x2)/2)+" "+midY+" "+x2+" "+(y-2);
+  }
+
+  var pathLen = 0;
+  function setupAnnoPath(d){
+    annoPath.setAttribute('d', d);
+    pathLen = annoPath.getTotalLength();
+    annoPath.style.strokeDasharray = pathLen;
+    annoPath.style.strokeDashoffset = pathLen;
+  }
+
+  var shown = -1; // index of active cue callout/anno currently shown
+  var annoSetupFor = -1;
+
+  var subtitleShown = -1;
+  var lastT = -1;
+
+  function render(t){
+    var cam = getCamera(t);
+    stage.style.transform = "translate("+cam.tx.toFixed(2)+"px,"+cam.ty.toFixed(2)+"px) scale("+cam.scale.toFixed(4)+")";
+
+    // subtitle
+    var cueIdx = -1;
+    for(var i=0;i<cues.length;i++){ if(t>=cues[i].start && t<cues[i].end){ cueIdx=i; break; } }
+    if(cueIdx!==-1 && cueIdx!==subtitleShown){
+      subtitleShown=cueIdx;
+      subtitleText.textContent = cues[cueIdx].subtitle;
+      subtitleText.style.transition='none';
+      subtitleText.style.opacity=0;
+      subtitleText.style.transform='translateY(8px)';
+      requestAnimationFrame(function(){
+        subtitleText.style.transition='opacity .35s ease, transform .35s ease';
+        subtitleText.style.opacity=1;
+        subtitleText.style.transform='translateY(0)';
+      });
+    }
+
+    var activeCue = cam.active;
+    var activeIdx = activeCue ? cues.indexOf(activeCue) : -1;
+
+    if(activeIdx!==shown){
+      shown=activeIdx;
+      if(activeIdx===-1 || !activeCue.spotlight){
+        hole.style.opacity=0;
+      }
+      if(!activeCue || !activeCue.callout){
+        callout.style.opacity=0;
+        callout.style.transform='scale(.85) translateY(6px)';
+      }
+      if(!activeCue || activeCue.cursorMode==='none'){
+        cursor.style.opacity=0;
+        ripple.style.opacity=0;
+        annoPath.style.opacity=0;
+      }
+      if(activeCue){ annoSetupFor=-1; }
+    }
+
+    if(!activeCue){ return; }
+
+    var holdLocal = cam.local; // 0..1 across hold (ease-out used for scale, reuse for reveal timing roughly)
+    var revealT = clamp(holdLocal/0.12, 0, 1); // quick reveal right as hold begins (within ~0.3s given hold ~2.5-4.6s)
+    var revealE = easeOutBack(revealT);
+
+    // spotlight hole follow target (always centered at screen target point)
+    if(activeCue.spotlight){
+      var centerScreen = toScreen(activeCue.rect.x+activeCue.rect.w/2, activeCue.rect.y+activeCue.rect.h/2, cam);
+      var rw = activeCue.rect.w*cam.scale*1.18, rh = activeCue.rect.h*cam.scale*1.25;
+      hole.style.width = rw+"px"; hole.style.height = rh+"px";
+      hole.style.left = (centerScreen.x-rw/2)+"px"; hole.style.top = (centerScreen.y-rh/2)+"px";
+      hole.style.opacity = Math.min(revealT*2,1)*0.0 + clamp(revealT,0,1);
+    }
+
+    // callout
+    if(activeCue.callout){
+      var a=activeCue.callout.anchor;
+      var ax = activeCue.callout.side==='right' ? a.x+a.w : a.x;
+      var ay = a.y;
+      var pt = toScreen(ax, ay, cam);
+      var cx, cy;
+      if(activeCue.callout.side==='right'){ cx = pt.x+34; cy = pt.y-56; }
+      else { cx = pt.x-240; cy = pt.y-56; }
+      cx = clamp(cx, 10, VW-240);
+      cy = clamp(cy, 10, VH-80);
+      callout.style.left = cx+"px"; callout.style.top = cy+"px";
+      calloutTitle.textContent = activeCue.callout.title;
+      calloutDesc.textContent = activeCue.callout.desc;
+      var ce = revealE;
+      callout.style.opacity = clamp(revealT*1.4,0,1);
+      callout.style.transform = "scale("+(0.85+0.15*ce)+") translateY("+(6-6*ce)+"px)";
+    }
+
+    // cursor + annotation gesture
+    if(activeCue.cursorMode!=='none'){
+      var targ = activeCue.cursorTarget;
+      var gStart=0.18, gDur=0.34; // fraction of hold used for gesture (hold ~2.3-4.4s long)
+      var approachT = clamp(holdLocal/0.14,0,1);
+      var ae = easeOutCubic(approachT);
+
+      if(activeCue.cursorMode==='circle'){
+        var centerPt = toScreen(targ.x+targ.w/2, targ.y+targ.h/2, cam);
+        var rx = Math.max(targ.w*cam.scale*0.65, 40), ry = Math.max(targ.h*cam.scale*0.9, 28);
+        if(annoSetupFor!==activeIdx){
+          setupAnnoPath(circlePath(centerPt.x, centerPt.y, rx, ry));
+          annoPath.style.stroke = '#FFE066';
+          annoSetupFor=activeIdx;
+        }
+        var gT = clamp((holdLocal-gStart)/gDur,0,1);
+        annoPath.style.opacity = gT>0?1:0;
+        annoPath.style.strokeDashoffset = pathLen*(1-easeInOutCubic(gT));
+        var ang = -Math.PI/2 + gT*2*Math.PI*0.96;
+        var cxp = centerPt.x+Math.cos(ang)*rx, cyp = centerPt.y+Math.sin(ang)*ry;
+        var startX=centerPt.x+120, startY=centerPt.y-90;
+        var px = lerp(startX, cxp, ae);
+        var py = lerp(startY, cyp, ae);
+        if(gT>=1){
+          var bob = Math.sin(t*2.2)*3;
+          px = cxp + bob; py = cyp + Math.cos(t*2.0)*3;
+        }
+        cursor.style.transform = "translate("+(px-6)+"px,"+(py-3)+"px)";
+        cursor.style.opacity = clamp(approachT*1.5,0,1);
+        ripple.style.opacity=0;
+      }
+      else if(activeCue.cursorMode==='underline'){
+        var y = targ.y+targ.h-10;
+        var x1s = toScreen(targ.x+16, y, cam), x2s = toScreen(targ.x+targ.w*0.52, y, cam);
+        if(annoSetupFor!==activeIdx){
+          setupAnnoPath(underlinePath(x1s.x, x2s.x, x1s.y));
+          annoPath.style.stroke = '#D23B3B';
+          annoSetupFor=activeIdx;
+        }
+        var gT2 = clamp((holdLocal-gStart)/gDur,0,1);
+        annoPath.style.opacity = gT2>0?1:0;
+        annoPath.style.strokeDashoffset = pathLen*(1-easeInOutCubic(gT2));
+        var startX2=x1s.x-110, startY2=x1s.y-70;
+        var curX = lerp(x1s.x, x2s.x, easeInOutCubic(gT2));
+        var curY = lerp(x1s.y, x2s.y, easeInOutCubic(gT2));
+        var px2 = gT2<=0 ? lerp(startX2,x1s.x,ae) : curX;
+        var py2 = gT2<=0 ? lerp(startY2,x1s.y,ae) : curY;
+        if(gT2>=1){ px2 += Math.sin(t*2.2)*2; py2 += Math.cos(t*1.8)*2; }
+        cursor.style.transform = "translate("+(px2-6)+"px,"+(py2-3)+"px)";
+        cursor.style.opacity = clamp(approachT*1.5,0,1);
+        ripple.style.opacity=0;
+      }
+      else if(activeCue.cursorMode==='click'){
+        var btnPt = toScreen(targ.x+targ.w*0.5, targ.y+targ.h*0.5, cam);
+        var startX3=btnPt.x+140, startY3=btnPt.y-100;
+        var px3 = lerp(startX3, btnPt.x, ae);
+        var py3 = lerp(startY3, btnPt.y, ae);
+        var clickWin0=0.20, clickWin1=0.30;
+        var pressScale=1;
+        if(holdLocal>clickWin0 && holdLocal<clickWin0+0.06){
+          pressScale = lerp(1,0.82, (holdLocal-clickWin0)/0.06);
+        } else if(holdLocal>=clickWin0+0.06 && holdLocal<clickWin0+0.16){
+          pressScale = lerp(0.82,1.08, easeOutBack((holdLocal-clickWin0-0.06)/0.10));
+        } else if(holdLocal>=clickWin0+0.16 && holdLocal<clickWin0+0.26){
+          pressScale = lerp(1.08,1, (holdLocal-clickWin0-0.16)/0.10);
+        }
+        if(holdLocal>=clickWin0+0.02){
+          var rpT = clamp((holdLocal-clickWin0-0.02)/0.5, 0, 1);
+          ripple.style.left = btnPt.x+"px"; ripple.style.top = btnPt.y+"px";
+          ripple.style.opacity = (1-rpT)*0.8;
+          ripple.style.transform = "translate(-50%,-50%) scale("+(1+rpT*2.2)+")";
+        } else { ripple.style.opacity=0; }
+        if(holdLocal>=1){ py3 += Math.sin(t*2.0)*2; }
+        cursor.style.transform = "translate("+(px3-6)+"px,"+(py3-3)+"px) scale("+pressScale+")";
+        cursor.style.transformOrigin = "6px 3px";
+        cursor.style.opacity = clamp(approachT*1.5,0,1);
+        annoPath.style.opacity = 0;
+      }
+    }
+  }
+
+  function loop(ts){
+    if(window.__t0===undefined) window.__t0=ts;
+    var elapsed = (ts-window.__t0)/1000;
+    var t = elapsed % LOOP;
+    render(t);
+    requestAnimationFrame(loop);
+  }
+
+  function fitFrame(){
+    var s = Math.min(window.innerWidth/1280, window.innerHeight/810) * 0.96;
+    s = Math.min(s, 1);
+    frame.style.transform = "scale("+s+")";
+  }
+
+  function start(){
+    buildTimeline();
+    fitFrame();
+    window.addEventListener('resize', fitFrame);
+    frame.classList.add('ready');
+    requestAnimationFrame(loop);
+  }
+
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(function(){ setTimeout(start, 60); }).catch(function(){ setTimeout(start,200); });
+  } else {
+    setTimeout(start, 200);
+  }
+})();
+</script>
+</body>
+</html>

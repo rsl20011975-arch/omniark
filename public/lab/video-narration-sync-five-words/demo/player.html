@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연출 켜고 끄기 — 같은 대사, 다른 화면</title>
+<!-- 002 데모: 같은 화면·같은 대사에 연출 다섯 가지(내레이션 싱크·줌인·콜아웃·스포트라이트·화면 주석)를 하나씩 켜고 끈다.
+     부품: explainer.js(설명 화면 + 연출, 롱폼과 같이 씀) · player.js(조작) · player.css. stage.js·screen.js 는 visual-lab/kit 의 복사본(블로그는 demo/ 폴더만 싣기 때문). 고칠 때는 kit 쪽을 고치고 다시 복사한다. -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="explainer.css">
+<link rel="stylesheet" href="player.css">
+</head>
+<body>
+<div id="view"><div id="stage" class="ex"></div></div>
+<div id="ctl">
+  <div class="r1"><button class="play" id="play" aria-label="재생/멈춤"><i data-lucide="pause"></i></button><input id="seek" type="range" min="0" max="1000" value="0" aria-label="시간"><span class="t" id="tm">0.0초</span></div>
+  <div class="r0"><span class="pill" id="still"><i></i>화면이 멈춘 지 0.0초</span><span class="on" id="on">켠 연출: 없음</span></div>
+  <div class="r2" id="tgs"></div>
+</div>
+
+<script src="stage.js"></script>
+<script src="screen.js"></script>
+<script src="explainer.js"></script>
+<script src="player.js"></script>
+</body>
+</html>

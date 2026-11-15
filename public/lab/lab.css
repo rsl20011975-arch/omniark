@@ -1,0 +1,71 @@
+/* 개발노트 'lab' 형식(움직이는 데모가 들어가는 강의 글). journal.css 위에 얹는다.
+   전부 .journal--lab 아래로 묶어 다른 글·제품 페이지로 새지 않게 한다. 색은 사이트(studio.css)의 어두운 보라 계열을 따른다. */
+.omni-studio .journal--lab {
+  --lab-surface: #161222; --lab-sunk: #1e1830; --lab-line: #ffffff14; --lab-ink: #f3effb; --lab-ink-2: #c9c2d8; --lab-ink-3: #a59cb8;
+  --lab-accent: #c4b5fd; --lab-good: #86efac; --lab-good-soft: #86efac1f; --lab-bad: #fca5a5; --lab-bad-soft: #fca5a51f;
+  --lab-shadow: 0 1px 2px #0006, 0 12px 32px #0004;
+}
+.omni-studio .journal--lab .post-body .prev { font-size: 14px; color: var(--lab-ink-3); margin: 24px 0 0 }
+
+/* 글 단(780px)보다 넓게 펼치는 데모 칸 */
+.omni-studio .journal--lab .lab-wide { width: min(1040px, calc(100vw - 48px)); margin-left: 50%; transform: translateX(-50%) }
+
+.omni-studio .journal--lab .demo { background: var(--lab-surface); border: 1px solid var(--lab-line); border-radius: 14px; box-shadow: var(--lab-shadow); padding: 24px; margin: 32px 0 }
+.omni-studio .journal--lab .demo-cap { display: flex; justify-content: space-between; gap: 16px; font-size: 14px; color: var(--lab-ink-3); margin-bottom: 16px }
+.omni-studio .journal--lab .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px }
+.omni-studio .journal--lab .lab-tag { display: inline-block; font-size: 12px; font-weight: 700; padding: 4px 8px; border-radius: 6px; margin-bottom: 8px }
+.omni-studio .journal--lab .lab-tag.bad { background: var(--lab-bad-soft); color: var(--lab-bad) }
+.omni-studio .journal--lab .lab-tag.good { background: var(--lab-good-soft); color: var(--lab-good) }
+
+/* 실제 화면을 줄여 보여 주는 틀(1280px 화면 → 칸 너비) */
+.omni-studio .journal--lab .lab-screen { position: relative; overflow: hidden; border-radius: 10px; background: var(--lab-sunk); aspect-ratio: 1280 / 820 }
+.omni-studio .journal--lab .lab-screen iframe { position: absolute; top: 0; left: 0; width: 1280px; height: 820px; border: 0; transform-origin: 0 0; pointer-events: none }
+.omni-studio .journal--lab .post-body a.open { display: inline-block; margin-top: 8px; font-size: 14px }
+
+.omni-studio .journal--lab .word { background: var(--lab-surface); border: 1px solid var(--lab-line); border-radius: 14px; padding: 32px; margin: 24px 0 }
+.omni-studio .journal--lab .word h3 { margin: 0 0 8px; display: flex; align-items: baseline; gap: 12px }
+.omni-studio .journal--lab .word h3 small { font-size: 14px; font-weight: 500; color: var(--lab-ink-3) }
+.omni-studio .journal--lab .say { margin-top: 16px; background: var(--lab-sunk); border-radius: 6px; padding: 12px 16px; font-size: 15px; line-height: 1.7; color: var(--lab-ink) }
+.omni-studio .journal--lab .mini { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px }
+.omni-studio .journal--lab .mini > div { border-radius: 10px; padding: 16px; min-height: 120px; display: flex; flex-direction: column; justify-content: center; gap: 8px }
+.omni-studio .journal--lab .mini .x { background: #0f0b1e; color: #fff; box-shadow: inset 0 0 0 1px #ffffff1a }
+.omni-studio .journal--lab .mini .o { background: #f6f4ef; color: #1c1b18 }
+.omni-studio .journal--lab .lbl { font-size: 12px; font-weight: 700; opacity: .7 }
+
+.omni-studio .journal--lab .term { background: var(--lab-surface); border: 1px solid var(--lab-line); border-radius: 14px; padding: 24px; margin: 16px 0 }
+.omni-studio .journal--lab .term b { display: block; font-size: 20px; color: var(--lab-ink) }
+.omni-studio .journal--lab .term small { color: var(--lab-ink-3); font-size: 14px }
+.omni-studio .journal--lab .term p { margin: 8px 0 0 }
+
+.omni-studio .journal--lab .prompt { position: relative; background: var(--lab-sunk); border-radius: 10px; padding: 24px; margin: 24px 0; font-size: 15px; line-height: 1.85; color: var(--lab-ink); white-space: pre-wrap }
+.omni-studio .journal--lab .prompt code { font: inherit; background: none; padding: 0; color: inherit }
+.omni-studio .journal--lab .copy { position: absolute; top: 12px; right: 12px; border: 1px solid var(--lab-line); background: var(--lab-surface); color: var(--lab-ink-2); border-radius: 6px; padding: 8px 12px; font: 600 12px/1 inherit; cursor: pointer }
+.omni-studio .journal--lab .copy:hover { color: var(--lab-ink) }
+
+.omni-studio .journal--lab .slot { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid var(--lab-line); font-size: 15px }
+.omni-studio .journal--lab .slot:first-of-type { border-top: 0 }
+.omni-studio .journal--lab .slot dt { font-weight: 700; color: var(--lab-ink) } .omni-studio .journal--lab .slot dd { margin: 0; color: var(--lab-ink-2) }
+
+.omni-studio .journal--lab .tip { border-left: 3px solid var(--lab-accent); padding: 4px 0 4px 16px; margin: 24px 0 }
+.omni-studio .journal--lab .tip b { color: var(--lab-ink) } .omni-studio .journal--lab .tip p { margin: 8px 0 0 }
+.omni-studio .journal--lab .post-body ul.check { list-style: none; padding-left: 0 }
+.omni-studio .journal--lab .check li { padding-left: 32px; position: relative }
+.omni-studio .journal--lab .check li::before { content: ""; position: absolute; left: 0; top: 7px; width: 18px; height: 18px; border-radius: 6px; border: 2px solid var(--lab-accent) }
+.omni-studio .journal--lab details { background: var(--lab-surface); border: 1px solid var(--lab-line); border-radius: 14px; margin: 24px 0 }
+.omni-studio .journal--lab summary { padding: 16px 24px; cursor: pointer; font-weight: 700; color: var(--lab-ink) }
+.omni-studio .journal--lab details pre { margin: 0; padding: 0 24px 24px; background: none; border: 0; font: 13px/1.7 ui-monospace, Consolas, monospace; color: var(--lab-ink-2); overflow-x: auto; white-space: pre }
+
+@media (max-width: 720px) {
+  .omni-studio .journal--lab .pair, .omni-studio .journal--lab .mini { grid-template-columns: 1fr }
+  .omni-studio .journal--lab .word { padding: 24px }
+  .omni-studio .journal--lab .slot { grid-template-columns: 1fr; gap: 4px }
+}
+
+/* 글별 데모 CSS 가 쓰는 이름(visual-lab 공용 틀의 토큰)을 사이트 색으로 연결 */
+.omni-studio .journal--lab {
+  --r-s: 6px; --r-m: 10px; --r-l: 14px; --surface: var(--lab-surface); --sunk: var(--lab-sunk); --shadow: var(--lab-shadow);
+  --ink-2: var(--lab-ink-2); --ink-3: var(--lab-ink-3); --accent: var(--lab-accent); --accent-soft: #c4b5fd26; --good: var(--lab-good); --good-soft: var(--lab-good-soft); --bad: var(--lab-bad); --bad-soft: var(--lab-bad-soft); --ink: var(--lab-ink);
+}
+.omni-studio .journal--lab .post-body h2 .n { color: var(--lab-accent); margin-right: 8px }
+/* 데모 안 미니 화면에는 글 본문의 제목·문단 간격(journal.css)이 새어 들지 않게 0 에서 시작한다(각 데모 CSS 가 필요한 간격을 직접 준다) */
+.omni-studio .journal--lab .demo :is(h4, h5, h6, p) { margin: 0 }

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>오늘커피</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  /* 여백 숫자는 전부 여기서만 정한다(8의 배수) */
+  :root {
+    --side: 24px;       /* 화면 양옆 */
+    --hero-y: 96px;     /* 첫 화면 위아래 */
+    --t1: 16px;         /* 가게 이름 ↔ 소개 */
+    --t2: 32px;         /* 소개 ↔ 버튼 */
+    --t3: 64px;         /* 버튼 ↔ 메뉴 카드 묶음 */
+    --card-in: 32px;    /* 카드 안쪽 */
+    --card-gap: 24px;   /* 카드끼리 */
+    --cream: #f7f1e8; --brown: #3b2a1e; --soft: #7a6555; --accent: #b4532a;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--cream); color: var(--brown); font-family: "Pretendard Variable", Pretendard, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: var(--hero-y) var(--side); }
+  h1 { font-size: 48px; font-weight: 800; letter-spacing: -0.03em; line-height: 1.2; }
+  .intro { margin-top: var(--t1); font-size: 20px; color: var(--soft); }
+  .btn { display: inline-block; margin-top: var(--t2); padding: 16px 32px; border-radius: 999px; background: var(--brown); color: var(--cream); font-weight: 700; text-decoration: none; transition: transform .2s ease-out; }
+  .btn:hover { transform: translateY(-2px); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--card-gap); margin-top: var(--t3); }
+  .card { background: #fffaf3; border-radius: 14px; padding: var(--card-in); box-shadow: 0 1px 2px rgba(59, 42, 30, .06), 0 8px 24px rgba(59, 42, 30, .06); }
+  .swatch { height: 96px; border-radius: 10px; }
+  .card h2 { margin-top: 24px; font-size: 20px; font-weight: 700; }
+  .card p { margin-top: 8px; color: var(--soft); }
+  @media (max-width: 720px) {
+    :root { --hero-y: 64px; --t3: 48px; --card-in: 24px; --card-gap: 16px; }
+    h1 { font-size: 32px; }
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>오늘커피</h1>
+  <p class="intro">매일 아침 직접 볶은 원두로 내립니다</p>
+  <a class="btn" href="#menu">메뉴 보기</a>
+  <section class="cards" id="menu">
+    <article class="card"><div class="swatch" style="background:#c8a27a"></div><h2>아메리카노</h2><p>4,000원</p></article>
+    <article class="card"><div class="swatch" style="background:#e3c9a8"></div><h2>카페라떼</h2><p>4,500원</p></article>
+    <article class="card"><div class="swatch" style="background:#efdcc0"></div><h2>바닐라라떼</h2><p>5,000원</p></article>
+  </section>
+</main>
+</body>
+</html>

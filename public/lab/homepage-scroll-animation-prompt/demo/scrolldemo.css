@@ -1,0 +1,29 @@
+/* 003 스크롤 데모 페이지(scrolldemo.js 가 DOM 을 지음). 호스트 div 에 class="sd" 가 붙는다. 영상·썸네일·카드·블로그 플레이어가 같이 쓴다.
+   방향: 제과점 브랜드 사이트. 색은 빵의 재료에서(버터 노랑·에스프레소·밀가루·구운 껍질), 글은 굵은 명조 + 고딕, 모서리 직각, 그라데이션·빛 번짐·점 격자 없음. */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;900&display=swap");
+.sd { position:relative; overflow:hidden; background:#faf5ea; color:#2b1b12; font-family:"Pretendard Variable",Pretendard,sans-serif; word-break:keep-all; -webkit-font-smoothing:antialiased }
+.sd * { box-sizing:border-box; margin:0 }
+.sd .sd-page { position:absolute; inset:0; overflow-y:auto; overflow-x:hidden }
+.sd .sd-in { position:relative }
+.sd .sec { position:relative; padding:96px 6% }
+.sd .hero { min-height:100%; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; background:#f2c230; color:#2b1b12; padding-top:28px; padding-bottom:72px }
+.sd .hero .bg { position:absolute; right:-4%; top:2%; font-family:"Noto Serif KR",serif; font-weight:900; font-size:520px; line-height:1; letter-spacing:-.06em; color:#f7d66a; white-space:nowrap; pointer-events:none }
+.sd .hero .bg i { font-style:normal; opacity:.6 }
+.sd .hero nav { position:relative; display:flex; gap:32px; align-items:center; font-size:16px; font-weight:600 }
+.sd .hero nav b { margin-right:auto; font-family:"Noto Serif KR",serif; font-size:22px; font-weight:900; letter-spacing:-.04em }
+.sd .hero .hd { position:relative }
+.sd .hero small { display:block; margin-bottom:20px; font-size:14px; font-weight:700; letter-spacing:.14em }
+.sd .hero h1 { font-family:"Noto Serif KR",serif; font-size:clamp(40px, 7.4vw, 104px); font-weight:900; letter-spacing:-.05em; line-height:1.08 }
+.sd .hero p { margin-top:24px; font-size:clamp(16px, 2vw, 22px); font-weight:600; line-height:1.6 }
+.sd h2 { font-family:"Noto Serif KR",serif; font-size:clamp(28px, 4.4vw, 52px); font-weight:900; letter-spacing:-.05em; margin-bottom:40px; line-height:1.15 }
+.sd .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(190px, 1fr)); gap:0 }
+.sd .card { padding:36px 28px 32px; min-height:240px; display:flex; flex-direction:column; justify-content:flex-end; border-radius:0 }
+.sd .card em { font-style:normal; font-family:"Noto Serif KR",serif; font-weight:900; font-size:44px; letter-spacing:-.05em; margin-bottom:auto }
+.sd .card b { display:block; font-size:24px; font-weight:800; margin:28px 0 6px; letter-spacing:-.03em } .sd .card span { line-height:1.6; font-weight:500 }
+.sd .c1 { background:#2b1b12; color:#f2c230 } .sd .c2 { background:#b4531e; color:#fff6e6 } .sd .c3 { background:#e9dcc0; color:#2b1b12 }
+.sd .cards.two .card { min-height:160px }
+.sd .row { display:flex; gap:56px; align-items:center; flex-wrap:wrap } .sd .row > * { flex:1 1 260px }
+.sd .pic { aspect-ratio:4/3; background:#2b1b12; color:#f2c230; padding:28px 32px; display:flex; flex-direction:column; justify-content:space-between; font-family:"Noto Serif KR",serif; font-weight:900; font-size:56px; letter-spacing:-.05em; line-height:1 }
+.sd .txt p { font-size:20px; line-height:1.7; color:#4a3628; margin-top:16px; font-weight:500 }
+.sd .foot { padding:72px 6% 120px; color:#8a7767; font-size:16px }
+.sd.fix .hero h1 { font-size:84px } .sd.fix .hero p { font-size:22px } .sd.fix h2 { font-size:46px }
