@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://omniark.co"),
 
   verification: {
-    google: "Cz9GASrTO3jWMSsvfR_yiie1JN5x5H5daEntUcrrFEI",
+    google: "urqkhqSKnWsrtd0cKs1-ZayUjHrkJdf7VyK5ifMcD24",
     // 네이버 서치어드바이저 사이트 소유확인(2026-11-11)
     other: { "naver-site-verification": "90481442587e1db2a035242ea233fe9941282426" },
   },
@@ -53,6 +53,7 @@ export const metadata: Metadata = {
 
 const navigation = [
   { name: "제품·서비스", href: "/products" },
+  { name: "Visual Lab", href: "/lab" },
   { name: "소개", href: "/about" },
 ];
 

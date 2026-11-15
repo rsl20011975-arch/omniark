@@ -15,7 +15,7 @@ function spr(rgb){                         /* 부드러운 빛 알갱이(64px). 
 function glowDot(c,rgb,x,y,r,a){c.globalAlpha=Math.max(0,Math.min(1,a));c.drawImage(spr(rgb),x-r,y-r,r*2,r*2);}
 function hash(a,b){return Math.abs(Math.sin(a*12.9898+b*78.233)*43758.5453)%1;}
 function bgFill(c,top,bot){const g=c.createLinearGradient(0,0,0,360);g.addColorStop(0,top);g.addColorStop(1,bot);c.globalCompositeOperation='source-over';c.globalAlpha=1;c.fillStyle=g;c.fillRect(0,0,640,360);}
-function cap(c,txt,x,y){c.globalCompositeOperation='source-over';c.globalAlpha=.85;c.fillStyle='#9ba3ad';c.font='500 11px "IBM Plex Sans KR","Malgun Gothic",sans-serif';c.textAlign='left';c.textBaseline='alphabetic';c.fillText(txt,x,y);c.globalAlpha=1;}
+function cap(c,txt,x,y){c.globalCompositeOperation='source-over';c.globalAlpha=.92;c.fillStyle='#aeb6c0';c.font='500 13px "IBM Plex Sans KR","Malgun Gothic",sans-serif';c.textAlign='left';c.textBaseline='alphabetic';c.fillText(txt,x,y);c.globalAlpha=1;}
 function bolt(seed,x0,y0,x1,y1,depth,rough){
   const r=rng(seed);let pts=[[x0,y0],[x1,y1]];
   for(let d=0;d<depth;d++){const n=[];for(let i=0;i<pts.length-1;i++){const [ax,ay]=pts[i],[bx,by]=pts[i+1],mx=(ax+bx)/2,my=(ay+by)/2,L=Math.hypot(bx-ax,by-ay);

@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960" role="img" aria-labelledby="title desc">
+  <title id="title">코드 작성부터 실제 사용까지의 검증 사다리</title>
+  <desc id="desc">코드 작성, 개별 기능 검증, 시스템 연결 검증, 실제 사용 검증의 네 단계를 구분한 설명 도해.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#18213a"/><stop offset=".48" stop-color="#1c2342"/><stop offset="1" stop-color="#26311f"/></linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#77b7ff"/><stop offset=".48" stop-color="#9e8bff"/><stop offset="1" stop-color="#b9ef6e"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".88" numOctaves="2" seed="11"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .028 0"/></filter>
+  </defs>
+  <rect width="1600" height="960" fill="url(#bg)"/>
+  <circle cx="1290" cy="120" r="260" fill="#997cff" opacity=".12" filter="url(#glow)"/>
+  <circle cx="150" cy="870" r="270" fill="#67cbff" opacity=".1" filter="url(#glow)"/>
+  <rect width="1600" height="960" filter="url(#grain)"/>
+  <g font-family="Pretendard, 'Noto Sans KR', sans-serif">
+    <text x="110" y="110" fill="#b8c6ff" font-size="21" font-weight="700" letter-spacing="5">TESTING IS NOT ONE QUESTION</text>
+    <text x="110" y="190" fill="#f5f5fa" font-size="58" font-weight="800" letter-spacing="-2">“테스트를 통과했다”는 말은</text>
+    <text x="110" y="256" fill="#f5f5fa" font-size="58" font-weight="800" letter-spacing="-2">무엇을 시험했는지에 따라 전혀 다르다</text>
+    <text x="110" y="310" fill="#b7c0d3" font-size="23">앞 단계를 통과해도, 그다음 단계의 성공까지 증명하지는 않는다.</text>
+  </g>
+  <path d="M198 604H1402" stroke="url(#line)" stroke-width="8" stroke-linecap="round" opacity=".9"/>
+  <path d="M198 604H1402" stroke="#b8d7ff" stroke-width="27" stroke-linecap="round" opacity=".09" filter="url(#glow)"/>
+  <g font-family="Pretendard, 'Noto Sans KR', sans-serif">
+    <g transform="translate(118 420)">
+      <circle cx="86" cy="184" r="48" fill="#183757" stroke="#70b9ff" stroke-width="3"/>
+      <text x="86" y="194" text-anchor="middle" fill="#cce9ff" font-size="28" font-weight="800">01</text>
+      <text x="0" y="46" fill="#90caff" font-size="18" font-weight="700" letter-spacing="2">BUILD</text>
+      <text x="0" y="89" fill="#f4f8ff" font-size="31" font-weight="800">코드 작성</text>
+      <text x="0" y="124" fill="#bac8d8" font-size="20">실행할 수 있는 모양이</text><text x="0" y="153" fill="#bac8d8" font-size="20">만들어졌는가?</text>
+    </g>
+    <g transform="translate(454 420)">
+      <circle cx="86" cy="184" r="48" fill="#2c305e" stroke="#a899ff" stroke-width="3"/>
+      <text x="86" y="194" text-anchor="middle" fill="#e0d9ff" font-size="28" font-weight="800">02</text>
+      <text x="0" y="46" fill="#b8adff" font-size="18" font-weight="700" letter-spacing="2">UNIT</text>
+      <text x="0" y="89" fill="#f6f3ff" font-size="31" font-weight="800">개별 기능</text>
+      <text x="0" y="124" fill="#c7c4d9" font-size="20">이 기능 하나가</text><text x="0" y="153" fill="#c7c4d9" font-size="20">기대한 결과를 내는가?</text>
+    </g>
+    <g transform="translate(790 420)">
+      <circle cx="86" cy="184" r="48" fill="#453158" stroke="#e4a8ff" stroke-width="3"/>
+      <text x="86" y="194" text-anchor="middle" fill="#ffe1ff" font-size="28" font-weight="800">03</text>
+      <text x="0" y="46" fill="#ecbbff" font-size="18" font-weight="700" letter-spacing="2">INTEGRATION</text>
+      <text x="0" y="89" fill="#fff5ff" font-size="31" font-weight="800">시스템 연결</text>
+      <text x="0" y="124" fill="#d8c8dd" font-size="20">데이터와 기능이</text><text x="0" y="153" fill="#d8c8dd" font-size="20">끝까지 이어지는가?</text>
+    </g>
+    <g transform="translate(1126 420)">
+      <circle cx="86" cy="184" r="48" fill="#334b2f" stroke="#c5f077" stroke-width="3"/>
+      <text x="86" y="194" text-anchor="middle" fill="#edffd0" font-size="28" font-weight="800">04</text>
+      <text x="0" y="46" fill="#d3f99b" font-size="18" font-weight="700" letter-spacing="2">REAL USE</text>
+      <text x="0" y="89" fill="#f8ffe9" font-size="31" font-weight="800">실제 사용</text>
+      <text x="0" y="124" fill="#d4dfc7" font-size="20">사용자가 원하는 일을</text><text x="0" y="153" fill="#d4dfc7" font-size="20">처음부터 끝까지 하는가?</text>
+    </g>
+  </g>
+  <g font-family="Pretendard, 'Noto Sans KR', sans-serif">
+    <rect x="110" y="780" width="1380" height="88" rx="20" fill="#222b48" stroke="#475681"/>
+    <text x="150" y="835" fill="#eff2ff" font-size="27" font-weight="700">개발 완료 보고에는 “어느 단계까지 직접 실행했는가”가 함께 있어야 한다.</text>
+  </g>
+</svg>

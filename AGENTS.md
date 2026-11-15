@@ -12,11 +12,12 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Scope
 
-These rules apply to the OMNIARK website, Omniark Studio, blog content, Developer Notes, and publication workflow. For Developer Notes work, `docs/DEVELOPER_NOTES_EDITORIAL_CHARTER.md` is the canonical operating standard.
+These rules apply to the OMNIARK website, Omniark Studio, blog content, Developer Notes, and publication workflow. For Developer Notes work, the editorial charter defines truth, teaching, visual, and approval standards; the growth system defines evidence-led discovery, search, measurement, and reuse work. Read both when the work affects content strategy, search, analytics, or publication readiness.
 
 ## Must-read documents
 
 - `docs/DEVELOPER_NOTES_EDITORIAL_CHARTER.md` – editorial mission, evidence rules, teaching level, visuals, search structure, workflow, and approval boundaries
+- `docs/DEVELOPER_NOTES_GROWTH_SYSTEM.md` – source-first topic discovery, search and answer-engine discovery, technical audit scope, comparison experiments, measurement, and staged delivery
 - `docs/SEARCH_FOUNDATION.md` – current search, metadata, sitemap, and indexing contract
 - `docs/ADSENSE_STATUS.md` – current AdSense status and unresolved site-quality work
 
@@ -38,14 +39,16 @@ Read only the documents relevant to the requested scope, but always read the edi
 
 1. Inspect current site, draft, evidence, and relevant history.
 2. Create or update an internal event card before writing the article.
-3. Classify every material claim as confirmed, author-provided, inferred, or unverified.
-4. Draft as a useful chapter for beginner, intermediate, and advanced vibe coders.
-5. Add evidence-led visuals that explain something the text alone does not.
-6. Check factual boundaries, privacy, mobile readability, alt text, search structure, and related-note links.
-7. Import only the selected article into Studio as `status: draft`.
-8. Run the relevant renderer/import/build tests and inspect the resulting file or screen.
-9. Stop at review state unless publication is explicitly requested.
-10. Report completed work, unverified work, and the next safe action.
+3. Establish the reader question and search intent only after the event is evidenced; never reverse that order to manufacture a topic.
+4. Classify every material claim as confirmed, author-provided, inferred, or unverified.
+5. Draft as a useful chapter for beginner, intermediate, and advanced vibe coders.
+6. Add evidence-led visuals that explain something the text alone does not.
+7. Check factual boundaries, privacy, mobile readability, alt text, search structure, related-note links, and discoverability metadata.
+8. Import only the selected article into Studio as `status: draft`.
+9. Run the relevant renderer/import/build tests and inspect the resulting file or screen.
+10. Stop at review state unless publication is explicitly requested.
+11. After a public launch, measure only verifiable discovery and reader-path signals; do not invent attribution or AI-citation results.
+12. Report completed work, unverified work, and the next safe action.
 
 ## Definition of complete
 

@@ -6,6 +6,7 @@ const navigation = [
   { href: "/products", label: "제품·서비스" },
   { href: "/blog", label: "개발 노트" },
   { href: "/guides", label: "활용 가이드" },
+  { href: "/lab", label: "Visual Lab" },
   { href: "/about", label: "소개" },
 ];
 

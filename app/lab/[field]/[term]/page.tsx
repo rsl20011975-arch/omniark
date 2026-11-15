@@ -84,7 +84,12 @@ export default async function TermPage({ params }: Props) {
             <div className="chips">
               <span className="chip">{t.level}</span>
               {t.purposes.map((p) => <span key={p} className="chip line">{p}</span>)}
-                          </div>
+            </div>
+
+            <nav className="toc" aria-label="이 페이지">
+              <b>이 페이지</b>
+              <a href="#demo">데모</a><a href="#prompt">지시문</a>{d.tips.length > 0 && <a href="#tips">응용 팁</a>}{hasSteps && <a href="#steps">만드는 순서</a>}{hasTerms && <a href="#words">용어 풀이</a>}<a href="#check">확인 목록</a><a href="#use">쓰는 곳</a><a href="#rel">같이 쓰는 용어</a><a href="#src">근거</a>
+            </nav>
 
             <DemoWorkbench>
             <section className="blk" id="demo">
@@ -184,10 +189,6 @@ export default async function TermPage({ params }: Props) {
               </nav>
             )}
           </div>
-          <nav className="toc" aria-label="이 페이지">
-            <b>이 페이지</b>
-            <a href="#demo">데모</a><a href="#prompt">지시문</a>{d.tips.length > 0 && <a href="#tips">응용 팁</a>}{hasSteps && <a href="#steps">만드는 순서</a>}{hasTerms && <a href="#words">용어 풀이</a>}<a href="#check">확인 목록</a><a href="#use">쓰는 곳</a><a href="#rel">같이 쓰는 용어</a><a href="#src">근거</a>
-          </nav>
         </div>
       </div>
     </div>

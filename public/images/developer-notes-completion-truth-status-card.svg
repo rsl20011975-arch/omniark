@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960" role="img" aria-labelledby="title desc">
+  <title id="title">성공 실패 미확인을 나누는 완료 검증 카드</title>
+  <desc id="desc">개발 완료 보고에서 실제 성공, 확인된 실패, 아직 미확인을 구분하고 AI에게 요청할 검증 질문을 정리한 카드형 도해.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#142326"/><stop offset=".45" stop-color="#142735"/><stop offset="1" stop-color="#252039"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-25%" width="140%" height="150%"><feDropShadow dx="0" dy="18" stdDeviation="23" flood-color="#03070a" flood-opacity=".42"/></filter>
+    <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="5"/><feColorMatrix values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 .03 0"/></filter>
+  </defs>
+  <rect width="1600" height="960" fill="url(#bg)"/>
+  <rect width="1600" height="960" filter="url(#grain)"/>
+  <g font-family="Pretendard, 'Noto Sans KR', sans-serif">
+    <text x="110" y="108" fill="#aeeadf" font-size="21" font-weight="700" letter-spacing="5">COMPLETION CHECK / HUMAN REVIEW</text>
+    <text x="110" y="188" fill="#f6f6f2" font-size="58" font-weight="800" letter-spacing="-2">완료 보고를 받았을 때</text>
+    <text x="110" y="254" fill="#f6f6f2" font-size="58" font-weight="800" letter-spacing="-2">세 상태를 섞지 않는다</text>
+  </g>
+  <g filter="url(#shadow)" font-family="Pretendard, 'Noto Sans KR', sans-serif">
+    <g transform="translate(110 340)">
+      <rect width="418" height="264" rx="22" fill="#163b3b" stroke="#3c8b84" stroke-width="2"/>
+      <circle cx="52" cy="54" r="18" fill="#7de6d1"/><path d="M42 54l7 7 14-18" fill="none" stroke="#123332" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      <text x="88" y="63" fill="#8eeddb" font-size="18" font-weight="700" letter-spacing="3">SUCCESS</text>
+      <text x="38" y="124" fill="#f1fffb" font-size="35" font-weight="800">실제로 성공</text>
+      <text x="38" y="172" fill="#bed9d4" font-size="21">실행했고, 기대한 결과를</text><text x="38" y="204" fill="#bed9d4" font-size="21">눈으로 확인했다.</text>
+    </g>
+    <g transform="translate(590 340)">
+      <rect width="418" height="264" rx="22" fill="#4a302c" stroke="#b46b56" stroke-width="2"/>
+      <circle cx="52" cy="54" r="18" fill="#ff9d7a"/><path d="M45 47l14 14m0-14L45 61" stroke="#48251f" stroke-width="4" stroke-linecap="round"/>
+      <text x="88" y="63" fill="#ffb49a" font-size="18" font-weight="700" letter-spacing="3">FAILURE</text>
+      <text x="38" y="124" fill="#fff3ed" font-size="35" font-weight="800">확인된 실패</text>
+      <text x="38" y="172" fill="#e0c6bd" font-size="21">실행했지만, 기대한 결과가</text><text x="38" y="204" fill="#e0c6bd" font-size="21">도착하지 않았다.</text>
+    </g>
+    <g transform="translate(1070 340)">
+      <rect width="418" height="264" rx="22" fill="#352f52" stroke="#7c71bd" stroke-width="2"/>
+      <circle cx="52" cy="54" r="18" fill="#b5a8ff"/><path d="M52 45v13m0 11h.01" stroke="#2c254b" stroke-width="4" stroke-linecap="round"/>
+      <text x="88" y="63" fill="#c9c0ff" font-size="18" font-weight="700" letter-spacing="3">UNVERIFIED</text>
+      <text x="38" y="124" fill="#f7f4ff" font-size="35" font-weight="800">아직 미확인</text>
+      <text x="38" y="172" fill="#d2cbe7" font-size="21">아직 실행하지 못했거나</text><text x="38" y="204" fill="#d2cbe7" font-size="21">환경이 준비되지 않았다.</text>
+    </g>
+    <rect x="110" y="682" width="1378" height="170" rx="24" fill="#1c2f34" stroke="#426d70" stroke-width="2"/>
+    <text x="156" y="737" fill="#9eeade" font-size="18" font-weight="700" letter-spacing="3">COPY THIS QUESTION</text>
+    <text x="156" y="793" fill="#f2fbf8" font-size="31" font-weight="800">“실행한 환경 · 테스트한 항목 · 결과 · 아직 확인하지 못한 조건을 나눠 알려 주세요.”</text>
+  </g>
+</svg>
