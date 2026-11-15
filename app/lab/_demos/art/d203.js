@@ -61,7 +61,7 @@ function layers(frame, W, H) {       // 사진처럼 보이는 정지 장면을 
 
 function plate(sp, x, y, w, h) {
   const p = el('div', null, sp);
-  box(p, { position: 'absolute', left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px', borderRadius: '8px', background: `linear-gradient(160deg, #173026 0%, ${PAL.surface} 75%)`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.06), inset 0 0 0 1px ${PAL.line}, 0 2px 3px rgba(0,0,0,.5), 0 14px 24px rgba(0,0,0,.35)` });
+  box(p, { position: 'absolute', left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px', borderRadius: '10px', background: `linear-gradient(160deg, #173026 0%, ${PAL.surface} 75%)`, boxShadow: `inset 0 1px 0 rgba(255,255,255,.06), inset 0 0 0 1px ${PAL.line}, 0 2px 3px rgba(0,0,0,.5), 0 14px 24px rgba(0,0,0,.35)` });
   return p;
 }
 const txt = (p, s, x, y, o = {}) => { const e = el('div', null, p, s); box(e, Object.assign({ position: 'absolute', left: x + 'px', top: y + 'px', font: "500 10px/1 'JetBrains Mono',monospace", color: PAL.muted, whiteSpace: 'nowrap' }, o)); return e; };
@@ -79,7 +79,7 @@ const demo = {
     box(gg, { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.06', mixBlendMode: 'overlay' });
     // 영상 틀
     const fr = el('div', null, sp);
-    box(fr, { position: 'absolute', left: '24px', top: '22px', width: '384px', height: '216px', borderRadius: '8px', overflow: 'hidden', boxShadow: `0 0 0 1px ${PAL.line}, 0 3px 4px rgba(0,0,0,.5), 0 18px 32px rgba(0,0,0,.45)` });
+    box(fr, { position: 'absolute', left: '24px', top: '22px', width: '384px', height: '216px', borderRadius: '10px', overflow: 'hidden', boxShadow: `0 0 0 1px ${PAL.line}, 0 3px 4px rgba(0,0,0,.5), 0 18px 32px rgba(0,0,0,.45)` });
     const cam = el('div', null, fr);
     box(cam, { position: 'absolute', inset: '0', transformOrigin: '50% 62%' });
     const lay = layers(cam, 384, 216);
@@ -88,7 +88,7 @@ const demo = {
     const gr = el('div', null, fr);
     box(gr, { position: 'absolute', inset: '0', backgroundImage: GRAIN, opacity: '.08', mixBlendMode: 'overlay' });
     const ztag = el('div', null, fr);
-    box(ztag, { position: 'absolute', right: '8px', top: '8px', padding: '4px 7px', borderRadius: '3px', background: 'rgba(8,16,12,.72)', color: PAL.ink, font: "500 11px/1 'JetBrains Mono',monospace" });
+    box(ztag, { position: 'absolute', right: '10px', top: '10px', padding: '.4em .7em', borderRadius: '4px', background: 'rgba(8,16,12,.72)', color: PAL.ink, font: "500 11px/1 'JetBrains Mono',monospace" });
     // 속도 곡선 상자
     const pc = plate(sp, 424, 22, 192, 128);
     txt(pc, '속도 곡선(밀기)', 12, 10, { color: PAL.ink, font: "600 11px/1 'IBM Plex Sans KR',sans-serif" });
@@ -113,9 +113,9 @@ const demo = {
     // 읽는 값 · 이름표(caption-bl)
     const r1 = el('div', null, sp), r2 = el('div', null, sp);
     box(r1, { position: 'absolute', left: '24px', top: '258px', width: '592px', font: "500 12px/1.3 'JetBrains Mono',monospace" });
-    box(r2, { position: 'absolute', left: '24px', top: '280px', width: '592px', font: "400 11px/1.3 'JetBrains Mono',monospace", color: PAL.muted });
+    box(r2, { position: 'absolute', left: '24px', top: '280px', width: '592px', font: "400 12px/1.3 'JetBrains Mono',monospace", color: PAL.muted });
     const cap = el('div', null, sp);
-    box(cap, { position: 'absolute', left: '24px', top: '322px', width: '592px', paddingTop: '8px', borderTop: `1px solid ${PAL.line}`, font: "400 12px/1.2 'JetBrains Mono',monospace", color: PAL.muted });
+    box(cap, { position: 'absolute', left: '24px', top: '320px', width: '592px', paddingTop: '10px', borderTop: `1px solid ${PAL.line}`, font: "400 12px/1.2 'JetBrains Mono',monospace", color: PAL.muted });
     const gaps = [0, 1, 2, 3].map(maxGap);
     return { cam, lay, ztag, svg, bars, r1, r2, cap, gaps };
   },

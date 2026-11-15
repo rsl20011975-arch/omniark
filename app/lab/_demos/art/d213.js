@@ -104,7 +104,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const pill = el('div', null, sp);   // 이름표(pill): 오른쪽 아래, 둥근 알약
-    Object.assign(pill.style, { position: 'absolute', right: '16px', bottom: '9px', padding: '4px 12px', borderRadius: '999px', background: PAL.surface, border: `1px solid ${PAL.line}`, color: PAL.ink, font: "600 11.5px/1.2 'IBM Plex Sans KR',sans-serif", zIndex: '4' });
+    Object.assign(pill.style, { position: 'absolute', right: '16px', bottom: '10px', padding: '4px 12px', borderRadius: '999px', background: PAL.surface, border: `1px solid ${PAL.line}`, color: PAL.ink, font: "600 11.5px/1.2 'IBM Plex Sans KR',sans-serif", zIndex: '4' });
     return { main, pill };
   },
   render(s, t, a, lv) {
@@ -118,59 +118,53 @@ const demo = {
     x.save(); x.beginPath(); x.roundRect(PX, PY, PW, PH, 12); x.clip(); x.translate(PX, PY); x.scale(S, S); frame(x, tt, L, P, 2 * S); x.restore();
     x.setTransform(2, 0, 0, 2, 0, 0); x.shadowColor = 'transparent';
     const RX = 236, RW = 388;
-    // 조각 표
-    const COL = { n: RX + 226, c: RX + 262, w: RX + 308, d: RX + 350, v: RX + RW - 10 };
-    card(x, RX, 10, RW, 116);
+    // 조각 표(큰 요소 하나): 조각 글, 폭, 읽는 속도만 남긴다
+    const COL = { w: RX + 292, v: RX + RW - 12 };
+    card(x, RX, 10, RW, 142);
     if (P.kind === 'whole') {
-      T(x, '글자 수로 자른 줄', RX + 10, 27, 11, PAL.ink, 600);
-      P.lines.forEach((ln, i) => T(x, `${i + 1}  ${ln}`, RX + 12, 48 + i * 18, 12, PAL.ink, 500));
-      T(x, `낱말이 줄 사이에서 끊긴 곳 ${P.split}`, RX + RW - 10, 27, 11, PAL.accent, 700, 'right');
-      T(x, '조각 단위가 없어 말 시각에 맞출 수 없다', RX + 12, 118, 10, PAL.muted, 500);
+      T(x, '글자 수로 자른 줄', RX + 12, 30, 12, PAL.ink, 600);
+      P.lines.forEach((ln, i) => T(x, `${i + 1}  ${ln}`, RX + 14, 54 + i * 18, 13, PAL.ink, 500));
+      T(x, `낱말이 줄 사이에서 끊긴 곳 ${P.split}`, RX + RW - 12, 30, 12, PAL.accent, 700, 'right');
+      T(x, '조각 단위가 없어 말 시각에 맞출 수 없다', RX + 14, 138, 11, PAL.muted, 500);
     } else {
-      T(x, '조각', RX + 12, 27, 10, PAL.muted, 500, 'left', MONO);
-      [['어절', COL.n], ['글자', COL.c], ['폭 px', COL.w], ['초', COL.d], ['자/초', COL.v]].forEach(([h, X]) => T(x, h, X, 27, 10, PAL.muted, 500, 'right', MONO));
+      T(x, '조각', RX + 14, 30, 11, PAL.muted, 500, 'left', MONO);
+      T(x, '폭 px', COL.w, 30, 11, PAL.muted, 500, 'right', MONO);
+      T(x, '자/초', COL.v, 30, 11, PAL.muted, 500, 'right', MONO);
       P.rows.forEach((r, i) => {
-        const Y = 46 + i * 14.6, on = tt >= r.c0 && tt < r.c1, p = E.outC(seg(tt, 0.2 + i * 0.1, 0.8 + i * 0.1));
-        if (on) { x.fillStyle = 'rgba(243,246,255,.1)'; x.beginPath(); x.roundRect(RX + 6, Y - 11, RW - 12, 14.6, 3); x.fill(); }
+        const Y = 52 + i * 17, on = tt >= r.c0 && tt < r.c1, p = E.outC(seg(tt, 0.2 + i * 0.1, 0.8 + i * 0.1));
+        if (on) { x.fillStyle = 'rgba(243,246,255,.1)'; x.beginPath(); x.roundRect(RX + 6, Y - 13, RW - 12, 17, 3); x.fill(); }
         x.globalAlpha = 0.3 + 0.7 * p;
-        T(x, String(i + 1), RX + 12, Y, 10.5, PAL.muted, 500, 'left', MONO);
-        T(x, r.txt, RX + 26, Y, 11.5, PAL.ink, 500);
-        T(x, String(r.words), COL.n, Y, 10.5, PAL.ink, 500, 'right', MONO);
-        T(x, String(r.n), COL.c, Y, 10.5, PAL.ink, 500, 'right', MONO);
-        T(x, String(Math.round(r.w)), COL.w, Y, 10.5, r.over ? PAL.accent : PAL.ink, r.over ? 700 : 500, 'right', MONO);
-        T(x, (r.c1 - r.c0).toFixed(2), COL.d, Y, 10.5, PAL.ink, 500, 'right', MONO);
-        T(x, r.cps.toFixed(1), COL.v, Y, 11, r.cps > 12 ? PAL.accent : PAL.accent2, 700, 'right', MONO);
+        T(x, String(i + 1), RX + 14, Y, 11, PAL.muted, 500, 'left', MONO);
+        T(x, r.txt, RX + 32, Y, 12.5, PAL.ink, 500);
+        T(x, String(Math.round(r.w)), COL.w, Y, 12, r.over ? PAL.accent : PAL.ink, r.over ? 700 : 500, 'right', MONO);
+        T(x, r.cps.toFixed(1), COL.v, Y, 12, r.cps > 12 ? PAL.accent : PAL.accent2, 700, 'right', MONO);
         x.globalAlpha = 1;
       });
     }
     // 시간표: 말과 자막 조각
-    card(x, RX, 134, RW, 92);
+    card(x, RX, 160, RW, 80);
     const TX = RX + 52, TW = RW - 66, tv = (v) => TX + (v / 4.6) * TW;
-    T(x, '말과 자막이 놓인 시간', RX + 10, 150, 11, PAL.ink, 600);
-    T(x, '말', RX + 12, 182, 10, PAL.muted, 500, 'left', MONO);
-    T(x, '자막', RX + 12, 206, 10, PAL.muted, 500, 'left', MONO);
+    T(x, '말과 자막이 놓인 시간', RX + 12, 177, 12, PAL.ink, 600);
+    T(x, '말', RX + 14, 197, 11, PAL.muted, 500, 'left', MONO);
+    T(x, '자막', RX + 14, 217, 11, PAL.muted, 500, 'left', MONO);
     const sp0 = S0, sp1 = S0 + P.total, rows = P.kind === 'chunks' ? P.rows : null;
-    x.fillStyle = 'rgba(243,246,255,.1)'; x.fillRect(TX, 172, TW, 14); x.fillRect(TX, 196, TW, 14);
+    x.fillStyle = 'rgba(243,246,255,.1)'; x.fillRect(TX, 187, TW, 12); x.fillRect(TX, 207, TW, 12);
     const gp = E.outC(seg(tt, 0.1, 0.9));
     if (rows) rows.forEach((r, i) => {
       const col = i % 2 ? PAL.accent2 : PAL.accent;
-      x.fillStyle = col; x.globalAlpha = 0.85; x.fillRect(tv(r.sp0), 172, Math.max(1, (tv(r.sp1) - tv(r.sp0) - 1.5) * gp), 14);
-      x.globalAlpha = tt >= r.c0 && tt < r.c1 ? 1 : 0.55; x.fillRect(tv(r.c0), 196, Math.max(1, (tv(r.c1) - tv(r.c0) - 1.5) * gp), 14); x.globalAlpha = 1;
-    }); else { x.fillStyle = PAL.accent2; x.globalAlpha = 0.85; x.fillRect(tv(sp0), 172, (tv(sp1) - tv(sp0)) * gp, 14); x.fillStyle = PAL.muted; x.globalAlpha = 0.6; x.fillRect(tv(S0), 196, (tv(sp1) - tv(S0)) * gp, 14); x.globalAlpha = 1; }
-    [0, 1, 2, 3, 4].forEach((v) => { x.fillStyle = PAL.muted; x.fillRect(tv(v), 213, 1, 4); T(x, String(v), tv(v), 224, 8.5, PAL.muted, 500, 'center', MONO); });
-    // 숫자 카드
-    card(x, RX, 234, 190, 70);
-    T(x, '조각을 읽는 속도(자/초)', RX + 10, 250, 11, PAL.ink, 600);
-    if (rows) {
-      T(x, `${P.lo.toFixed(1)} ~ ${P.hi.toFixed(1)}`, RX + 180, 280, 21, P.hi - P.lo < 0.05 ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
-      T(x, `넷플릭스 한국어 자막 성인 상한 12`, RX + 10, 296, 9.5, PAL.muted, 500);
-    } else T(x, '조각이 없어 잴 수 없다', RX + 10, 276, 11, PAL.muted, 500);
-    card(x, RX + 198, 234, 190, 70);
-    T(x, '조각 시각과 말 시각의 차', RX + 208, 250, 11, PAL.ink, 600);
-    if (rows) T(x, `최대 ${P.gapMax.toFixed(2)}초`, RX + 378, 280, 21, P.gapMax < 0.005 ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
-    else T(x, '말 시각을 모른다', RX + 208, 276, 11, PAL.muted, 500);
-    T(x, `최대 ${MAX_WORDS}어절, 폭 ${MAX_W}px, 글자 ${SIZE}px. 빨간 폭은 상자 초과`, RX, 319, 9.5, PAL.muted, 500);
-    T(x, '말 속도와 문장은 이 데모의 가정값', RX, 340, 9.5, PAL.muted, 500);
+      x.fillStyle = col; x.globalAlpha = 0.85; x.fillRect(tv(r.sp0), 187, Math.max(1, (tv(r.sp1) - tv(r.sp0) - 1.5) * gp), 12);
+      x.globalAlpha = tt >= r.c0 && tt < r.c1 ? 1 : 0.55; x.fillRect(tv(r.c0), 207, Math.max(1, (tv(r.c1) - tv(r.c0) - 1.5) * gp), 12); x.globalAlpha = 1;
+    }); else { x.fillStyle = PAL.accent2; x.globalAlpha = 0.85; x.fillRect(tv(sp0), 187, (tv(sp1) - tv(sp0)) * gp, 12); x.fillStyle = PAL.muted; x.globalAlpha = 0.6; x.fillRect(tv(S0), 207, (tv(sp1) - tv(S0)) * gp, 12); x.globalAlpha = 1; }
+    [0, 1, 2, 3, 4].forEach((v) => { x.fillStyle = PAL.muted; x.fillRect(tv(v), 222, 1, 4); T(x, String(v), tv(v), 236, 10, PAL.muted, 500, 'center', MONO); });
+    // 큰 숫자 둘: 읽는 속도, 시각 차
+    T(x, '조각을 읽는 속도(자/초)', RX + 4, 266, 12, PAL.ink, 600);
+    if (rows) T(x, `${P.lo.toFixed(1)} ~ ${P.hi.toFixed(1)}`, RX + 4, 300, 30, P.hi - P.lo < 0.05 ? PAL.accent2 : PAL.accent, 700, 'left', MONO);
+    else T(x, '조각이 없어 잴 수 없다', RX + 4, 296, 12, PAL.muted, 500);
+    T(x, '조각 시각과 말 시각의 차', RX + 204, 266, 12, PAL.ink, 600);
+    if (rows) T(x, `최대 ${P.gapMax.toFixed(2)}초`, RX + 204, 300, 30, P.gapMax < 0.005 ? PAL.accent2 : PAL.accent, 700, 'left', MONO);
+    else T(x, '말 시각을 모른다', RX + 204, 296, 12, PAL.muted, 500);
+    T(x, `최대 ${MAX_WORDS}어절, 폭 ${MAX_W}px, 글자 ${SIZE}px. 노란 폭은 상자 초과`, RX + 4, 322, 10.5, PAL.muted, 500);
+    T(x, '말 속도와 문장은 가정값이다', RX + 4, 340, 10.5, PAL.muted, 500);
     s.pill.textContent = `0${L}  ${STEP[L - 1]}`;
   },
 };

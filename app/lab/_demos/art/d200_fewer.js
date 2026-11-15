@@ -156,7 +156,7 @@ const demo = {
     const main = el('canvas', null, sp);
     main.width = 1280; main.height = 720; css(main, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
     const pill = el('div', null, sp);
-    css(pill, { position: 'absolute', right: '16px', top: '14px', padding: '7px 12px 7px 11px', borderRadius: '2px', background: PAL.surface, color: PAL.ink, borderLeft: `3px solid ${PAL.accent}`, boxShadow: `0 0 0 1px ${PAL.line}, 0 4px 14px rgba(0,0,0,.4)`, font: "600 12px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
+    css(pill, { position: 'absolute', right: '16px', top: '14px', padding: '.55em 1em .55em .9em', borderRadius: '2px', background: PAL.surface, color: PAL.ink, borderLeft: `3px solid ${PAL.accent}`, boxShadow: `0 0 0 1px ${PAL.line}, 0 4px 14px rgba(0,0,0,.4)`, font: "600 12px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
     const gr = mk(256, 256); { const g2 = ctx2(gr), d = g2.createImageData(256, 256), r = rng(3); for (let i = 0; i < d.data.length; i += 4) { const v = r() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; } g2.putImageData(d, 0, 0); }
     return { main, pill, gr, src: paintKitchen(), cache: {}, tmp: mk(64, 36) };
   },
@@ -178,30 +178,25 @@ const demo = {
     const m = measure(s, L);
     const px = 412, py = 48;
     x.fillStyle = 'rgba(19,26,43,.85)'; x.fillRect(px, py, 212, 216); x.strokeStyle = PAL.line; x.strokeRect(px + .5, py + .5, 211, 215);
-    x.fillStyle = PAL.ink; x.font = "500 9.5px 'JetBrains Mono',monospace"; x.fillText('이 장면을 10fps·64px 로 잰 값', px + 10, py + 15);
-    x.fillStyle = PAL.muted; x.font = "500 8.5px 'IBM Plex Sans KR',sans-serif"; x.fillText('바닥 = 가전 쇼츠 성공 30편의 최저값', px + 10, py + 27);
+    x.fillStyle = PAL.ink; x.font = "600 12px 'IBM Plex Sans KR',sans-serif"; x.fillText('10fps·64px 프레임 차로 잰 값', px + 12, py + 24);
+    x.fillStyle = PAL.muted; x.font = "500 10px 'IBM Plex Sans KR',sans-serif"; x.fillText('바닥 = 가전 쇼츠 성공 30편의 최저값', px + 12, py + 40);
     const rows = [['정지 비율', `${m.still.toFixed(0)}%`, `≤${FLOOR.still}%`, m.still <= FLOOR.still], ['움직임', m.motion.toFixed(2), `≥${FLOOR.motion}`, m.motion >= FLOOR.motion], ['10초당 컷', m.cuts.toFixed(1), `≥${FLOOR.cuts}`, m.cuts >= FLOOR.cuts]];
     rows.forEach(([lb, val, fl, ok], i) => {
-      const yy = py + 48 + i * 23;
-      x.fillStyle = PAL.muted; x.font = "500 10px 'IBM Plex Sans KR',sans-serif"; x.fillText(lb, px + 10, yy);
-      x.fillStyle = ok ? PAL.accent2 : PAL.ink; x.font = "700 17px 'JetBrains Mono',monospace"; x.fillText(val, px + 76, yy + 1);
-      x.fillStyle = ok ? PAL.accent : PAL.muted; x.font = "500 9.5px 'IBM Plex Sans KR',sans-serif"; x.fillText(`${ok ? '넘음' : '아래'} ${fl}`, px + 148, yy);
-    });
-    x.fillStyle = PAL.line; x.fillRect(px + 10, py + 118, 192, 1);
-    x.fillStyle = PAL.muted; x.font = "500 8.5px 'IBM Plex Sans KR',sans-serif"; x.fillText('제작자 실측 (정지 · 움직임 · 10초당 컷)', px + 10, py + 132);
-    [['수정 전 업로드 3편', '29~43% · 2.98~4.57 · 4.5~6.7'], ['10/05 경로', '87% · 0.54 · 0.8'], ['사진 1장 4장면 반복', '88% · 0.90 · 1.4']].forEach(([a1, b1], i) => {
-      x.fillStyle = PAL.muted; x.font = "500 9px 'IBM Plex Sans KR',sans-serif"; x.fillText(a1, px + 10, py + 148 + i * 22); x.fillStyle = PAL.ink; x.font = "500 9.5px 'JetBrains Mono',monospace"; x.fillText(b1, px + 10, py + 159 + i * 22);
+      const yy = py + 76 + i * 50;
+      x.fillStyle = PAL.muted; x.font = "500 11px 'IBM Plex Sans KR',sans-serif"; x.fillText(lb, px + 12, yy - 14);
+      x.fillStyle = ok ? PAL.accent2 : PAL.ink; x.font = "700 26px 'JetBrains Mono',monospace"; x.fillText(val, px + 12, yy + 12);
+      x.fillStyle = ok ? PAL.accent : PAL.muted; x.font = "500 12px 'IBM Plex Sans KR',sans-serif"; x.fillText(`${ok ? '넘음' : '아래'} ${fl}`, px + 118, yy + 10);
     });
     // 프레임 차 막대
     const by0 = 282, bh = 56, bx0 = 16, bwid = 540, n = m.bars.length, sc = (v) => Math.min(1, Math.sqrt(v / 40)) * bh;
     x.fillStyle = 'rgba(0,0,0,.28)'; x.fillRect(bx0 - 2, by0 - 4, bwid + 52, bh + 8);
     m.bars.forEach((v, i) => { const h = Math.max(1, sc(v)); x.fillStyle = v < STILL ? PAL.muted : (v > CUT ? PAL.accent2 : PAL.accent); x.fillRect(bx0 + i * bwid / n, by0 + bh - h, Math.max(1, bwid / n - 1.2), h); });
     x.setLineDash([3, 3]); x.lineWidth = 1; x.strokeStyle = 'rgba(244,239,228,.45)';
-    for (const [v, lb] of [[STILL, '정지 0.5'], [CUT, '컷 25']]) { const yy = by0 + bh - sc(v); x.beginPath(); x.moveTo(bx0, yy); x.lineTo(bx0 + bwid, yy); x.stroke(); x.fillStyle = PAL.ink; x.font = "500 8.5px 'IBM Plex Sans KR',sans-serif"; x.fillText(lb, bx0 + bwid + 6, yy + 3); }
+    for (const [v, lb] of [[STILL, '정지 0.5'], [CUT, '컷 25']]) { const yy = by0 + bh - sc(v); x.beginPath(); x.moveTo(bx0, yy); x.lineTo(bx0 + bwid, yy); x.stroke(); x.fillStyle = PAL.ink; x.font = "500 10px 'IBM Plex Sans KR',sans-serif"; x.fillText(lb, bx0 + bwid + 6, yy + 3); }
     x.setLineDash([]);
     const phx = bx0 + Math.min(1, t / DUR) * bwid; x.fillStyle = PAL.ink; x.fillRect(phx - .75, by0 - 4, 1.5, bh + 8);
     const ticks = cam.N; for (let i = 1; i < ticks; i++) { x.fillStyle = 'rgba(244,239,228,.35)'; x.fillRect(bx0 + i / ticks * bwid, by0 + bh + 1, 1, 4); }
-    x.fillStyle = PAL.muted; x.font = "500 9px 'IBM Plex Sans KR',sans-serif"; x.fillText('프레임 차(10fps) 한 칸 = 0.1초 · 아래 눈금 = 장면 경계', bx0, by0 + bh + 14);
+    x.fillStyle = PAL.muted; x.font = "500 10px 'IBM Plex Sans KR',sans-serif"; x.fillText('프레임 차(10fps) 한 칸 = 0.1초 · 아래 눈금 = 장면 경계', bx0, by0 + bh + 14);
     s.pill.textContent = `${L}단계 · ${STEPS[L - 1]}`;
   },
 };

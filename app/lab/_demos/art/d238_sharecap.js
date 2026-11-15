@@ -73,7 +73,7 @@ function drawStrip(x, code, X, Y, W, H, prog, named, st, warn) {   // 장면 띠
   if (st && named && prog >= 1) {   // 가장 긴 연속 구간을 괄호로
     const a = px(st.bs), b = px(st.be), over = st.run > RUN_MAX, col = over ? BAD : GOOD;
     x.strokeStyle = col; x.lineWidth = 1.5; x.beginPath(); x.moveTo(a + 0.5, Y + H + 3); x.lineTo(a + 0.5, Y + H + 8); x.lineTo(b - 0.5, Y + H + 8); x.lineTo(b - 0.5, Y + H + 3); x.stroke();
-    T(x, `가장 긴 연속 ${f1(st.run)}초`, Math.min(Math.max((a + b) / 2, X + 60), X + W - 60), Y + H + 19, 10, col, 700, 'center', MONO);
+    T(x, `가장 긴 연속 ${f1(st.run)}초`, Math.min(Math.max((a + b) / 2, X + 70), X + W - 70), Y + H + 19, 11, col, 700, 'center', MONO);
   }
 }
 
@@ -89,7 +89,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0);
     const cap = el('div', null, sp);   // 이름표(caption-bl): 왼쪽 아래, 배경 없이, 위에 1px 선
-    Object.assign(cap.style, { position: 'absolute', left: '20px', bottom: '8px', paddingTop: '4px', borderTop: `1px solid ${PAL.line}`, font: "500 12px/1.3 'JetBrains Mono',monospace", color: PAL.muted, zIndex: '4', whiteSpace: 'nowrap', minWidth: '260px' });
+    Object.assign(cap.style, { position: 'absolute', left: '20px', bottom: '10px', paddingTop: '.3em', borderTop: `1px solid ${PAL.line}`, font: "500 12px/1.3 'JetBrains Mono',monospace", color: PAL.muted, zIndex: '4', whiteSpace: 'nowrap', minWidth: '260px' });
     return { main, cap, gc };
   },
   render(s, t, a, lv) {
@@ -112,50 +112,42 @@ const demo = {
     });
     // 띠 둘
     const SX = 20, SW = 600, p1 = E.inOutC(seg(t, 0.15, 2.0)), named1 = L >= 1;
-    T(x, '전  제작 기록의 한 편, 장면 19개', SX, 80, 10, PAL.ink, 700);
-    drawStrip(x, BEFORE, SX, 86, SW, 26, p1, named1, L >= 2 ? SB : null, false);
-    T(x, after ? '후  이웃과 다른 배치로 바꿔 배정(이 데모의 배정)' : '후  3단계에서 배정한다', SX, 152, 10, after ? PAL.ink : MUTED2, after ? 700 : 500);
-    if (after) { const p2 = L === 3 ? E.inOutC(seg(t, 0.2, 2.2)) : 1; drawStrip(x, AFTER, SX, 158, SW, 26, p2, true, L >= 3 ? SA : null, true); }
-    else { x.fillStyle = 'rgba(29,26,22,.06)'; rr(x, SX, 158, SW, 26, 3); x.fill(); }
-    // 세 칸
-    const CY = 214, CH = 106;
-    const cells = [{ x: 20, w: 172 }, { x: 204, w: 258 }, { x: 474, w: 146 }];
+    T(x, '전  제작 기록의 한 편, 장면 19개', SX, 80, 12, PAL.ink, 700);
+    drawStrip(x, BEFORE, SX, 86, SW, 30, p1, named1, L >= 2 ? SB : null, false);
+    T(x, after ? '후  이웃과 다른 배치로 바꿔 배정' : '후  3단계에서 배정한다', SX, 160, 12, after ? PAL.ink : MUTED2, after ? 700 : 500);
+    if (after) { const p2 = L === 3 ? E.inOutC(seg(t, 0.2, 2.2)) : 1; drawStrip(x, AFTER, SX, 166, SW, 30, p2, true, L >= 3 ? SA : null, true); }
+    else { x.fillStyle = 'rgba(29,26,22,.06)'; rr(x, SX, 166, SW, 30, 3); x.fill(); }
+    // 세 칸: 연속 길이, 한 배치의 비율, 종류 수
+    const CY = 224, CH = 98;
+    const cells = [{ x: 20, w: 192 }, { x: 224, w: 192 }, { x: 428, w: 192 }];
     cells.forEach((c) => card(x, c.x, CY, c.w, CH, 8));
     const show = L >= 2, k2 = L === 2 ? E.outC(seg(t, 0.4, 1.1)) : 1;
     const num = (b, f, fmt, ok) => (L >= 4 ? [`${fmt(b)} → ${fmt(f)}`, ok(f) ? GOOD : BAD] : [fmt(b), ok(b) ? GOOD : BAD]);
-    // 칸 1: 연속 길이
-    T(x, '같은 배치가 이어진 길이', 32, CY + 17, 10.5, PAL.ink, 700); T(x, `${RUN_MAX}초 이하 · 추정`, 32, CY + 30, 9, MUTED2, 500, 'left', MONO);
+    const big = L >= 4 ? 17 : 24;
+    const cur = L >= 4 ? SA : SB;
+    // 칸 1
+    T(x, '같은 배치가 이어진 길이', 32, CY + 20, 12, PAL.ink, 700); T(x, `기준 ${RUN_MAX}초 이하`, 32, CY + 36, 11, MUTED2, 500, 'left', MONO);
     x.save(); x.globalAlpha = show ? 0.2 + 0.8 * k2 : 1;
-    if (show) { const [tx, col] = num(SB.run, SA.run, (v) => `${f1(v)}초`, (v) => v <= RUN_MAX); T(x, tx, 32, CY + 58, L >= 4 ? 15 : 22, col, 700, 'left', MONO); } else T(x, '—', 32, CY + 58, 22, MUTED2, 600, 'left', MONO);
+    if (show) { const [tx, col] = num(SB.run, SA.run, (v) => `${f1(v)}초`, (v) => v <= RUN_MAX); T(x, tx, 32, CY + 66, big, col, 700, 'left', MONO); } else T(x, '—', 32, CY + 66, 24, MUTED2, 600, 'left', MONO);
     x.restore();
-    const bw = 148, bv = (L >= 4 ? SA.run : SB.run) / TOTAL * bw;
-    x.fillStyle = 'rgba(29,26,22,.08)'; rr(x, 32, CY + 80, bw, 8, 4); x.fill();
-    if (show) { x.fillStyle = (L >= 4 ? SA.run : SB.run) > RUN_MAX ? BAD : GOOD; rr(x, 32, CY + 80, Math.max(2, bv * k2), 8, 4); x.fill(); }
-    x.fillStyle = PAL.ink; x.fillRect(32 + RUN_MAX / TOTAL * bw - 0.5, CY + 77, 1.5, 14);
-    T(x, '검은 선 = 상한', 32, CY + 100, 9, MUTED2, 500, 'left', MONO);
-    // 칸 2: 종류별 비율
-    const top = L >= 4 ? SA : SB;
-    T(x, '한 배치가 차지한 비율', 216, CY + 17, 10.5, PAL.ink, 700); T(x, `${SHARE_MAX}% 이하 · 추정`, 216, CY + 30, 9, MUTED2, 500, 'left', MONO);
+    const bw = 168, bv = cur.run / TOTAL * bw;
+    x.fillStyle = 'rgba(29,26,22,.08)'; rr(x, 32, CY + 78, bw, 8, 4); x.fill();
+    if (show) { x.fillStyle = cur.run > RUN_MAX ? BAD : GOOD; rr(x, 32, CY + 78, Math.max(2, bv * k2), 8, 4); x.fill(); }
+    x.fillStyle = PAL.ink; x.fillRect(32 + RUN_MAX / TOTAL * bw - 0.5, CY + 75, 1.5, 14);
+    // 칸 2
+    T(x, '한 배치가 차지한 비율', 236, CY + 20, 12, PAL.ink, 700); T(x, `기준 ${SHARE_MAX}% 이하`, 236, CY + 36, 11, MUTED2, 500, 'left', MONO);
     x.save(); x.globalAlpha = show ? 0.2 + 0.8 * k2 : 1;
-    if (show) { const [tx, col] = num(SB.top, SA.top, (v) => `${v.toFixed(0)}%`, (v) => v <= SHARE_MAX); T(x, tx, 450, CY + 20, L >= 4 ? 14 : 17, col, 700, 'right', MONO); }
-    else T(x, '—', 450, CY + 20, 17, MUTED2, 600, 'right', MONO);
+    if (show) { const [tx, col] = num(SB.top, SA.top, (v) => `${v.toFixed(0)}%`, (v) => v <= SHARE_MAX); T(x, tx, 236, CY + 66, big, col, 700, 'left', MONO); } else T(x, '—', 236, CY + 66, 24, MUTED2, 600, 'left', MONO);
     x.restore();
-    const gx0 = 232, gw = 170;
-    KINDS.forEach(([k, n, c], i) => {
-      const y = CY + 38 + i * 9.2, v = show ? (top.pct[k] || 0) : 0, over = v > SHARE_MAX;
-      x.fillStyle = 'rgba(29,26,22,.07)'; rr(x, gx0, y, gw, 6.4, 3); x.fill();
-      if (v > 0) { x.fillStyle = over ? BAD : c; rr(x, gx0, y, Math.max(2, v / 100 * gw * k2), 6.4, 3); x.fill(); }
-      x.fillStyle = c; x.fillRect(216, y, 6, 6.4);
-      if (show && v > 0) T(x, `${v.toFixed(0)}%`, gx0 + gw + 6, y + 6.4, 8.5, over ? BAD : MUTED2, 600, 'left', MONO);
-    });
-    const tx2 = gx0 + SHARE_MAX / 100 * gw; x.fillStyle = PAL.ink; x.fillRect(tx2 - 0.5, CY + 36, 1.5, 7 * 9.2 + 2);
-    // 칸 3: 종류 수
-    T(x, '배치 종류 수', 486, CY + 17, 10.5, PAL.ink, 700); T(x, `${KINDS_MIN}종 이상 · 추정`, 486, CY + 30, 9, MUTED2, 500, 'left', MONO);
+    x.fillStyle = 'rgba(29,26,22,.08)'; rr(x, 236, CY + 78, bw, 8, 4); x.fill();
+    if (show) { x.fillStyle = cur.top > SHARE_MAX ? BAD : GOOD; rr(x, 236, CY + 78, Math.max(2, cur.top / 100 * bw * k2), 8, 4); x.fill(); }
+    x.fillStyle = PAL.ink; x.fillRect(236 + SHARE_MAX / 100 * bw - 0.5, CY + 75, 1.5, 14);
+    // 칸 3
+    T(x, '배치 종류 수', 440, CY + 20, 12, PAL.ink, 700); T(x, `기준 ${KINDS_MIN}종 이상`, 440, CY + 36, 11, MUTED2, 500, 'left', MONO);
     x.save(); x.globalAlpha = show ? 0.2 + 0.8 * k2 : 1;
-    if (show) { const [tx, col] = num(SB.kinds, SA.kinds, (v) => `${v}종`, (v) => v >= KINDS_MIN); T(x, tx, 486, CY + 58, L >= 4 ? 17 : 22, col, 700, 'left', MONO); } else T(x, '—', 486, CY + 58, 22, MUTED2, 600, 'left', MONO);
+    if (show) { const [tx, col] = num(SB.kinds, SA.kinds, (v) => `${v}종`, (v) => v >= KINDS_MIN); T(x, tx, 440, CY + 66, big, col, 700, 'left', MONO); } else T(x, '—', 440, CY + 66, 24, MUTED2, 600, 'left', MONO);
     x.restore();
-    KINDS.forEach(([k, n, c], i) => { const on = show && ((L >= 4 ? SA.pct[k] : SB.pct[k]) > 0); x.fillStyle = on ? c : 'rgba(29,26,22,.12)'; rr(x, 486 + i * 18, CY + 74, 14, 14, 3); x.fill(); });
-    T(x, '칸 색 = 쓴 배치', 486, CY + 100, 9, MUTED2, 500, 'left', MONO);
+    KINDS.forEach(([k, n, c], i) => { const on = show && (cur.pct[k] > 0); x.fillStyle = on ? c : 'rgba(29,26,22,.12)'; rr(x, 440 + i * 24, CY + 76, 18, 12, 3); x.fill(); });
     s.cap.textContent = CAP[L];
   },
 };

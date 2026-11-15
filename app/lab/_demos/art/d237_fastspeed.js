@@ -58,7 +58,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0);
     const lab = el('div', null, sp);   // 이름표(numeral): 왼쪽 위 큰 숫자와 옆 설명
-    Object.assign(lab.style, { position: 'absolute', left: '20px', top: '6px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4', whiteSpace: 'nowrap' });
+    Object.assign(lab.style, { position: 'absolute', left: '20px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4', whiteSpace: 'nowrap' });
     const num = el('span', null, lab), desc = el('span', null, lab);
     Object.assign(num.style, { font: "400 40px/1 'Black Han Sans',sans-serif", color: PAL.accent, minWidth: '26px' });
     Object.assign(desc.style, { font: "500 13px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
@@ -73,65 +73,52 @@ const demo = {
     x.save(); x.globalCompositeOperation = 'multiply'; x.globalAlpha = 0.07;
     for (let gx0 = 0; gx0 < 640; gx0 += 128) for (let gy0 = 0; gy0 < 360; gy0 += 128) x.drawImage(s.gc, gx0, gy0, 128, 128);
     x.restore();
-    const CX = 20, CW = 288;
+    const CX = 20, CW = 600, IX = 32, IW = 576;
     card(x, CX, 54, CW, 292, 10);
-    // 계산 사슬: 길이, 말 속도, 점유, 줄 수
+    // 계산 사슬: 길이, 말 속도, 점유, 줄 수 (가로 한 줄)
     const chips = [
-      { lv: 0, lab: '영상 길이', f: `${f0(TARGET_S)}초 (${(TARGET_S / 60).toFixed(0)}분)`, r: `${f0(TARGET_S)}초` },
-      { lv: 1, lab: '× 말 속도', f: `${CPS.toFixed(1)}자/초, 쉬지 않고 말하면`, r: `${f0(PLAN.max)}자` },
-      { lv: 2, lab: '× 해설 점유', f: `말하는 시간 ${(OCC * 100).toFixed(0)}%`, r: L >= 4 ? `${f0(ASK.chars)} → ${f0(PLAN.chars)}자` : `${f0(PLAN.chars)}자` },
-      { lv: 3, lab: '÷ 줄당 글자', f: `평균 ${AVG_LINE.toFixed(1)}자, 줄당 ${PLAN.perLine.toFixed(1)}초`, r: L >= 4 ? `${ASK.lines} → ${PLAN.lines}줄` : `${PLAN.lines}줄` },
+      { lv: 0, lab: '영상 길이', r: `${f0(TARGET_S)}초` },
+      { lv: 1, lab: `× 말 속도 ${CPS.toFixed(1)}자/초`, r: `${f0(PLAN.max)}자` },
+      { lv: 2, lab: `× 해설 점유 ${(OCC * 100).toFixed(0)}%`, r: L >= 4 ? `${f0(ASK.chars)}→${f0(PLAN.chars)}자` : `${f0(PLAN.chars)}자` },
+      { lv: 3, lab: `÷ ${AVG_LINE.toFixed(1)}자, 줄당 ${PLAN.perLine.toFixed(1)}초`, r: L >= 4 ? `${ASK.lines}→${PLAN.lines}줄` : `${PLAN.lines}줄` },
     ];
+    const CWD = 138;
     chips.forEach((c, i) => {
-      const y = 62 + i * 41, vis = L >= c.lv, k = vis ? (L === c.lv ? E.outC(seg(t, 0.2, 0.8)) : 1) : 0;
-      x.save(); x.globalAlpha = vis ? 0.3 + 0.7 * k : 0.5; card(x, CX + 8, y, CW - 16, 36, 7, '#f7f9fc');
-      T(x, c.lab, CX + 18, y + 14, 10, MUTED2, 600); T(x, c.f, CX + 18, y + 28, 10, PAL.ink, 500, 'left', MONO);
-      if (vis) T(x, c.r, CX + CW - 18, y + 24, 15, ACC_INK, 700, 'right', MONO); else T(x, '—', CX + CW - 18, y + 24, 14, MUTED2, 600, 'right', MONO);
+      const cx0 = IX + i * (CWD + 8), vis = L >= c.lv, k = vis ? (L === c.lv ? E.outC(seg(t, 0.2, 0.8)) : 1) : 0;
+      x.save(); x.globalAlpha = vis ? 0.3 + 0.7 * k : 0.5; card(x, cx0, 64, CWD, 42, 7, '#f7f9fc');
+      T(x, c.lab, cx0 + 10, 80, 11, MUTED2, 600);
+      if (vis) T(x, c.r, cx0 + CWD - 10, 99, 15, ACC_INK, 700, 'right', MONO); else T(x, '—', cx0 + CWD - 10, 99, 15, MUTED2, 600, 'right', MONO);
       x.restore();
     });
+    // 시간 띠 둘: 받은 대본, 맞춘 대본
+    const axis = Math.max(TARGET_S, ASK.speak) * 1.04, pr = E.outC(seg(t, 0.3, 1.8));
+    T(x, `받은 대본: ${f0(ASK.chars)}자를 읽으면 ${f0(ASK.speak)}초, 길이의 ${(ASK.occ * 100).toFixed(0)}%`, IX, 128, 12, ASK.occ > 1 ? BAD : PAL.ink, 700);
     if (L >= 1) {   // 받은 대본이 한도를 넘는가
       const over = ASK.chars > PLAN.max, kk = L === 1 ? E.outC(seg(t, 0.5, 1.1)) : 1;
-      x.save(); x.globalAlpha = 0.2 + 0.8 * kk; T(x, `받은 ${f0(ASK.chars)}자 ${over ? '>' : '≤'} 한도 ${f0(PLAN.max)}자`, CX + CW - 18, 238, 10, over ? BAD : GOOD, 700, 'right', MONO); x.restore();
+      x.save(); x.globalAlpha = 0.2 + 0.8 * kk; T(x, `받은 ${f0(ASK.chars)}자 ${over ? '>' : '≤'} 한도 ${f0(PLAN.max)}자`, IX + IW, 128, 12, over ? BAD : GOOD, 700, 'right', MONO); x.restore();
     }
-    // 시간 띠 둘: 받은 대본, 맞춘 대본
-    const axis = Math.max(TARGET_S, ASK.speak) * 1.04, SX = CX + 12, SW = CW - 24, pr = E.outC(seg(t, 0.3, 1.8));
-    T(x, `받은 대본: ${f0(ASK.chars)}자를 읽으면 ${f0(ASK.speak)}초, 길이의 ${(ASK.occ * 100).toFixed(0)}%`, SX, 256, 10, ASK.occ > 1 ? BAD : PAL.ink, 600);
-    strip(x, SX, 262, SW, 22, ASK.lines, ASK.speak, axis, pr, true);
+    strip(x, IX, 134, IW, 22, ASK.lines, ASK.speak, axis, pr, true);
     if (L >= 2) {
       const p2 = L === 2 ? E.outC(seg(t, 0.4, 1.9)) : 1;
-      T(x, `맞춘 대본: ${f0(PLAN.chars)}자를 읽으면 ${f0(PLAN.speak)}초, 길이의 ${(OCC * 100).toFixed(0)}%`, SX, 304, 10, PAL.ink, 600);
-      strip(x, SX, 310, SW, 22, PLAN.lines, PLAN.speak, axis, p2, false);
-    } else T(x, '맞춘 대본은 2단계에서 계산한다', SX, 304, 10, MUTED2, 500);
-    T(x, '세로선 = 영상 끝, 빨간 칸 = 영상 끝 뒤로 넘친 말', SX, 342, 9, MUTED2, 500, 'left', MONO);
-    // 오른쪽: 실제 4편 표와 분당 글자 막대
-    const RX = 324, RW = 296;
-    card(x, RX, 54, RW, 292, 10);
+      T(x, `맞춘 대본: ${f0(PLAN.chars)}자를 읽으면 ${f0(PLAN.speak)}초, 길이의 ${(OCC * 100).toFixed(0)}%`, IX, 180, 12, PAL.ink, 700);
+      strip(x, IX, 186, IW, 22, PLAN.lines, PLAN.speak, axis, p2, false);
+    } else T(x, '맞춘 대본은 2단계에서 계산한다', IX, 180, 12, MUTED2, 500);
+    T(x, '세로선은 영상 끝, 빨간 칸은 영상 끝을 넘긴 말', IX, 226, 10, MUTED2, 500);
+    // 실제 4편 표와 계획 줄
     const k4 = L >= 4 ? E.outC(seg(t, 0.2, 0.9)) : 0, kp = L === 2 ? E.outC(seg(t, 0.8, 1.4)) : 1;
-    const cols = [['편', 14, 'left'], ['길이', 78, 'right'], ['자/초', 124, 'right'], ['점유', 168, 'right'], ['분당 글자', 230, 'right'], ['줄당 자', 282, 'right']];
-    cols.forEach(([h, ox, al]) => T(x, h, RX + ox, 72, 9.5, MUTED2, 600, al));
-    x.fillStyle = PAL.line; x.fillRect(RX + 10, 77, RW - 20, 1);
+    const cols = [['편', 8, 'left'], ['길이', 150, 'right'], ['자/초', 250, 'right'], ['점유', 340, 'right'], ['분당 글자', 460, 'right'], ['줄당 자', 566, 'right']];
+    cols.forEach(([h, ox, al]) => T(x, h, IX + ox, 248, 11, MUTED2, 600, al));
+    x.fillStyle = PAL.line; x.fillRect(IX, 253, IW, 1);
     rowsT.forEach((r, i) => {
-      const y = 80 + i * 20, col = r.plan ? ACC_INK : PAL.ink, yy = y + 13;
-      if (r.plan) { x.fillStyle = 'rgba(43,108,255,.10)'; rr(x, RX + 8, y, RW - 16, 19, 4); x.fill(); x.strokeStyle = PAL.accent; x.lineWidth = 1; rr(x, RX + 8.5, y + 0.5, RW - 17, 18, 4); x.stroke(); }
+      const y = 256 + i * 18, col = r.plan ? ACC_INK : PAL.ink, yy = y + 13;
+      if (r.plan) { x.fillStyle = 'rgba(43,108,255,.10)'; rr(x, IX, y, IW, 17, 4); x.fill(); x.strokeStyle = PAL.accent; x.lineWidth = 1; rr(x, IX + 0.5, y + 0.5, IW - 1, 16, 4); x.stroke(); }
       const cells = [r.name, `${f0(r.len)}초`, r.cps.toFixed(2), `${(r.occ * 100).toFixed(0)}%`, f0(r.cpm), r.per.toFixed(1)];
       cells.forEach((c, ci) => {
         const need = r.plan ? [0, 0, 1, 2, 2, 3][ci] : (ci === 0 ? 0 : 4), vis = L >= need, al = cols[ci][2], k = need === 4 ? k4 : (need === 2 && L === 2 ? kp : 1);
         x.save(); x.globalAlpha = vis ? 0.25 + 0.75 * k : 1;
-        if (vis) T(x, c, RX + cols[ci][1], yy, 11, col, ci === 4 || ci === 0 ? 700 : 500, al, MONO); else T(x, '—', RX + cols[ci][1], yy, 11, MUTED2, 500, al, MONO);
+        if (vis) T(x, c, IX + cols[ci][1], yy, 12, col, ci === 4 || ci === 0 ? 700 : 500, al, MONO); else T(x, '—', IX + cols[ci][1], yy, 12, MUTED2, 500, al, MONO);
         x.restore();
       });
-    });
-    if (L >= 4) T(x, `줄 글자 수(공백 포함) 중앙 ${Math.min(...EPS.map((e) => e.med))}~${Math.max(...EPS.map((e) => e.med))}자, 최대 ${MINED}~${MAXED}자`, RX + 14, 204, 9.5, MUTED2, 500, 'left', MONO);
-    else T(x, '4편은 4단계에서, 계획 줄은 단계마다 채워진다', RX + 14, 204, 9.5, MUTED2, 500, 'left', MONO);
-    T(x, '분당 글자 = 글자 수 / 영상 길이 x 60', RX + 14, 228, 10, PAL.ink, 600);
-    const mx = 450, BX = RX + 44, BW = RW - 100;
-    rowsT.forEach((r, i) => {
-      const y = 236 + i * 20, vis = r.plan ? L >= 2 : L >= 4, k = r.plan ? (L === 2 ? kp : 1) : k4;
-      const w = vis ? r.cpm / mx * BW * E.outC(seg(L >= 4 ? t : 9, 0.3 + i * 0.1, 1.2 + i * 0.1)) * (r.plan && L < 4 ? k : 1) : 0;
-      T(x, r.name, RX + 14, y + 11, 10, r.plan ? ACC_INK : PAL.ink, 700, 'left', MONO);
-      x.fillStyle = 'rgba(15,27,45,.07)'; rr(x, BX, y, BW, 14, 3); x.fill();
-      if (w > 0) { x.fillStyle = r.plan ? PAL.accent2 : PAL.accent; rr(x, BX, y, w, 14, 3); x.fill(); }
-      if (vis) T(x, f0(r.cpm), BX + BW + 8, y + 11, 10.5, PAL.ink, 700, 'left', MONO); else T(x, '—', BX + BW + 8, y + 11, 10.5, MUTED2, 500, 'left', MONO);
     });
     s.num.textContent = NUM[L]; s.desc.textContent = DESC[L];
   },

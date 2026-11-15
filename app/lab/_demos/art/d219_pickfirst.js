@@ -110,8 +110,8 @@ function sizeBox(x, X, Y, ap, H, compact) {   // 권장 크기(바깥 점선)와
   x.save(); x.globalAlpha = ap; x.setLineDash([4, 3]); x.strokeStyle = INK2; x.lineWidth = 1; x.strokeRect(X + 0.5, Y + 0.5, bw, bh); x.setLineDash([]);
   const w = OUT_W * sc, h = OUT_H * sc; x.fillStyle = rgba('#ffe27a', 0.88); x.fillRect(X + 0.5, Y + 0.5 + bh - h, w, h);
   x.strokeStyle = '#1d1a16'; x.lineWidth = 1.4; x.beginPath(); const my = Y + 0.5 + bh - MIN_H * sc; x.moveTo(X - 4, my); x.lineTo(X + bw + 4, my); x.stroke();
-  T(x, `권장 ${REC_W}×${REC_H}`, X + bw / 2, Y - 6, 9.5, PAL.ink, 600, 'center');
-  T(x, `${OUT_W}×${OUT_H}`, X + bw / 2, Y + bh + 13, 9.5, PAL.accent, 700, 'center', MONO);
+  T(x, `권장 ${REC_W}×${REC_H}`, X + bw / 2, Y - 6, 10, PAL.ink, 600, 'center');
+  T(x, `${OUT_W}×${OUT_H}`, X + bw / 2, Y + bh + 13, 10, PAL.accent, 700, 'center', MONO);
   if (!compact) T(x, `최소 높이 ${MIN_H}px`, X + bw + 8, my + 3, 10, PAL.ink, 600);
   x.restore();
 }
@@ -172,13 +172,13 @@ const demo = {
       if (L === 1) {
         T(x, `${PICK_T}초 지점이 대표 이미지로 골라졌다(제작 기록 1건)`, RX + 12, CY + 176, 11, PAL.accent, 700);
         T(x, '제목이 보이는 프레임 0/5. 어느 장면이 골라질지는 정할 수 없다', RX + 12, CY + 194, 10.5, INK2, 500);
-        T(x, '[기록] 표본 1편, 효과 측정 없음', RX + 12, CY + 211, 10, INK2, 500, 'left', MONO);
+        T(x, '제작 기록 1편, 효과를 잰 적 없음', RX + 12, CY + 211, 10, INK2, 500, 'left', MONO);
       } else {
         sizeBox(x, RX + 316, CY + 36, E.outC(P(t, 1.2, 0.5)), 132, true);
         T(x, `320px 폭으로 줄이면 글자 높이 ${(TITLE_PX * 320 / 1080).toFixed(0)}px(계산)`, RX + 12, CY + 170, 11, PAL.ink, 600);
         T(x, `띠 영역 평균 차 ${diff.toFixed(1)} (${BAND_OK} 미만이면 같은 띠)`, RX + 12, CY + 188, 10.5, INK2, 500);
-        T(x, '[기록] 시청 성과는 확인되지 않았다', RX + 12, CY + 206, 10, INK2, 500, 'left', MONO);
-        ['점선 권장 크기', '노란 면 내 이미지'].forEach((l, i) => T(x, l, RX + RW - 10, CY + 197 + i * 13, 9.5, INK2, 500, 'right'));
+        T(x, '시청 성과는 잰 적 없다', RX + 12, CY + 206, 10, INK2, 500, 'left', MONO);
+        ['점선 권장 크기', '노란 면 내 이미지'].forEach((l, i) => T(x, l, RX + RW - 10, CY + 197 + i * 13, 10, INK2, 500, 'right'));
       }
     } else if (L === 2) {
       T(x, '컴퓨터의 YouTube Studio 에서만 올릴 수 있다(공식 도움말)', RX + 12, CY + 19, 11, PAL.ink, 600);
@@ -196,8 +196,8 @@ const demo = {
         else { x.save(); x.beginPath(); x.rect(X0 + 28, CY + 60, 60, 80); x.clip(); frame(x, X0 + 28, CY + 60, 60, 80, TIMES[0], false, false); x.restore(); }
         mark(x, bad ? 'bad' : 'ok', X0 + 14, CY + 150); st.split('|').forEach((l, j) => T(x, l, X0 + 26, CY + 154 + j * 13, 10.5, bad ? BADC : OKC, 700)); x.restore();
       });
-      T(x, '원인은 확인하지 못했다. 되돌리는 API 가 없어 Studio 에서 손으로 되돌렸다', RX + 12, CY + 192, 10.5, INK2, 500);
-      T(x, '[기록] 표본 1편, 이후 자동 지정을 껐다', RX + 12, CY + 210, 10, INK2, 500, 'left', MONO);
+      T(x, '원인은 모른다. 되돌리는 API 가 없어 Studio 에서 손으로 되돌렸다', RX + 12, CY + 192, 10.5, INK2, 500);
+      T(x, '제작 기록 1편, 이후 자동 지정을 껐다', RX + 12, CY + 210, 10, INK2, 500, 'left', MONO);
     }
     s.pill.textContent = `${Math.max(1, L)}. ${STEP[Math.max(1, L) - 1]}`;
   },

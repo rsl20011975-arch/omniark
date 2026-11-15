@@ -52,8 +52,8 @@ function metrics(ver) {          // 채점 7칸의 값. 모두 위 데이터에�
     sp.gaps.filter((v) => v % 4 !== 0).length, low, sp.modes.length, [W1, W2, W3].filter((W) => layout(W, fixed).over > 0).length, sp.states,
   ];
 }
-const CELLS = [['시스템 글꼴', '개', 4, '도구 없음'], ['스케일 밖 글자', '개', 4, '도구 없음'], ['4배수 아닌 여백', '개', 4, '도구 없음'],
-  ['대비 4.5 미만', '곳', 2, '도구 없음'], ['라이트·다크', '/2', 2, '캡처만 함, 세지 않음'], ['3폭 가로 넘침', '폭', 1, '가로 스크롤만 셈'], ['빈·로딩·오류', '/3', 3, '도구 없음']];
+const CELLS = [['시스템 글꼴', '개', 4, '세지 않음'], ['스케일 밖 글자', '개', 4, '세지 않음'], ['4배수 아닌 여백', '개', 4, '세지 않음'],
+  ['대비 4.5 미만', '곳', 2, '세지 않음'], ['라이트·다크', '/2', 2, '저장만 함'], ['3폭 가로 넘침', '폭', 1, '넘침만 셈'], ['빈·로딩·오류', '/3', 3, '세지 않음']];
 const GOODV = [(v) => v === 0, (v) => v === 0, (v) => v === 0, (v) => v === 0, (v) => v === 2, (v) => v === 0, (v) => v === 3];
 
 function rr(x, X, Y, W, H, r) { x.beginPath(); x.roundRect(X, Y, W, H, Math.max(0, Math.min(r, W / 2, H / 2))); }
@@ -141,7 +141,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(numeral): 왼쪽 위 큰 숫자와 옆 설명
-    Object.assign(lab.style, { position: 'absolute', left: '20px', top: '6px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4', whiteSpace: 'nowrap' });
+    Object.assign(lab.style, { position: 'absolute', left: '20px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4', whiteSpace: 'nowrap' });
     const num = el('span', null, lab), desc = el('span', null, lab);
     Object.assign(num.style, { font: "400 40px/1 'Black Han Sans',sans-serif", color: PAL.accent, minWidth: '26px' });
     Object.assign(desc.style, { font: "500 13px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
@@ -177,26 +177,24 @@ const demo = {
       T(x, mtxt, 620, 22, 11, fixed ? MUTED2 : (t >= SWITCH_T ? BAD : MUTED2), 600, 'right', MONO);
     }
     if (L >= 3) T(x, fixed ? `상태 ${['자료', '빈 화면', '로딩', '오류'][st]}` : '상태 화면 없음', 620, 38, 11, fixed ? MUTED2 : BAD, 600, 'right', MONO);
-    // 아래: 채점 7칸
-    T(x, '채점 7칸 (칸 아래: 이 사이트의 점검 도구가 세는가)', 20, 270, 10, MUTED2, 500, 'left', MONO);
+    // 아래: 채점 7칸. 칸마다 이름, 이 사이트 점검 도구가 세는지, 코드가 센 값
     const b = metrics('before'), f = metrics('after');
     CELLS.forEach(([name, unit, lvl, note], i) => {
-      const col = i % 4, row = Math.floor(i / 4), cx = 20 + col * 150, cy = 276 + row * 38, vis = L >= lvl;
+      const col = i % 4, row = Math.floor(i / 4), cx = 20 + col * 150, cy = 262 + row * 44, vis = L >= lvl;
       const k = vis ? (L === lvl ? E.outC(seg(t, 0.3, 0.9)) : 1) : 0;
-      x.save(); x.globalAlpha = vis ? 1 : 0.55; x.fillStyle = PAL.surface; rr(x, cx, cy, 144, 32, 6); x.fill(); x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, cx + 0.5, cy + 0.5, 143, 31, 6); x.stroke(); x.restore();
-      T(x, name, cx + 8, cy + 13, 11, PAL.ink, 600);
-      T(x, note, cx + 8, cy + 26, 9, MUTED2, 500);
+      x.save(); x.globalAlpha = vis ? 1 : 0.55; x.fillStyle = PAL.surface; rr(x, cx, cy, 144, 38, 6); x.fill(); x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, cx + 0.5, cy + 0.5, 143, 37, 6); x.stroke(); x.restore();
+      T(x, name, cx + 8, cy + 15, 11, PAL.ink, 600);
+      T(x, note, cx + 136, cy + 15, 10, MUTED2, 500, 'right');
       x.save(); x.globalAlpha = vis ? 0.2 + 0.8 * k : 1;
-      if (!vis) T(x, '—', cx + 136, cy + 13, 11, MUTED2, 600, 'right', MONO);
+      if (!vis) T(x, '—', cx + 8, cy + 31, 12, MUTED2, 600, 'left', MONO);
       else {
-        const bv = b[i], fv = f[i], before = `${bv}${unit === '/2' ? '/2' : unit === '/3' ? '/3' : unit}`, after = `${fv}${unit === '/2' ? '/2' : unit === '/3' ? '/3' : unit}`;
-        if (L >= 4) {
-          const okA = GOODV[i](fv);
-          T(x, `${before} → ${after}`, cx + 136, cy + 13, 11, okA ? GOOD : BAD, 700, 'right', MONO);
-        } else T(x, before, cx + 136, cy + 13, 11, GOODV[i](bv) ? GOOD : BAD, 700, 'right', MONO);
+        const bv = b[i], fv = f[i], before = `${bv}${unit}`, after = `${fv}${unit}`;
+        if (L >= 4) T(x, `${before} → ${after}`, cx + 8, cy + 31, 12, GOODV[i](fv) ? GOOD : BAD, 700, 'left', MONO);
+        else T(x, before, cx + 8, cy + 31, 12, GOODV[i](bv) ? GOOD : BAD, 700, 'left', MONO);
       }
       x.restore();
     });
+    T(x, '칸 오른쪽 글: 이 사이트의 점검 도구가 세는가', 20, 354, 10, MUTED2, 500, 'left', MONO);
     s.num.textContent = NUM[L]; s.desc.textContent = DESC[L];
   },
 };

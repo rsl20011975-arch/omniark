@@ -85,9 +85,9 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const pill = el('div', null, sp);   // 이름표(pill): 왼쪽 위 둥근 알약, 색은 팔레트에서
-    Object.assign(pill.style, { position: 'absolute', left: '16px', top: '10px', height: '22px', padding: '0 12px 0 10px', borderRadius: '11px', background: PAL.surface, border: `1px solid ${PAL.line}`, color: PAL.ink, font: "600 12px/20px 'IBM Plex Sans KR',sans-serif", whiteSpace: 'nowrap', zIndex: '4', display: 'flex', alignItems: 'center', gap: '7px' });
+    Object.assign(pill.style, { position: 'absolute', left: '16px', top: '10px', height: '22px', padding: '0 12px 0 10px', borderRadius: '11px', background: PAL.surface, border: `1px solid ${PAL.line}`, color: PAL.ink, font: "600 12px/20px 'IBM Plex Sans KR',sans-serif", whiteSpace: 'nowrap', zIndex: '4', display: 'flex', alignItems: 'center', gap: '.7em' });
     const dot = el('span', null, pill), txt = el('span', null, pill);
-    Object.assign(dot.style, { width: '7px', height: '7px', borderRadius: '50%', background: PAL.accent, display: 'inline-block' });
+    Object.assign(dot.style, { width: '.6em', height: '.6em', borderRadius: '50%', background: PAL.accent, display: 'inline-block' });
     return { main, pill: txt };
   },
   render(s, t, a, lv) {
@@ -111,11 +111,11 @@ const demo = {
     const ap = (i, base) => (L === base ? E.outC(seg(t, 0.3 + i * 0.28, 0.75 + i * 0.28)) : 1);   // 새로 들어오는 칸만 차례로 나타난다
     // 열 머리글
     T(x, '① 벤치마크 3개', colX[0], 52, 12, PAL.ink, 700);
-    T(x, `${filledB}/${BENCH_N * FIELDS.length} 칸`, colX[0] + CW, 52, 10, filledB === BENCH_N * FIELDS.length ? PASS : FAIL, 600, 'right', MONO);
+    T(x, `${filledB}/${BENCH_N * FIELDS.length} 칸`, colX[0] + CW, 52, 11, filledB === BENCH_N * FIELDS.length ? PASS : FAIL, 600, 'right', MONO);
     T(x, '② 시안 2~3개', colX[1], 52, 12, PAL.ink, 700);
-    T(x, skeys.length ? `다른 방향 ${dirs}/${skeys.length}` : '0개', colX[1] + CW, 52, 10, skeys.length && dirs === skeys.length ? PASS : FAIL, 600, 'right', MONO);
+    T(x, skeys.length ? `다른 방향 ${dirs}/${skeys.length}` : '0개', colX[1] + CW, 52, 11, skeys.length && dirs === skeys.length ? PASS : FAIL, 600, 'right', MONO);
     T(x, '③ 합격선 5줄', colX[2], 52, 12, PAL.ink, 700);
-    T(x, lines ? `채점 가능 ${scoredN}/2` : '0/2', colX[2] + CW, 52, 10, scoredN === 2 ? PASS : FAIL, 600, 'right', MONO);
+    T(x, lines ? `채점 가능 ${scoredN}/2` : '0/2', colX[2] + CW, 52, 11, scoredN === 2 ? PASS : FAIL, 600, 'right', MONO);
     // ① 벤치마크 카드: 이름, 주소, 잘하는 것, 가져올 것 네 칸
     for (let i = 0; i < BENCH_N; i++) {
       const y = 60 + i * 82;
@@ -123,8 +123,8 @@ const demo = {
       const al = ap(i, 1);
       x.save(); x.globalAlpha = al; x.translate(0, (1 - al) * 8);
       panel(x, colX[0], y, CW, 74, PAL.surface);
-      FIELDS.forEach((f, k) => { T(x, f, colX[0] + 12, y + 17 + k * 15, 9.5, PAL.muted, 500); x.fillStyle = 'rgba(243,246,255,.55)'; rr(x, colX[0] + 74, y + 10 + k * 15, [88, 104, 70, 80][k] - (i === 1 ? 10 : 0), 7, 3); x.fill(); });
-      if (i < top) { x.fillStyle = PAL.accent; rr(x, colX[0] + CW - 62, y + 7, 54, 15, 7.5); x.fill(); T(x, '상위권 실물', colX[0] + CW - 35, y + 18, 9, '#172a63', 700, 'center'); }
+      FIELDS.forEach((f, k) => { T(x, f, colX[0] + 12, y + 17 + k * 15, 10, PAL.muted, 500); x.fillStyle = 'rgba(243,246,255,.55)'; rr(x, colX[0] + 74, y + 10 + k * 15, [88, 104, 70, 80][k] - (i === 1 ? 10 : 0), 7, 3); x.fill(); });
+      if (i < top) { x.fillStyle = PAL.accent; rr(x, colX[0] + CW - 62, y + 7, 54, 15, 7.5); x.fill(); T(x, '상위권 실물', colX[0] + CW - 35, y + 18, 10, '#172a63', 700, 'center'); }
       x.restore();
     }
     // ② 시안: 칸 채움 격자로 비교하는 배치 그림
@@ -139,7 +139,7 @@ const demo = {
       SK[key].forEach(([rx, ry, rw, rh], k) => { x.fillStyle = k === 0 ? PAL.bg0 : (k === 1 && key === 'A' ? PAL.accent : 'rgba(31,58,138,.22)'); rr(x, sx + rx * sw + (k ? 1 : 0), sy + ry * sh + (k ? 1 : 0), rw * sw - (k ? 2 : 0), rh * sh - (k ? 2 : 0), 2); x.fill(); });
       T(x, L === 0 ? `시안 ${i + 1}` : `시안 ${'ABC'[i]}`, sx + sw + 10, y + 22, 11, PAL.ink, 700);
       const md = minDist(skeys, i);
-      if (md != null) { T(x, '가장 가까운 시안과', sx + sw + 10, y + 40, 9, PAL.muted, 500); T(x, `${Math.round(md * 100)}% 다름`, sx + sw + 10, y + 56, 11, md >= DIFF_T ? PASS : FAIL, 700, 'left', MONO); }
+      if (md != null) { T(x, '다른 시안과', sx + sw + 10, y + 40, 10, PAL.muted, 500); T(x, `${Math.round(md * 100)}% 다름`, sx + sw + 10, y + 56, 11, md >= DIFF_T ? PASS : FAIL, 700, 'left', MONO); }
       x.restore();
     }
     // ③ 합격선 5줄
@@ -161,14 +161,9 @@ const demo = {
     panel(x, 16, 306, 608, 44, PAL.surface);
     const open = ok && L === 3 ? E.outBack(seg(t, 2.6, 3.4)) : (ok ? 1 : 0);
     lock(x, 28, 314, open, ok);
-    const chips = [[`벤치마크 ${nB}개, 상위권 ${top}`, ruleB], [`시안 ${skeys.length}개, 다른 방향 ${dirs}`, ruleS], [`합격선 ${filledL}/5 채움, 채점 ${scoredN}/2`, ruleL]];
-    chips.forEach(([txt, pass], i) => {
-      const cx = 62 + i * 160;
-      x.fillStyle = pass ? 'rgba(127,224,255,.14)' : 'rgba(255,159,138,.14)'; rr(x, cx, 314, 152, 28, 7); x.fill();
-      x.strokeStyle = pass ? 'rgba(127,224,255,.5)' : 'rgba(255,159,138,.5)'; x.lineWidth = 1; rr(x, cx + 0.5, 314.5, 151, 27, 7); x.stroke();
-      T(x, txt, cx + 76, 332, 9.5, pass ? PASS : FAIL, 600, 'center', MONO);
-    });
-    T(x, ok ? '착공 가능' : '착공 금지', 612, 333, 14, ok ? PAL.accent : FAIL, 700, 'right');
+    const miss = [['벤치마크', ruleB], ['시안', ruleS], ['합격선', ruleL]].filter(([, q]) => !q).map(([n]) => n).join(', ');
+    T(x, ok ? '착공 가능' : '착공 금지', 62, 334, 17, ok ? PAL.accent : FAIL, 700, 'left');
+    T(x, ok ? '세 칸이 모두 채워졌다. 이제 코드를 쓴다' : `비어 있는 것: ${miss}`, 612, 333, 12, ok ? PASS : PAL.muted, 600, 'right');
     s.pill.textContent = CAP[L];
   },
 };

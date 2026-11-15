@@ -15,7 +15,7 @@ const PAL = { bg0: '#0c1814', bg1: '#15271f', ink: '#e8f1ea', muted: '#86a091', 
 const MONO = '"JetBrains Mono", monospace', SANS = '"IBM Plex Sans KR", sans-serif';
 const M = { x: 12, y: 12, w: 360, h: 308 };
 const CAP = ['AI 티 신호 8개가 다 있는 화면', '색과 아이콘', '카드 위계와 여백', '정렬, 글자 대비, 배지'];
-const FEATURES = [['이어진 날 보기', '달력으로 한눈에', 'bars'], ['알림 한 번', '매일 저녁 9시에', 'bell'], ['기록 내려받기', '텍스트 파일로', 'down']];
+const FEATURES = [['이어진 날', '달력으로', 'bars'], ['알림', '저녁 9시', 'bell'], ['기록 저장', '파일로', 'down']];
 
 const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
 const toHex = (a) => '#' + a.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
@@ -111,8 +111,8 @@ function drawMock(x, t, L, S) {
     const ix = lerp(cx + 10, cx + w / 2 - 13, al);
     drawIcon(x, kind, ix, y + 10, S, i === 0);
     x.font = `700 10.5px ${SANS}`; const tw = x.measureText(ti).width, tx = lerp(cx + 10, cx + w / 2 - tw / 2, al);
-    T(x, ti, tx, y + 54, 10.5, ink, 700); x.font = `500 9px ${SANS}`; const dw = x.measureText(de).width;
-    x.globalAlpha = 0.8; T(x, de, lerp(cx + 10, cx + w / 2 - dw / 2, al), y + 68, 9, mix(ink, S.bg, 0.2), 500); x.globalAlpha = 1; void big;
+    T(x, ti, tx, y + 54, 10.5, ink, 700); x.font = `500 10px ${SANS}`; const dw = x.measureText(de).width;
+    x.globalAlpha = 0.8; T(x, de, lerp(cx + 10, cx + w / 2 - dw / 2, al), y + 68, 10, mix(ink, S.bg, 0.2), 500); x.globalAlpha = 1; void big;
     cx += w + 10;
   });
   x.restore();
@@ -129,7 +129,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const cap = el('div', null, sp);                       // 이름표(caption-bl): 왼쪽 아래, 배경 없음, 위에 얇은 선
-    Object.assign(cap.style, { position: 'absolute', left: '12px', bottom: '8px', width: '360px', paddingTop: '5px', borderTop: `1px solid ${PAL.line}`, font: "500 12px/1.2 'JetBrains Mono',monospace", color: PAL.muted, whiteSpace: 'nowrap', zIndex: '4' });
+    Object.assign(cap.style, { position: 'absolute', left: '12px', bottom: '.7em', width: '360px', paddingTop: '.4em', borderTop: `1px solid ${PAL.line}`, font: "500 12px/1.2 'JetBrains Mono',monospace", color: PAL.muted, whiteSpace: 'nowrap', zIndex: '4' });
     return { main, cap };
   },
   render(s, t, a, lv) {
@@ -146,18 +146,16 @@ const demo = {
 
     const PX = 384, PW = 244, n = sig.filter((q) => q[3]).length;
     card(x, PX, 12, PW, 336);
-    T(x, '화면의 AI 티 점검표', PX + 12, 31, 11.5, PAL.ink, 700);
-    T(x, '있음 = 기준을 넘음', PX + PW - 12, 31, 9, PAL.muted, 500, 'right');
-    sig.forEach(([nm, fix, val, on], i) => {
-      const Y = 52 + i * 31;
-      x.fillStyle = on ? '#ff9b7a' : PAL.accent; x.beginPath(); x.arc(PX + 18, Y - 3.5, 3.5, 0, 7); x.fill();
-      T(x, nm, PX + 28, Y, 10.5, on ? PAL.ink : PAL.muted, 600);
-      T(x, on ? '있음' : '없음', PX + PW - 12, Y, 10, on ? '#ff9b7a' : PAL.accent, 700, 'right');
-      T(x, val, PX + 28, Y + 12.5, 9, on ? '#ffd2c4' : PAL.muted, 600, 'left', MONO);
-      T(x, '→ ' + fix, PX + PW - 12, Y + 12.5, 8.5, PAL.muted, 500, 'right');
+    T(x, '화면의 AI 티 점검표', PX + 14, 36, 13, PAL.ink, 700);
+    sig.forEach(([nm, , val, on], i) => {
+      const Y = 64 + i * 31;
+      x.fillStyle = on ? '#ff9b7a' : PAL.accent; x.beginPath(); x.arc(PX + 18, Y - 4, 3.5, 0, 7); x.fill();
+      T(x, nm, PX + 28, Y, 11, on ? PAL.ink : PAL.muted, 600);
+      T(x, on ? '있음' : '없음', PX + PW - 14, Y, 11, on ? '#ff9b7a' : PAL.accent, 700, 'right');
+      T(x, val, PX + 28, Y + 13, 10, on ? '#ffd2c4' : PAL.muted, 600, 'left', MONO);
     });
-    T(x, `신호 ${n} / ${sig.length}`, PX + 12, 318, 17, n ? '#ff9b7a' : PAL.accent, 700, 'left', MONO);
-    T(x, '한 신호는 증거가 아니고 묶음이 신호다', PX + 12, 335, 9, PAL.muted, 500);
+    T(x, `신호 ${n} / ${sig.length}`, PX + 14, 322, 20, n ? '#ff9b7a' : PAL.accent, 700, 'left', MONO);
+    T(x, '한 신호는 증거가 아니고 묶음이 신호다', PX + 14, 340, 10, PAL.muted, 500);
     s.cap.textContent = `${L ? L + '단계' : '연출 전'} · ${CAP[L]}`;
   },
 };

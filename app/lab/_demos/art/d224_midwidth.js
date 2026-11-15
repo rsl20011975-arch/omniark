@@ -111,7 +111,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(vertical): 왼쪽 가장자리 세로쓰기
-    Object.assign(lab.style, { position: 'absolute', left: '9px', top: '24px', height: '316px', display: 'flex', gap: '8px', writingMode: 'vertical-rl', zIndex: '4', font: "600 12px/1 'IBM Plex Sans KR',sans-serif", letterSpacing: '0.02em', whiteSpace: 'nowrap' });
+    Object.assign(lab.style, { position: 'absolute', left: '10px', top: '24px', height: '316px', display: 'flex', gap: '.6em', writingMode: 'vertical-rl', zIndex: '4', font: "600 12px/1 'IBM Plex Sans KR',sans-serif", letterSpacing: '0.02em', whiteSpace: 'nowrap' });
     const items = STEP.map((s) => { const e = el('span', null, lab); e.textContent = s; e.style.color = PAL.muted; return e; });
     return { main, items };
   },
@@ -128,7 +128,7 @@ const demo = {
     const widths = [320, W_MID, 1440];
     const pA = L >= 2 ? E.inOutC(seg(t, 1.2, 2.4)) : 0, pB = L >= 3 ? E.inOutC(seg(t, 3.0, 4.0)) : 0, m = pA + pB;
     const meas = L >= 1 ? E.outC(seg(t, 0.7, 1.3)) : 0;
-    T(x, '같은 쇼핑 화면 한 장을 세 폭에서 연다 (그림은 실제 폭의 1/5)', FX0, 15, 10, PAL.muted, 500);
+    T(x, '같은 쇼핑 화면 한 장을 세 폭에서 연다 (그림은 실제 폭의 1/5)', FX0, 15, 10.5, PAL.muted, 500);
     let fx = FX0, pass = 0;
     widths.forEach((W, i) => {
       const Lz = lay(W, m), fw = W * S, pr = E.outC(seg(t, 0.05 + 0.14 * i, 0.65 + 0.14 * i)), fy = FY + (1 - pr) * 8;
@@ -148,8 +148,8 @@ const demo = {
       T(x, `${W}px`, cx0, ty, 11, PAL.ink, 700, 'left', MONO);
       if (L >= 1) {
         x.save(); x.globalAlpha = meas;
-        T(x, '넘침', cx0, ty + 16, 9, PAL.muted, 500); T(x, ov > 0 ? `+${ov}` : '0', cx0 + 24, ty + 16, 13, ov > 0 ? '#ff9b7a' : '#8fe0a8', 700, 'left', MONO);
-        if (L >= 2) { x.globalAlpha = meas * E.outC(seg(t, 2.0, 2.8)); const cl = lay(W, 1); T(x, `카드 ${cl.cols}열`, cx0, ty + 30, 9.5, PAL.ink, 600); T(x, cl.collapse ? '메뉴 접힘' : '메뉴 펼침', cx0, ty + 42, 9.5, PAL.muted, 500); }
+        T(x, '넘침', cx0, ty + 16, 10, PAL.muted, 500); T(x, ov > 0 ? `+${ov}` : '0', cx0 + 24, ty + 16, 13, ov > 0 ? '#ff9b7a' : '#8fe0a8', 700, 'left', MONO);
+        if (L >= 2) { x.globalAlpha = meas * E.outC(seg(t, 2.0, 2.8)); const cl = lay(W, 1); T(x, `카드 ${cl.cols}열`, cx0, ty + 31, 10.5, PAL.ink, 600); }
         x.restore();
       }
       fx += fw + GAP;
@@ -158,13 +158,13 @@ const demo = {
       x.save(); x.globalAlpha = meas; const done = pass === 3;
       T(x, `넘침 0인 폭 ${pass}/3`, 600, 15, 12, done ? '#8fe0a8' : PAL.accent, 700, 'right', MONO); x.restore();
       // 점검 폭과 이 사이트 CSS 중단점을 한 줄 위에 놓는다
-      const ry = 335, mx = (v) => 40 + v * 0.35, same = CSSW.filter(([v]) => widths.includes(v)).length;
+      const ry = 328, mx = (v) => 40 + v * 0.35, same = CSSW.filter(([v]) => widths.includes(v)).length;
       x.save(); x.globalAlpha = meas * E.outC(seg(t, 1.0, 1.8));
-      T(x, `배포용 CSS 의 max-width ${CSSW.reduce((q, c) => q + c[1], 0)}곳, 값 ${CSSW.length}가지 [측정]`, 40, 305, 9.5, PAL.muted, 500);
-      T(x, `점검 폭과 같은 값 ${same}개`, 600, 305, 9.5, PAL.accent, 600, 'right');
+      T(x, `배포용 CSS 의 max-width ${CSSW.reduce((q, c) => q + c[1], 0)}곳, 값 ${CSSW.length}가지`, 40, 302, 10.5, PAL.muted, 500);
+      T(x, `점검 폭과 같은 값 ${same}개`, 600, 302, 10.5, PAL.accent, 600, 'right');
       x.strokeStyle = PAL.line; x.lineWidth = 1.5; x.beginPath(); x.moveTo(40, ry); x.lineTo(600, ry); x.stroke();
-      widths.forEach((v) => { x.fillStyle = PAL.accent; x.beginPath(); x.moveTo(mx(v) - 3.5, ry - 8); x.lineTo(mx(v) + 3.5, ry - 8); x.lineTo(mx(v), ry - 2); x.closePath(); x.fill(); T(x, String(v), mx(v), ry - 11, 9, PAL.accent, 600, 'center', MONO); });
-      CSSW.forEach(([v, n], i) => { x.fillStyle = PAL.ink; x.beginPath(); x.arc(mx(v), ry, 2 + n * 0.55, 0, 7); x.fill(); T(x, `${v}×${n}`, mx(v), ry + 13 + (i % 2) * 9, 8.5, PAL.muted, 500, 'center', MONO); });
+      widths.forEach((v) => { x.fillStyle = PAL.accent; x.beginPath(); x.moveTo(mx(v) - 3.5, ry - 8); x.lineTo(mx(v) + 3.5, ry - 8); x.lineTo(mx(v), ry - 2); x.closePath(); x.fill(); T(x, String(v), mx(v), ry - 11, 10, PAL.accent, 600, 'center', MONO); });
+      CSSW.forEach(([v, n], i) => { x.fillStyle = PAL.ink; x.beginPath(); x.arc(mx(v), ry, 2 + n * 0.55, 0, 7); x.fill(); T(x, `${v}×${n}`, mx(v), ry + 13 + (i % 2) * 11, 10, PAL.muted, 500, 'center', MONO); });
       x.restore();
     }
     const cur = L < 3 ? L : (t < 1.2 ? 1 : (t < 3.0 ? 2 : 3));

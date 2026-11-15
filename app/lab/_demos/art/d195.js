@@ -150,9 +150,9 @@ const demo = {
     const num = el('div', null, sp, '0');
     box(num, { position: 'absolute', left: '18px', top: '10px', font: "400 40px/1 'Black Han Sans',sans-serif", color: PAL.accent, textShadow: '0 2px 10px rgba(5,10,40,.6)' });
     const desc = el('div', null, sp, '');
-    box(desc, { position: 'absolute', left: '58px', top: '18px', font: "500 13px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink, textShadow: '0 1px 6px rgba(5,10,40,.8)' });
+    box(desc, { position: 'absolute', left: '58px', top: '18px', font: "500 13px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink, textShadow: '0 1px 10px rgba(5,10,40,.8)' });
     const read = el('div', null, sp);
-    box(read, { position: 'absolute', left: '14px', bottom: '14px', padding: '8px 10px', borderRadius: '6px', background: rgba(PAL.surface, .82), border: `1px solid ${PAL.line}`, font: "500 12px/1.6 'JetBrains Mono',monospace", color: PAL.ink, whiteSpace: 'pre', boxShadow: '0 6px 16px rgba(5,10,40,.4)' });
+    box(read, { position: 'absolute', left: '14px', bottom: '14px', padding: '10px 12px', borderRadius: '10px', background: rgba(PAL.surface, .82), border: `1px solid ${PAL.line}`, font: "500 12px/1.6 'JetBrains Mono',monospace", color: PAL.ink, whiteSpace: 'pre', boxShadow: '0 10px 20px rgba(5,10,40,.4)' });
     const cap = el('div', null, sp, '속도 %/초');
     box(cap, { position: 'absolute', left: '418px', top: '274px', font: "500 11px/1 'JetBrains Mono',monospace", color: PAL.muted });
     const lab6 = el('div', null, sp, '6');

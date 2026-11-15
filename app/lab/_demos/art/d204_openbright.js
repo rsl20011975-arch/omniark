@@ -202,7 +202,6 @@ const demo = {
     T(x, '0', bx, 258, 10, PAL.muted, 500, 'left', MONO);
     T(x, pv.toFixed(1), 34, 297, 28, hit ? BAD : PAL.accent, 700, 'left', MONO);
     T(x, hit ? '컷 선을 넘는다. 장면이 툭 바뀌는 크기' : '컷 선 아래. 컷으로 세어지지 않는다', 130, 288, 12.5, PAL.ink, 600);
-    T(x, `바퀴 안의 평균 프레임 차 ${st.avg.toFixed(1)}`, 130, 306, 11.5, PAL.muted, 500, 'left', MONO);
     T(x, '64×114 회색, 이 장면을 그려 코드가 계산한 값', 34, 334, 10.5, PAL.muted, 500, 'left', MONO);
   },
 };

@@ -38,11 +38,11 @@ const stillPct = (L) => L.reduce((a, [k, s, e]) => a + (KIND[k].still ? Math.max
 const askCount = (L) => L.filter(([k, s]) => KIND[k].q && s < HOOK_S).length;
 const resFrames = (L) => FR.filter((t) => KIND[sceneAt(L, t)[0]].res).length;
 const ROWS = [
-  { n: '결과가 처음 보이는 시각', u: '초', std: `${RESULT_BY}초 이하 · 지시`, f: (L) => firstOf(L, 'res'), ok: (v) => v !== null && v <= RESULT_BY, lv: 1, d: 1 },
-  { n: '요점 한 줄이 처음 보이는 시각', u: '초', std: `${POINT_BY}초 이하 · 제안`, f: (L) => firstOf(L, 'pt'), ok: (v) => v !== null && v <= POINT_BY, lv: 2, d: 1 },
-  { n: '앞 30초 중 정지한 시간', u: '%', std: `${STILL_MAX}% 이하 · 잠정`, f: stillPct, ok: (v) => v <= STILL_MAX, lv: 2, d: 0 },
-  { n: '앞 30초 안의 열린 질문', u: '개', std: '1개 이상 · 제안', f: askCount, ok: (v) => v >= 1, lv: 3, d: 0 },
-  { n: '6장 중 결과가 보이는 칸', u: '/6', std: '기준 없음 · 참고', f: resFrames, ok: null, lv: 3, d: 0 },
+  { n: '결과가 처음 보이는 시각', u: '초', std: `${RESULT_BY}초 이하가 기준`, f: (L) => firstOf(L, 'res'), ok: (v) => v !== null && v <= RESULT_BY, lv: 1, d: 1 },
+  { n: '요점 한 줄이 처음 보이는 시각', u: '초', std: `${POINT_BY}초 이하가 기준`, f: (L) => firstOf(L, 'pt'), ok: (v) => v !== null && v <= POINT_BY, lv: 2, d: 1 },
+  { n: '앞 30초 중 정지한 시간', u: '%', std: `${STILL_MAX}% 이하가 기준`, f: stillPct, ok: (v) => v <= STILL_MAX, lv: 2, d: 0 },
+  { n: '앞 30초 안의 열린 질문', u: '개', std: '1개 이상이 기준', f: askCount, ok: (v) => v >= 1, lv: 3, d: 0 },
+  { n: '6장 중 결과가 보이는 칸', u: '/6', std: '기준 없음, 참고용', f: resFrames, ok: null, lv: 3, d: 0 },
 ];
 const fmt = (v, d, u) => (v === null ? '없음' : v.toFixed(d) + u);
 
@@ -131,7 +131,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0);
     const pill = el('div', null, sp);
-    Object.assign(pill.style, { position: 'absolute', left: '20px', top: '10px', padding: '4px 12px', borderRadius: '999px', background: PAL.surface, border: `1px solid ${PAL.line}`, font: "600 12px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink, zIndex: '4', whiteSpace: 'nowrap' });
+    Object.assign(pill.style, { position: 'absolute', left: '20px', top: '10px', padding: '.4em 12px', borderRadius: '999px', background: PAL.surface, border: `1px solid ${PAL.line}`, font: "600 12px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink, zIndex: '4', whiteSpace: 'nowrap' });
     return { main, pill, gc };
   },
   render(s, t, a, lv) {
@@ -148,41 +148,40 @@ const demo = {
     x.save(); x.globalAlpha = 0.35 + 0.65 * enter;
     // 큰 미리보기: 재생 머리가 지금 있는 장면
     const ph = E.inOutC(seg(t, 0.3, 4.3)) * HOOK_S, cur = sceneAt(list, ph);
-    drawScene(x, cur[0], 20, 46, 240, 135, ph - cur[1], true);
-    x.fillStyle = 'rgba(8,16,52,.82)'; rr(x, 148, 50, 108, 16, 8); x.fill(); T(x, `${ph.toFixed(1)}초 ${KIND[cur[0]].n}`, 252, 61.5, 9.5, PAL.ink, 600, 'right', MONO);
+    drawScene(x, cur[0], 20, 46, 256, 144, ph - cur[1], true);
+    T(x, `${ph.toFixed(1)}초 · ${KIND[cur[0]].n}`, 20, 208, 11, PAL.ink, 600, 'left', MONO);
     // 장면 띠
-    const BX = 20, BW = 600, BY = 206, BH = 20, px = (v) => BX + v / VIEW_S * BW;
-    T(x, `장면 띠 0~${VIEW_S}초 (노랑 결과, 하늘 질문과 요점 시작, 남색 정지)`, BX, 198, 9, PAL.muted, 500, 'left', MONO);
+    const BX = 20, BW = 600, BY = 222, BH = 18, px = (v) => BX + v / VIEW_S * BW;
+    T(x, `노랑 결과 · 하늘 질문과 요점 · 남색 정지`, 620, 214, 10, PAL.muted, 500, 'right');
     list.forEach(([k, s0, e0]) => { const a0 = Math.min(s0, VIEW_S), b0 = Math.min(e0, VIEW_S); if (b0 > a0) bar(x, px(a0) + 0.5, BY, px(b0) - px(a0) - 1, BH, segCol(k), 0.95); });
     list.forEach(([k, s0]) => { if (KIND[k].pt && KIND[k].still && s0 < VIEW_S) { x.fillStyle = PAL.accent2; x.fillRect(px(s0), BY - 3, 3, BH + 6); } });
     x.setLineDash([3, 2]); x.strokeStyle = PAL.ink; x.lineWidth = 1; x.beginPath(); x.moveTo(px(HOOK_S), BY - 4); x.lineTo(px(HOOK_S), BY + BH + 4); x.stroke(); x.setLineDash([]);
-    T(x, '30초', px(HOOK_S) + 4, BY + BH + 12, 9, PAL.ink, 600, 'left', MONO);
+    T(x, '30초', px(HOOK_S) + 4, BY + BH + 12, 10, PAL.ink, 600, 'left', MONO);
     x.fillStyle = PAL.ink; x.fillRect(px(ph) - 1, BY - 3, 2, BH + 6);
     // 장면표 6장
-    const TW = 90, TH = 50, GAP = (600 - 6 * TW) / 5;
+    const TW = 90, TH = 44, GAP = (600 - 6 * TW) / 5;
     FR.forEach((ft, i) => {
-      const sc = sceneAt(list, ft), tx = BX + i * (TW + GAP), ty = 248, res = KIND[sc[0]].res;
+      const sc = sceneAt(list, ft), tx = BX + i * (TW + GAP), ty = 266, res = KIND[sc[0]].res;
       drawScene(x, sc[0], tx, ty, TW, TH, ft - sc[1], false);
       x.strokeStyle = res ? PAL.accent : PAL.line; x.lineWidth = res ? 2 : 1; rr(x, tx + 0.5, ty + 0.5, TW - 1, TH - 1, 4); x.stroke();
-      T(x, `${ft}초`, tx, ty + TH + 13, 10, PAL.ink, 700, 'left', MONO); T(x, KIND[sc[0]].n, tx, ty + TH + 25, 10, PAL.muted, 500);
+      T(x, `${ft}초`, tx, ty + TH + 13, 11, PAL.ink, 700, 'left', MONO); T(x, KIND[sc[0]].n, tx, ty + TH + 26, 10, PAL.muted, 500);
     });
     x.restore();
     // 오른쪽: 잰 값 5줄
-    const RX = 276, RW = 344;
+    const RX = 292, RW = 328;
     ROWS.forEach((r, i) => {
-      const y = 50 + i * 27, vis = L >= r.lv, k = vis ? (L === r.lv ? E.outC(seg(t, 0.3, 0.9)) : 1) : 0;
-      x.save(); x.globalAlpha = vis ? 1 : 0.5; x.fillStyle = 'rgba(8,16,52,.45)'; rr(x, RX, y, RW, 24, 5); x.fill(); x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, RX + 0.5, y + 0.5, RW - 1, 23, 5); x.stroke(); x.restore();
-      T(x, r.n, RX + 8, y + 10, 10.5, PAL.ink, 600); T(x, r.std, RX + 8, y + 20, 8.5, PAL.muted, 500, 'left', MONO);
+      const y = 46 + i * 31, vis = L >= r.lv, k = vis ? (L === r.lv ? E.outC(seg(t, 0.3, 0.9)) : 1) : 0;
+      x.save(); x.globalAlpha = vis ? 1 : 0.5; x.fillStyle = 'rgba(8,16,52,.45)'; rr(x, RX, y, RW, 28, 5); x.fill(); x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, RX + 0.5, y + 0.5, RW - 1, 27, 5); x.stroke(); x.restore();
+      T(x, r.n, RX + 8, y + 12, 11, PAL.ink, 600); T(x, r.std, RX + 8, y + 24, 10, PAL.muted, 500, 'left', MONO);
       x.save(); x.globalAlpha = vis ? 0.25 + 0.75 * k : 1;
-      if (!vis) T(x, '—', RX + RW - 8, y + 15, 12, PAL.muted, 600, 'right', MONO);
+      if (!vis) T(x, '—', RX + RW - 8, y + 19, 12, PAL.muted, 600, 'right', MONO);
       else {
         const b = r.f(BEFORE), f = r.f(afterList()), okc = (v) => (r.ok ? (r.ok(v) ? GOOD : BAD) : PAL.ink);
-        if (after) { T(x, `${fmt(b, r.d, r.u)} → ${fmt(f, r.d, r.u)}`, RX + RW - 8, y + 15, 12, okc(f), 700, 'right', MONO); }
-        else T(x, fmt(b, r.d, r.u), RX + RW - 8, y + 15, 12, okc(b), 700, 'right', MONO);
+        if (after) { T(x, `${fmt(b, r.d, r.u)} → ${fmt(f, r.d, r.u)}`, RX + RW - 8, y + 19, 13, okc(f), 700, 'right', MONO); }
+        else T(x, fmt(b, r.d, r.u), RX + RW - 8, y + 19, 13, okc(b), 700, 'right', MONO);
       }
       x.restore();
     });
-    T(x, after ? '후 값은 고친 장면표에서 센 값(이 데모의 가정)' : '장면표는 이 데모의 가정이고 실제 편의 값이 아니다', 20, 348, 9, PAL.muted, 500, 'left', MONO);
     s.pill.textContent = `${NUM[L]}  ${DESC[L]}`;
   },
 };

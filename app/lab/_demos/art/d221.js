@@ -82,67 +82,65 @@ function phone(x, sz) {
   x.restore();
 }
 
-function readout(x, sz) {
+function readout(x, sz) {   // 위쪽 한 줄: 이 화면에서 코드가 센 세 값
   const r = sz.map(Math.round), kinds = new Set(r).size, inn = r.filter((v) => SCALE.includes(v)).length, out = r.length - inn;
-  card(x, 276, 16, 344, 112);
-  T(x, '이 화면에서 코드가 센 값', 288, 35, 11, PAL.muted, 500, 'left', MONO);
   [['서로 다른 크기', kinds, '가지', PAL.ink], ['칸 안', inn, '개', PAL.accent], ['칸 밖', out, '개', out ? PAL.accent2 : PAL.accent]].forEach(([n, v, u, c], i) => {
-    const X = 288 + i * 108;
-    T(x, n, X, 58, 12, PAL.ink, 600);
-    T(x, String(v), X, 96, 30, c, 700, 'left', MONO);
-    T(x, u, X + (String(v).length > 1 ? 40 : 22), 96, 12, PAL.muted, 500);
+    const X = 288 + i * 112;
+    T(x, n, X, 34, 12, PAL.muted, 600);
+    T(x, String(v), X, 66, 30, c, 700, 'left', MONO);
+    T(x, u, X + (String(v).length > 1 ? 40 : 22), 66, 12, PAL.muted, 500);
   });
-  T(x, `칸 ${SCALE.length}개: ${SCALE.join(', ')}`, 288, 118, 10, PAL.muted, 500, 'left', MONO);
 }
+const CX = 276, CY = 80, CW = 344, CH = 264;   // 오른쪽 큰 칸
 
 function barsCard(x) {   // 1단계: 실제 CSS 에서 센 칸 안 비율
-  card(x, 276, 138, 344, 206);
-  T(x, '실제 CSS 에서 센 칸 안 비율 [측정]', 288, 157, 11, PAL.muted, 500, 'left', MONO);
+  card(x, CX, CY, CW, CH);
+  T(x, '실제 CSS 에서 센 칸 안 비율', 288, 104, 12, PAL.ink, 600);
   CSSM.forEach(([n, tot, inn], i) => {
-    const Y = 172 + i * 28, f = inn / tot;
-    T(x, n, 288, Y + 11, 11, PAL.ink, 500);
-    rr(x, 410, Y + 2, 120, 10, 3); x.fillStyle = 'rgba(246,233,238,.1)'; x.fill();
-    rr(x, 410, Y + 2, Math.max(3, 120 * f), 10, 3); x.fillStyle = f > 0.95 ? PAL.accent : PAL.accent2; x.fill();
-    T(x, `${inn}/${tot}`, 612, Y + 11, 11, PAL.ink, 700, 'right', MONO);
-    T(x, `${(f * 100).toFixed(0)}%`, 566, Y + 11, 11, PAL.muted, 500, 'right', MONO);
+    const Y = 120 + i * 39, f = inn / tot;
+    T(x, n, 288, Y + 14, 11, PAL.ink, 500);
+    rr(x, 410, Y + 4, 120, 12, 4); x.fillStyle = 'rgba(246,233,238,.1)'; x.fill();
+    rr(x, 410, Y + 4, Math.max(3, 120 * f), 12, 4); x.fillStyle = f > 0.95 ? PAL.accent : PAL.accent2; x.fill();
+    T(x, `${inn}/${tot}`, 612, Y + 14, 11, PAL.ink, 700, 'right', MONO);
+    T(x, `${(f * 100).toFixed(0)}%`, 566, Y + 14, 11, PAL.muted, 500, 'right', MONO);
   });
-  T(x, 'px 로 글자 그대로 적은 선언만 셈, var() 로 쓴 것은 제외', 288, 336, 10, PAL.muted, 500);
+  T(x, 'px 로 글자 그대로 적은 선언만 셈, var() 로 쓴 것은 제외', 288, 334, 10, PAL.muted, 500);
 }
-function ladderTicks(x, vals, X0, W, Y, col, h, big) {
+function ladderTicks(x, vals, X0, W, Y, col, h) {
   vals.forEach((v) => { if (v < AX0 || v > AX1) return; rr(x, ax(v, X0, W) - 1, Y - h, 2, h, 1); x.fillStyle = col; x.fill(); });
   if (vals.some((v) => v > AX1)) { const X = X0 + W + 6; x.strokeStyle = col; x.lineWidth = 1.5; x.beginPath(); x.moveTo(X, Y - h / 2 - 3); x.lineTo(X + 4, Y - h / 2); x.lineTo(X, Y - h / 2 + 3); x.stroke(); }
 }
 function scaleCard(x, sz, al) {   // 2단계: 칸 여덟 개 눈금과 지금 크기 표시
-  x.save(); x.globalAlpha = al; card(x, 276, 138, 344, 206);
-  T(x, '칸 눈금과 이 화면의 크기(로그 축)', 288, 157, 11, PAL.muted, 500, 'left', MONO);
-  const X0 = 296, W = 296, Y = 270;
+  x.save(); x.globalAlpha = al; card(x, CX, CY, CW, CH);
+  T(x, '칸 눈금과 이 화면의 글자 크기(로그 축)', 288, 104, 12, PAL.ink, 600);
+  const X0 = 296, W = 296, Y = 262;
   x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(X0 - 6, Y + 0.5); x.lineTo(X0 + W + 6, Y + 0.5); x.stroke();
-  SCALE.forEach((v) => { rr(x, ax(v, X0, W) - 1.5, Y - 26, 3, 26, 1.5); x.fillStyle = 'rgba(246,233,238,.55)'; x.fill(); T(x, String(v), ax(v, X0, W), Y + 16, 11, PAL.ink, 600, 'center', MONO); });
+  SCALE.forEach((v) => { rr(x, ax(v, X0, W) - 1.5, Y - 30, 3, 30, 1.5); x.fillStyle = 'rgba(246,233,238,.55)'; x.fill(); T(x, String(v), ax(v, X0, W), Y + 18, 11, PAL.ink, 600, 'center', MONO); });
   sz.forEach((v, i) => {
-    const X = ax(Math.max(AX0, Math.min(AX1, v)), X0, W), inn = SCALE.includes(Math.round(v)), c = inn ? PAL.accent : PAL.accent2, Yt = Y - 34 - (i % 3) * 12;
-    x.fillStyle = c; x.beginPath(); x.moveTo(X - 4.5, Yt - 8); x.lineTo(X + 4.5, Yt - 8); x.lineTo(X, Yt); x.closePath(); x.fill();
-    x.strokeStyle = rgba(c, .5); x.lineWidth = 1; x.beginPath(); x.moveTo(X, Yt); x.lineTo(X, Y - 27); x.stroke();
+    const X = ax(Math.max(AX0, Math.min(AX1, v)), X0, W), inn = SCALE.includes(Math.round(v)), c = inn ? PAL.accent : PAL.accent2, Yt = Y - 40 - (i % 3) * 16;
+    x.fillStyle = c; x.beginPath(); x.moveTo(X - 5, Yt - 9); x.lineTo(X + 5, Yt - 9); x.lineTo(X, Yt); x.closePath(); x.fill();
+    x.strokeStyle = rgba(c, .5); x.lineWidth = 1; x.beginPath(); x.moveTo(X, Yt); x.lineTo(X, Y - 31); x.stroke();
   });
-  T(x, '삼각형 = 이 화면의 글자 줄, 칸 위에 앉으면 분홍, 칸 사이에 뜨면 살구색', 288, 336, 10, PAL.muted, 500);
+  T(x, '삼각형 = 이 화면의 글자 줄, 칸 위에 앉으면 분홍, 칸 사이에 뜨면 살구색', 288, 334, 10, PAL.muted, 500);
   x.restore();
 }
 function fiveCard(x, t, al) {   // 3단계: 다섯 곳 눈금 겹치기
-  x.save(); x.globalAlpha = al; card(x, 276, 138, 344, 206);
-  T(x, '다섯 곳의 글자 크기 눈금(로그 축)', 288, 157, 11, PAL.muted, 500, 'left', MONO);
-  const X0 = 388, W = 216, Y0 = 172;
-  common.forEach((v) => { rr(x, ax(v, X0, W) - 6, Y0 - 2, 12, SRC.length * 24 + 2, 4); x.fillStyle = rgba(PAL.accent, .16); x.fill(); T(x, String(v), ax(v, X0, W), Y0 - 6, 10, PAL.accent, 700, 'center', MONO); });
+  x.save(); x.globalAlpha = al; card(x, CX, CY, CW, CH);
+  T(x, '다섯 곳의 글자 크기 눈금(로그 축)', 288, 104, 12, PAL.ink, 600);
+  const X0 = 392, W = 212, Y0 = 138, RH = 32;
+  common.forEach((v) => { rr(x, ax(v, X0, W) - 7, Y0 - 4, 14, SRC.length * RH, 4); x.fillStyle = rgba(PAL.accent, .16); x.fill(); T(x, String(v), ax(v, X0, W), Y0 - 9, 10, PAL.accent, 700, 'center', MONO); });
   SRC.forEach((s, i) => {
-    const Y = Y0 + i * 24, p = E.outC(seg(t, 3.9 + i * 0.14, 4.5 + i * 0.14));
+    const Y = Y0 + i * RH, p = E.outC(seg(t, 3.9 + i * 0.14, 4.5 + i * 0.14));
     x.save(); x.globalAlpha = al * p; x.translate(0, (1 - p) * 6);
-    T(x, s.n, 288, Y + 15, 11, PAL.ink, 600); T(x, s.g, 364, Y + 15, 9, PAL.muted, 600, 'right');
-    x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(X0, Y + 18.5); x.lineTo(X0 + W, Y + 18.5); x.stroke();
-    ladderTicks(x, s.v, X0, W, Y + 18, s.v.some((v) => common.includes(v)) ? PAL.ink : PAL.muted, 12);
+    T(x, s.n, 288, Y + 16, 11, PAL.ink, 600); T(x, s.g, 382, Y + 16, 10, PAL.muted, 600, 'right');
+    x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(X0, Y + 24.5); x.lineTo(X0 + W, Y + 24.5); x.stroke();
+    ladderTicks(x, s.v, X0, W, Y + 24, s.v.some((v) => common.includes(v)) ? PAL.ink : PAL.muted, 16);
     x.restore();
   });
   const pf = E.outC(seg(t, 4.9, 5.4));
   x.save(); x.globalAlpha = al * pf;
-  T(x, `다섯 곳이 모두 가진 값: ${common.join(', ')} (${common.length}개)`, 288, 322, 12, PAL.ink, 700);
-  T(x, '분홍 띠가 그 자리, 128 까지 있는 Tailwind 는 오른쪽 화살표로 줄였다', 288, 337, 10, PAL.muted, 500);
+  T(x, `다섯 곳이 모두 가진 값: ${common.join(', ')} (${common.length}개)`, 288, 318, 12, PAL.ink, 700);
+  T(x, '분홍 띠가 그 자리, 128 까지 있는 Tailwind 는 오른쪽 화살표로 줄였다', 288, 335, 10, PAL.muted, 500);
   x.restore(); x.restore();
 }
 
@@ -157,7 +155,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(numeral): 왼쪽 위 큰 숫자와 옆의 설명
-    Object.assign(lab.style, { position: 'absolute', left: '22px', top: '8px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4' });
+    Object.assign(lab.style, { position: 'absolute', left: '22px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4' });
     const num = el('span', null, lab), txt = el('span', null, lab);
     Object.assign(num.style, { font: "400 40px/1 'Black Han Sans',sans-serif", color: PAL.accent });
     Object.assign(txt.style, { font: "500 13px/1.2 'IBM Plex Sans KR',sans-serif", color: PAL.ink, whiteSpace: 'nowrap' });

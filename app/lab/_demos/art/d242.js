@@ -14,7 +14,7 @@ const PAL = { bg0: '#0c1814', bg1: '#15271f', ink: '#e8f1ea', muted: '#86a091', 
 const BAD = '#ff9a8a';
 const MONO = '"JetBrains Mono", monospace', SANS = '"IBM Plex Sans KR", sans-serif', HAN = '"Black Han Sans", sans-serif';
 const NAMES = ['인사말과 키워드 설명란', '첫 줄에 약속 한 줄', '링크 줄을 접힘 선 위로', '시험 조건과 고지 줄', '챕터 시각표를 맨 아래에'];
-const LH = 16.5, CX = 20, CY = 52, CW = 356;
+const LH = 17.5, CX = 20, CY = 52, CW = 372;
 
 const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 const CH_OK = [[0, '들어가며'], [18, "'AI 티'의 정체"], [59, '고치는 단어 5개'], [150, '복사해서 쓰는 5줄'], [164, '실제로 넣어 봤습니다'], [206, '따라 하기'], [LAST_CH, '팁 3개']];
@@ -68,7 +68,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const tag = el('div', null, sp);   // 이름표(tag-tr): 오른쪽 위, 거의 직각, 왼쪽 accent 줄
-    Object.assign(tag.style, { position: 'absolute', right: '14px', top: '10px', background: PAL.surface, borderLeft: `3px solid ${PAL.accent}`, borderRadius: '2px', padding: '5px 11px 5px 9px', font: "600 12px 'IBM Plex Sans KR',sans-serif", color: PAL.ink, zIndex: '4', whiteSpace: 'nowrap' });
+    Object.assign(tag.style, { position: 'absolute', right: '14px', top: '10px', background: PAL.surface, borderLeft: `3px solid ${PAL.accent}`, borderRadius: '2px', padding: '.4em .9em .4em .7em', font: "600 12px 'IBM Plex Sans KR',sans-serif", color: PAL.ink, zIndex: '4', whiteSpace: 'nowrap' });
     return { main, tag };
   },
   render(s, t, a, lv) {
@@ -82,7 +82,7 @@ const demo = {
     x.restore();
 
     const ls = build(L), prev = L > 0 ? build(L - 1).map((l) => l[0] + l[1]) : [], H = 30 + ls.length * LH + 8;
-    T(x, `롱폼 설명란 예시 · 길이 ${mmss(TOTAL)}`, CX, 38, 10, PAL.muted, 500, 'left', MONO);
+    T(x, `롱폼 설명란 예시 · 길이 ${mmss(TOTAL)}`, CX, 38, 11, PAL.muted, 500, 'left', MONO);
     shadow(x, CX, CY, CW, H, 8);
     const cg = x.createLinearGradient(0, CY, 0, CY + H); cg.addColorStop(0, '#1a3228'); cg.addColorStop(1, PAL.surface);
     x.fillStyle = cg; rr(x, CX, CY, CW, H, 8); x.fill(); x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, CX + 0.5, CY + 0.5, CW - 1, H - 1, 8); x.stroke();
@@ -92,37 +92,37 @@ const demo = {
       const y = CY + 24 + i * LH, below = i >= FOLD_LINES;
       x.save(); x.globalAlpha = (below ? 0.7 : 1) * (0.1 + 0.9 * k);
       if (fresh && L > 0) { x.fillStyle = PAL.accent; x.globalAlpha *= 1 - seg(t, 0.9, 2.4); x.fillRect(CX + 1, y - 11, 3, LH - 2); x.globalAlpha = (below ? 0.7 : 1) * (0.1 + 0.9 * k); }
-      T(x, String(i + 1), CX + 20, y, 9, PAL.muted, 500, 'right', MONO);
+      T(x, String(i + 1), CX + 20, y, 10, PAL.muted, 500, 'right', MONO);
       const ox = 30 + (1 - k) * 10, kind = l[0];
-      if (kind === 'link') { x.fillStyle = PAL.accent; x.beginPath(); x.moveTo(CX + ox, y - 8); x.lineTo(CX + ox, y); x.lineTo(CX + ox + 7, y - 4); x.closePath(); x.fill(); T(x, l[1], CX + ox + 12, y, 10.5, PAL.accent, 600); }
+      if (kind === 'link') { x.fillStyle = PAL.accent; x.beginPath(); x.moveTo(CX + ox, y - 9); x.lineTo(CX + ox, y); x.lineTo(CX + ox + 7, y - 4.5); x.closePath(); x.fill(); T(x, l[1], CX + ox + 12, y, 11.5, PAL.accent, 600); }
       else if (kind === 'ch') {
         const idx = ls.filter((q) => q[0] === 'ch').indexOf(l), ch = ls.filter((q) => q[0] === 'ch'), len = (idx + 1 < ch.length ? ch[idx + 1][2] : TOTAL) - l[2], bad = len < MIN_CH;
         const sp1 = l[1].indexOf(' ');
-        if (bad) { x.fillStyle = 'rgba(255,120,100,.34)'; x.fillRect(CX + 6, y - 11, CW - 12, LH - 1); }
-        T(x, l[1].slice(0, sp1), CX + ox, y, 10, bad ? '#ffd3cb' : PAL.accent, 600, 'left', MONO); T(x, l[1].slice(sp1 + 1), CX + ox + 34, y, 10.5, bad ? '#ffd3cb' : PAL.ink, 400);
-        if (bad) T(x, `${len}초`, CX + CW - 12, y, 9.5, '#ffd3cb', 600, 'right', MONO);
+        if (bad) { x.fillStyle = 'rgba(255,120,100,.34)'; x.fillRect(CX + 6, y - 12, CW - 12, LH - 1); }
+        T(x, l[1].slice(0, sp1), CX + ox, y, 11, bad ? '#ffd3cb' : PAL.accent, 600, 'left', MONO); T(x, l[1].slice(sp1 + 1), CX + ox + 38, y, 11.5, bad ? '#ffd3cb' : PAL.ink, 400);
+        if (bad) T(x, `${len}초`, CX + CW - 12, y, 10, '#ffd3cb', 600, 'right', MONO);
       }
-      else T(x, l[1], CX + ox, y, 10.5, kind === 'promise' ? PAL.ink : (kind === 'greet' || kind === 'kw' ? PAL.muted : PAL.ink), kind === 'promise' ? 700 : 400);
+      else T(x, l[1], CX + ox, y, 11.5, kind === 'promise' ? PAL.ink : (kind === 'greet' || kind === 'kw' ? PAL.muted : PAL.ink), kind === 'promise' ? 700 : 400);
       x.restore();
     });
-    const fy = CY + 24 + FOLD_LINES * LH - 11;       // 접힘 선
+    const fy = CY + 24 + FOLD_LINES * LH - 12;       // 접힘 선
     x.save(); x.strokeStyle = PAL.accent2; x.lineWidth = 1; x.setLineDash([4, 3]); x.beginPath(); x.moveTo(CX + 6, fy); x.lineTo(CX + CW - 6, fy); x.stroke(); x.restore();
-    T(x, `접힘 선 · 위에서 ${FOLD_LINES}줄`, CX + CW - 8, fy + 10, 8.5, PAL.accent2, 600, 'right', MONO);
-    T(x, '접힘 줄 수는 공식 도움말에 없어 가정한 값', CX, CY + H + 16, 9.5, PAL.muted, 500);
+    T(x, `접힘 선 · 위에서 ${FOLD_LINES}줄`, CX + CW - 8, fy + 11, 10, PAL.accent2, 600, 'right', MONO);
+    T(x, '접힘 줄 수는 공식 도움말에 없어 가정한 값', CX, CY + H + 17, 10, PAL.muted, 500);
 
     const M = measure(L), pass = M.filter((m) => m.ok).length;      // 오른쪽 점검표
-    const RX = 396, RW = 226;
-    T(x, '점검 6칸', RX, 50, 10, PAL.muted, 500, 'left', MONO);
+    const RX = 410, RW = 212;
+    T(x, '점검 6칸', RX, 50, 11, PAL.muted, 500, 'left', MONO);
     M.forEach((m, i) => {
-      const y = 58 + i * 36, col = m.ok ? PAL.accent : BAD;
-      x.fillStyle = m.ok ? 'rgba(232,241,234,.06)' : 'rgba(255,120,100,.3)'; rr(x, RX, y, RW, 30, 6); x.fill();
-      x.fillStyle = col; rr(x, RX, y + 4, 3, 22, 1.5); x.fill();
-      mark(x, RX + 17, y + 15, m.ok, col);
-      T(x, m.n, RX + 32, y + 13, 10.5, PAL.ink, 600);
-      T(x, m.v, RX + 32, y + 25, 10, col, 600, 'left', MONO);
+      const y = 58 + i * 38, col = m.ok ? PAL.accent : BAD;
+      x.fillStyle = m.ok ? 'rgba(232,241,234,.06)' : 'rgba(255,120,100,.3)'; rr(x, RX, y, RW, 33, 6); x.fill();
+      x.fillStyle = col; rr(x, RX, y + 4, 3, 25, 1.5); x.fill();
+      mark(x, RX + 17, y + 16.5, m.ok, col);
+      T(x, m.n, RX + 32, y + 14, 12, PAL.ink, 600);
+      T(x, m.v, RX + 32, y + 28, 11, col, 600, 'left', MONO);
     });
-    T(x, `통과 ${pass}/6`, RX, 300, 26, pass === 6 ? PAL.accent : PAL.accent2, 400, 'left', HAN);
-    T(x, '합격은 조회가 늘어난다는 뜻이 아니다', RX, 318, 9.5, PAL.muted, 500);
+    T(x, `통과 ${pass}/6`, RX, 308, 26, pass === 6 ? PAL.accent : PAL.accent2, 400, 'left', HAN);
+    T(x, '통과는 조회가 늘어난다는 뜻이 아니다', RX, 328, 10, PAL.muted, 500);
     s.tag.textContent = `${L}  ${NAMES[L]}`;
   },
 };

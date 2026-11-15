@@ -82,9 +82,9 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(vertical): 왼쪽 가장자리 세로쓰기, 번호는 muted, 지금 항목은 ink
-    Object.assign(lab.style, { position: 'absolute', left: '6px', top: '14px', writingMode: 'vertical-rl', letterSpacing: '.06em', whiteSpace: 'nowrap', lineHeight: '12px', zIndex: '4' });
+    Object.assign(lab.style, { position: 'absolute', left: '12px', top: '14px', writingMode: 'vertical-rl', letterSpacing: '.06em', whiteSpace: 'nowrap', lineHeight: '12px', zIndex: '4' });
     const idx = el('span', null, lab), pill = el('span', null, lab);
-    Object.assign(idx.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '8px' });
+    Object.assign(idx.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '.7em' });
     Object.assign(pill.style, { color: PAL.ink, font: "600 12px/1 'IBM Plex Sans KR',sans-serif" });
     return { main, idx, pill };
   },
@@ -123,7 +123,7 @@ const demo = {
       const Y = 46 + i * 17, ap = E.outC(P(t, 0.15 + i * 0.12, 0.35)), good = ok && shown;
       x.save(); x.globalAlpha = ap; mark(x, good, RX + 18, Y - 4, 1);
       T(x, nm, RX + 32, Y, 11, PAL.ink, 500); T(x, val, RX + RW - 12 - (note ? 76 : 0), Y, 11, good ? GOOD : BAD, 700, 'right', MONO);
-      if (note) T(x, note, RX + RW - 12, Y, 9.5, PAL.muted, 500, 'right');
+      if (note) T(x, note, RX + RW - 12, Y, 10, PAL.muted, 500, 'right');
       x.restore();
     });
     // 오른쪽 아래: 단계별 큰 카드

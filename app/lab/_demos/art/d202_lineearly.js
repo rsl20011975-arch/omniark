@@ -68,12 +68,12 @@ const PX0 = 88, PXW = 532, tx = (t) => PX0 + PXW * t / DUR;
 
 function panel(sp, x, y, w, h, uid, title) {
   const p = el('div', null, sp);
-  box(p, { position: 'absolute', left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px', borderRadius: '8px', overflow: 'hidden', boxShadow: `0 0 0 1px ${PAL.line}, 0 2px 3px rgba(60,45,25,.25), 0 12px 22px rgba(60,45,25,.22)` });
+  box(p, { position: 'absolute', left: x + 'px', top: y + 'px', width: w + 'px', height: h + 'px', borderRadius: '10px', overflow: 'hidden', boxShadow: `0 0 0 1px ${PAL.line}, 0 2px 3px rgba(60,45,25,.25), 0 12px 22px rgba(60,45,25,.22)` });
   scenery(p, w, h, uid);
   const band = el('div', null, p);
   box(band, { position: 'absolute', left: '0', right: '0', bottom: '0', height: '46px', background: 'linear-gradient(to top, rgba(10,8,18,.72), rgba(10,8,18,0))' });
   const chip = el('div', null, p, title);
-  box(chip, { position: 'absolute', left: '8px', top: '8px', padding: '4px 7px', borderRadius: '3px', background: PAL.surface, color: PAL.ink, font: "600 11px/1 'IBM Plex Sans KR',sans-serif", boxShadow: '0 2px 6px rgba(0,0,0,.3)' });
+  box(chip, { position: 'absolute', left: '10px', top: '10px', padding: '.4em .7em', borderRadius: '4px', background: PAL.surface, color: PAL.ink, font: "600 11px/1 'IBM Plex Sans KR',sans-serif", boxShadow: '0 2px 10px rgba(0,0,0,.3)' });
   return p;
 }
 
@@ -92,12 +92,12 @@ const demo = {
     const pa = panel(sp, 40, 18, 282, 142, 'a', 'A 단어 단위'), pb = panel(sp, 338, 18, 282, 142, 'b', 'B 줄 단위');
     const mkRow = (p) => {
       const row = el('div', null, p);
-      box(row, { position: 'absolute', left: '50%', bottom: '9px', transform: 'translateX(-50%)', padding: '7px 12px', borderRadius: '999px', background: 'rgba(12,9,20,.7)', boxShadow: '0 2px 8px rgba(0,0,0,.35)', font: "600 13px/1 'IBM Plex Sans KR',sans-serif", color: '#fff', whiteSpace: 'nowrap' });
+      box(row, { position: 'absolute', left: '50%', bottom: '10px', transform: 'translateX(-50%)', padding: '.55em .9em', borderRadius: '999px', background: 'rgba(12,9,20,.7)', boxShadow: '0 2px 10px rgba(0,0,0,.35)', font: "600 13px/1 'IBM Plex Sans KR',sans-serif", color: '#fff', whiteSpace: 'nowrap' });
       return row;
     };
     const rowA = mkRow(pa), rowB = mkRow(pb);
-    const tokA = WORDS.map((w, i) => { const s = el('span', null, rowA, w); s.style.marginRight = i < 5 ? '6px' : '0'; return s; });
-    const tokB = WORDS.map((w, i) => { const s = el('span', null, rowB, w); s.style.marginRight = i < 5 ? '6px' : '0'; return s; });
+    const tokA = WORDS.map((w, i) => { const s = el('span', null, rowA, w); s.style.marginRight = i < 5 ? '.5em' : '0'; return s; });
+    const tokB = WORDS.map((w, i) => { const s = el('span', null, rowB, w); s.style.marginRight = i < 5 ? '.5em' : '0'; return s; });
     const big = el('div', null, pa);
     box(big, { position: 'absolute', left: '0', right: '0', top: '30px', textAlign: 'center', font: `400 ${BIGPX}px/1 'Black Han Sans',sans-serif`, color: '#fff', textShadow: '0 4px 18px rgba(0,0,0,.55), 0 1px 2px rgba(0,0,0,.5)' });
     const ul = el('div', null, pa);
@@ -108,18 +108,18 @@ const demo = {
     const lanes = [['말', 178], ['화면 A', 206], ['화면 B', 234]];
     lanes.forEach(([n, y]) => {
       const lb = el('div', null, sp, n);
-      box(lb, { position: 'absolute', left: '40px', top: (y + 5) + 'px', font: "500 10px/1 'JetBrains Mono',monospace", color: PAL.muted });
+      box(lb, { position: 'absolute', left: '40px', top: (y + 5) + 'px', font: "500 11px/1 'JetBrains Mono',monospace", color: PAL.muted });
       const ln = el('div', null, sp);
       box(ln, { position: 'absolute', left: PX0 + 'px', top: (y + 22) + 'px', width: PXW + 'px', height: '1px', background: PAL.line });
     });
     for (let k = 0; k <= 5; k++) {
       const tk = el('div', null, sp, k + 's');
-      box(tk, { position: 'absolute', left: (tx(k) - 8) + 'px', top: '262px', width: '16px', textAlign: 'center', font: "400 9px/1 'JetBrains Mono',monospace", color: PAL.muted });
+      box(tk, { position: 'absolute', left: (tx(k) - 8) + 'px', top: '262px', width: '16px', textAlign: 'center', font: "400 10px/1 'JetBrains Mono',monospace", color: PAL.muted });
     }
     const blocks = WORDS.map((w, i) => {
       const b = el('div', null, sp, w);
       const x0 = tx(WT[i]), x1 = tx(WEND[i]);
-      box(b, { position: 'absolute', left: x0 + 'px', top: '178px', width: (x1 - x0 - 2) + 'px', height: '22px', borderRadius: '4px', background: PAL.surface, boxShadow: `inset 0 0 0 1px ${PAL.line}`, font: "500 10px/22px 'IBM Plex Sans KR',sans-serif", color: PAL.muted, textAlign: 'center', overflow: 'hidden', whiteSpace: 'nowrap' });
+      box(b, { position: 'absolute', left: x0 + 'px', top: '178px', width: (x1 - x0 - 2) + 'px', height: '22px', borderRadius: '4px', background: PAL.surface, boxShadow: `inset 0 0 0 1px ${PAL.line}`, font: "500 11px/22px 'IBM Plex Sans KR',sans-serif", color: PAL.muted, textAlign: 'center', overflow: 'hidden', whiteSpace: 'nowrap' });
       return b;
     });
     const bands = WORDS.map((w, i) => {
@@ -134,14 +134,14 @@ const demo = {
     });
     const gaps = WORDS.map(() => { const g = el('div', null, sp); box(g, { position: 'absolute', top: '216px', height: '2px', background: PAL.accent2, opacity: '.6' }); return g; });
     const lbar = el('div', null, sp);
-    box(lbar, { position: 'absolute', top: '234px', height: '22px', borderRadius: '4px', background: PAL.accent2, boxShadow: '0 1px 3px rgba(0,0,0,.25)', color: '#fff', font: "600 10px/22px 'IBM Plex Sans KR',sans-serif", textAlign: 'center' });
+    box(lbar, { position: 'absolute', top: '234px', height: '22px', borderRadius: '4px', background: PAL.accent2, boxShadow: '0 1px 3px rgba(0,0,0,.25)', color: '#fff', font: "600 11px/22px 'IBM Plex Sans KR',sans-serif", textAlign: 'center' });
     const head = el('div', null, sp);
     box(head, { position: 'absolute', top: '172px', width: '2px', height: '90px', background: PAL.ink, borderRadius: '1px' });
     const r1 = el('div', null, sp), r2 = el('div', null, sp);
     box(r1, { position: 'absolute', left: '40px', top: '284px', width: '580px', font: "500 12px/1.3 'JetBrains Mono',monospace", color: PAL.ink });
-    box(r2, { position: 'absolute', left: '40px', top: '306px', width: '580px', font: "400 11px/1.3 'JetBrains Mono',monospace", color: PAL.muted });
+    box(r2, { position: 'absolute', left: '40px', top: '307px', width: '580px', font: "400 12px/1.3 'JetBrains Mono',monospace", color: PAL.muted });
     const wait = el('div', null, sp, '줄 단위로 정함');
-    box(wait, { position: 'absolute', right: '20px', top: '326px', padding: '4px 8px', borderRadius: '3px', background: PAL.accent, color: '#fff', font: "600 11px/1 'IBM Plex Sans KR',sans-serif", boxShadow: '0 2px 6px rgba(120,40,20,.35)' });
+    box(wait, { position: 'absolute', right: '20px', top: '326px', padding: '.4em .8em', borderRadius: '4px', background: PAL.accent, color: '#fff', font: "600 11px/1 'IBM Plex Sans KR',sans-serif", boxShadow: '0 2px 10px rgba(120,40,20,.35)' });
     return { vis, rowA, tokA, tokB, rowB, big, ul, hint, blocks, bands, marks, gaps, lbar, head, r1, r2, wait };
   },
   render(s, t, a, lv) {

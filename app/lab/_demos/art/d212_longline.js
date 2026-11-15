@@ -108,9 +108,9 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(vertical): 왼쪽 가장자리 세로쓰기, 번호는 muted, 지금 항목은 ink
-    Object.assign(lab.style, { position: 'absolute', left: '7px', top: '14px', writingMode: 'vertical-rl', letterSpacing: '.06em', whiteSpace: 'nowrap', lineHeight: '12px', zIndex: '4' });
+    Object.assign(lab.style, { position: 'absolute', left: '10px', top: '14px', writingMode: 'vertical-rl', letterSpacing: '.06em', whiteSpace: 'nowrap', lineHeight: '12px', zIndex: '4' });
     const idx = el('span', null, lab), pill = el('span', null, lab);
-    Object.assign(idx.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '8px' });
+    Object.assign(idx.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '10px' });
     Object.assign(pill.style, { color: PAL.ink, font: "600 12px/1 'IBM Plex Sans KR',sans-serif" });
     return { main, idx, pill };
   },
@@ -127,48 +127,55 @@ const demo = {
     x.save(); x.beginPath(); x.roundRect(PX, PY, PW, PH, 12); x.clip(); x.translate(PX, PY); x.scale(S, S); frame(x, vt, L, size, 2 * S); x.restore();
     x.setTransform(2, 0, 0, 2, 0, 0);
     x.strokeStyle = 'rgba(255,122,168,.75)'; x.lineWidth = 0.8; x.setLineDash([3, 3]); x.beginPath(); x.moveTo(PX, PY + SAFE_TOP * S); x.lineTo(PX + PW, PY + SAFE_TOP * S); x.stroke(); x.setLineDash([]);
-    T(x, '안전영역 240', PX + PW - 3, PY + SAFE_TOP * S - 3, 7.5, '#ffb3cc', 600, 'right', MONO);
-    // 오른쪽: 5개 프레임
-    const M = measure(L, size), RX = 236, pr = seg(tt, 0.15, 1.6);
-    T(x, '프레임 5개 검수(0.5초, 1초, 3초, 중간, 끝)', RX, 22, 11, PAL.muted, 500, 'left', MONO);
+    T(x, '안전영역 240', PX + PW - 4, PY + SAFE_TOP * S - 4, 10, '#ffb3cc', 600, 'right', MONO);
+    // 오른쪽: 위에 5개 프레임, 가운데에 이 단계의 핵심 숫자, 아래에 줄 폭과 안전영역
+    const M = measure(L, size), RX = 236, RR = 624, pr = seg(tt, 0.15, 1.6);
+    T(x, '프레임 5개 검수(0.5초, 1초, 3초, 중간, 끝)', RX, 24, 11, PAL.muted, 500, 'left', MONO);
     FRAME_T.forEach((ft, i) => {
-      const X = RX + i * 50, Y = 30, q = E.outBack(seg(tt, 0.2 + i * 0.12, 0.7 + i * 0.12));
+      const X = RX + i * 50, Y = 34, q = E.outBack(seg(tt, 0.2 + i * 0.12, 0.7 + i * 0.12));
       x.save(); x.translate(X + 21, Y + 37.5); x.scale(Math.max(0.01, q), Math.max(0.01, q)); x.translate(-21, -37.5);
       x.beginPath(); x.roundRect(0, 0, 42, 75, 4); x.clip(); x.scale(42 / 1080, 75 / 1920); frame(x, ft, L, size, 2 * 42 / 1080); x.restore(); x.setTransform(2, 0, 0, 2, 0, 0);
     });
-    card(x, 490, 28, 134, 80);
     const shown = L >= 2 ? 5 : 0;
-    T(x, '제목이 있는 프레임', 500, 44, 10, PAL.muted, 500);
-    T(x, `${Math.round(shown * pr)} / 5`, 614, 70, 24, shown === 5 ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
-    T(x, L >= 3 ? `띠 영역 프레임 차 ${(M.diff * pr).toFixed(2)}` : L === 2 ? `제목 자리 프레임 차 ${(M.diff * pr).toFixed(1)}` : '제목 자리가 비어 있다', 500, 92, 9.5, L >= 3 ? PAL.accent2 : PAL.muted, 500);
-    // 크기와 띠
+    T(x, '제목이 있는 프레임', RR, 56, 11, PAL.muted, 500, 'right');
+    T(x, `${Math.round(shown * pr)} / 5`, RR, 94, 34, shown === 5 ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
+    T(x, L >= 3 ? `띠 영역 프레임 차 ${(M.diff * pr).toFixed(2)}` : L === 2 ? `제목 자리 프레임 차 ${(M.diff * pr).toFixed(1)}` : '제목 자리가 비어 있다', RR, 110, 11, L >= 3 ? PAL.accent2 : PAL.muted, 500, 'right');
+    // 가운데: 단계마다 하나씩
     const w1 = adv(LINE1, size), w2 = adv(LINE2, size), W = BOX_R - BOX_L;
-    card(x, RX, 118, 188, 100);
-    T(x, '글자 크기와 띠 높이', RX + 10, 134, 11, PAL.ink, 600);
-    T(x, L >= 3 ? `${size}px` : '띠 없음', RX + 178, 160, 22, L >= 3 ? (F.over ? PAL.accent : PAL.accent2) : PAL.muted, 700, 'right', MONO);
-    T(x, L >= 3 ? `띠 높이 ${Math.round(G.h)}px, y ${BAND_TOP}에서 ${Math.round(BAND_TOP + G.h)}` : `글자만, 크기 88px`, RX + 10, 178, 10, PAL.muted, 500);
-    T(x, `줄 폭 ${Math.round(w1)}, ${Math.round(w2)} / 상자 ${W}`, RX + 10, 194, 10, w1 > W || w2 > W ? PAL.accent : PAL.muted, 500);
-    T(x, `후보 ${SIZES.join(', ')} 중 처음으로 들어가는 크기`, RX + 10, 209, 9, PAL.muted, 500);
-    // 글자 대비
     const rb1 = ratio(lum(C.l1), lum(C.band)), rb2 = ratio(lum(C.l2), lum(C.band));
-    card(x, 434, 118, 190, 100);
-    T(x, '글자와 뒤 배경의 대비', 444, 134, 11, PAL.ink, 600);
-    if (L >= 3) { T(x, `${rb1.toFixed(1)} : 1`, 614, 160, 22, PAL.accent2, 700, 'right', MONO); T(x, `흰 글자 ${rb1.toFixed(1)}, 노랑 ${rb2.toFixed(1)} (띠 위)`, 444, 178, 10, PAL.muted, 500); }
-    else if (L === 2) { T(x, `${M.minRatio.toFixed(1)} : 1`, 614, 160, 22, PAL.accent, 700, 'right', MONO); T(x, `가장 낮은 곳, 3:1 미만 면적 ${(M.badShare * 100).toFixed(0)}%`, 444, 178, 10, PAL.muted, 500); }
-    else { T(x, '글자가 없어 잴 값이 없다', 444, 160, 11, PAL.muted, 500); }
-    T(x, '큰 글자는 3:1 이상이 웹 접근성의 자', 444, 194, 9, PAL.muted, 500);
-    T(x, L >= 2 ? '(영상 글씨에 그대로 적용되는 법칙은 아니다)' : '', 444, 209, 9, PAL.muted, 500);
-    // 줄 글자 수와 안전영역
-    const n1 = [...LINE1].length, n2 = [...LINE2].length;
-    card(x, RX, 226, 188, 62);
-    T(x, '줄 글자 수(띄어쓰기 포함)', RX + 10, 242, 11, PAL.ink, 600);
-    T(x, `${n1} / ${MAX_CH}`, RX + 74, 272, 16, n1 > MAX_CH ? PAL.accent : PAL.accent2, 700, 'right', MONO);
-    T(x, `${n2} / ${MAX_CH}`, RX + 178, 272, 16, n2 > MAX_CH ? PAL.accent : PAL.accent2, 700, 'right', MONO);
-    card(x, 434, 226, 190, 62);
-    T(x, '띠 시작과 위 안전영역', 444, 242, 11, PAL.ink, 600);
-    T(x, `${BAND_TOP} ${BAND_TOP >= SAFE_TOP ? '>' : '<'} ${SAFE_TOP}`, 614, 272, 16, BAND_TOP >= SAFE_TOP ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
-    T(x, '안전영역은 공식 수치가 아니라 제작 채택값이다. 줄 폭은 제작 글꼴 폭을 계산한 값이고', RX, 308, 9.5, PAL.muted, 500);
-    T(x, '화면의 글자는 사이트 글꼴이라 모양이 조금 다르다. 색 판정은 장면 픽셀에서 잰다.', RX, 322, 9.5, PAL.muted, 500);
+    if (L === 1) {
+      T(x, '제목이 없는 장면', RX, 176, 22, PAL.ink, 700);
+      T(x, '5개 프레임 모두 제목 자리가 비어 있다', RX, 198, 12, PAL.muted, 500);
+    } else if (L === 2) {
+      T(x, '글자와 뒤 배경의 대비', RX, 150, 12, PAL.ink, 600);
+      T(x, `${M.minRatio.toFixed(1)} : 1`, RX, 192, 38, PAL.accent, 700, 'left', MONO);
+      T(x, `가장 낮은 곳, 3:1 미만 면적 ${(M.badShare * 100).toFixed(0)}%`, RX, 212, 11, PAL.muted, 500);
+    } else {
+      T(x, '글자 크기', RX, 150, 12, PAL.ink, 600);
+      T(x, `${size}px`, RX, 192, 38, F.over ? PAL.accent : PAL.accent2, 700, 'left', MONO);
+      T(x, `띠 높이 ${Math.round(G.h)}px, y ${BAND_TOP}에서 ${Math.round(BAND_TOP + G.h)}`, RX, 212, 11, PAL.muted, 500);
+      T(x, '글자와 뒤 배경의 대비', 440, 150, 12, PAL.ink, 600);
+      T(x, `${rb1.toFixed(1)} : 1`, 440, 192, 38, PAL.accent2, 700, 'left', MONO);
+      T(x, `흰 글자 ${rb1.toFixed(1)}, 노랑 ${rb2.toFixed(1)} (띠 위)`, 440, 212, 11, PAL.muted, 500);
+    }
+    if (L === 2) {
+      T(x, '큰 글자는 3:1 이상이 웹 접근성의 자다.', RX, 270, 11, PAL.muted, 500);
+      T(x, '영상 글씨에 그대로 적용되는 법칙은 아니다.', RX, 286, 11, PAL.muted, 500);
+    }
+    if (L >= 3) {   // 글자 상자(858) 안에 두 줄이 들어가는지
+      const n1 = [...LINE1].length, n2 = [...LINE2].length, BW = RR - RX, sc = BW / W;
+      T(x, `글자 상자 폭 ${W}`, RX, 240, 11, PAL.muted, 500);
+      x.strokeStyle = 'rgba(246,233,238,.4)'; x.lineWidth = 1; x.setLineDash([3, 3]); x.strokeRect(RX + .5, 248.5, BW, 48); x.setLineDash([]);
+      [[LINE1, n1, w1, C.l1], [LINE2, n2, w2, C.l2]].forEach(([tx, n, w, col], i) => {
+        const bw = Math.min(BW - 8, w * sc), bx = RX + (BW - bw) / 2, by = 252 + i * 22, bad = n > MAX_CH || w > W;
+        x.fillStyle = bad ? PAL.accent : col; x.beginPath(); x.roundRect(bx, by, bw, 18, 3); x.fill();
+        T(x, `${n} / ${MAX_CH} · 폭 ${Math.round(w)}`, RX + BW / 2, by + 13, 11, '#14080f', 700, 'center', MONO);
+      });
+    }
+    // 아래: 띠 시작과 위 안전영역
+    T(x, '띠 시작과 위 안전영역', RX, 324, 12, PAL.ink, 600);
+    T(x, `${BAND_TOP} ${BAND_TOP >= SAFE_TOP ? '>' : '<'} ${SAFE_TOP}`, RR, 326, 22, BAND_TOP >= SAFE_TOP ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
+    T(x, '안전영역은 제작 채택값이고, 줄 폭은 제작 글꼴 폭을 계산한 값이다.', RX, 349, 10, PAL.muted, 500);
     s.idx.textContent = '0' + L; s.pill.textContent = STEP[L - 1];
   },
 };

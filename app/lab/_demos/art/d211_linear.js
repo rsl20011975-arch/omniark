@@ -34,7 +34,7 @@ const order = N43.map((_, i) => i).sort((p, q) => RATE[p] - RATE[q]);
 function groups(n) { const g = []; for (let b = 0; b < n; b++) { const ids = order.slice(Math.round(b * 43 / n), Math.round((b + 1) * 43 / n)); g.push({ ids, lo: RATE[ids[0]], hi: RATE[ids[ids.length - 1]], med: median(ids.map((i) => REL[i])) }); } return g; }
 function ols(xs, ys) { const n = xs.length, mx = xs.reduce((p, q) => p + q, 0) / n, my = ys.reduce((p, q) => p + q, 0) / n; let sxy = 0, sxx = 0; for (let i = 0; i < n; i++) { sxy += (xs[i] - mx) * (ys[i] - my); sxx += (xs[i] - mx) ** 2; } const b = sxy / sxx; return [my - b * mx, b]; }
 
-const PX0 = 272, PX1 = 612, PY0 = 46, PY1 = 186;
+const PX0 = 272, PX1 = 612, PY0 = 64, PY1 = 270;
 const yOf = (rel) => PY1 - (Y_LOG ? (ln(rel) - ln(0.1)) / (ln(2) - ln(0.1)) : rel / 1.6) * (PY1 - PY0);
 const xView = (v) => PX0 + v / 200 * (PX1 - PX0), xRate = (r) => PX0 + r / 0.6 * (PX1 - PX0);
 
@@ -49,7 +49,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(caption-bl): 왼쪽 아래, 배경 없음, 위에 1px 선
-    Object.assign(lab.style, { position: 'absolute', left: '18px', bottom: '8px', width: '208px', paddingTop: '5px', borderTop: `1px solid ${PAL.line}`, color: PAL.muted, font: "500 12px/1.2 'JetBrains Mono',monospace", whiteSpace: 'nowrap', zIndex: '4' });
+    Object.assign(lab.style, { position: 'absolute', left: '18px', bottom: '10px', width: '208px', paddingTop: '10px', borderTop: `1px solid ${PAL.line}`, color: PAL.muted, font: "500 12px/1.2 'JetBrains Mono',monospace", whiteSpace: 'nowrap', zIndex: '4' });
     return { main, lab };
   },
   render(s, t, a, lv) {
@@ -66,49 +66,54 @@ const demo = {
     const bandIn = L >= 3 ? E.outC(seg(t, 3.8, 4.6)) : 0;
     const knIn = L >= 3 ? seg(t, 4.4, 5.4) : 0;
 
-    // 왼쪽: 조회 100번 격자
-    T(x, '첫 화면에서 넘기는 비율', 20, 26, 13, PAL.ink, 700);
-    T(x, '쇼츠 43편, 조회 100 이상 [측정]', 20, 39, 9.5, PAL.muted, 500);
+    // 왼쪽 열: 조회 100번 격자(1·2단계), 3단계에서는 아는 물건 10편 산점도로 바뀐다
     const stay = Math.round(MED_RATE * 100);
+    const gridA = 1 - Math.min(1, knIn * 2.2);
+    x.save(); x.globalAlpha = gridA;
+    T(x, '첫 화면에서 넘기는 비율', 20, 30, 14, PAL.ink, 700);
+    T(x, '쇼츠 43편, 조회 100 이상 [측정]', 20, 47, 10.5, PAL.muted, 500);
     for (let i = 0; i < 100; i++) {
-      const cx = 24 + (i % 10) * 12.4, cy = 52 + Math.floor(i / 10) * 12.4, on = E.outC(seg(t, 0.15 + i * 0.008, 0.15 + i * 0.008 + 0.35));
-      x.fillStyle = i < stay ? PAL.accent : 'rgba(79,110,99,.28)'; x.beginPath(); x.arc(cx + 5, cy + 5, 4.4 * on, 0, 7); x.fill();
+      const cx = 22 + (i % 10) * 17.4, cy = 62 + Math.floor(i / 10) * 17.4, on = E.outC(seg(t, 0.15 + i * 0.008, 0.15 + i * 0.008 + 0.35));
+      x.fillStyle = i < stay ? PAL.accent : 'rgba(79,110,99,.28)'; x.beginPath(); x.arc(cx + 7.5, cy + 7.5, 6.2 * on, 0, 7); x.fill();
     }
-    T(x, `${stay}%`, 160, 80, 26, ACC_INK, 700, 'left', MONO);
-    T(x, '계속 봄', 160, 94, 10, PAL.muted, 500);
-    T(x, `${100 - stay}%`, 160, 124, 20, PAL.muted, 700, 'left', MONO);
-    T(x, '첫 화면에서 넘김', 160, 138, 10, PAL.muted, 500);
-    T(x, `조회 100번 중 ${stay}번만 계속 본다(중앙 편)`, 20, 182, 10, PAL.ink, 600);
+    T(x, `${stay}%`, 20, 274, 30, ACC_INK, 700, 'left', MONO);
+    T(x, '계속 봄', 20, 290, 11, PAL.muted, 500);
+    T(x, `${100 - stay}%`, 122, 274, 30, PAL.muted, 700, 'left', MONO);
+    T(x, '첫 화면에서 넘김', 122, 290, 11, PAL.muted, 500);
+    T(x, `조회 100번 중 ${stay}번만 계속 본다(중앙 편)`, 20, 314, 11, PAL.ink, 600);
+    x.restore();
 
-    // 왼쪽 아래: 아는 물건 10편
     if (knIn > 0) {
       x.save(); x.globalAlpha = Math.min(1, knIn * 2);
-      T(x, '아는 물건 10편 [측정 2026-11-09]', 20, 202, 10.5, PAL.ink, 700);
-      const kx0 = 34, kx1 = 220, ky0 = 212, ky1 = 296, xk = (r) => kx0 + (r - 0.2) / 0.4 * (kx1 - kx0), yk = (v) => ky1 - (ln(v) - ln(0.01)) / (ln(5) - ln(0.01)) * (ky1 - ky0);
+      T(x, '아는 물건 10편 [측정]', 20, 30, 14, PAL.ink, 700);
+      T(x, '비율이 높은데 조회가 낮은 편이 있다', 20, 47, 10.5, PAL.muted, 500);
+      const kx0 = 58, kx1 = 232, ky0 = 84, ky1 = 262, xk = (r) => kx0 + (r - 0.2) / 0.4 * (kx1 - kx0), yk = (v) => ky1 - (ln(v) - ln(0.01)) / (ln(5) - ln(0.01)) * (ky1 - ky0);
       x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(kx0, ky1 + .5); x.lineTo(kx1, ky1 + .5); x.moveTo(kx0 + .5, ky0); x.lineTo(kx0 + .5, ky1); x.stroke();
-      [0.2, 0.4, 0.6].forEach((r) => T(x, `${Math.round(r * 100)}%`, xk(r), ky1 + 10, 8.5, PAL.muted, 500, 'center', MONO));
-      [0.1, 1].forEach((v) => { T(x, `×${v}`, kx0 - 4, yk(v) + 3, 8.5, PAL.muted, 500, 'right', MONO); x.beginPath(); x.moveTo(kx0, yk(v) + .5); x.lineTo(kx1, yk(v) + .5); x.stroke(); });
+      [0.2, 0.4, 0.6].forEach((r) => T(x, `${Math.round(r * 100)}%`, xk(r), ky1 + 14, 10, PAL.muted, 500, 'center', MONO));
+      [0.1, 1].forEach((v) => { T(x, `×${v}`, kx0 - 5, yk(v) + 4, 10, PAL.muted, 500, 'right', MONO); x.beginPath(); x.moveTo(kx0, yk(v) + .5); x.lineTo(kx1, yk(v) + .5); x.stroke(); });
       K10.forEach(([r, v, id], i) => {
         const on = E.outC(seg(knIn, i / 14, i / 14 + 0.35)), hi = id === '04' || id === '07';
-        x.globalAlpha = on * Math.min(1, knIn * 2); x.fillStyle = hi ? PAL.accent2 : PAL.accent; x.beginPath(); x.arc(xk(r), yk(v), 3.6, 0, 7); x.fill(); x.strokeStyle = '#fff'; x.lineWidth = 1; x.stroke();
-        if (hi) T(x, `${id}: ${(r * 100).toFixed(1)}%인데 ${v.toFixed(2)}배`, xk(r) - 6, yk(v) - 6, 8.5, ORG_INK, 700, 'right');
+        x.globalAlpha = on * Math.min(1, knIn * 2); x.fillStyle = hi ? PAL.accent2 : PAL.accent; x.beginPath(); x.arc(xk(r), yk(v), 4.4, 0, 7); x.fill(); x.strokeStyle = '#fff'; x.lineWidth = 1; x.stroke();
+        if (hi) T(x, `${id}: ${(r * 100).toFixed(1)}%인데 ${v.toFixed(2)}배`, xk(r) - 8, yk(v) - 7, 10, ORG_INK, 700, 'right');
       });
       x.globalAlpha = Math.min(1, knIn * 2);
       const rk = pearson(K10.map((k) => k[0]), K10.map((k) => ln(k[1])));
-      T(x, `r = ${rk.toFixed(2)} (10편, 비율이 높아도 조회는 따로)`, 20, 313, 9, PAL.muted, 500);
+      T(x, `r = ${rk.toFixed(2)}`, 20, 306, 15, PAL.ink, 700, 'left', MONO);
+      T(x, '10편 안에서는 비율이 높아도 조회는 따로', 20, 322, 10.5, PAL.muted, 500);
       x.restore();
     }
 
-    // 오른쪽: 산점도
-    card(x, 244, 10, 384, 200);
+    // 오른쪽: 산점도(이 화면의 주인공)
+    card(x, 244, 10, 384, 322);
     const showRate = m > 0.5, rr = showRate ? R_RATE : R_VIEW;
-    T(x, showRate ? '안 넘긴 비율과 조회' : '평균 시청 비율과 조회', 258, 28, 12, PAL.ink, 700);
-    T(x, `r = ${rr.toFixed(2)}`, 620, 28, 15, showRate ? ACC_INK : PAL.muted, 700, 'right', MONO);
-    T(x, '(조회의 로그와 잰 상관)', 620, 40, 8.5, PAL.muted, 500, 'right');
+    T(x, showRate ? '안 넘긴 비율과 조회' : '평균 시청 비율과 조회', 258, 34, 14, PAL.ink, 700);
+    T(x, `r = ${rr.toFixed(2)}`, 618, 36, 22, showRate ? ACC_INK : PAL.muted, 700, 'right', MONO);
+    T(x, '(조회의 로그와 잰 상관)', 618, 51, 10, PAL.muted, 500, 'right');
     x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(PX0, PY1 + .5); x.lineTo(PX1, PY1 + .5); x.moveTo(PX0 + .5, PY0 - 4); x.lineTo(PX0 + .5, PY1); x.stroke();
-    (Y_LOG ? [0.1, 0.25, 0.5, 1, 2] : [0, 0.5, 1, 1.5]).forEach((v) => { const yy = v === 0 ? PY1 : yOf(v); T(x, `×${v}`, PX0 - 4, yy + 3, 8.5, PAL.muted, 500, 'right', MONO); if (v) { x.beginPath(); x.moveTo(PX0, Math.round(yy) + .5); x.lineTo(PX1, Math.round(yy) + .5); x.stroke(); } });
-    x.save(); x.globalAlpha = 1 - m; [0, 50, 100, 150, 200].forEach((v) => T(x, `${v}%`, xView(v), PY1 + 11, 8.5, PAL.muted, 500, 'center', MONO)); T(x, '가로: 평균 시청 비율(영상 길이 대비, 반복이 있으면 100% 넘음)', PX0, PY1 + 22, 8.5, PAL.muted, 500); x.restore();
-    x.save(); x.globalAlpha = m; [0, 0.2, 0.4, 0.6].forEach((v) => T(x, `${Math.round(v * 100)}%`, xRate(v), PY1 + 11, 8.5, PAL.muted, 500, 'center', MONO)); T(x, '가로: 안 넘긴 비율 = engagedViews ÷ views, 세로: 조회 배수(중앙값 = 1)', PX0, PY1 + 22, 8.5, PAL.muted, 500); x.restore();
+    (Y_LOG ? [0.1, 0.25, 0.5, 1, 2] : [0, 0.5, 1, 1.5]).forEach((v) => { const yy = v === 0 ? PY1 : yOf(v); T(x, `×${v}`, PX0 - 5, yy + 4, 10, PAL.muted, 500, 'right', MONO); if (v) { x.beginPath(); x.moveTo(PX0, Math.round(yy) + .5); x.lineTo(PX1, Math.round(yy) + .5); x.stroke(); } });
+    x.save(); x.globalAlpha = 1 - m; [0, 50, 100, 150, 200].forEach((v) => T(x, `${v}%`, xView(v), PY1 + 14, 10, PAL.muted, 500, 'center', MONO)); T(x, '가로: 평균 시청 비율(영상 길이 대비, 반복이 있으면 100% 넘음)', PX0, PY1 + 29, 10, PAL.muted, 500); x.restore();
+    x.save(); x.globalAlpha = m; [0, 0.2, 0.4, 0.6].forEach((v) => T(x, `${Math.round(v * 100)}%`, xRate(v), PY1 + 14, 10, PAL.muted, 500, 'center', MONO)); T(x, '가로: 안 넘긴 비율 = engagedViews ÷ views', PX0, PY1 + 29, 10, PAL.muted, 500); x.restore();
+    T(x, '세로: 조회 배수(중앙값 = 1)', PX0, PY1 + 42, 10, PAL.muted, 500);
 
     // 3등분 띠
     const G = groups(BANDS);
@@ -117,8 +122,8 @@ const demo = {
         const lo = b === 0 ? 0 : (G[b - 1].hi + g.lo) / 2, hi = b === BANDS - 1 ? 0.6 : (g.hi + G[b + 1].lo) / 2;
         x.save(); x.globalAlpha = bandIn; x.fillStyle = b % 2 ? 'rgba(15,157,107,.05)' : 'rgba(15,157,107,.24)'; x.fillRect(xRate(lo), PY0, xRate(hi) - xRate(lo), PY1 - PY0);
         x.strokeStyle = ACC_INK; x.lineWidth = 1.6; x.beginPath(); x.moveTo(xRate(lo) + 2, yOf(g.med)); x.lineTo(xRate(hi) - 2, yOf(g.med)); x.stroke();
-        TH(x, `×${g.med.toFixed(2)}`, (xRate(lo) + xRate(hi)) / 2, PY0 + 11, 10.5, ACC_INK, 700, 'center', MONO);
-        TH(x, `${g.ids.length}편`, (xRate(lo) + xRate(hi)) / 2, PY0 + 22, 8.5, PAL.muted, 500, 'center');
+        TH(x, `×${g.med.toFixed(2)}`, (xRate(lo) + xRate(hi)) / 2, PY0 + 14, 12, ACC_INK, 700, 'center', MONO);
+        TH(x, `${g.ids.length}편`, (xRate(lo) + xRate(hi)) / 2, PY0 + 28, 10, PAL.muted, 500, 'center');
         x.restore();
       });
     }
@@ -128,7 +133,7 @@ const demo = {
       x.save(); x.globalAlpha = bandIn; x.save(); x.beginPath(); x.rect(xRate(LINE), PY0, PX1 - xRate(LINE), PY1 - PY0); x.clip(); x.strokeStyle = 'rgba(168,54,10,.42)'; x.lineWidth = 1.4; x.beginPath();
       for (let hx = xRate(LINE) - 140; hx < PX1; hx += 6) { x.moveTo(hx, PY1); x.lineTo(hx + 140, PY0); } x.stroke(); x.restore();   // 기준선 오른쪽 사선 무늬
       x.strokeStyle = ORG_INK; x.lineWidth = 1.3; x.setLineDash([4, 3]); x.beginPath(); x.moveTo(xRate(LINE) + .5, PY0); x.lineTo(xRate(LINE) + .5, PY1); x.stroke(); x.setLineDash([]);
-      TH(x, `${Math.round(LINE * 100)}% 이상 ${cnt}편 / 43`, xRate(LINE) + 4, PY1 - 6, 9.5, ORG_INK, 700);
+      TH(x, `${Math.round(LINE * 100)}% 이상 ${cnt}편 / 43`, xRate(LINE) + 4, PY1 - 8, 10.5, ORG_INK, 700);
       x.restore();
     }
     // 추세선
@@ -142,16 +147,9 @@ const demo = {
     N43.forEach((r, i) => {
       const on = E.outC(seg(t, 0.25 + i * 0.022, 0.25 + i * 0.022 + 0.4)), px = lerp(xView(r[2]), xRate(r[0]), m), py = yOf(r[1]);
       const hot = bandIn > 0 && r[0] >= LINE;
-      x.globalAlpha = on; x.fillStyle = hot ? PAL.ink : 'rgba(15,42,34,.38)'; x.beginPath(); x.arc(px, py - 5 * (1 - on), hot ? 4 : 3.4, 0, 7); x.fill();
+      x.globalAlpha = on; x.fillStyle = hot ? PAL.ink : 'rgba(15,42,34,.38)'; x.beginPath(); x.arc(px, py - 5 * (1 - on), hot ? 4.4 : 3.8, 0, 7); x.fill();
       x.strokeStyle = '#fff'; x.lineWidth = 1; x.stroke(); x.globalAlpha = 1;
     });
-
-    // 정의 카드와 주의 카드
-    card(x, 244, 218, 384, 64);
-    T(x, '공식 도움말의 정의 [확인 2026-11-14]', 256, 233, 10.5, PAL.ink, 700);
-    ['Stayed to watch = 첫 몇 초를 넘겨 계속 본 비율', 'Engaged views = 첫 몇 초를 넘겨 본 횟수(반복 제외)', '몇 초인지는 적혀 있지 않고, views 는 반복 재생도 센다'].forEach((ln2, i) => T(x, ln2, 256, 247 + i * 11, 9.5, i === 2 ? PAL.muted : PAL.ink, 500));
-    card(x, 244, 290, 384, 58);
-    ['안 넘긴 비율은 이 페이지의 계산이다(스튜디오 표시 %와 같다고는 못 확인).', '상관은 원인이 아니다. 조회가 많아서 비율이 달라졌을 수도 있다.', `중앙 편 시청 비율 ${MED_VPCT.toFixed(0)}%, 안 넘긴 비율 ${(MED_RATE * 100).toFixed(1)}%.`].forEach((ln2, i) => T(x, ln2, 256, 306 + i * 14, 10, i === 1 ? ORG_INK : PAL.ink, i === 1 ? 700 : 500));
     s.lab.textContent = STEP[L - 1];
   },
 };

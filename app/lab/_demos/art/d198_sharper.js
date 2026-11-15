@@ -203,7 +203,7 @@ const demo = {
     main.width = 1280; main.height = 720; css(main, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
     const lo = mk(W, H), loCtx = lo.getContext('2d'), im = loCtx.createImageData(W, H);
     const lab = el('div', null, sp);
-    css(lab, { position: 'absolute', left: '12px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px', padding: '5px 14px 5px 11px', borderRadius: '6px', background: 'rgba(23,22,21,.62)', boxShadow: '0 0 0 1px rgba(58,55,51,.9)', zIndex: 5 });
+    css(lab, { position: 'absolute', left: '12px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px', padding: '.4em 1.1em .4em .9em', borderRadius: '10px', background: 'rgba(23,22,21,.62)', boxShadow: '0 0 0 1px rgba(58,55,51,.9)', zIndex: 5 });
     const num = el('span', null, lab), txt = el('span', null, lab);
     css(num, { font: "400 40px/1 'Black Han Sans',sans-serif", color: PAL.accent });
     css(txt, { font: "500 13px/1.2 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
@@ -234,20 +234,20 @@ const demo = {
     const bx = W - 140, by = H - 90;
     x.fillStyle = 'rgba(23,22,21,.78)'; x.fillRect(bx - 6, by - 20, 132, 98);
     x.strokeStyle = PAL.line; x.lineWidth = 1; x.strokeRect(bx - 5.5, by - 19.5, 131, 97);
-    x.fillStyle = PAL.muted; x.font = "500 10px 'IBM Plex Sans KR',sans-serif"; x.textAlign = 'left'; x.textBaseline = 'alphabetic';
+    x.fillStyle = PAL.muted; x.font = "500 11px 'IBM Plex Sans KR',sans-serif"; x.textAlign = 'left'; x.textBaseline = 'alphabetic';
     x.fillText(L <= 1 ? '깊이 지도 없음' : `깊이 지도(블러 ${L === 2 ? BLUR_SHARP : BLUR_SOFT}px)`, bx, by - 7);
     if (L <= 1) { x.fillStyle = '#2b2927'; x.fillRect(bx, by, 120, 68); x.strokeStyle = PAL.line; x.beginPath(); x.moveTo(bx, by); x.lineTo(bx + 120, by + 68); x.moveTo(bx + 120, by); x.lineTo(bx, by + 68); x.stroke(); }
     else x.drawImage(L === 2 ? sc.tSharp : sc.tSoft, bx, by);
     // 이 장면에서 직접 잰 값
     const key = (wallScene ? 'w' : 's') + L + '_' + K;
     const m = s.cache[key] || (s.cache[key] = metrics(sc, L, K, wallScene));
-    x.fillStyle = 'rgba(23,22,21,.78)'; x.fillRect(12, H - 52, 372, 40);
-    x.strokeStyle = PAL.line; x.strokeRect(12.5, H - 51.5, 371, 39);
-    x.font = "500 11px 'JetBrains Mono',monospace"; x.fillStyle = PAL.ink;
-    x.fillText(L <= 1 ? `통째로 밀기 ${FLAT}px · 층 구분 없음` : `시차 K ${K} · 깊이 경계 블러 ${L === 2 ? BLUR_SHARP : BLUR_SOFT}px`, 20, H - 35);
+    x.fillStyle = 'rgba(23,22,21,.78)'; x.fillRect(12, H - 54, 372, 42);
+    x.strokeStyle = PAL.line; x.strokeRect(12.5, H - 53.5, 371, 41);
+    x.font = "500 12px 'JetBrains Mono',monospace"; x.fillStyle = PAL.ink;
+    x.fillText(L <= 1 ? `통째로 밀기 ${FLAT}px · 층 구분 없음` : `시차 K ${K} · 깊이 경계 블러 ${L === 2 ? BLUR_SHARP : BLUR_SOFT}px`, 20, H - 37);
     x.fillStyle = PAL.accent2;
     const f1 = (v) => v.toFixed(1);
-    x.fillText(`앞뒤 어긋남 ${f1(m.gap)}px · 틀 휨 ${m.bend == null ? '건물에서 측정' : f1(m.bend) + 'px'}${m.jump == null || L <= 1 ? '' : ' · 단차 ' + m.jump.toFixed(2)}`, 20, H - 20);
+    x.fillText(`앞뒤 어긋남 ${f1(m.gap)}px · 틀 휨 ${m.bend == null ? '건물에서 측정' : f1(m.bend) + 'px'}${m.jump == null || L <= 1 ? '' : ' · 단차 ' + m.jump.toFixed(2)}`, 20, H - 21);
     const li = L - 1;
     s.num.textContent = String(L); s.txt.textContent = STEPS[li];
   },

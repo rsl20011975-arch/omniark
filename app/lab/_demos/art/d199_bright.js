@@ -107,7 +107,7 @@ const demo = {
     const main = el('canvas', null, sp);
     main.width = 1280; main.height = 720; css(main, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
     const pill = el('div', null, sp);
-    css(pill, { position: 'absolute', right: '16px', top: '14px', padding: '7px 12px 7px 11px', borderRadius: '2px', background: PAL.surface, color: PAL.ink, borderLeft: `3px solid ${PAL.accent}`, boxShadow: `0 0 0 1px ${PAL.line}, 0 4px 14px rgba(0,0,0,.4)`, font: "600 12px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
+    css(pill, { position: 'absolute', right: '16px', top: '14px', padding: '.55em 1em .55em .9em', borderRadius: '2px', background: PAL.surface, color: PAL.ink, borderLeft: `3px solid ${PAL.accent}`, boxShadow: `0 0 0 1px ${PAL.line}, 0 4px 14px rgba(0,0,0,.4)`, font: "600 12px/1 'IBM Plex Sans KR',sans-serif", zIndex: 5 });
     const gr = mk(256, 256); { const g2 = ctx2(gr), d = g2.createImageData(256, 256), r = rng(3); for (let i = 0; i < d.data.length; i += 4) { const v = r() * 255; d.data[i] = d.data[i + 1] = d.data[i + 2] = v; d.data[i + 3] = 255; } g2.putImageData(d, 0, 0); }
     return { main, pill, src, comp, gr, cache: {}, key: { prod, eaten }, tmp: mk(64, 114) };
   },
@@ -125,13 +125,13 @@ const demo = {
       x.fillStyle = 'rgba(0,0,0,.22)'; x.fillRect(fx - 2 + 2, FY - 2 + 3, FW + 4, FH + 4);
       x.save(); x.beginPath(); x.rect(fx, FY, FW, FH); x.clip(); x.translate(fx + FW / 2, FY + FH / 2); x.scale(zz, zz); x.drawImage(canvas, -FW / 2, -FH / 2, FW, FH); x.restore();
       x.strokeStyle = PAL.line; x.lineWidth = 1; x.strokeRect(fx - .5, FY - .5, FW + 1, FH + 1);
-      x.fillStyle = tone; x.font = "600 11px 'IBM Plex Sans KR',sans-serif"; x.fillText(label, fx, FY - 8);
+      x.fillStyle = tone; x.font = "600 12px 'IBM Plex Sans KR',sans-serif"; x.fillText(label, fx, FY - 8);
     };
     frame(L >= 2 ? s.comp.c2 : s.comp.c1, FXR, z, L >= 4 ? '사각형 오버레이(쓰는 방식)' : '결과 화면', PAL.ink);
     if (L >= 4) frame(s.comp.ck, FXL, 1, 'colorkey 시도(폐기)', PAL.accent);
-    else { x.setLineDash([4, 4]); x.strokeStyle = PAL.line; x.strokeRect(FXL + .5, FY + .5, FW - 1, FH - 1); x.setLineDash([]); x.fillStyle = PAL.muted; x.font = "500 11px 'IBM Plex Sans KR',sans-serif"; x.textAlign = 'center'; x.fillText('4단계에서', FXL + FW / 2, FY + FH / 2 - 4); x.fillText('흰색 지우기 시험', FXL + FW / 2, FY + FH / 2 + 12); x.textAlign = 'left'; }
+    else { x.setLineDash([4, 4]); x.strokeStyle = PAL.line; x.strokeRect(FXL + .5, FY + .5, FW - 1, FH - 1); x.setLineDash([]); x.fillStyle = PAL.muted; x.font = "500 12px 'IBM Plex Sans KR',sans-serif"; x.textAlign = 'center'; x.fillText('4단계에서', FXL + FW / 2, FY + FH / 2 - 4); x.fillText('흰색 지우기 시험', FXL + FW / 2, FY + FH / 2 + 12); x.textAlign = 'left'; }
     // 원본 사진
-    x.fillStyle = PAL.muted; x.font = "500 11px 'IBM Plex Sans KR',sans-serif"; x.fillText('원본 사진 (정사각형)', 14, 52);
+    x.fillStyle = PAL.muted; x.font = "500 12px 'IBM Plex Sans KR',sans-serif"; x.fillText('원본 사진 (정사각형)', 14, 52);
     x.fillStyle = 'rgba(0,0,0,.35)'; x.fillRect(16, 61, 112, 112); x.drawImage(s.src, 14, 58, 112, 112);
     x.strokeStyle = PAL.line; x.strokeRect(13.5, 57.5, 113, 113);
     // 이 장면에서 직접 계산한 값
@@ -148,20 +148,15 @@ const demo = {
       }
       return s.cache[key] = { bars, still: bars.filter((v) => v < .5).length / bars.length, motion: bars.reduce((p, v) => p + v, 0) / bars.length };
     })();
-    x.font = "500 10.5px 'JetBrains Mono',monospace";
     const lines = [];
-    lines.push([L >= 2 ? `배경 블러 σ ${SIGMA} · 밝기 ×${DIM.toFixed(2)}/${DIM.toFixed(2)}/${DIM_B.toFixed(2)}` : '배경 없음 (단색)', PAL.ink]);
-    lines.push([`전경 ${1080 - MARGIN * 2}×${1080 - MARGIN * 2} · 좌우 여백 ${MARGIN}px`, PAL.ink]);
-    if (L >= 3) lines.push([`줌 ${z.toFixed(3)} / ${ZOOM.toFixed(3)} · 초당 ${((ZOOM - 1) / SECS * 100).toFixed(1)}%`, PAL.accent2]);
-    if (L >= 4) lines.push([`colorkey: 제품 ${(100 * s.key.eaten / s.key.prod).toFixed(0)}% 지워짐 (거리 ${KEY_SIM})`, PAL.accent]);
-    lines.forEach(([tx, col], i) => { x.fillStyle = col; x.fillText(tx, 14, 192 + i * 15); });
-    // 10fps·64px 프레임 차 막대
-    const by0 = 286, bh = 40, bw = 232 / ruler.bars.length;
-    x.fillStyle = 'rgba(0,0,0,.28)'; x.fillRect(14, by0 - 4, 238, bh + 8);
-    ruler.bars.forEach((v, i) => { const h = Math.min(bh, v / 1.5 * bh); x.fillStyle = v < .5 ? PAL.muted : PAL.accent2; x.fillRect(17 + i * bw, by0 + bh - Math.max(1, h), Math.max(1, bw - 1.5), Math.max(1, h)); });
-    x.strokeStyle = PAL.accent; x.lineWidth = 1; x.setLineDash([3, 3]); const ly = by0 + bh - .5 / 1.5 * bh; x.beginPath(); x.moveTo(14, ly); x.lineTo(252, ly); x.stroke(); x.setLineDash([]);
-    x.fillStyle = PAL.muted; x.font = "500 9.5px 'JetBrains Mono',monospace"; x.fillText('프레임 차(10fps·64px) · 점선 0.5 아래 = 정지', 14, by0 - 10);
-    x.fillStyle = PAL.ink; x.font = "500 10.5px 'JetBrains Mono',monospace"; x.fillText(`정지 ${(ruler.still * 100).toFixed(0)}% · 움직임 ${ruler.motion.toFixed(2)}`, 14, by0 + bh + 17);
+    lines.push([L >= 2 ? `배경 블러 σ ${SIGMA}` : '배경 없음 (단색)', PAL.ink]);
+    if (L >= 2) lines.push([`밝기 ×${DIM.toFixed(2)}/${DIM.toFixed(2)}/${DIM_B.toFixed(2)}`, PAL.ink]);
+    lines.push([`전경 ${1080 - MARGIN * 2}×${1080 - MARGIN * 2} · 여백 ${MARGIN}px`, PAL.ink]);
+    if (L >= 3) lines.push([`줌 ${z.toFixed(3)} / ${ZOOM.toFixed(3)}`, PAL.accent2]);
+    if (L >= 3) lines.push([`정지 ${(ruler.still * 100).toFixed(0)}% · 움직임 ${ruler.motion.toFixed(2)}`, PAL.accent2]);
+    if (L >= 4) lines.push([`colorkey: 제품 ${(100 * s.key.eaten / s.key.prod).toFixed(0)}% 지워짐`, PAL.accent]);
+    x.font = "500 12px 'JetBrains Mono',monospace";
+    lines.forEach(([tx, col], i) => { x.fillStyle = col; x.fillText(tx, 14, 196 + i * 20); });
     s.pill.textContent = `${L}단계 · ${STEPS[L - 1]}`;
   },
 };

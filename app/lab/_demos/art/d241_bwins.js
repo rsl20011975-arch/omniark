@@ -15,7 +15,7 @@ const KEY_FRONT = 12;          // 검색어가 들어 있어야 하는 앞쪽 �
 const TITLE_BAD = '이거 아시나요? 홈페이지 만드는 법 이렇게 쉬울까요?';
 const TITLE_GOOD = '홈페이지가 싸 보이는 이유, 고치는 단어 5개';
 const KEYWORD = '홈페이지';
-const MARKET = { q: ['×0.35', 23], num: ['×1.10', 535] };   // 클로드 관련 국내 롱폼 945편 중앙 조회 12,050 대비 [재계산 2026-11-14, 상관]
+const MARKET = { q: ['×0.35', 23], num: ['×1.10', 535] };   // AI 관련 국내 롱폼 945편 중앙 조회 12,050 대비 [재계산 2026-11-14, 상관]
 const FILE_BAD = { w: 1000, h: 1000, type: 'PNG', mb: 3.4 };   // 연출 전 파일(가상)
 const FILE_GOOD = { w: 1280, h: 720, type: 'JPG', mb: 0.08 };  // 고친 뒤: 제작 기록의 실제 파일 규격
 const PX_REC = 3840 * 2160;    // 공식이 권장하는 화소 수
@@ -101,7 +101,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(numeral): 왼쪽 위 큰 숫자와 옆 설명
-    Object.assign(lab.style, { position: 'absolute', left: '20px', top: '6px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4', whiteSpace: 'nowrap' });
+    Object.assign(lab.style, { position: 'absolute', left: '20px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4', whiteSpace: 'nowrap' });
     const num = el('span', null, lab), desc = el('span', null, lab);
     Object.assign(num.style, { font: "400 40px/1 'Black Han Sans',sans-serif", color: ACC_INK, minWidth: '26px' });
     Object.assign(desc.style, { font: "600 13px/1.3 'IBM Plex Sans KR',sans-serif", color: PAL.ink });
@@ -158,24 +158,24 @@ const demo = {
     layers(x, 20, BY - 8, 290, 96, 6, PAL.surface, [[2, 1, 0.07]]); x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, 20.5, BY - 7.5, 289, 95, 6); x.stroke();
     T(x, `제목 ${title.length}자`, 30, BY + 5, 10, PAL.muted, 500, 'left', MONO);
     T(x, title, 30, BY + 20, title.length > 24 ? 11 : 12.5, PAL.ink, 700);
-    const rows = [['물음표로 끝나지 않는다', `재계산 ${MARKET.q[0]} n=${MARKET.q[1]}`], ['숫자가 들어 있다', `재계산 ${MARKET.num[0]} n=${MARKET.num[1]}`], [`검색어가 앞 ${KEY_FRONT}자 안`, '지시 #51'], [`약속한 결과가 앞 ${HOOK_S}초 안`, '추정']];
-    rows.forEach(([nm, ev], i) => {
-      const Y = BY + 36 + i * 13, v = ck.title[i], col = v == null ? PAL.muted : v ? GOOD : BAD;
-      T(x, nm, 30, Y, 10.5, PAL.ink, 500); T(x, ev, 166, Y, 9, PAL.muted, 500, 'left', MONO); T(x, v == null ? '—' : v ? '통과' : '걸림', 300, Y, 10.5, col, 700, 'right');
+    const rows = ['물음표로 끝나지 않는다', '숫자가 들어 있다', `검색어가 앞 ${KEY_FRONT}자 안`, `약속한 결과가 앞 ${HOOK_S}초 안`];
+    rows.forEach((nm, i) => {
+      const Y = BY + 37 + i * 14, v = ck.title[i], col = v == null ? PAL.muted : v ? GOOD : BAD;
+      T(x, nm, 30, Y, 11.5, PAL.ink, 500); T(x, v == null ? '—' : v ? '통과' : '걸림', 300, Y, 11.5, col, 700, 'right');
     });
     layers(x, 322, BY - 8, 298, 96, 6, PAL.surface, [[2, 1, 0.07]]); x.strokeStyle = PAL.line; rr(x, 322.5, BY - 7.5, 297, 95, 6); x.stroke();
     T(x, `파일 ${file.w}×${file.h} ${file.type} ${file.mb}MB, 권장 화소의 ${(100 * file.w * file.h / PX_REC).toFixed(0)}%`, 332, BY + 5, 10, PAL.muted, 500, 'left', MONO);
     [['16:9', ck.file[0]], ['폭 640 이상', ck.file[1]], ['2MB 이하', ck.file[2]], ['720p 이상', ck.file[3]]].forEach(([nm, v], i) => {
-      const X = 332 + (i % 2) * 144, Y = BY + 20 + Math.floor(i / 2) * 13;
-      T(x, nm, X, Y, 10.5, PAL.ink, 500); T(x, v ? '통과' : '걸림', X + 134, Y, 10.5, v ? GOOD : BAD, 700, 'right');
+      const X = 332 + (i % 2) * 144, Y = BY + 21 + Math.floor(i / 2) * 15;
+      T(x, nm, X, Y, 11.5, PAL.ink, 500); T(x, v ? '통과' : '걸림', X + 134, Y, 11.5, v ? GOOD : BAD, 700, 'right');
     });
     const AX = 332, AW = 278, AY = BY + 56, PXS = AW / 60;
     if (promise == null) T(x, '약속한 결과가 처음 나온 시각: 점검 전', AX, AY + 8, 10, PAL.muted, 500, 'left', MONO);
     else {
       T(x, `약속한 결과가 처음 나온 시각 ${promise.toFixed(1)}초`, AX, AY - 1, 10, promise <= HOOK_S ? GOOD : BAD, 600, 'left', MONO);
       x.fillStyle = 'rgba(15,42,34,.14)'; rr(x, AX, AY + 5, AW, 6, 3); x.fill(); x.fillStyle = promise <= HOOK_S ? PAL.accent : '#d4432b'; rr(x, AX, AY + 5, Math.max(2, promise * PXS), 6, 3); x.fill();
-      x.fillStyle = PAL.ink; x.fillRect(AX + HOOK_S * PXS - 0.5, AY + 2, 1, 12); T(x, `${HOOK_S}초`, AX + HOOK_S * PXS, AY + 24, 9.5, PAL.muted, 500, 'center', MONO);
-      T(x, '0', AX, AY + 24, 9.5, PAL.muted, 500, 'left', MONO); T(x, '60초', AX + AW, AY + 24, 9.5, PAL.muted, 500, 'right', MONO);
+      x.fillStyle = PAL.ink; x.fillRect(AX + HOOK_S * PXS - 0.5, AY + 2, 1, 12); T(x, `${HOOK_S}초`, AX + HOOK_S * PXS, AY + 25, 10, PAL.muted, 500, 'center', MONO);
+      T(x, '0', AX, AY + 25, 10, PAL.muted, 500, 'left', MONO); T(x, '60초', AX + AW, AY + 25, 10, PAL.muted, 500, 'right', MONO);
     }
     s.num.textContent = NUM[L]; s.desc.textContent = DESC[L];
   },

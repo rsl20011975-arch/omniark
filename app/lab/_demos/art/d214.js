@@ -59,7 +59,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(caption-bl): 왼쪽 아래, 배경 없음, 위에 얇은 선
-    Object.assign(lab.style, { position: 'absolute', left: '30px', bottom: '9px', width: '372px', borderTop: `1px solid ${PAL.line}`, paddingTop: '5px', zIndex: '4' });
+    Object.assign(lab.style, { position: 'absolute', left: '24px', bottom: '10px', width: '372px', borderTop: `1px solid ${PAL.line}`, paddingTop: '10px', zIndex: '4' });
     const pill = el('span', null, lab);
     Object.assign(pill.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace" });
     return { main, pill };
@@ -71,55 +71,50 @@ const demo = {
     x.save(); x.globalCompositeOperation = 'overlay'; x.globalAlpha = 0.1;
     for (let gx0 = 0; gx0 < 640; gx0 += 128) for (let gy0 = 0; gy0 < 360; gy0 += 128) x.drawImage(GRAIN, gx0, gy0, 128, 128);
     x.restore();
-    // 왼쪽: 줄마다 길이 막대
-    T(x, '같은 대본 8줄, 줄마다 말한 시간', 30, 24, 11, PAL.muted, 500, 'left', MONO);
-    const BX = 142, PX = 19;   // 막대 시작 x, 1초당 px
+    // 왼쪽: 줄마다 길이 막대(이 화면의 주인공)
+    T(x, '같은 대본 8줄, 줄마다 말한 시간', 24, 26, 12, PAL.muted, 500, 'left', MONO);
+    const BX = 138, PX = 16;   // 막대 시작 x, 1초당 px
     S.ls.forEach((l, i) => {
-      const Y = 34 + i * 25, p = E.outC(seg(t, 0.15 + i * 0.07, 0.95 + i * 0.07)), col = l.ok ? PAL.accent2 : PAL.accent;
-      card(x, 30, Y, 380, 21);
-      T(x, String(i + 1), 40, Y + 14.5, 10.5, PAL.muted, 500, 'left', MONO);
-      T(x, TEXTS[i].slice(0, 7) + '…', 54, Y + 14.5, 10.5, PAL.ink, 500);
-      x.fillStyle = col; x.globalAlpha = 0.22 + 0.78 * p; x.beginPath(); x.roundRect(BX, Y + 5, Math.max(2, l.sec * PX * p), 11, 3); x.fill(); x.globalAlpha = 1;
+      const Y = 36 + i * 31, p = E.outC(seg(t, 0.15 + i * 0.07, 0.95 + i * 0.07)), col = l.ok ? PAL.accent2 : PAL.accent;
+      card(x, 24, Y, 400, 26);
+      T(x, String(i + 1), 34, Y + 17.5, 11, PAL.muted, 500, 'left', MONO);
+      T(x, TEXTS[i].slice(0, 7) + '…', 50, Y + 17.5, 11.5, PAL.ink, 500);
+      x.fillStyle = col; x.globalAlpha = 0.22 + 0.78 * p; x.beginPath(); x.roundRect(BX, Y + 6, Math.max(2, l.sec * PX * p), 14, 3); x.fill(); x.globalAlpha = 1;
       x.fillStyle = PAL.bg0; x.globalAlpha = 0.5 * p;    // 글자 하나마다 눈금: 촘촘할수록 빠르다
-      for (let k = 1; k < l.n; k++) x.fillRect(BX + (k / l.n) * l.sec * PX * p, Y + 5, 0.8, 11);
+      for (let k = 1; k < l.n; k++) x.fillRect(BX + (k / l.n) * l.sec * PX * p, Y + 6, 0.8, 14);
       x.globalAlpha = 1;
-      if (l.noted) { x.strokeStyle = PAL.ink; x.lineWidth = 1.2; x.beginPath(); x.arc(BX - 8, Y + 10.5, 2.6, 0, 7); x.stroke(); }
+      if (l.noted) { x.strokeStyle = PAL.ink; x.lineWidth = 1.4; x.beginPath(); x.arc(BX - 9, Y + 13, 3, 0, 7); x.stroke(); }
       const q = seg(t, 0.8 + i * 0.07, 1.2 + i * 0.07);
       x.globalAlpha = q;
-      T(x, `${l.n}자 ${l.sec.toFixed(1)}초`, 322, Y + 14.5, 10.5, PAL.muted, 500, 'right', MONO);
-      T(x, l.cps.toFixed(1), 372, Y + 14.5, 12, col, 700, 'right', MONO);
-      if (!l.ok) tri(x, 388, Y + 10.5, l.cps > HI, PAL.accent);
+      T(x, `${l.n}자 ${l.sec.toFixed(1)}초`, 338, Y + 17.5, 11, PAL.muted, 500, 'right', MONO);
+      T(x, l.cps.toFixed(1), 384, Y + 18, 14, col, 700, 'right', MONO);
+      if (!l.ok) tri(x, 406, Y + 13, l.cps > HI, PAL.accent);
       x.globalAlpha = 1;
     });
-    T(x, '○ 녹음 지시를 붙인 줄, 삼각형 = 범위 밖(위쪽은 너무 빠름)', 30, 248, 10, PAL.muted, 500);
-    T(x, '막대 눈금 하나 = 글자 하나. 속도 = 글자 수 ÷ 말한 초', 30, 263, 10, PAL.muted, 500);
-    T(x, '원음 속도와 길이는 이 데모의 가정값이며 실제 녹음이 아니다', 30, 278, 10, PAL.muted, 500);
-    // 오른쪽: 전체 속도 눈금, 편 길이 벽, 배속 한도
-    const RX = 424, RW = 196, ap = seg(t, 0.9, 1.7);
-    card(x, RX, 34, RW, 82);
-    T(x, '전체 속도(자/초)', RX + 10, 50, 11, PAL.ink, 600);
-    T(x, S.cps.toFixed(2), RX + RW - 10, 52, 20, S.cps >= LO - 0.005 && S.cps <= HI + 0.005 ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
-    const g0 = RX + 10, gw = RW - 20, gv = (v) => g0 + (v - 3) / 7 * gw, gy = 92;
+    T(x, '○ 녹음 지시를 붙인 줄, 삼각형 = 범위 밖(위쪽은 너무 빠름)', 24, 300, 10.5, PAL.muted, 500);
+    T(x, '막대 눈금 하나 = 글자 하나. 속도 = 글자 수 ÷ 말한 초', 24, 315, 10.5, PAL.muted, 500);
+    // 오른쪽: 큰 숫자 셋(전체 속도, 편 길이, 목표 범위 안인 줄)과 눈금 둘
+    const RX = 440, RW = 188, ap = seg(t, 0.9, 1.7), g0 = RX, gw = RW, gv = (v) => g0 + (v - 3) / 7 * gw;
+    x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(RX, 122.5); x.lineTo(RX + RW, 122.5); x.moveTo(RX, 222.5); x.lineTo(RX + RW, 222.5); x.stroke();
+    T(x, '전체 속도(자/초)', RX, 40, 12, PAL.ink, 600);
+    T(x, S.cps.toFixed(2), RX + RW, 62, 30, S.cps >= LO - 0.005 && S.cps <= HI + 0.005 ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
+    const gy = 90;
     x.fillStyle = 'rgba(246,233,238,.12)'; x.beginPath(); x.roundRect(g0, gy, gw, 8, 3); x.fill();
     x.fillStyle = PAL.accent2; x.globalAlpha = 0.45; x.fillRect(gv(LO), gy, gv(HI) - gv(LO), 8); x.globalAlpha = 1;
-    [[4.82, '연구 말속도'], [5.99, '연구 조음']].forEach(([v, nm], k) => { x.strokeStyle = PAL.muted; x.lineWidth = 1; x.beginPath(); x.moveTo(gv(v), gy - 3); x.lineTo(gv(v), gy + 11); x.stroke(); T(x, v.toFixed(2), gv(v), gy + 22 + (k ? 0 : 0), 8.5, PAL.muted, 500, 'center', MONO); });
+    [4.82, 5.99].forEach((v) => { x.strokeStyle = PAL.muted; x.lineWidth = 1; x.beginPath(); x.moveTo(gv(v), gy - 3); x.lineTo(gv(v), gy + 11); x.stroke(); T(x, v.toFixed(2), gv(v), gy + 25, 10, PAL.muted, 500, 'center', MONO); });
     const mk = gv(Math.max(3, Math.min(10, lerp(3, S.cps, E.outC(ap))))); x.fillStyle = PAL.ink; x.beginPath(); x.roundRect(mk - 1.5, gy - 6, 3, 20, 1.5); x.fill();
-    T(x, '띠 = 목표 범위, 눈금 = 낭독 연구 값', RX + 10, 66, 9.5, PAL.muted, 500);
-    card(x, RX, 124, RW, 70);
-    T(x, '편 길이(초)', RX + 10, 140, 11, PAL.ink, 600);
+    T(x, '띠 = 목표 범위, 눈금 = 낭독 연구 값', RX, 78, 10.5, PAL.muted, 500);
+    T(x, '편 길이(초)', RX, 142, 12, PAL.ink, 600);
     const inWall = S.total >= WALL[0] && S.total <= WALL[1];
-    T(x, S.total.toFixed(1), RX + RW - 10, 142, 20, inWall ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
-    const wy = 166, wv = (v) => g0 + v / 60 * gw;
+    T(x, S.total.toFixed(1), RX + RW, 168, 30, inWall ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
+    const wy = 184, wv = (v) => g0 + v / 60 * gw;
     x.fillStyle = 'rgba(246,233,238,.12)'; x.beginPath(); x.roundRect(g0, wy, gw, 8, 3); x.fill();
     x.fillStyle = inWall ? PAL.accent2 : PAL.accent; x.beginPath(); x.roundRect(g0, wy, Math.max(3, (wv(S.total) - g0) * E.outC(ap)), 8, 3); x.fill();
-    WALL.forEach((v) => { x.strokeStyle = PAL.ink; x.lineWidth = 1.4; x.beginPath(); x.moveTo(wv(v), wy - 4); x.lineTo(wv(v), wy + 12); x.stroke(); T(x, String(v), wv(v), wy + 22, 8.5, PAL.muted, 500, 'center', MONO); });
-    card(x, RX, 202, RW, 64);
-    T(x, '목표 범위 안인 줄', RX + 10, 218, 11, PAL.ink, 600);
-    T(x, `${S.okN} / ${S.ls.length}`, RX + RW - 10, 222, 20, S.okN === S.ls.length ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
-    T(x, L >= 3 ? `배속 한도(${MIN_T}~${MAX_T})에 막힌 줄 ${S.clampN}` : `범위 ${LO}~${HI}자/초`, RX + 10, 250, 10, PAL.muted, 500);
-    card(x, RX, 274, RW, 50);
-    T(x, '재는 자: 글자 수 ÷ 말한 초', RX + 10, 291, 10, PAL.ink, 600);
-    T(x, '유튜브 자막 ÷ 영상 길이와 다르다', RX + 10, 307, 10, PAL.muted, 500);
+    WALL.forEach((v) => { x.strokeStyle = PAL.ink; x.lineWidth = 1.4; x.beginPath(); x.moveTo(wv(v), wy - 4); x.lineTo(wv(v), wy + 12); x.stroke(); T(x, String(v), wv(v), wy + 25, 10, PAL.muted, 500, 'center', MONO); });
+    T(x, '목표 범위 안인 줄', RX, 242, 12, PAL.ink, 600);
+    T(x, `${S.okN} / ${S.ls.length}`, RX + RW, 268, 30, S.okN === S.ls.length ? PAL.accent2 : PAL.accent, 700, 'right', MONO);
+    T(x, L >= 3 ? `배속 한도(${MIN_T}~${MAX_T})에 막힌 줄 ${S.clampN}` : `범위 ${LO}~${HI}자/초`, RX, 290, 10.5, PAL.muted, 500);
+    T(x, '원음 속도와 길이는 가정값이다', RX, 312, 10.5, PAL.muted, 500);
     s.pill.textContent = `0${L}  ${STEP[L - 1]}`;
   },
 };

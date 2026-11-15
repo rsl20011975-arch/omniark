@@ -15,7 +15,7 @@ const N_S = 30, N_F = 12; // 목표 표본 크기(제작 기록의 성공 30, �
 const N_CH = 26, N_VID = 50;   // 채널 수, 채널당 편 수
 const PAL = { bg0: '#f2f2f0', bg1: '#e4e4e1', ink: '#111111', muted: '#666666', accent: '#ff3b1f', accent2: '#111111', surface: '#ffffff', line: '#c9c9c4' };
 const MONO = '"JetBrains Mono", monospace', SANS = '"IBM Plex Sans KR", sans-serif', HAN = '"Black Han Sans", sans-serif';
-const X0 = 20, X1 = 372, LV0 = 1.0, LV1 = 6.6, Y0 = 70, RH = 9.4;   // 점 그림 영역
+const X0 = 20, X1 = 352, LV0 = 1.0, LV1 = 6.6, Y0 = 70, RH = 9.4;   // 점 그림 영역
 
 function gauss(r) { let u = 0; for (let i = 0; i < 6; i++) u += r(); return (u - 3) / 0.7071; }
 function world() {         // 채널 26곳, 채널마다 50편: 조회수(log10), 컷 값. 컷 값은 채널 이름값(큼) + 편 안의 작은 영향 + 잡음
@@ -69,9 +69,9 @@ const median = (a) => { const s = a.slice().sort((p, q) => p - q), n = s.length;
 
 const STEP = ['어느 채널이든 조회수로', '같은 채널 중앙값에 대고', '채널당 두 편까지만'];
 const RULE = [
-  ['성공작  조회 10만 이상', '실패작  조회 1천 이하', '채널은 따지지 않는다'],
-  ['성공작  10만 이상이고 그 채널 중앙값의 ' + REL_HI + '배 이상', '실패작  성공작이 나온 채널 안에서 ' + REL_LO + '배 이하', '채널 이름값을 같은 채널 안에서 뺀다'],
-  ['성공작  위 규칙, 채널당 ' + CAP + '편까지', '실패작  위 규칙 그대로', '한 채널이 표본을 채우지 못하게 한다'],
+  ['성공  조회 10만 이상', '실패  조회 1천 이하', '채널은 따지지 않는다'],
+  ['성공  10만 이상, 채널 중앙값의 ' + REL_HI + '배 이상', '실패  같은 채널 중앙값의 ' + REL_LO + '배 이하', '채널 이름값을 같은 채널 안에서 뺀다'],
+  ['성공  위 규칙에 채널당 ' + CAP + '편까지', '실패  위 규칙 그대로', '한 채널이 표본을 채우지 못하게 한다'],
 ];
 const demo = {
   dur: 6.0, rest: 6.0, noCompare: false, levels: 3,
@@ -83,7 +83,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(numeral): 큰 단계 번호 + 13px 설명
-    Object.assign(lab.style, { position: 'absolute', left: '16px', top: '8px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4' });
+    Object.assign(lab.style, { position: 'absolute', left: '16px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4' });
     const idx = el('span', null, lab), pill = el('span', null, lab);
     Object.assign(idx.style, { color: PAL.accent, font: "400 40px/1 'Black Han Sans',sans-serif" });
     Object.assign(pill.style, { color: PAL.ink, font: "600 13px/1 'IBM Plex Sans KR',sans-serif" });
@@ -100,9 +100,9 @@ const demo = {
     for (let gx0 = 0; gx0 < 640; gx0 += 128) for (let gy0 = 0; gy0 < 360; gy0 += 128) x.drawImage(GRAIN, gx0, gy0, 128, 128);
     x.restore();
     // 점 그림: 채널 한 줄에 영상 50개
-    card(x, 10, 62, 372, 278);
-    T(x, '채널 26곳(중앙값 순) · 점 하나가 영상 한 편 · 가상 데이터', 18, 75, 10, PAL.muted, 500, 'left', MONO);
-    [2, 3, 4, 5, 6].forEach((v) => { const X = px(v); x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(X + 0.5, 82); x.lineTo(X + 0.5, 336); x.stroke(); T(x, ['100', '1천', '1만', '10만', '100만'][v - 2], X, 335, 9.5, PAL.muted, 500, 'center', MONO); });
+    card(x, 10, 62, 362, 278);
+    T(x, '채널 26곳(중앙값 순) · 점 하나가 영상 한 편', 18, 75, 10, PAL.muted, 500, 'left', MONO);
+    [2, 3, 4, 5, 6].forEach((v) => { const X = px(v); x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(X + 0.5, 82); x.lineTo(X + 0.5, 336); x.stroke(); T(x, ['100', '1천', '1만', '10만', '100만'][v - 2], X, 335, 10, PAL.muted, 500, 'center', MONO); });
     x.setLineDash([3, 3]); x.strokeStyle = PAL.accent; x.beginPath(); x.moveTo(px(5) + 0.5, 82); x.lineTo(px(5) + 0.5, 326); x.stroke(); x.setLineDash([]);
     ch.forEach((c, i) => {
       const y = Y0 + 16 + i * RH, p = seg(t, 0.15 + i * 0.1, 0.5 + i * 0.1), lm = Math.log10(c.med);
@@ -120,31 +120,27 @@ const demo = {
         x.strokeStyle = PAL.surface; x.lineWidth = 1; x.stroke();
       });
     });
-    // 오른쪽: 규칙과 고른 표본
-    const RX = 392;
-    card(x, RX, 62, 238, 62);
-    RULE[L - 1].forEach((ln, i) => T(x, ln, RX + 10, 78 + i * 15, i === 2 ? 9.5 : 10, i === 2 ? PAL.muted : PAL.ink, i === 2 ? 500 : 600));
-    const done = seg(t, 3.4, 5.0), nS = M.S.length, nF = M.F.length;
-    card(x, RX, 130, 238, 100);
-    T(x, `고른 표본  성공 ${nS}편, 실패 ${nF}편`, RX + 10, 146, 10.5, PAL.ink, 600);
-    T(x, '10초당 컷', RX + 10, 160, 9.5, PAL.muted, 500, 'left', MONO);
-    const SX = RX + 52, SW = 176, vmax = 22;
-    [[M.S, 1, 178, PAL.accent], [M.F, 2, 206, PAL.ink]].forEach(([arr, k, yy, col]) => {
-      x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(SX, yy + 0.5); x.lineTo(SX + SW, yy + 0.5); x.stroke();
-      T(x, k === 1 ? '성공' : '실패', RX + 10, yy + 3, 10, col, 600);
-      arr.forEach((v, i) => { const jy = yy + ((i * 7) % 5 - 2) * 3.2; x.fillStyle = col; x.globalAlpha = 0.85 * done; x.beginPath(); x.arc(SX + Math.min(vmax, v.cuts) / vmax * SW, jy, 2.6, 0, 7); x.fill(); x.globalAlpha = 1; });
-      const m = median(arr.map((v) => v.cuts)); if (arr.length && done > 0.5) { const mx = SX + m / vmax * SW; x.strokeStyle = col; x.lineWidth = 1.6; x.beginPath(); x.moveTo(mx, yy - 11); x.lineTo(mx, yy + 11); x.stroke(); }
+    // 오른쪽 한 칸: 고른 규칙, 표본 크기, AUC 와 두 가지 확인값
+    const RX = 384, done = seg(t, 3.4, 5.0), nS = M.S.length, nF = M.F.length;
+    card(x, RX, 62, 246, 278);
+    RULE[L - 1].forEach((ln, i) => T(x, ln, RX + 12, 82 + i * 16, 10.5, i === 2 ? PAL.muted : PAL.ink, i === 2 ? 500 : 600));
+    x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(RX + 12, 124.5); x.lineTo(RX + 234, 124.5); x.stroke();
+    const SX = RX + 66, SW = 166, vmax = 22;   // 고른 표본의 10초당 컷 값 분포(성공, 실패)
+    [[M.S, 146, PAL.accent, '성공', nS], [M.F, 172, PAL.ink, '실패', nF]].forEach(([arr, yy, col, nm, n]) => {
+      x.strokeStyle = PAL.line; x.beginPath(); x.moveTo(SX, yy + 0.5); x.lineTo(SX + SW, yy + 0.5); x.stroke();
+      T(x, `${nm} ${n}편`, RX + 12, yy + 4, 10.5, col, 600);
+      arr.forEach((v, i) => { const jy = yy + ((i * 7) % 5 - 2) * 3.4; x.fillStyle = col; x.globalAlpha = 0.85 * done; x.beginPath(); x.arc(SX + Math.min(vmax, v.cuts) / vmax * SW, jy, 2.8, 0, 7); x.fill(); x.globalAlpha = 1; });
+      const m = median(arr.map((v) => v.cuts)); if (arr.length && done > 0.5) { const mx = SX + m / vmax * SW; x.strokeStyle = col; x.lineWidth = 1.6; x.beginPath(); x.moveTo(mx, yy - 12); x.lineTo(mx, yy + 12); x.stroke(); x.lineWidth = 1; }
     });
-    [0, 10, 20].forEach((v) => T(x, String(v), SX + v / vmax * SW, 226, 9, PAL.muted, 500, 'center', MONO));
-    card(x, RX, 236, 238, 104);
-    T(x, 'AUC  성공이 실패보다 컷이 많을 확률', RX + 10, 252, 9.5, PAL.muted, 500, 'left');
+    [0, 10, 20].forEach((v) => T(x, v === 0 ? '컷 0' : String(v), SX + v / vmax * SW, 198, 10, PAL.muted, 500, 'center', MONO));
+    T(x, '성공이 실패보다 컷이 많을 확률 (AUC)', RX + 12, 222, 10, PAL.muted, 500);
     const av = M.auc == null ? 0.5 : lerp(0.5, M.auc, E.outC(done));
-    T(x, M.auc == null ? '—' : av.toFixed(2), RX + 10, 284, 30, L === 1 ? PAL.accent : PAL.ink, 700, 'left', MONO);
-    T(x, '0.5 는 동전 던지기', RX + 112, 270, 9.5, PAL.muted, 500);
+    T(x, M.auc == null ? '—' : av.toFixed(2), RX + 12, 258, 38, L === 1 ? PAL.accent : PAL.ink, 700, 'left', MONO);
+    T(x, '0.5 는 동전 던지기', RX + 234, 254, 10, PAL.muted, 500, 'right');
     const sc = M.same;
-    T(x, `같은 채널 안 쌍만  ${sc.v == null ? '쌍 없음' : sc.v.toFixed(2) + ' (쌍 ' + sc.n + ')'}`, RX + 10, 304, 10, PAL.ink, 500);
-    T(x, M.lo == null ? '' : `규칙대로 200번 다시 뽑으면  ${M.lo.toFixed(2)} ~ ${M.hi.toFixed(2)}`, RX + 10, 320, 10, PAL.ink, 500);
-    T(x, '가상 세계의 값이다', RX + 10, 334, 9, PAL.muted, 500, 'left');
+    T(x, `같은 채널 안 쌍만  ${sc.v == null ? '쌍 없음' : sc.v.toFixed(2) + ' (쌍 ' + sc.n + ')'}`, RX + 12, 284, 11, PAL.ink, 500);
+    T(x, M.lo == null ? '' : `200번 다시 뽑으면  ${M.lo.toFixed(2)} ~ ${M.hi.toFixed(2)}`, RX + 12, 302, 11, PAL.ink, 500);
+    T(x, '가상 세계의 값이다', RX + 234, 330, 10, PAL.muted, 500, 'right');
     s.idx.textContent = String(L); s.pill.textContent = STEP[L - 1];
   },
 };

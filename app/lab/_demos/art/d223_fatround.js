@@ -103,7 +103,7 @@ function drawEl(x, st) {
   T(x, '일정 추가', EL[4].x + EL[4].w / 2, EL[4].y + 23, 14, '#ffffff', 700, 'center'); T(x, '취소', EL[5].x + EL[5].w / 2, EL[5].y + 23, 14, PAL.ink, 600, 'center');
 }
 
-function readout(x, st) {
+function readout(x, st) {   // 위쪽 한 줄: 이 화면에서 코드가 센 세 값
   const kinds = new Set(st.map((s) => s.nom)).size;
   let n = 0, maxB = 0;
   st.forEach(({ e, ps }) => {
@@ -114,62 +114,60 @@ function readout(x, st) {
     const vis = lay.filter(([, a]) => a > 0.02);
     if (vis.length) { n++; maxB = Math.max(maxB, ...vis.map(([b]) => b)); }
   });
-  panel(x, 316, 16, 306, 110);
-  T(x, '이 화면에서 코드가 센 값', 328, 35, 11, PAL.muted, 500, 'left', MONO);
   [['모서리 종류', kinds, '가지'], ['그림자 붙은 곳', n, '곳'], ['최대 번짐', maxB, 'px']].forEach(([lb, v, u], i) => {
-    const X = 328 + i * 98;
-    T(x, lb, X, 56, 12, PAL.ink, 600);
-    T(x, String(v), X, 92, 28, i === 2 ? PAL.accent2 : HOT, 700, 'left', MONO);
-    T(x, u, X + String(v).length * 17 + 4, 92, 12, PAL.muted, 500);
+    const X = 328 + i * 100;
+    T(x, lb, X, 36, 12, PAL.muted, 600);
+    T(x, String(v), X, 68, 30, i === 2 ? PAL.accent2 : HOT, 700, 'left', MONO);
+    T(x, u, X + String(v).length * 18 + 4, 68, 12, PAL.muted, 500);
   });
-  T(x, `칸: ${R_SMALL}, ${R_MID}, ${R_LARGE}, 알약 ${R_PILL}`, 328, 115, 10, PAL.muted, 500, 'left', MONO);
 }
+const CX = 316, CY = 80, CW = 306, CH = 264;   // 오른쪽 큰 칸
 function barsCard(x) {   // 1단계: 실제 CSS 에서 센 모서리 가짓수
-  panel(x, 316, 136, 306, 208);
-  T(x, '실제 CSS 에서 px 로 적은 모서리 값 [측정]', 328, 155, 11, PAL.muted, 500, 'left', MONO);
+  panel(x, CX, CY, CW, CH);
+  T(x, '실제 CSS 에서 px 로 적은 모서리 값', 328, 104, 12, PAL.ink, 600);
   CSSM.forEach(([n, d, c], i) => {
-    const Y = 168 + i * 27;
-    T(x, n, 328, Y + 11, 11, PAL.ink, 500);
-    rr(x, 452, Y + 3, 88, 9, 3); x.fillStyle = 'rgba(29,26,22,.08)'; x.fill();
-    rr(x, 452, Y + 3, Math.max(3, 88 * d / 20), 9, 3); x.fillStyle = d > 5 ? HOT : PAL.accent2; x.fill();
-    T(x, `${d}가지`, 584, Y + 11, 11, PAL.ink, 700, 'right', MONO); T(x, `${c}곳`, 612, Y + 11, 11, PAL.muted, 500, 'right', MONO);
+    const Y = 118 + i * 35;
+    T(x, n, 328, Y + 13, 11, PAL.ink, 500);
+    rr(x, 452, Y + 4, 88, 11, 4); x.fillStyle = 'rgba(29,26,22,.08)'; x.fill();
+    rr(x, 452, Y + 4, Math.max(3, 88 * d / 20), 11, 4); x.fillStyle = d > 5 ? HOT : PAL.accent2; x.fill();
+    T(x, `${d}가지`, 584, Y + 13, 11, PAL.ink, 700, 'right', MONO); T(x, `${c}곳`, 612, Y + 13, 11, PAL.muted, 500, 'right', MONO);
   });
   T(x, 'var() 변수로 쓴 값은 세지 않았다. 이 사이트 틀은 6, 10, 14px 를', 328, 316, 10, PAL.muted, 500);
-  T(x, '변수로 써서 직접 적은 값이 999 하나뿐이다', 328, 330, 10, PAL.muted, 500);
+  T(x, '변수로 써서 직접 적은 값이 999 하나뿐이다', 328, 331, 10, PAL.muted, 500);
 }
 const axr = (v, X0, W) => X0 + v / AXMAX * W;
 function ladderCard(x, al) {   // 2단계: 일곱 곳의 모서리 눈금
-  x.save(); x.globalAlpha = al; panel(x, 316, 136, 306, 208);
-  T(x, '일곱 곳의 모서리 눈금(0에서 32px)', 328, 155, 11, PAL.muted, 500, 'left', MONO);
-  const X0 = 426, W = 164, Y0 = 164;
-  RAD[0][2].forEach((v) => { rr(x, axr(v, X0, W) - 5, Y0 - 1, 10, RAD.length * 20 + 1, 3); x.fillStyle = rgba('43,93,138', .14); x.fill(); });
+  x.save(); x.globalAlpha = al; panel(x, CX, CY, CW, CH);
+  T(x, '일곱 곳의 모서리 눈금(0에서 32px)', 328, 104, 12, PAL.ink, 600);
+  const X0 = 428, W = 162, Y0 = 116, RH = 26;
+  RAD[0][2].forEach((v) => { rr(x, axr(v, X0, W) - 5, Y0 - 1, 10, RAD.length * RH + 1, 3); x.fillStyle = rgba('43,93,138', .14); x.fill(); });
   RAD.forEach(([n, g, vs, full], i) => {
-    const Y = Y0 + i * 20;
-    T(x, n, 328, Y + 14, 11, PAL.ink, 600); T(x, g, 414, Y + 14, 9, PAL.muted, 600, 'right');
-    x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(X0, Y + 17.5); x.lineTo(X0 + W, Y + 17.5); x.stroke();
-    vs.forEach((v) => { rr(x, axr(v, X0, W) - 0.9, Y + 5, 1.8, 12, 0.9); x.fillStyle = RAD[0][2].includes(v) ? PAL.accent2 : PAL.ink; x.fill(); });
-    if (full) { x.beginPath(); x.arc(X0 + W + 14, Y + 11, 4.5, 0, 7); x.strokeStyle = PAL.ink; x.lineWidth = 1.5; x.stroke(); }
+    const Y = Y0 + i * RH;
+    T(x, n, 328, Y + 17, 11, PAL.ink, 600); T(x, g, 416, Y + 17, 10, PAL.muted, 600, 'right');
+    x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(X0, Y + 22.5); x.lineTo(X0 + W, Y + 22.5); x.stroke();
+    vs.forEach((v) => { rr(x, axr(v, X0, W) - 0.9, Y + 7, 1.8, 15, 0.9); x.fillStyle = RAD[0][2].includes(v) ? PAL.accent2 : PAL.ink; x.fill(); });
+    if (full) { x.beginPath(); x.arc(X0 + W + 14, Y + 14, 4.5, 0, 7); x.strokeStyle = PAL.ink; x.lineWidth = 1.5; x.stroke(); }
   });
-  T(x, `일곱 곳이 모두 가진 값: ${common.length}개`, 328, 320, 12, PAL.ink, 700);
-  T(x, `가장 많은 곳에 있는 값: ${topN.join(', ')} (${top[0][1]}곳씩), 동그라미는 알약이 있는 ${pillN}곳`, 328, 335, 10, PAL.muted, 500);
+  T(x, `일곱 곳이 모두 가진 값: ${common.length}개`, 328, 318, 12, PAL.ink, 700);
+  T(x, `가장 많은 곳에 있는 값: ${topN.join(', ')} (${top[0][1]}곳씩), 동그라미는 알약이 있는 ${pillN}곳`, 328, 334, 10, PAL.muted, 500);
   x.restore();
 }
 function shadowCard(x, t, al) {   // 3단계: 그림자 값 표
-  x.save(); x.globalAlpha = al; panel(x, 316, 136, 306, 208);
-  T(x, '일곱 곳의 그림자 값(세로 이동/번짐 불투명도)', 328, 155, 11, PAL.muted, 500, 'left', MONO);
+  x.save(); x.globalAlpha = al; panel(x, CX, CY, CW, CH);
+  T(x, '일곱 곳의 그림자 값(세로 이동/번짐 불투명도)', 328, 104, 12, PAL.ink, 600);
   const hist = {};
   SH.forEach(([n, g, ly], i) => {
-    const Y = 164 + i * 20, p = E.outC(seg(t, 3.9 + i * 0.12, 4.5 + i * 0.12));
+    const Y = 116 + i * 26, p = E.outC(seg(t, 3.9 + i * 0.12, 4.5 + i * 0.12));
     hist[ly.length] = (hist[ly.length] || 0) + 1;
     x.save(); x.globalAlpha = al * p; x.translate(0, (1 - p) * 5);
-    T(x, n, 328, Y + 14, 11, PAL.ink, 600); T(x, `${ly.length}겹`, 410, Y + 14, 11, ly.length === 3 ? HOT : PAL.accent2, 700, 'left', MONO);
-    T(x, ly.map(([o, b, a]) => `${o}/${Math.round(b)} ${String(a).replace('0.', '.')}`).join(' + '), 440, Y + 14, 10, PAL.muted, 500, 'left', MONO);
+    T(x, n, 328, Y + 17, 11, PAL.ink, 600); T(x, `${ly.length}겹`, 412, Y + 17, 11, ly.length === 3 ? HOT : PAL.accent2, 700, 'left', MONO);
+    T(x, ly.map(([o, b, a]) => `${o}/${Math.round(b)} ${String(a).replace('0.', '.')}`).join(' + '), 444, Y + 17, 10, PAL.muted, 500, 'left', MONO);
     x.restore();
   });
   const pf = E.outC(seg(t, 4.9, 5.4));
   x.save(); x.globalAlpha = al * pf;
-  T(x, `겹 수: ${Object.keys(hist).map((k) => `${k}겹 ${hist[k]}곳`).join(', ')}`, 328, 316, 12, PAL.ink, 700);
-  T(x, '이 화면은 옅은 2겹과 주인공 3겹 두 단계만 쓴다', 328, 332, 10, PAL.muted, 500);
+  T(x, `겹 수: ${Object.keys(hist).map((k) => `${k}겹 ${hist[k]}곳`).join(', ')}`, 328, 318, 12, PAL.ink, 700);
+  T(x, '이 화면은 옅은 2겹과 주인공 3겹 두 단계만 쓴다', 328, 334, 10, PAL.muted, 500);
   x.restore(); x.restore();
 }
 

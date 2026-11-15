@@ -121,7 +121,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(numeral): 왼쪽 위 큰 숫자와 옆 설명
-    Object.assign(lab.style, { position: 'absolute', left: '12px', top: '8px', display: 'flex', alignItems: 'center', gap: '8px', zIndex: '4' });
+    Object.assign(lab.style, { position: 'absolute', left: '12px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px', zIndex: '4' });
     const num = el('span', null, lab), dsc = el('span', null, lab);
     Object.assign(num.style, { font: `40px/1 ${BLACK}`, color: PAL.accent });
     Object.assign(dsc.style, { font: "600 13px/1.25 'IBM Plex Sans KR',sans-serif", color: PAL.ink, width: '72px' });
@@ -139,66 +139,74 @@ const demo = {
     drawFrame(x, t, a, L);
 
     // 왼쪽 안내
-    const nt = ['9:16 = 1080×1920px', '앱 UI 는 설명용 모형', '실제 앱 위치는 [미확인]'];
-    nt.forEach((ln, i) => T(x, ln, 12, 112 + i * 15, 10, i === 2 ? PAL.muted : PAL.ink, i === 2 ? 500 : 600));
-    ELS.forEach((e, i) => { T(x, e.id, 12, 180 + i * 15, 10, PAL.muted, 500); });
-    T(x, '제목 띠, 말자막, 스티커를 놓는다', 12, 166, 10, PAL.ink, 600);
+    ['9:16 = 1080×1920px', '앱 UI 는 설명용 모형', '실제 앱 위치는 재지 않았다'].forEach((ln, i) => T(x, ln, 12, 118 + i * 16, 10.5, i === 2 ? PAL.muted : PAL.ink, i === 2 ? 500 : 600));
 
-    const sets = SETS(), z = sets[0];
-    // 오른쪽 패널
-    const PX = 366, PW = 266;
-    if (L === 0) {
-      card(x, PX, 10, PW, 124);
-      T(x, '틀 없이 놓았을 때 가려지는 비율', PX + 12, 28, 11, PAL.ink, 700);
-      T(x, 'UI 모형 기준, 코드가 센 값', PX + 12, 42, 9.5, PAL.muted, 500);
-      ELS.forEach((e, i) => {
-        const c = covered(e.naive), Y = 56 + i * 24;
-        T(x, e.id, PX + 12, Y + 11, 11, PAL.ink, 600);
-        x.fillStyle = 'rgba(244,239,228,.1)'; x.beginPath(); x.roundRect(PX + 74, Y + 2, 120, 10, 4); x.fill();
-        x.fillStyle = PAL.accent; x.beginPath(); x.roundRect(PX + 74, Y + 2, Math.max(3, 120 * c * E.outC(seg(t, 0.2 + 0.2 * i, 1))), 10, 4); x.fill();
-        T(x, `${(c * 100).toFixed(0)}%`, PX + PW - 12, Y + 12, 12, PAL.accent, 700, 'right', MONO);
-      });
-      T(x, '안전영역을 정하지 않으면 위치가 감으로 정해진다', PX + 12, 126, 9.5, PAL.muted, 500);
-    } else {
-      // 1단계: 채택값 카드
-      const inW = W - z.l - z.r, inH = H - z.t - z.b;
-      card(x, PX, 10, PW, 84);
-      T(x, '공장 채택값 [기록]', PX + 12, 28, 11, PAL.ink, 700);
-      T(x, '플랫폼 공식 수치가 아니다', PX + PW - 12, 28, 9.5, PAL.accent, 600, 'right');
-      [['위', z.t], ['아래', z.b], ['왼', z.l], ['오른', z.r]].forEach(([n, v], i) => { T(x, n, PX + 12 + i * 62, 48, 9.5, PAL.muted, 500); T(x, `${v}`, PX + 12 + i * 62, 64, 15, PAL.accent, 700, 'left', MONO); });
-      T(x, `쓸 수 있는 칸 ${inW}×${inH}px = 화면의 ${(inW * inH * 100 / (W * H)).toFixed(1)}%`, PX + 12, 84, 10, PAL.ink, 600, 'left', MONO);
-    }
-    if (L >= 2) {
-      const k = E.outC(seg(t, 2.2, 3.0)), Y0 = 102;
-      x.save(); x.globalAlpha = k; card(x, PX, Y0, PW, 122);
-      T(x, '출처마다 다른 값', PX + 12, Y0 + 17, 11, PAL.ink, 700);
-      T(x, '채택값만 [기록], 나머지는 2차', PX + 100, Y0 + 17, 9, PAL.muted, 500);
-      ['위', '아래', '왼', '오른'].forEach((n, i) => T(x, n, PX + 124 + i * 36 + 28, Y0 + 31, 9.5, PAL.muted, 500, 'right'));
-      sets.forEach((st, i) => {
-        const Y = Y0 + 46 + i * 15;
-        x.fillStyle = st.col; x.beginPath(); x.arc(PX + 18, Y - 3.5, 4, 0, 7); x.fill();
-        T(x, st.name, PX + 28, Y, 10, PAL.ink, 600);
-        [st.t, st.b, st.l, st.r].forEach((v, j) => T(x, v == null ? '–' : String(v), PX + 124 + j * 36 + 28, Y, 10, v == null ? PAL.muted : PAL.ink, 600, 'right', MONO));
-      });
-      const bs = sets.map((q) => q.b).filter((v) => v != null), ts = sets.map((q) => q.t).filter((v) => v != null);
-      T(x, `아래 ${Math.min(...bs)}~${Math.max(...bs)}, 위 ${Math.min(...ts)}~${Math.max(...ts)}로 값이 벌어져 있다`, PX + 12, Y0 + 119, 9.5, PAL.accent, 600);
-      x.restore();
-    }
-    if (L >= 3) {
-      const k = E.outC(seg(t, 3.6, 4.5)), Y0 = 232;
-      x.save(); x.globalAlpha = k; card(x, PX, Y0, PW, 118);
-      T(x, '채택값 위치가 각 값에서 넘는 px', PX + 12, Y0 + 17, 11, PAL.ink, 700);
-      sets.forEach((st, j) => { x.fillStyle = st.col; x.beginPath(); x.arc(PX + 98 + j * 33 + 12, Y0 + 30, 4, 0, 7); x.fill(); T(x, st.k, PX + 98 + j * 33 + 21, Y0 + 34, 9, PAL.muted, 600); });
-      ELS.forEach((e, i) => {
-        const Y = Y0 + 50 + i * 17;
-        T(x, e.id, PX + 12, Y, 10, PAL.ink, 600);
-        sets.forEach((st, j) => {
-          const v = intrusion(e.fit, st), bad = v > 0;
-          T(x, bad ? String(Math.round(v)) : '안', PX + 98 + j * 33 + 24, Y, 10, bad ? '#ff9b7a' : '#8fe0a8', 700, 'right', MONO);
+    // 오른쪽: 패널은 한 번에 하나만 보인다(0 가려진 비율 → 1 채택값 → 2 출처 비교표 → 3 넘는 px 표)
+    const sets = SETS(), z = sets[0], PX = 366, PW = 266, PY = 10, PH = 340;
+    const panel = (n, al) => {
+      x.save(); x.globalAlpha = al; card(x, PX, PY, PW, PH);
+      if (n === 0) {
+        T(x, '틀 없이 놓았을 때 가려지는 비율', PX + 14, 36, 13, PAL.ink, 700);
+        T(x, 'UI 모형 기준, 코드가 센 값', PX + 14, 54, 10.5, PAL.muted, 500);
+        ELS.forEach((e, i) => {
+          const c = covered(e.naive), Y = 96 + i * 62;
+          T(x, e.id, PX + 14, Y, 13, PAL.ink, 600);
+          T(x, `${(c * 100).toFixed(0)}%`, PX + PW - 14, Y + 6, 26, PAL.accent, 700, 'right', MONO);
+          x.fillStyle = 'rgba(244,239,228,.1)'; x.beginPath(); x.roundRect(PX + 14, Y + 14, PW - 28, 10, 4); x.fill();
+          x.fillStyle = PAL.accent; x.beginPath(); x.roundRect(PX + 14, Y + 14, Math.max(3, (PW - 28) * c * E.outC(seg(t, 0.2 + 0.2 * i, 1))), 10, 4); x.fill();
         });
-      });
-      T(x, '0 이면 ‘안’. 값이 없는 변은 재지 않음', PX + 12, Y0 + 106, 9.5, PAL.muted, 500);
+        T(x, '안전영역을 정하지 않으면', PX + 14, 296, 11.5, PAL.muted, 500);
+        T(x, '위치가 감으로 정해진다', PX + 14, 314, 11.5, PAL.muted, 500);
+      } else if (n === 1) {
+        const inW = W - z.l - z.r, inH = H - z.t - z.b;
+        T(x, '공장 채택값 [기록]', PX + 14, 36, 13, PAL.ink, 700);
+        T(x, '플랫폼 공식 수치가 아니다', PX + 14, 54, 11, PAL.accent, 600);
+        [['위', z.t], ['아래', z.b], ['왼', z.l], ['오른', z.r]].forEach(([nm, v], i) => {
+          const cx = PX + 14 + (i % 2) * 124, cy = 100 + Math.floor(i / 2) * 74;
+          T(x, nm, cx, cy, 12, PAL.muted, 500); T(x, `${v}`, cx, cy + 34, 34, PAL.accent, 700, 'left', MONO);
+        });
+        T(x, `쓸 수 있는 칸 ${inW}×${inH}px`, PX + 14, 280, 12, PAL.ink, 600, 'left', MONO);
+        T(x, `= 화면의 ${(inW * inH * 100 / (W * H)).toFixed(1)}%`, PX + 14, 302, 12, PAL.ink, 600, 'left', MONO);
+      } else if (n === 2) {
+        T(x, '출처마다 다른 값', PX + 14, 36, 13, PAL.ink, 700);
+        T(x, '채택값만 [기록], 나머지는 2차', PX + 14, 54, 10.5, PAL.muted, 500);
+        ['위', '아래', '왼', '오른'].forEach((nm, i) => T(x, nm, PX + 126 + i * 35 + 28, 84, 11, PAL.muted, 500, 'right'));
+        sets.forEach((st, i) => {
+          const Y = 112 + i * 30;
+          x.fillStyle = st.col; x.beginPath(); x.arc(PX + 20, Y - 4, 4.5, 0, 7); x.fill();
+          T(x, st.name, PX + 32, Y, 12, PAL.ink, 600);
+          [st.t, st.b, st.l, st.r].forEach((v, j) => T(x, v == null ? '–' : String(v), PX + 126 + j * 35 + 28, Y, 12, v == null ? PAL.muted : PAL.ink, 600, 'right', MONO));
+        });
+        const bs = sets.map((q) => q.b).filter((v) => v != null), ts = sets.map((q) => q.t).filter((v) => v != null);
+        T(x, `아래 ${Math.min(...bs)}~${Math.max(...bs)}, 위 ${Math.min(...ts)}~${Math.max(...ts)}로`, PX + 14, 290, 12, PAL.accent, 600);
+        T(x, '값이 벌어져 있다', PX + 14, 308, 12, PAL.accent, 600);
+      } else {
+        T(x, '채택값 위치가 각 값에서 넘는 px', PX + 14, 36, 13, PAL.ink, 700);
+        ELS.forEach((e, j) => T(x, e.id, PX + 112 + j * 48 + 44, 70, 11, PAL.muted, 500, 'right'));
+        sets.forEach((st, i) => {
+          const Y = 104 + i * 32;
+          x.fillStyle = st.col; x.beginPath(); x.arc(PX + 20, Y - 5, 4.5, 0, 7); x.fill();
+          T(x, st.name, PX + 32, Y, 12, PAL.ink, 600);
+          ELS.forEach((e, j) => {
+            const v = intrusion(e.fit, st), bad = v > 0;
+            T(x, bad ? String(Math.round(v)) : '안', PX + 112 + j * 48 + 44, Y, 15, bad ? '#ff9b7a' : '#8fe0a8', 700, 'right', MONO);
+          });
+        });
+        const inW = W - z.l - z.r, inH = H - z.t - z.b;
+        x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(PX + 14, 258.5); x.lineTo(PX + PW - 14, 258.5); x.stroke();
+        T(x, '채택값으로 쓸 수 있는 칸', PX + 14, 278, 11, PAL.muted, 500);
+        T(x, `${inW}×${inH}px = 화면의 ${(inW * inH * 100 / (W * H)).toFixed(1)}%`, PX + 14, 298, 12, PAL.ink, 600, 'left', MONO);
+        T(x, '0 이면 ‘안’이다. 값이 없는 변은', PX + 14, 322, 10.5, PAL.muted, 500);
+        T(x, '재지 않는다.', PX + 14, 336, 10.5, PAL.muted, 500);
+      }
       x.restore();
+    };
+    if (L === 0) panel(0, 1);
+    else {
+      const to3 = L >= 3 && t >= 3.6, to2 = L >= 2 && t >= 2.2;
+      if (to3) { panel(2, 1); panel(3, E.outC(seg(t, 3.6, 4.0))); }
+      else if (to2) { panel(1, 1); panel(2, E.outC(seg(t, 2.2, 2.6))); }
+      else panel(1, 1);
     }
     s.num.textContent = String(L); s.dsc.textContent = STEP[L];
   },

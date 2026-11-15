@@ -54,7 +54,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const pill = el('div', null, sp);
-    Object.assign(pill.style, { position: 'absolute', right: '12px', bottom: '8px', padding: '4px 11px', borderRadius: '999px', background: PAL.surface, color: PAL.ink, font: "600 11px 'IBM Plex Sans KR',sans-serif", border: `1px solid ${PAL.line}`, zIndex: '4', whiteSpace: 'nowrap' });
+    Object.assign(pill.style, { position: 'absolute', right: '12px', bottom: '10px', padding: '4px 11px', borderRadius: '999px', background: PAL.surface, color: PAL.ink, font: "600 11px 'IBM Plex Sans KR',sans-serif", border: `1px solid ${PAL.line}`, zIndex: '4', whiteSpace: 'nowrap' });
     return { main, pill };
   },
   render(s, t, a, lv) {
@@ -71,7 +71,7 @@ const demo = {
     T(x, '하루 한 번 가동해서 가장 이른 빈 칸에 넣는다(한국 시각)', 32, 28, 10.5, PAL.muted, 500, 'left', MONO);
     T(x, `하루 ${n}편, 채운 칸 ${pl.filled}/${SLOTS.length}`, 608, 28, 11.5, pl.filled === SLOTS.length ? PAL.accent : PAL.accent2, 700, 'right', MONO);
     x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(AX0, 66.5); x.lineTo(AX1, 66.5); x.stroke();
-    for (let h = 6; h <= 24; h += 3) { x.beginPath(); x.moveTo(hx(h), 66); x.lineTo(hx(h), 71); x.stroke(); T(x, String(h).padStart(2, '0'), hx(h), 82, 9.5, PAL.muted, 500, 'center', MONO); }
+    for (let h = 6; h <= 24; h += 3) { x.beginPath(); x.moveTo(hx(h), 66); x.lineTo(hx(h), 71); x.stroke(); T(x, String(h).padStart(2, '0'), hx(h), 82, 10, PAL.muted, 500, 'center', MONO); }
     SLOTS.forEach((sh, i) => {
       const st = pl.slots[i].st, X = hx(sh), ap = E.outC(P(t, 0.1 + i * 0.12, 0.4)); x.save(); x.globalAlpha = ap;
       T(x, hh(sh), X, 47, 10.5, st === 'miss' ? PAL.muted : PAL.ink, 700, 'center', MONO);
@@ -87,8 +87,8 @@ const demo = {
     T(x, `가동 ${hh(prodH)}`, Math.min(px + 6, 560), 130, 10, PAL.ink, 600, 'left', MONO);
     for (let k = 0; k < n; k++) {
       const c = pl.clips[k], Y = 91 + k * 10, q = E.inOutC(P(t, 0.4 + k * 0.25, 0.8));
-      if (c >= 0) { const X1 = lerp(px, hx(SLOTS[c]), q); x.fillStyle = rgba('#5ad1c8', 0.9); x.beginPath(); x.roundRect(px, Y, Math.max(2, X1 - px), 7, 3); x.fill(); if (q > 0.95) T(x, `편 ${k + 1}`, hx(SLOTS[c]) + 8, Y + 7, 9, PAL.muted, 600, 'left', MONO); }
-      else { x.fillStyle = rgba('#f2b84b', 0.85); x.beginPath(); x.roundRect(px, Y, 26 * q, 7, 3); x.fill(); if (q > 0.9) T(x, `편 ${k + 1}: 들어갈 칸이 없다`, px + 34, Y + 7, 9, PAL.accent2, 600, 'left', MONO); }
+      if (c >= 0) { const X1 = lerp(px, hx(SLOTS[c]), q); x.fillStyle = rgba('#5ad1c8', 0.9); x.beginPath(); x.roundRect(px, Y, Math.max(2, X1 - px), 7, 3); x.fill(); if (q > 0.95) T(x, `편 ${k + 1}`, hx(SLOTS[c]) + 8, Y + 7, 10, PAL.muted, 600, 'left', MONO); }
+      else { x.fillStyle = rgba('#f2b84b', 0.85); x.beginPath(); x.roundRect(px, Y, 26 * q, 7, 3); x.fill(); if (q > 0.9) T(x, `편 ${k + 1}: 들어갈 칸이 없다`, px + 34, Y + 7, 10, PAL.accent2, 600, 'left', MONO); }
     }
     // 아래: 1~3단계는 칸별 상태, 4단계는 칸별 조회 점
     card(x, 20, 142, 600, 208);
@@ -104,16 +104,16 @@ const demo = {
         T(x, q.why, 184, Y + 20, 11.5, PAL.ink, 500); x.restore();
       });
       const NOTE = [
-        ['10:00 에 가동하면 09:30 칸은 그날 이미 지나가 있고, 상한이 2편이라 소재가 있어도 칸이 남는다.', '[기록] 2026-11-10 기록에서는 하루 0~2편이던 것이 소재가 아니라 상한 2가 막은 것이었다(미시도 후보 32개).'],
-        ['가동을 06:30 으로 당기면 09:30 칸이 열린다. 상한 2는 그대로라 18:30 칸이 비었다.', '[기록] 가동 시각과 상한은 따로 고치는 값이다. 한쪽만 고치면 다른 쪽이 칸을 막는다.'],
-        ['상한을 3편으로 올려 칸 3개를 모두 쓴다. 오늘 장부에 이미 3편이 있으면 그날 실행은 만들지 않고 끝난다.', '[지시] 2026-11-10 제작자 지시. 하루 3편이 시청 성과에 더 낫다는 증거는 아직 없다.'],
+        ['10:00 에 가동하면 09:30 칸은 그날 이미 지나가 있고, 상한이 2편이라 소재가 있어도 칸이 남는다.', '2026-11-10 제작 기록: 하루 0~2편이던 것은 소재가 아니라 상한 2가 막은 것이었다.'],
+        ['가동을 06:30 으로 당기면 09:30 칸이 열린다. 상한 2는 그대로라 18:30 칸이 비었다.', '가동 시각과 상한은 따로 고치는 값이다. 한쪽만 고치면 다른 쪽이 칸을 막는다.'],
+        ['상한을 3편으로 올려 칸 3개를 모두 쓴다. 오늘 장부에 이미 3편이 있으면 그날 실행은 만들지 않고 끝난다.', '2026-11-10 제작자 지시. 하루 3편이 시청 성과에 더 낫다는 증거는 아직 없다.'],
       ][L - 1];
       T(x, NOTE[0], 32, 296, 11, PAL.ink, 500); T(x, NOTE[1], 32, 316, 10.5, PAL.muted, 500);
     } else {
       const ds = dots(), PX0 = 62, PY0 = 166, PY1 = 316, ly = (v) => PY1 - Math.log(Math.max(v, 0.4) / 0.4) / Math.log(30 / 0.4) * (PY1 - PY0);
       T(x, '칸별 48시간 조회, 같은 표본 중앙값 대비 배수(로그 축)', 32, 160, 10.5, PAL.muted, 500, 'left', MONO);
-      [0.5, 1, 2, 5, 10, 20].forEach((v) => { x.strokeStyle = v === 1 ? 'rgba(242,239,233,.34)' : PAL.line; x.setLineDash(v === 1 ? [] : [2, 3]); x.beginPath(); x.moveTo(PX0, ly(v) + 0.5); x.lineTo(420, ly(v) + 0.5); x.stroke(); x.setLineDash([]); T(x, String(v), PX0 - 6, ly(v) + 3, 9.5, PAL.muted, 500, 'right', MONO); });
-      T(x, '0', PX0 - 6, PY1 + 6, 9.5, PAL.muted, 500, 'right', MONO);
+      [0.5, 1, 2, 5, 10, 20].forEach((v) => { x.strokeStyle = v === 1 ? 'rgba(242,239,233,.34)' : PAL.line; x.setLineDash(v === 1 ? [] : [2, 3]); x.beginPath(); x.moveTo(PX0, ly(v) + 0.5); x.lineTo(420, ly(v) + 0.5); x.stroke(); x.setLineDash([]); T(x, String(v), PX0 - 6, ly(v) + 3, 10, PAL.muted, 500, 'right', MONO); });
+      T(x, '0', PX0 - 6, PY1 + 6, 10, PAL.muted, 500, 'right', MONO);
       const meds = [];
       SLOTS.forEach((sh, i) => {
         const cx = 130 + i * 118, mine = ds.filter((d) => d.slot === i), md = mine.length ? median(mine.map((d) => d.r)) : 0; meds.push(md);
@@ -125,11 +125,11 @@ const demo = {
           if (d.r <= 0) { x.strokeStyle = PAL.ink; x.stroke(); } else { x.fillStyle = d.who === HOT ? PAL.accent2 : PAL.ink; x.fill(); }
           x.restore();
         });
-        T(x, hh(sh), cx, 338, 11, PAL.ink, 700, 'center', MONO); T(x, `${mine.length}편`, cx, 349, 9.5, PAL.muted, 500, 'center', MONO);
+        T(x, hh(sh), cx, 338, 11, PAL.ink, 700, 'center', MONO); T(x, `${mine.length}편`, cx, 349, 10, PAL.muted, 500, 'center', MONO);
       });
-      T(x, `점 ${ds.length}개`, 424, 166, 11, PAL.ink, 700, 'left', MONO);
-      ['막대 = 칸의 중앙값', ...SLOTS.map((sh, i) => `${hh(sh)} 중앙 ${meds[i].toFixed(2)}배`)].forEach((l, i) => T(x, l, 424, 184 + i * 15, 10.5, i ? PAL.ink : PAL.muted, i ? 600 : 500, 'left', i ? MONO : SANS));
-      [['주황 점은 같은 원작자의 편이고', PAL.accent2], ['가장 높은 두 편이 둘 다 12:30 이다.', PAL.accent2], ['칸의 효과와 소재의 효과를 가를 수 없다.', PAL.ink], ['속 빈 점은 조회 0으로 기록된 1편.', PAL.muted], ['[측정] 표본 11편, 참고치', PAL.muted]].forEach(([l, c], i) => T(x, l, 424, 252 + i * 16, 10.5, c, i === 2 ? 700 : 500));
+      T(x, `점 ${ds.length}개`, 424, 168, 12, PAL.ink, 700, 'left', MONO);
+      [['막대는 칸의 중앙값', PAL.muted], ['주황 점은 같은 원작자의 편이고', PAL.accent2], ['가장 높은 두 편이 둘 다 12:30 이다.', PAL.accent2], ['칸의 효과와 소재의 효과를 가를 수 없다.', PAL.ink], ['속 빈 점은 조회 0으로 기록된 1편.', PAL.muted]].forEach(([l, c], i) => T(x, l, 424, 194 + i * 20, 11, c, i === 3 ? 700 : 500));
+      SLOTS.forEach((sh, i) => { const cx = 130 + i * 118, bh = Math.max(1, PY1 - ly(meds[i])); T(x, `${meds[i].toFixed(2)}배`, cx + 38, PY1 - bh + 4, 10, PAL.accent, 700, 'left', MONO); });
     }
     s.pill.textContent = `${Math.max(1, L)}. ${STEP[Math.max(1, L) - 1]}`;
   },

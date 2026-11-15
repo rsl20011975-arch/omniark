@@ -32,7 +32,7 @@ const TOK = [
   ['color.accent', ACCENT_L, '#ff7a5c', 'color', 'adopted', ''],
   ['color.on-accent', '#ffffff', '#15161a', 'color', 'adopted', ''],
   ['space.4', SPACE, SPACE, 'num', 'adopted', ''],
-  ['radius.m', RADIUS, RADIUS, 'num', 'conflict', '복사본 6px'],
+  ['radius.m', RADIUS, RADIUS, 'num', 'conflict', '복사본은 6'],
   ['text.body', BODY, BODY, 'num', 'unverified', '정본 대기'],
   ['text.display', 32, 32, 'num', 'adopted', ''],
   ['btn.bg', '{color.accent}', '{color.accent}', 'alias', 'adopted', ''],
@@ -122,7 +122,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(caption-bl): 왼쪽 아래, 배경 없음, 위에 1px 선
-    Object.assign(lab.style, { position: 'absolute', left: '20px', bottom: '8px', paddingTop: '5px', borderTop: `1px solid ${PAL.line}`, minWidth: '280px', zIndex: '4' });
+    Object.assign(lab.style, { position: 'absolute', left: '20px', bottom: '.7em', paddingTop: '.4em', borderTop: `1px solid ${PAL.line}`, minWidth: '280px', zIndex: '4' });
     const pill = el('span', null, lab);
     Object.assign(pill.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", whiteSpace: 'nowrap' });
     return { main, pill };

@@ -239,12 +239,12 @@ const demo = {
     const sk = el('canvas', null, sp); sk.width = 840; sk.height = 96;
     box(sk, { position: 'absolute', left: '214px', top: (SCENE_H + 6) + 'px', width: '420px', height: '48px' });
     const card = el('div', null, sp);
-    box(card, { position: 'absolute', left: '12px', top: '12px', width: '206px', padding: '8px 10px', background: PAL.surface, border: `1px solid ${PAL.line}`, borderRadius: '6px', boxShadow: '0 6px 16px rgba(15,27,45,.22)', color: PAL.ink, whiteSpace: 'pre', font: "400 11px/1.55 'JetBrains Mono',monospace", opacity: '0' });
+    box(card, { position: 'absolute', left: '12px', top: '12px', width: '206px', padding: '10px 12px', background: PAL.surface, border: `1px solid ${PAL.line}`, borderRadius: '10px', boxShadow: '0 10px 16px rgba(15,27,45,.22)', color: PAL.ink, whiteSpace: 'pre', font: "400 11px/1.55 'JetBrains Mono',monospace", opacity: '0' });
     card.textContent = '출처 기록 (이미지 옆 사이드카)\n만든 곳   직접 생성\n방식      도구와 지시문 기록\n날짜      2026-11-13\n권리      generated';
     const chip = el('div', null, sp, '권리 generated');
-    box(chip, { position: 'absolute', left: '12px', top: '12px', padding: '2px 8px', background: PAL.surface, border: `1px solid ${PAL.line}`, borderRadius: '2px', color: PAL.ink, font: "500 11px/1.5 'JetBrains Mono',monospace", opacity: '0' });
+    box(chip, { position: 'absolute', left: '12px', top: '12px', padding: '2px 10px', background: PAL.surface, border: `1px solid ${PAL.line}`, borderRadius: '2px', color: PAL.ink, font: "500 11px/1.5 'JetBrains Mono',monospace", opacity: '0' });
     const pill = el('div', null, sp, '');   // 이름표(tag-tr): 오른쪽 위, 왼쪽에 3px 강조 줄
-    box(pill, { position: 'absolute', right: '12px', top: '12px', padding: '4px 10px', background: PAL.surface, borderLeft: `3px solid ${PAL.accent}`, borderRadius: '2px', color: PAL.ink, font: "600 12px/1.4 'IBM Plex Sans KR',sans-serif", boxShadow: '0 2px 8px rgba(15,27,45,.2)' });
+    box(pill, { position: 'absolute', right: '12px', top: '12px', padding: '4px 10px', background: PAL.surface, borderLeft: `3px solid ${PAL.accent}`, borderRadius: '2px', color: PAL.ink, font: "600 12px/1.4 'IBM Plex Sans KR',sans-serif", boxShadow: '0 2px 10px rgba(15,27,45,.2)' });
     return { full, ctx: cv.getContext('2d'), mx, curves: {}, info, sub, sk, card, chip, pill };
   },
   render(s, t, a, lv) {
@@ -252,9 +252,9 @@ const demo = {
     frameAt(s, s.ctx, SW, SH, t, L);
     s.pill.textContent = TAGS[L];
     const cr = L >= 1 ? curve(s, L) : curve(s, 1);
-    const ok = cr.still <= 20 && cr.run <= 2;
+    const ok = cr.still <= 20;
     s.info.textContent = `정지 비율 ${cr.still.toFixed(0)} %`;
-    s.sub.textContent = `가장 긴 정지 ${cr.run.toFixed(1)}초  ${ok ? '합격' : '불합격'}\n합격선 20 % 이하, 연속 2초 이하(잠정)`;
+    s.sub.textContent = `가장 긴 정지 ${cr.run.toFixed(1)}초  ${ok ? '합격' : '불합격'}\n합격선은 정지 비율 20 % 이하`;
     const k = s.sk.getContext('2d'); k.clearRect(0, 0, 840, 96);
     cr.d.forEach((v, i) => {
       const bw = 840 / cr.d.length;

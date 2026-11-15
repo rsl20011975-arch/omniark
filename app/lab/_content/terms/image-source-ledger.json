@@ -2,7 +2,7 @@
   "order": 207,
   "slug": "image-source-ledger",
   "name": "이미지 출처 장부",
-  "en": "Image Source Ledger, Sidecar JSON, Rights Field",
+  "en": "Image Source Ledger",
   "field": "imgvid",
   "level": "기본",
   "purposes": [
@@ -13,7 +13,7 @@
     "영상",
     "웹·앱"
   ],
-  "oneLine": "이미지를 만들거나 받는 순간 같은 이름의 JSON 한 줄(만든 곳, 방식, 날짜, 권리)을 옆에 적고, 그 기록이 장부에 올라간 이미지만 공개 영상에 쓴다. 나중에 파일만 보고 출처를 추리하지 않기 위한 규칙이다",
+  "oneLine": "이미지를 만들거나 받는 순간 같은 이름의 JSON 한 줄(만든 곳, 방식, 날짜, 권리)을 옆에 적어 둔다. 그 기록이 장부에 올라간 이미지만 공개 영상에 쓴다. 나중에 파일만 보고 출처를 추리하지 않으려는 규칙이다",
   "preview": null,
   "keywords": [
     "이미지 출처",
@@ -35,32 +35,32 @@
     "생성",
     "제3자와 라이선스",
     "unknown",
-    "ledger, assets.json",
+    "ledger",
     "rights field",
     "own",
     "generated",
-    "third-party, licensed"
+    "third-party and licensed"
   ],
   "status": "published",
   "detail": {
     "demo": "d206",
-    "prompt": "- 이미지 4장(lake, dunes, city, pines)의 출처 장부 데모를 만들어줘. 왼쪽에 이미지 목록, 오른쪽 위에 사이드카 JSON 카드, 오른쪽 아래에 장부 표, 맨 아래에 공개 영상에 들어가는 이미지 줄을 둔다.\n- 연출 전: 이미지만 보이고 출처 칸은 모두 ‘출처 모름’이다. 공개 영상 줄에는 4장이 그대로 들어가 있다.\n- 사이드카: 이미지를 만드는 순간 같은 이름의 .json 한 줄이 옆에 생긴다. 칸은 factory, method, date, rights 네 개이고 rights 는 own, generated, licensed, third-party, unknown 중 하나다. lake.png 는 generated, dunes.png 는 직접 만든 own, city.png 는 받아 온 third-party 로 적고, pines.png 는 사이드카가 없어 unknown 으로 남는다.\n- 장부: 사이드카가 있는 이미지 3장이 장부 표에 한 줄씩 올라가고 pines.png 는 빨간 unknown 줄이 된다. 표 맨 아래에 장부 줄 수와 기록 없는 장수를 코드가 세어 적는다.\n- 공개 영상: 장부에 own 이나 generated 로 올라간 이미지만 남기고 나머지는 ‘제외’ 표시와 함께 줄 밖으로 빠진다. 4장 중 몇 장을 쓰는지도 장부 값에서 코드가 센다.\n- 금지: 출처를 확인하지 않고 rights 를 own 으로 적는 것, unknown 이미지를 공개 영상에 쓰는 것.",
+    "prompt": "- 이미지 4장(lake, dunes, city, pines)의 출처 장부 데모를 만들어줘. 왼쪽 카드 하나에 이미지 4장을 한 줄씩 표로 놓는다. 줄마다 작은 사진, 파일 이름, 권리 이름표를 두고 오른쪽 끝에는 장부 상태를 적는다. 오른쪽 위에는 사이드카 JSON 카드, 오른쪽 아래에는 장부 줄 수 한 줄과 ‘공개 영상’ 큰 글씨를 둔다. 왼쪽 아래에는 지금 단계를 한 줄로 적는다.\n- 연출 전: 이미지만 보이고 권리 이름표는 모두 ‘출처 모름’이다. 사이드카 카드에는 ‘사이드카 없음’이 적히고 공개 영상 큰 글씨는 ‘4장 사용’이다.\n- 사이드카: 이미지를 만드는 순간 같은 이름의 .json 한 줄이 옆에 생긴다. 칸은 factory, method, date, rights 네 개이고 rights 는 own, generated, licensed, third-party, unknown 중 하나다. 카드에 네 칸이 한 줄씩 나타나고 이름표가 그 값으로 바뀐다. lake.png 는 generated, dunes.png 는 직접 만든 own, city.png 는 받아 온 third-party 로 적고, pines.png 는 사이드카가 없어 unknown 으로 남는다. 이때 카드에는 빨간 ‘pines.json 없음’이 뜬다.\n- 장부: 사이드카가 있는 이미지 3장 줄 오른쪽에 ‘장부에 올림’이 뜨고 pines.png 줄에는 빨간 ‘기록 없음’이 뜬다. 오른쪽 아래에 ‘장부 3줄, 기록 없음 1장’을 코드가 세어 적는다.\n- 공개 영상: 장부에 own 이나 generated 로 올라간 이미지만 남기고 나머지 줄은 ‘제외’ 로 바꿔 파일 이름에 줄을 긋고 흐리게 한다. 남은 줄에는 ‘영상에 쓴다’를 적는다. 큰 글씨는 ‘4장 중 몇 장 사용’으로 바뀌고, 몇 장인지는 장부 값에서 코드가 센다.\n- 금지: 출처를 확인하지 않고 rights 를 own 으로 적는 것, unknown 이미지를 공개 영상에 쓰는 것.",
     "check": [
       "1단계에서 이미지 4장의 이름표가 모두 ‘출처 모름’이고 사이드카 카드에는 ‘사이드카 없음’이 적힌다",
-      "2단계에서 lake.png, dunes.png, city.png 옆 이름표가 generated, own, third-party 로 바뀌는가? pines.png 는 unknown 이어야 한다",
+      "2단계에서 lake.png, dunes.png, city.png 아래 이름표가 generated, own, third-party 로 바뀌는가? pines.png 는 unknown 이어야 한다",
       "사이드카 JSON 카드에 factory, method, date, rights 네 칸이 한 줄씩 나타난다",
-      "3단계의 장부 표는 4줄이고 맨 아래에 ‘장부 3줄, 기록 없음 1장’ 이 적힌다",
-      "4단계의 공개 영상 줄에서 city.png 와 pines.png 가 ‘제외’ 로 빠지고 줄 오른쪽 위에 ‘4장 중 2장 사용’ 이 보인다"
+      "3단계에서는 표 오른쪽에 ‘장부에 올림’이 세 줄, pines.png 줄에 ‘기록 없음’이 뜨고, 카드 아래에 ‘장부 3줄, 기록 없음 1장’이 적힌다",
+      "4단계에서 city.png 와 pines.png 줄이 ‘제외’ 로 바뀌며 흐려지고, 오른쪽 아래에 ‘4장 중 2장 사용’ 이 보인다"
     ],
     "use": [
       "여러 폴더에 쌓인 이미지 중 공개 영상에 써도 되는 것만 골라야 하는 작업",
-      "AI로 만든 이미지와 받아 온 이미지가 섞이는 쇼핑이나 여행 숏폼 제작"
+      "AI로 만든 이미지와 받아 온 이미지가 섞이는 쇼핑·여행 숏폼 제작"
     ],
     "tech": [
       "이미지 파일 이름에서 확장자만 바꾼 .json 을 같은 폴더에 쓰기(사이드카 파일)",
       "rights 값이 허용 목록(own, generated)에 들어 있는지 배열의 includes 로 확인",
       "사이드카가 없는 이미지는 rights 를 unknown 으로 간주해 공개 영상에서 거르기",
-      "공개 영상 줄을 장부에서 걸러 낸 목록으로 다시 그리기"
+      "공개 영상에 쓸 장수를 장부에서 걸러 낸 목록으로 다시 세어 그리기"
     ],
     "refs": [
       {
@@ -111,17 +111,17 @@
     "vs": {
       "bad": "다른 폴더에 있는 이미지 가져다 써줘",
       "badResult": "어느 것이 직접 생성한 것이고 어느 것이 남의 영상 프레임이나 받은 파일인지 구분되지 않은 채 영상에 섞여 들어갈 수 있습니다",
-      "good": "새 이미지는 만드는 순간 같은 이름의 .json 에 factory, method, date, rights 를 적고, 장부에 own 이나 generated 로 올라간 이미지만 공개 영상에 쓴다. 기록이 없으면 unknown",
+      "good": "새 이미지는 만드는 순간 같은 이름의 .json 에 factory, method, date, rights 를 적어. 장부에 own 이나 generated 로 올라간 이미지만 공개 영상에 쓰고, 기록이 없으면 unknown",
       "goodResult": "이미지 4장 중 기록이 있는 3장이 장부에 오르고 own, generated 인 2장만 공개 영상 줄에 남는 데모"
     },
     "tips": [
       {
         "id": "found",
-        "title": "생성 기록을 뒤늦게 찾음",
+        "title": "pines.png 의 생성 기록을 찾았다면?",
         "situation": "기록이 없던 이미지의 생성 스크립트를 찾았을 때",
         "from": "pines.png 는 사이드카가 없어 unknown 으로 남는다",
         "to": "pines.png 는 생성 스크립트를 찾아 generated 로 올린다",
-        "effect": "pines.png 가 unknown 에서 generated 로 바뀌어 장부가 4줄이 되고, 공개 영상에 쓰는 이미지가 4장 중 2장에서 3장으로 늘어난다. 스크립트 같은 증거를 못 찾았다면 unknown 으로 둔다."
+        "effect": "pines.png 가 unknown 에서 generated 로 바뀐다. 장부는 4줄이 되고, 공개 영상에 쓰는 이미지는 4장 중 2장에서 3장으로 늘어난다. 스크립트 같은 증거를 못 찾았다면 unknown 으로 둔다."
       },
       {
         "id": "relabel",
@@ -129,28 +129,28 @@
         "situation": "own 으로 적은 이미지가 사실 받은 파일이었다고 알게 됐을 때",
         "from": "dunes.png 는 직접 만든 own",
         "to": "dunes.png 는 받아 온 licensed",
-        "effect": "dunes.png 의 권리가 own 에서 licensed 로 정정되어 허용 목록에서 빠지므로 공개 영상 줄이 4장 중 2장에서 1장으로 줄고 dunes.png 도 ‘제외’ 로 떨어진다."
+        "effect": "dunes.png 의 권리가 own 에서 licensed 로 정정된다. 허용 목록에서 빠지므로 dunes.png 도 ‘제외’ 로 떨어지고, 공개 영상에는 4장 중 1장만 남는다."
       }
     ],
     "steps": [
       {
         "t": "출처 없이 쌓인 이미지",
-        "d": "이미지 4장이 폴더에 있다. 파일 이름만 봐서는 직접 만든 것인지 받아 온 것인지 알 수 없고, 공개 영상 줄에도 4장이 그대로 들어간다. 2026-11-05 조사에서 실제 폴더들이 이런 상태였다.",
+        "d": "이미지 4장이 폴더에 있다. 파일 이름만 봐서는 직접 만든 것인지 받아 온 것인지 알 수 없고, 공개 영상에도 4장이 그대로 들어간다. 2026-11-05에 살펴본 실제 폴더들이 이런 상태였다.",
         "code": "const IMGS = ['lake.png', 'dunes.png', 'city.png', 'pines.png'];   // 출처 칸이 없다"
       },
       {
         "t": "만드는 순간 사이드카를 쓴다",
-        "d": "이미지를 만들거나 받는 코드가 같은 이름의 .json 을 함께 쓴다. 칸은 factory(만든 곳), method(방식), date(날짜), rights(권리) 네 개다. 데모의 세 이미지는 generated, own, third-party 로 적히고, 기록을 쓰지 않은 pines.png 는 unknown 으로 읽힌다. 기록값은 데모용 예시다.",
+        "d": "이미지를 만들거나 받는 코드가 같은 이름의 .json 을 함께 쓴다. 칸은 네 개다. factory(만든 곳), method(방식), date(날짜), rights(권리). 세 이미지는 generated, own, third-party 로 적히고, 기록을 쓰지 않은 pines.png 는 unknown 으로 읽힌다. 기록값은 데모용 예시다.",
         "code": "const rec = { factory: 'factory-a', method: '생성 모델, 프롬프트 기록', date: '2026-11-05', rights: 'generated' };\nfs.writeFileSync(file.replace('.png', '.json'), JSON.stringify(rec));\nconst rights = rec ? rec.rights : 'unknown';"
       },
       {
         "t": "장부에 한 줄씩 올린다",
-        "d": "사이드카가 있는 이미지가 장부 표(assets)에 올라간다. 표 맨 아래에는 코드가 센 값이 적힌다. 장부 3줄, 기록 없음 1장. pines.png 는 unknown 줄로 표에 남겨 둔다.",
+        "d": "사이드카가 있는 이미지는 장부 표(assets)에 올라간다. 카드 아래에는 코드가 센 값이 적힌다. 장부 3줄, 기록 없음 1장. pines.png 는 기록이 없다는 표시와 함께 표에 남겨 둔다.",
         "code": "const ledger = IMGS.filter((im) => im.rec);\nconst missing = IMGS.length - ledger.length;     // 기록 없는 장수"
       },
       {
         "t": "공개 영상에는 own 과 generated 만",
-        "d": "장부의 rights 가 own 이나 generated 인 이미지만 공개 영상 줄에 남기고 third-party 와 unknown 은 줄 밖으로 뺀다. 결과는 4장 중 2장 사용이다. licensed 는 사용 조건을 읽고 확인한 이미지에 쓰는 칸이지만 지금 규칙의 허용 목록에는 없어 같은 방식으로 빠진다.",
+        "d": "장부의 rights 가 own 이나 generated 인 이미지만 공개 영상에 남긴다. third-party 와 unknown 은 뺀다. 결과는 4장 중 2장 사용이다. licensed 는 사용 조건을 읽고 확인한 이미지에 쓰는 칸이다. 지금 규칙의 허용 목록에는 없어서 같은 방식으로 빠진다.",
         "code": "const ALLOWED = ['own', 'generated'];\nconst usable = (im) => ALLOWED.includes(im.rec ? im.rec.rights : 'unknown');\nconst inVideo = IMGS.filter(usable);              // 4장 중 2장"
       }
     ],
@@ -163,7 +163,7 @@
       },
       {
         "w": "장부",
-        "en": "Ledger, assets.json",
+        "en": "Ledger",
         "m": "사이드카를 모아 이미지마다 한 줄씩 권리를 적어 둔 표다. 공개 영상에 쓸지는 이 표를 보고 정한다.",
         "say": "장부에 올라간 이미지만 사용"
       },
@@ -187,7 +187,7 @@
       },
       {
         "w": "제3자와 라이선스",
-        "en": "third-party, licensed",
+        "en": "Third-party and licensed",
         "m": "third-party 는 남이 만든 이미지(영상 프레임, 받은 압축 파일, 스톡 등)이고, licensed 는 그중 사용 허락 조건을 읽고 확인한 것이다.",
         "say": "“third-party 는 공개 영상에서 제외해줘”"
       },

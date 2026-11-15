@@ -150,9 +150,9 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(vertical): 왼쪽 가장자리 세로쓰기, 번호는 muted, 지금 항목은 ink
-    Object.assign(lab.style, { position: 'absolute', left: '5px', top: '16px', writingMode: 'vertical-rl', letterSpacing: '.06em', whiteSpace: 'nowrap', lineHeight: '12px', zIndex: '4' });
+    Object.assign(lab.style, { position: 'absolute', left: '10px', top: '16px', writingMode: 'vertical-rl', letterSpacing: '.06em', whiteSpace: 'nowrap', lineHeight: '12px', zIndex: '4' });
     const idx = el('span', null, lab), pill = el('span', null, lab);
-    Object.assign(idx.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '8px' });
+    Object.assign(idx.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '10px' });
     Object.assign(pill.style, { color: PAL.ink, font: "600 12px/1 'IBM Plex Sans KR',sans-serif" });
     return { main, idx, pill };
   },
@@ -165,20 +165,35 @@ const demo = {
     x.save(); x.globalCompositeOperation = 'multiply'; x.globalAlpha = 0.07;
     for (let gx0 = 0; gx0 < 640; gx0 += 128) for (let gy0 = 0; gy0 < 360; gy0 += 128) x.drawImage(GRAIN, gx0, gy0, 128, 128);
     x.restore();
-    // 영상 화면
-    const VX = 30, VY = 16, VW = 288, VH = 162;
+    // 영상 화면: 왼쪽 위에 작게, 오른쪽에는 큰 숫자 세 줄만
+    const VX = 28, VY = 20, VW = 256, VH = 144;
     x.save(); x.shadowColor = 'rgba(15,42,34,.35)'; x.shadowBlur = 16; x.shadowOffsetY = 5; x.fillStyle = '#000'; x.beginPath(); x.roundRect(VX, VY, VW, VH, 8); x.fill(); x.restore();
     x.save(); x.beginPath(); x.roundRect(VX, VY, VW, VH, 8); x.clip();
     paint(x, tc, L, [2 * VW / 320, 2 * VH / 180, 2 * VX, 2 * VY], true);
     x.restore(); x.setTransform(2, 0, 0, 2, 0, 0);
     const [, z] = shotAt(tc, L);
     T(x, `줌 ${(z * 100).toFixed(0)}%`, VX + 10, VY + VH - 10, 11, 'rgba(255,255,255,.92)', 600, 'left', MONO);
-    // 프레임 차 막대
-    card(x, 30, 188, 288, 160);
-    T(x, '프레임 차 (10fps, 64×36 회색)', 40, 205, 11, PAL.muted, 500, 'left', MONO);
-    const BX = 40, BW = 268, BY = 316, BH = 88, bw = BW / d.length, sc = BH / 32;
+    // 오른쪽: 코드가 잰 값 세 줄(큰 숫자 + 한 줄 설명)
+    const r2 = summary(d, k), SX = 312;
+    const rows = [
+      ['정지 비율', `${(r2.still * 100).toFixed(0)}%`, r2.still <= FLOOR_STILL, `바닥 ${(FLOOR_STILL * 100).toFixed(0)}% 이하`],
+      ['10초당 컷', r2.cuts.toFixed(1), r2.cuts >= FLOOR_CUT, `바닥 ${FLOOR_CUT} 이상`],
+      ['움직임', r2.move.toFixed(2), r2.move >= FLOOR_MOVE, `바닥 ${FLOOR_MOVE} 이상`],
+    ];
+    rows.forEach(([name, val, ok, note], i) => {
+      const Y0 = 20 + i * 48, col = !done ? PAL.muted : ok ? ACC_INK : PAL.accent2;
+      if (i) { x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(SX, Y0 - 3.5); x.lineTo(612, Y0 - 3.5); x.stroke(); }
+      T(x, name, SX, Y0 + 14, 13, PAL.ink, 600);
+      T(x, `${note} · ${done ? (ok ? '바닥 통과' : '바닥 미달') : '재는 중'}`, SX, Y0 + 32, 10, col, 600);
+      T(x, val, 612, Y0 + 32, 30, col, 700, 'right', MONO);
+    });
+    // 아래: 프레임 차 막대 그래프(주인공)
+    card(x, 28, 176, 584, 168);
+    T(x, '프레임 차 · 이웃한 두 화면이 평균 얼마나 다른가', 42, 196, 12, PAL.ink, 600);
+    T(x, '회색 정지, 초록 움직임, 주황 컷', 598, 196, 10, PAL.muted, 500, 'right');
+    const BX = 42, BW = 556, BY = 328, BH = 110, bw = BW / d.length, sc = BH / 32;
     x.strokeStyle = PAL.accent2; x.lineWidth = 1; x.setLineDash([3, 3]); x.beginPath(); x.moveTo(BX, BY - CUT_T * sc + 0.5); x.lineTo(BX + BW, BY - CUT_T * sc + 0.5); x.stroke(); x.setLineDash([]);
-    T(x, `컷 ${CUT_T}`, BX + BW, BY - CUT_T * sc - 3, 10, PAL.accent2, 600, 'right', MONO);
+    T(x, `컷 ${CUT_T}`, BX + BW, BY - CUT_T * sc - 4, 10, PAL.accent2, 600, 'right', MONO);
     x.strokeStyle = PAL.line; x.beginPath(); x.moveTo(BX, BY + 0.5); x.lineTo(BX + BW, BY + 0.5); x.stroke();
     d.forEach((v, i) => {
       if (i >= k) return;
@@ -186,29 +201,6 @@ const demo = {
       x.fillStyle = v < STILL_T ? 'rgba(79,110,99,.55)' : v > CUT_T ? PAL.accent2 : PAL.accent;
       x.fillRect(BX + i * bw + 0.5, BY - h, Math.max(1.2, bw - 1), h);
     });
-    T(x, '회색 정지(0.5 미만), 초록 움직임, 주황 컷', 40, 337, 10, PAL.muted, 500, 'left', MONO);
-    // 오른쪽: 코드가 잰 값
-    const r2 = summary(d, k), SX = 336;
-    T(x, '이 장면에서 코드가 잰 값', SX, 28, 11, PAL.muted, 500, 'left', MONO);
-    const rows = [
-      ['정지 비율', `${(r2.still * 100).toFixed(0)}%`, r2.still / 1, FLOOR_STILL / 1, r2.still <= FLOOR_STILL, `성공 30편 바닥 ${(FLOOR_STILL * 100).toFixed(0)}% 이하`],
-      ['10초당 컷', r2.cuts.toFixed(1), r2.cuts / 12, FLOOR_CUT / 12, r2.cuts >= FLOOR_CUT, `성공 30편 바닥 ${FLOOR_CUT} 이상`],
-      ['움직임', r2.move.toFixed(2), r2.move / 12, FLOOR_MOVE / 12, r2.move >= FLOOR_MOVE, `성공 30편 바닥 ${FLOOR_MOVE} 이상`],
-    ];
-    rows.forEach(([name, val, frac, fl, ok, note], i) => {
-      const Y0 = 40 + i * 58, col = !done ? PAL.muted : ok ? ACC_INK : PAL.accent2;
-      card(x, SX, Y0, 284, 52);
-      T(x, name, SX + 12, Y0 + 18, 12, PAL.ink, 600);
-      T(x, val, SX + 272, Y0 + 24, 22, col, 700, 'right', MONO);
-      x.fillStyle = 'rgba(15,42,34,.1)'; x.beginPath(); x.roundRect(SX + 12, Y0 + 27, 160, 8, 3); x.fill();
-      x.fillStyle = col === PAL.muted ? PAL.muted : (ok ? PAL.accent : PAL.accent2); x.beginPath(); x.roundRect(SX + 12, Y0 + 27, Math.max(3, Math.min(1, frac) * 160), 8, 3); x.fill();
-      x.strokeStyle = PAL.ink; x.lineWidth = 1.6; x.beginPath(); x.moveTo(SX + 12 + fl * 160, Y0 + 24); x.lineTo(SX + 12 + fl * 160, Y0 + 37); x.stroke();
-      T(x, done ? (ok ? '바닥 통과' : '바닥 미달') : '재는 중', SX + 12, Y0 + 48, 10, col, 600);
-      T(x, note, SX + 272, Y0 + 48, 10, PAL.muted, 500, 'right');
-    });
-    card(x, SX, 218, 284, 130);
-    T(x, '시장 자(가전 쇼츠 30 대 12, 한국)', SX + 12, 236, 11.5, PAL.ink, 600);
-    ['성공작 바닥은 표본 30편의 최솟값이다.', '변별력 AUC: 컷 .71, 움직임 .68, 정지 .63', '(0.5 면 동전 던지기, 1.0 이면 완벽)', '우리 편 2개(42.5% 대 11.2%)는 참고치다.', '64px 자는 작은 움직임을 못 본다.'].forEach((ln, i) => T(x, ln, SX + 12, 256 + i * 17, 11, i === 0 ? PAL.ink : PAL.muted, 500));
     s.idx.textContent = '0' + Math.max(1, L); s.pill.textContent = STEP[Math.max(1, L) - 1];
   },
 };

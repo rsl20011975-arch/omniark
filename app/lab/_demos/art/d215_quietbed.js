@@ -125,8 +125,8 @@ const demo = {
   mount(sp) {
     const main = el('canvas', null, sp); main.width = 1280; main.height = 720;
     Object.assign(main.style, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
-    const tag = el('div', null, sp);   // 이름표(tag-tr): 오른쪽 위, 직각에 가까운 모서리, 왼쪽 3px accent 줄
-    Object.assign(tag.style, { position: 'absolute', right: '10px', top: '8px', padding: '6px 10px 6px 11px', background: PAL.surface, borderLeft: `3px solid ${PAL.accent}`, borderRadius: '2px', color: PAL.ink, font: "600 12px/1 'IBM Plex Sans KR',sans-serif", zIndex: '4', whiteSpace: 'nowrap' });
+    const tag = el('div', null, sp);   // 이름표: 오른쪽 위, 직각에 가까운 모서리, 왼쪽 3px accent 줄
+    Object.assign(tag.style, { position: 'absolute', right: '10px', top: '10px', padding: '.5em .85em .5em .9em', background: PAL.surface, borderLeft: `3px solid ${PAL.accent}`, borderRadius: '2px', color: PAL.ink, font: "600 12px/1 'IBM Plex Sans KR',sans-serif", zIndex: '4', whiteSpace: 'nowrap' });
     return { main, tag };
   },
   render(s, t, a, lv) {
@@ -135,13 +135,14 @@ const demo = {
     x.setTransform(2, 0, 0, 2, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over';
     const bg = x.createLinearGradient(0, 0, 0, 360); bg.addColorStop(0, PAL.bg0); bg.addColorStop(1, PAL.bg1); x.fillStyle = bg; x.fillRect(0, 0, 640, 360);
     const tc = Math.min(t, CLIP), upto = tc / CLIP, done = t >= CLIP - 0.05;
-    // 트랙: 해설, 음악(+이득 곡선), 현장음, 효과음, 믹스
-    const LX = 14, LW = 422;
+    T(x, '8초 쇼츠의 소리 네 겹', 14, 27, 13, PAL.ink, 700);
+    // 큰 요소: 소리 겹을 쌓은 파형 다섯 줄(해설, 음악+이득 곡선, 현장음, 효과음, 믹스)
+    const LX = 14, LW = 612;
     const rows = [
-      ['해설', S.v, 42, 0.5, PAL.accent, true], ['음악', D.mu, 66, 0.5, PAL.accent2, true], ['현장음', D.fi, 36, 0.5, PAL.muted, L >= 3],
-      ['효과음  (녹음 파일 자리)', D.sf, 34, 0.5, PAL.ink, L >= 3], ['믹스', D.out, 58, 1.0, PAL.accent, true],
+      ['해설', S.v, 32, 0.5, PAL.accent, true], ['음악', D.mu, 48, 0.5, PAL.accent2, true], ['현장음', D.fi, 26, 0.5, PAL.muted, L >= 3],
+      ['효과음 (녹음 파일 자리)', D.sf, 26, 0.5, PAL.ink, L >= 3], ['믹스', D.out, 40, 1.0, PAL.accent, true],
     ];
-    let Y = 40;
+    let Y = 38;
     rows.forEach(([name, arr, h, amp, col, on]) => {
       card(x, LX - 4, Y - 2, LW + 8, h + 4);
       x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(LX, Y + h / 2 + 0.5); x.lineTo(LX + LW, Y + h / 2 + 0.5); x.stroke();
@@ -150,47 +151,33 @@ const demo = {
         x.strokeStyle = PAL.ink; x.lineWidth = 1.2; x.setLineDash([2, 2]); x.beginPath();
         const n = Math.floor(LW * upto);
         for (let c = 0; c <= n; c += 1) { const gi = Math.min(N - 1, Math.floor(c / LW * N)), yy = Y + 6 + (-D.gM[gi] / 14) * (h - 12); c ? x.lineTo(LX + c, yy) : x.moveTo(LX, yy); }
-        x.stroke(); x.setLineDash([]); plate(x, '이득 0에서 −14 dB', LX + LW - 4, Y + 10, 9, PAL.ink, 'right');
+        x.stroke(); x.setLineDash([]); plate(x, '이득 0에서 −14 dB', LX + LW - 4, Y + 13, 10, PAL.ink, 'right');
       }
-      plate(x, name, LX + 4, Y + 10, 9.5, PAL.muted, 'left');
-      Y += h + 6;
+      plate(x, name, LX + 4, Y + 13, 10, PAL.muted, 'left');
+      Y += h + 5;
     });
-    // 시간축과 재생선
-    [0, 2, 4, 6, 8].forEach((v) => { const X = LX + v / CLIP * LW; T(x, v + 's', X, 311, 9.5, PAL.muted, 500, v === 0 ? 'left' : v === 8 ? 'right' : 'center', MONO); });
-    x.strokeStyle = PAL.accent2; x.lineWidth = 1.4; const PX = LX + upto * LW; x.beginPath(); x.moveTo(PX, 38); x.lineTo(PX, 301); x.stroke();
-    // 결정 대기 카드
-    card(x, LX - 4, 318, LW + 8, 38);
-    T(x, '영상마다 고름  쇼츠 공장 코드는 덕킹으로 깐다 [기록]', LX + 4, 332, 9.5, PAL.ink, 600);
-    T(x, '이미지→영상 연출 기준은 목소리가 있으면 배경음 없음 [지시]', LX + 4, 347, 9.5, PAL.muted, 500);
-    // 오른쪽 읽기값
-    const RX = 448, RW = 184, c0 = done ? PAL.ink : PAL.muted;
-    card(x, RX, 40, RW, 70);
-    T(x, '덕킹 값  [기록]', RX + 8, 54, 10, PAL.accent, 600);
-    const l1 = L < 2 ? `음악 ${MUSIC_VOL.toFixed(2)}배 고정, 덕킹 꺼짐` : `음악 ${MUSIC_VOL.toFixed(2)}배, 임계 ${THRESH}, 비율 ${RATIO}`;
-    const l2 = L < 2 ? '해설과 상관없이 같은 크기' : `어택 ${ATTACK}ms, 릴리스 ${RELEASE}ms`;
-    const l3 = L < 3 ? '현장음과 효과음은 아직 없음' : `현장음 ${FIELD_VOL.toFixed(2)}배, 비율 ${F_RATIO}, 릴리스 ${F_RELEASE}ms`;
-    T(x, l1, RX + 8, 69, 9.5, PAL.ink, 500, 'left', MONO); T(x, l2, RX + 8, 83, 9.5, PAL.ink, 500, 'left', MONO); T(x, l3, RX + 8, 97, 9, PAL.muted, 500, 'left', MONO);
-    card(x, RX, 116, RW, 94);
-    T(x, '말할 때 음악 − 해설', RX + 8, 130, 10, PAL.muted, 500);
-    T(x, done ? fmt(D.voiceGap) + ' dB' : '재는 중', RX + 8, 154, 22, c0, 700, 'left', MONO);
-    T(x, `음악이 가장 눌린 양  ${done ? fmt(D.maxCut) + ' dB' : '...'}`, RX + 8, 172, 9.5, c0, 500);
-    T(x, `첫 줄 끝에서 다음 줄 시작까지`, RX + 8, 187, 9, PAL.muted, 500);
-    T(x, `${done ? fmt(D.gapA) + ' → ' + fmt(D.gapB) + ' dB' : '...'}  (간격 ${(LINES[1][0] - LINES[0][1]).toFixed(2)}초)`, RX + 8, 201, 9.5, c0, 500, 'left', MONO);
-    card(x, RX, 216, RW, 140);
-    T(x, '믹스 근사 음량  (RMS, LUFS 아님)', RX + 8, 230, 9.5, PAL.muted, 500);
+    [0, 2, 4, 6, 8].forEach((v) => { const X = LX + v / CLIP * LW; T(x, v + 's', X, 254, 10, PAL.muted, 500, v === 0 ? 'left' : v === 8 ? 'right' : 'center', MONO); });
+    x.strokeStyle = PAL.accent2; x.lineWidth = 1.4; const PX = LX + upto * LW; x.beginPath(); x.moveTo(PX, 36); x.lineTo(PX, 244); x.stroke();
+    // 읽기값 두 칸
+    const c0 = done ? PAL.ink : PAL.muted, CY = 262, CH = 74;
+    card(x, 10, CY, 296, CH);
+    T(x, '말할 때 음악 − 해설', 18, CY + 17, 10, PAL.muted, 500);
+    T(x, done ? fmt(D.voiceGap) + ' dB' : '재는 중', 18, CY + 46, 24, c0, 700, 'left', MONO);
+    T(x, `음악이 가장 눌린 양  ${done ? fmt(D.maxCut) + ' dB' : '...'}`, 18, CY + 65, 10, c0, 500);
+    const RX = 316, RW = 314;
+    card(x, RX, CY, RW, CH);
+    T(x, '믹스 근사 음량 (RMS, LUFS 아님)', RX + 8, CY + 17, 10, PAL.muted, 500);
     const shown = done ? D.final : null;
-    T(x, shown == null ? '재는 중' : fmt(shown) + ' dB', RX + 8, 254, 22, c0, 700, 'left', MONO);
-    // 막대: -30 ~ -5, 목표 표시
-    const bx = RX + 8, bw = RW - 16, ax = (v) => bx + (Math.max(-30, Math.min(-5, v)) + 30) / 25 * bw;
-    x.fillStyle = 'rgba(232,241,234,.12)'; x.beginPath(); x.roundRect(bx, 264, bw, 7, 3); x.fill();
-    if (shown != null) { x.fillStyle = L >= 4 && !D.limited ? PAL.accent : PAL.accent2; x.beginPath(); x.roundRect(bx, 264, Math.max(3, ax(shown) - bx), 7, 3); x.fill(); }
-    x.strokeStyle = PAL.ink; x.lineWidth = 1.6; x.beginPath(); x.moveTo(ax(TARGET), 260); x.lineTo(ax(TARGET), 275); x.stroke();
-    T(x, `목표 ${TARGET}`, ax(TARGET), 286, 9, PAL.ink, 600, 'center', MONO);
+    T(x, shown == null ? '재는 중' : fmt(shown) + ' dB', RX + 8, CY + 46, 24, c0, 700, 'left', MONO);
+    const bx = RX + 150, bw = RW - 160, ax = (v) => bx + (Math.max(-30, Math.min(-5, v)) + 30) / 25 * bw;
+    x.fillStyle = 'rgba(232,241,234,.12)'; x.beginPath(); x.roundRect(bx, CY + 28, bw, 7, 3); x.fill();
+    if (shown != null) { x.fillStyle = L >= 4 && !D.limited ? PAL.accent : PAL.accent2; x.beginPath(); x.roundRect(bx, CY + 28, Math.max(3, ax(shown) - bx), 7, 3); x.fill(); }
+    x.strokeStyle = PAL.ink; x.lineWidth = 1.6; x.beginPath(); x.moveTo(ax(TARGET), CY + 24); x.lineTo(ax(TARGET), CY + 39); x.stroke();
+    T(x, `목표 ${TARGET}`, ax(TARGET), CY + 52, 10, PAL.ink, 600, 'center', MONO);
     const need = TARGET - D.meas;
-    T(x, L < 4 ? `맞추기 전, 목표까지 ${done ? fmt(need) + ' dB' : '...'}` : (D.limited ? '진폭 천장에 걸려 목표에 못 닿음' : '목표에 닿음'), RX + 8, 302, 9.5, L >= 4 && D.limited ? PAL.accent2 : PAL.ink, 600);
-    T(x, `최대 진폭 ${done ? D.pk.toFixed(3) : '...'}  천장 ${PEAK_CEIL}`, RX + 8, 317, 9.5, c0, 500, 'left', MONO);
-    T(x, '근사: K 가중과 게이팅 없음', RX + 8, 332, 9, PAL.muted, 500);
-    T(x, '시험 신호의 값이다', RX + 8, 346, 9, PAL.muted, 500);
+    T(x, !done ? '재는 중...' : L < 4 ? `맞추기 전, 목표까지 ${fmt(need)} dB` : (D.limited ? '진폭 천장에 걸려 목표에 못 닿음' : '목표에 닿음'), RX + 8, CY + 65, 10, L >= 4 && D.limited ? PAL.accent2 : PAL.ink, 600);
+    T(x, `최대 진폭 ${done ? D.pk.toFixed(3) : '...'} / 천장 ${PEAK_CEIL}`, RX + RW - 8, CY + 65, 10, c0, 500, 'right', MONO);
+    T(x, '영상마다 고름: 덕킹으로 깔기(제작 기록) / 목소리 있으면 배경음 없음(제작자 지시)', 14, 352, 10, PAL.muted, 500);
     s.tag.textContent = `0${L}  ${STEP[L - 1]}`;
   },
 };

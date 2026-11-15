@@ -130,12 +130,12 @@ const demo = {
     const bg = el('div', null, sp);
     box(bg, { position: 'absolute', inset: '0', background: `linear-gradient(160deg,${PAL.bg0},${PAL.bg1})` });
     const fr = el('div', null, sp);
-    box(fr, { position: 'absolute', left: '14px', top: '14px', width: '372px', height: '209px', borderRadius: '6px', overflow: 'hidden', boxShadow: `0 10px 24px rgba(0,0,0,.5), 0 0 0 1px ${PAL.line}` });
+    box(fr, { position: 'absolute', left: '14px', top: '14px', width: '372px', height: '209px', borderRadius: '10px', overflow: 'hidden', boxShadow: `0 10px 24px rgba(0,0,0,.5), 0 0 0 1px ${PAL.line}` });
     const cv = el('canvas', null, fr); cv.width = 1280; cv.height = 720; box(cv, { width: '372px', height: '209px', display: 'block' });
     const ov = el('canvas', null, sp); ov.width = 1280; ov.height = 720; box(ov, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
     const tx = (txt, o) => { const e = el('div', null, sp, txt); box(e, Object.assign({ position: 'absolute', whiteSpace: 'nowrap', font: "500 11px/1.2 'JetBrains Mono',monospace", color: PAL.muted }, o)); return e; };
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '24px', top: '24px', padding: '5px 11px', borderRadius: '999px', background: rgba(PAL.surface, .88), color: PAL.ink, border: `1px solid ${PAL.line}`, font: "600 12px/1 'IBM Plex Sans KR',sans-serif" });
+    box(pill, { position: 'absolute', left: '24px', top: '24px', padding: '.5em 1em', borderRadius: '999px', background: rgba(PAL.surface, .88), color: PAL.ink, border: `1px solid ${PAL.line}`, font: "600 12px/1 'IBM Plex Sans KR',sans-serif" });
     const t = {
       mlab: tx('프레임 차(0.1초 간격)', { left: '14px', top: '229px' }),
       mval: tx('', { left: '216px', top: '227px', font: "500 14px/1 'JetBrains Mono',monospace", color: PAL.ink }),
@@ -144,13 +144,13 @@ const demo = {
       slab: tx('0.1초 칸 24개 (회색 정지, 분홍 움직임)', { left: '14px', top: '277px' }),
       s1: tx('', { left: '14px', top: '312px', color: PAL.ink, font: "500 12px/1.3 'IBM Plex Sans KR',sans-serif" }),
       s2: tx('', { left: '14px', top: '330px', font: "500 11px/1.3 'IBM Plex Sans KR',sans-serif" }),
-      c1: tx('자가 보는 그림', { left: '402px', top: '82px' }),
-      c2: tx('변한 곳(×8)', { left: '514px', top: '82px' }),
-      thead: tx('속도별 정지 비율(이 장면의 계산)', { left: '402px', top: '106px', color: PAL.ink, font: "500 12px/1 'IBM Plex Sans KR',sans-serif" }),
+      c1: tx('자가 보는 64×36 그림', { left: '402px', top: '152px', font: "500 12px/1 'IBM Plex Sans KR',sans-serif" }),
+      hint: tx('프레임 차가 0.5보다 작으면 그 0.1초는 정지로 센다', { left: '402px', top: '184px', whiteSpace: 'normal', width: '210px', color: PAL.ink, font: "500 13px/1.5 'IBM Plex Sans KR',sans-serif" }),
+      thead: tx('속도별 정지 비율', { left: '402px', top: '16px', color: PAL.ink, font: "600 13px/1 'IBM Plex Sans KR',sans-serif" }),
       none: tx('재지 않은 상태: 이 속도가 정지로 읽히는지 아직 모른다', { left: '402px', top: '40px', whiteSpace: 'normal', width: '210px', font: "500 12px/1.5 'IBM Plex Sans KR',sans-serif" }),
-      tnote: tx('', { left: '402px', top: '307px', font: "500 10px/1.45 'IBM Plex Sans KR',sans-serif", whiteSpace: 'normal', width: '228px' }),
+      tnote: tx('', { left: '402px', top: '300px', font: "500 11px/1.5 'IBM Plex Sans KR',sans-serif", whiteSpace: 'normal', width: '218px' }),
     };
-    const rows = SPEEDS.map((v, i) => ({ lab: tx(v + '%/초', { left: '402px', top: (127 + i * 19) + 'px' }), val: tx('', { left: '598px', top: (127 + i * 19) + 'px', color: PAL.ink }) }));
+    const rows = SPEEDS.map((v, i) => ({ lab: tx(v + '%/초', { left: '402px', top: (44 + i * 25) + 'px', font: "500 12px/1.2 'JetBrains Mono',monospace" }), val: tx('', { left: '592px', top: (44 + i * 25) + 'px', color: PAL.ink, font: "500 12px/1.2 'JetBrains Mono',monospace" }) }));
     const th = document.createElement('canvas'); th.width = 64; th.height = 36;
     return { src, meter, cv, ctx: cv.getContext('2d'), ov: ov.getContext('2d'), pill, t, rows, th: th.getContext('2d') };
   },
@@ -168,20 +168,21 @@ const demo = {
     const diff = cur >= 0 ? m.df[cur] : 0, still = diff < STILL_THR;
     const measuring = L >= 1;
     set(s.t.none, !measuring);
-    ['mlab', 'mval', 'mver', 'mthr', 'c1', 'c2'].forEach((k) => set(s.t[k], measuring));
+    ['mlab', 'mval', 'mver', 'mthr'].forEach((k) => set(s.t[k], measuring));
+    const showPic = measuring && L < 4;
+    set(s.t.c1, showPic); set(s.t.hint, showPic);
     s.t.mval.textContent = cur >= 0 ? diff.toFixed(2) : '—';
     s.t.mver.textContent = cur >= 0 ? (still ? '정지' : '움직임') : ''; s.t.mver.style.color = still ? PAL.muted : PAL.accent;
-    if (measuring) {   // 자가 보는 64×36 그림과 변한 곳
-      const k1 = Math.max(0, cur + 1), im = s.th.createImageData(64, 36), im2 = s.th.createImageData(64, 36);
-      for (let i = 0; i < 2304; i++) {
-        const v = m.fr[k1][i], dv = Math.min(255, Math.abs(m.fr[k1][i] - m.fr[Math.max(0, k1 - 1)][i]) * 8);
-        im.data.set([v, v, v, 255], i * 4); im2.data.set([dv, dv * .5, dv * .7, 255], i * 4);
+    if (measuring) {   // 자가 보는 64×36 그림(4단계에서는 표가 그 자리를 쓴다)과 프레임 차 막대
+      if (showPic) {
+        const k1 = Math.max(0, cur + 1), im = s.th.createImageData(64, 36);
+        for (let i = 0; i < 2304; i++) { const v = m.fr[k1][i]; im.data.set([v, v, v, 255], i * 4); }
+        const tmp = document.createElement('canvas'); tmp.width = 64; tmp.height = 36; const tg = tmp.getContext('2d');
+        o.imageSmoothingEnabled = false;
+        tg.putImageData(im, 0, 0); o.drawImage(tmp, 804, 28, 416, 234);
+        o.strokeStyle = PAL.line; o.lineWidth = 2; o.strokeRect(804, 28, 416, 234);
       }
-      const tmp = document.createElement('canvas'); tmp.width = 64; tmp.height = 36; const tg = tmp.getContext('2d');
-      o.imageSmoothingEnabled = false;
-      tg.putImageData(im, 0, 0); o.drawImage(tmp, 804, 28, 208, 117);
-      tg.putImageData(im2, 0, 0); o.drawImage(tmp, 1028, 28, 208, 117);
-      o.strokeStyle = PAL.line; o.lineWidth = 2; o.strokeRect(804, 28, 208, 117); o.strokeRect(1028, 28, 208, 117);
+      o.strokeStyle = PAL.line; o.lineWidth = 2;
       const bw = 372 * 2, bx = 28, by = 496;   // 프레임 차 막대(0~5)
       o.fillStyle = rgba(PAL.surface, 1); o.fillRect(bx, by, bw, 20); o.strokeRect(bx, by, bw, 20);
       o.fillStyle = still ? PAL.muted : PAL.accent; o.fillRect(bx, by, Math.min(bw, diff / MAXD * bw), 20);
@@ -208,12 +209,12 @@ const demo = {
       const v = SPEEDS[i], d = s.meter(v).df, p = d.filter((x) => x < STILL_THR).length / N * 100;
       set(rw.lab, tab); set(rw.val, tab, p.toFixed(0) + '%');
       if (!tab) return;
-      const x0 = 444 * 2, w = 146 * 2, y = (127 + i * 19) * 2;
-      o.fillStyle = rgba(PAL.surface, 1); o.fillRect(x0, y - 2, w, 20);
-      o.fillStyle = v === SPEED ? PAL.accent : rgba(PAL.muted, .9); o.fillRect(x0, y - 2, p / 100 * w, 20);
-      if (REF[v]) { o.fillStyle = PAL.accent2; o.fillRect(x0 + REF[v][0] / 100 * w, y + 20, Math.max(4, (REF[v][1] - REF[v][0]) / 100 * w), 4); }
+      const x0 = 444 * 2, w = 140 * 2, y = (44 + i * 25) * 2;
+      o.fillStyle = rgba(PAL.surface, 1); o.fillRect(x0, y + 2, w, 22);
+      o.fillStyle = v === SPEED ? PAL.accent : rgba(PAL.muted, .9); o.fillRect(x0, y + 2, p / 100 * w, 22);
+      if (REF[v]) { o.fillStyle = PAL.accent2; o.fillRect(x0 + REF[v][0] / 100 * w, y + 26, Math.max(4, (REF[v][1] - REF[v][0]) / 100 * w), 5); }
     });
-    s.t.tnote.textContent = '금색 가는 선 = 제작자 기록(2%/초 54~71%, 6%/초 0~4%). 막대는 이 장면을 브라우저가 줄여 계산한 값이라 같지 않을 수 있다.';
+    s.t.tnote.textContent = '금색 선은 제작자 기록이다. 막대는 이 장면에서 직접 계산한 값이라 같지 않을 수 있다.';
   },
 };
 export default demo;

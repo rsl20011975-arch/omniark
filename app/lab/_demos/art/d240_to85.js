@@ -15,7 +15,7 @@ const DUR = 7.2;
 
 const PAL = { bg0: '#1b0e17', bg1: '#2b1424', ink: '#f6e9ee', muted: '#b095a3', accent: '#ff7aa8', accent2: '#ffd0a0', surface: '#26121f', line: 'rgba(246,233,238,.16)' };
 const GOOD = '#8fe0b2', MONO = '"JetBrains Mono", monospace', SANS = '"IBM Plex Sans KR", sans-serif', HAN = '"Black Han Sans", sans-serif';
-const FW = 320, FH = 180, FS = 1.125, FX = 42, FY = 52;
+const FW = 320, FH = 180, FS = 1.2, FX = 44, FY = 50;
 const PXCM = 160 / SHELF_CM, SHELF_TOP = 122, BASE = SHELF_TOP - 4, CX = FW / 2;
 const cm = (d) => d * 2.54 * 16 / Math.hypot(16, 9);
 const DW = Math.round(cm(TO_INCH) - cm(FROM_INCH)), DPCT = Math.round(((TO_INCH / FROM_INCH) ** 2 - 1) * 100), DIN = TO_INCH - FROM_INCH;
@@ -64,8 +64,8 @@ function tv(x, w, h) {
   x.beginPath(); x.moveTo(CX - w / 2, top); x.lineTo(CX - w / 2 + w * 0.42, top); x.lineTo(CX - w / 2 + w * 0.18, top + h); x.lineTo(CX - w / 2, top + h); x.fill(); x.restore();
 }
 function chip(x, s, X, Y, al) {   // 표시 글자: 어두운 반투명 바탕 위에 호박색
-  x.save(); x.globalAlpha = al; x.font = `700 9px ${MONO}`; const tw = x.measureText(s).width;
-  x.fillStyle = 'rgba(20,10,18,.82)'; rr(x, X - 3, Y - 10, tw + 6, 13, 2); x.fill(); T(x, s, X, Y, 9, PAL.accent2, 700, 'left', MONO); x.restore();
+  x.save(); x.globalAlpha = al; x.font = `700 10px ${MONO}`; const tw = x.measureText(s).width;
+  x.fillStyle = 'rgba(20,10,18,.82)'; rr(x, X - 3, Y - 11, tw + 6, 14, 2); x.fill(); T(x, s, X, Y, 10, PAL.accent2, 700, 'left', MONO); x.restore();
 }
 
 function scene(x, t, L, after) {   // 장면 좌표 320x180
@@ -102,7 +102,7 @@ function scene(x, t, L, after) {   // 장면 좌표 320x180
   }
   if (all || show(4)) {   // 숫자는 해당 대사에서 붙는다
     const wa = all ? 1 : E.outC(seg(t, W_AT, W_AT + 0.3)), aa = all ? 1 : E.outC(seg(t, SAY[3].key, SAY[3].key + 0.3)), dy = Math.max(15, top - 9);
-    if (wa > 0) { x.save(); x.globalAlpha = wa * vis; x.strokeStyle = PAL.accent2; x.lineWidth = 1; x.beginPath(); x.moveTo(CX - w / 2, dy); x.lineTo(CX + w / 2, dy); x.moveTo(CX - w / 2, dy - 3); x.lineTo(CX - w / 2, dy + 3); x.moveTo(CX + w / 2, dy - 3); x.lineTo(CX + w / 2, dy + 3); x.stroke(); x.restore(); x.save(); x.font = `700 9px ${MONO}`; const lw = x.measureText(`폭 +${DW}cm`).width; x.restore(); chip(x, `폭 +${DW}cm`, CX - lw / 2, dy - 3, wa * vis); }
+    if (wa > 0) { x.save(); x.globalAlpha = wa * vis; x.strokeStyle = PAL.accent2; x.lineWidth = 1; x.beginPath(); x.moveTo(CX - w / 2, dy); x.lineTo(CX + w / 2, dy); x.moveTo(CX - w / 2, dy - 3); x.lineTo(CX - w / 2, dy + 3); x.moveTo(CX + w / 2, dy - 3); x.lineTo(CX + w / 2, dy + 3); x.stroke(); x.restore(); x.save(); x.font = `700 10px ${MONO}`; const lw = x.measureText(`폭 +${DW}cm`).width; x.restore(); chip(x, `폭 +${DW}cm`, CX - lw / 2, dy - 3, wa * vis); }
     if (aa > 0) chip(x, `면적 +${DPCT}%`, CX - w / 2 + 6, top + 16, aa * vis);
   }
 }
@@ -127,7 +127,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const lab = el('div', null, sp);   // 이름표(vertical): 왼쪽 가장자리 세로쓰기, 지금 칸만 밝게
-    Object.assign(lab.style, { position: 'absolute', left: '8px', top: '10px', zIndex: '4', writingMode: 'vertical-rl', font: "500 12px/1 'IBM Plex Sans KR',sans-serif", letterSpacing: '0.16em', whiteSpace: 'nowrap', display: 'flex', gap: '12px', flexDirection: 'row' });
+    Object.assign(lab.style, { position: 'absolute', left: '10px', top: '10px', zIndex: '4', writingMode: 'vertical-rl', font: "500 12px/1 'IBM Plex Sans KR',sans-serif", letterSpacing: '0.16em', whiteSpace: 'nowrap', display: 'flex', gap: '12px', flexDirection: 'row' });
     const items = SAY.map((s) => { const e = el('span', null, lab); e.textContent = s.name; return e; });
     return { main, items };
   },
@@ -143,38 +143,37 @@ const demo = {
     layers(x, FX, FY, fw, fh, 6, '#241829', [[8, 7, 0.14], [4, 3, 0.2], [1, 1, 0.3]]);
     x.save(); rr(x, FX, FY, fw, fh, 6); x.clip(); x.translate(FX, FY); x.scale(FS, FS); scene(x, t, L, after); x.restore();
     x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, FX + 0.5, FY + 0.5, fw - 1, fh - 1, 6); x.stroke();
-    T(x, after ? '같은 설명 한 단위, 대사 구절마다 한 칸' : '막연하게 시킨 결과: 표시가 처음부터 전부', FX, FY - 8, 10.5, PAL.muted, 500, 'left', MONO);
-    // 오른쪽: 칸별 말과 도착
-    const RX = 424, RW = 196, rows = modelRows(after, L);
-    layers(x, RX, FY, RW, 154, 6, PAL.surface, [[2, 1, 0.2]]); x.strokeStyle = PAL.line; rr(x, RX + 0.5, FY + 0.5, RW - 1, 153, 6); x.stroke();
-    T(x, '칸', RX + 10, FY + 16, 10, PAL.muted, 600); T(x, '말 끝', RX + 100, FY + 16, 10, PAL.muted, 600, 'right', MONO); T(x, '도착', RX + 136, FY + 16, 10, PAL.muted, 600, 'right', MONO); T(x, '오차', RX + RW - 10, FY + 16, 10, PAL.muted, 600, 'right', MONO);
+    T(x, after ? '같은 설명 한 단위, 대사 구절마다 한 칸' : '막연하게 시킨 결과: 표시가 처음부터 전부', FX, FY - 9, 11, PAL.muted, 500, 'left', MONO);
+    // 오른쪽: 칸별 도착과 오차
+    const RX = 440, RW = 180, rows = modelRows(after, L);
+    layers(x, RX, FY, RW, 156, 6, PAL.surface, [[2, 1, 0.2]]); x.strokeStyle = PAL.line; rr(x, RX + 0.5, FY + 0.5, RW - 1, 155, 6); x.stroke();
+    T(x, '칸', RX + 12, FY + 18, 11, PAL.muted, 600); T(x, '도착', RX + 118, FY + 18, 11, PAL.muted, 600, 'right', MONO); T(x, '오차', RX + RW - 12, FY + 18, 11, PAL.muted, 600, 'right', MONO);
     rows.forEach((r2, i) => {
-      const Y = FY + 38 + i * 26, cur = r2.on, ok = Math.abs(r2.err) <= KEY_TOL, col = !cur ? PAL.muted : ok ? GOOD : PAL.accent;
-      x.fillStyle = PAL.line; x.fillRect(RX + 8, Y - 17, RW - 16, 1);
-      T(x, r2.s.name, RX + 10, Y, 11, cur ? PAL.ink : PAL.muted, 600);
-      T(x, r2.s.key.toFixed(1), RX + 100, Y, 10.5, PAL.muted, 500, 'right', MONO);
-      T(x, !cur ? '—' : Number.isFinite(r2.arr) ? r2.arr.toFixed(1) : '없음', RX + 136, Y, 10.5, col, 600, 'right', MONO);
-      T(x, !cur ? '' : Number.isFinite(r2.arr) ? `${r2.err >= 0 ? '+' : ''}${r2.err.toFixed(1)}` : '', RX + RW - 10, Y, 10.5, col, 700, 'right', MONO);
+      const Y = FY + 42 + i * 27, cur = r2.on, ok = Math.abs(r2.err) <= KEY_TOL, col = !cur ? PAL.muted : ok ? GOOD : PAL.accent;
+      x.fillStyle = PAL.line; x.fillRect(RX + 8, Y - 18, RW - 16, 1);
+      T(x, r2.s.name, RX + 12, Y, 12, cur ? PAL.ink : PAL.muted, 600);
+      T(x, !cur ? '—' : Number.isFinite(r2.arr) ? r2.arr.toFixed(1) : '없음', RX + 118, Y, 12, col, 600, 'right', MONO);
+      T(x, !cur ? '' : Number.isFinite(r2.arr) ? `${r2.err >= 0 ? '+' : ''}${r2.err.toFixed(1)}` : '', RX + RW - 12, Y, 12, col, 700, 'right', MONO);
     });
     const early_n = early(after, L), ear = early_n > 0;
-    T(x, `허용 ±${KEY_TOL}초 [기록 목표]`, RX, FY + 172, 10, PAL.muted, 500, 'left', MONO);
-    T(x, `말보다 먼저 뜬 숫자 ${early_n}개`, RX, FY + 188, 11, ear ? PAL.accent : GOOD, 700);
+    T(x, `허용 ±${KEY_TOL}초`, RX, FY + 176, 11, PAL.muted, 500, 'left', MONO);
+    T(x, `말보다 먼저 뜬 숫자 ${early_n}개`, RX, FY + 194, 12, ear ? PAL.accent : GOOD, 700);
     // 아래: 대사 구절 시각표와 동작 막대
-    const AX = 42, AW = 576, PX = AW / DUR, BY = 276;
+    const AX = 44, AW = 570, PX = AW / DUR, BY = 278;
     SAY.forEach((s2, i) => {
       const X0 = AX + s2.t0 * PX, W0 = (s2.key - s2.t0) * PX;
-      x.fillStyle = i % 2 ? 'rgba(255,122,168,.20)' : 'rgba(255,208,160,.16)'; rr(x, X0, BY, W0 - 1, 30, 3); x.fill();
-      s2.say.split('\n').forEach((ln, j) => T(x, ln, X0 + W0 / 2, BY + 12 + j * 11, 9.5, PAL.ink, 500, 'center'));
+      x.fillStyle = i % 2 ? 'rgba(255,122,168,.20)' : 'rgba(255,208,160,.16)'; rr(x, X0, BY, W0 - 1, 31, 3); x.fill();
+      s2.say.split('\n').forEach((ln, j) => T(x, ln, X0 + W0 / 2, BY + 12 + j * 12, 10, PAL.ink, 500, 'center'));
     });
     rows.forEach((r2, i) => {
-      if (!r2.on) return; const yb = BY + 38 + i * 6, ok = Math.abs(r2.err) <= KEY_TOL, col = ok ? GOOD : PAL.accent, x0 = AX + r2.st * PX, x1 = AX + Math.min(r2.arr, DUR) * PX;
+      if (!r2.on) return; const yb = BY + 40 + i * 6, ok = Math.abs(r2.err) <= KEY_TOL, col = ok ? GOOD : PAL.accent, x0 = AX + r2.st * PX, x1 = AX + Math.min(r2.arr, DUR) * PX;
       x.fillStyle = 'rgba(246,233,238,.28)'; rr(x, x0, yb, Math.max(2, x1 - x0), 3, 1.5); x.fill();
       if (Number.isFinite(r2.arr)) { x.fillStyle = col; x.beginPath(); x.moveTo(x1, yb - 2); x.lineTo(x1 + 3.5, yb + 1.5); x.lineTo(x1, yb + 5); x.lineTo(x1 - 3.5, yb + 1.5); x.fill(); }
       x.fillStyle = PAL.ink; x.fillRect(AX + SAY[i].key * PX - 0.5, yb - 1, 1, 5);
     });
-    for (let sec = 0; sec <= 7; sec++) T(x, `${sec}`, AX + sec * PX, 346, 9.5, PAL.muted, 500, 'center', MONO);
-    T(x, '초', AX + DUR * PX + 6, 346, 9.5, PAL.muted, 500, 'left', MONO);
-    x.fillStyle = PAL.accent; x.fillRect(AX + Math.min(t, DUR) * PX - 0.75, BY - 6, 1.5, 62);
+    for (let sec = 0; sec <= 7; sec++) T(x, `${sec}`, AX + sec * PX, 348, 10, PAL.muted, 500, 'center', MONO);
+    T(x, '초', AX + DUR * PX + 6, 348, 10, PAL.muted, 500, 'left', MONO);
+    x.fillStyle = PAL.accent; x.fillRect(AX + Math.min(t, DUR) * PX - 0.75, BY - 6, 1.5, 64);
     const cur = SAY.reduce((p, s2, i) => (t >= s2.t0 ? i : p), -1);
     s.items.forEach((e, i) => { e.style.color = i === cur ? PAL.ink : PAL.muted; e.style.fontWeight = i === cur ? '700' : '500'; });
   },

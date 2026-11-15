@@ -19,7 +19,7 @@ const SLIDE_LIMIT = 20;        // 해설 슬라이드형 구간 허용 비율(%)
 const PAL = { bg0: '#f2f2f0', bg1: '#e4e4e1', ink: '#111111', muted: '#666666', accent: '#ff3b1f', accent2: '#111111', surface: '#ffffff', line: 'rgba(17,17,17,.16)' };
 const BAD = '#b3200a', GOOD = '#14683d', MUTED2 = '#555553';   // 작은 글자용 짙은 색(바탕 대비 5 이상)
 const MONO = '"JetBrains Mono", monospace', SANS = '"IBM Plex Sans KR", sans-serif', HAN = '"Black Han Sans", sans-serif';
-const FW = 320, FH = 180, FS = 1.1, FX = 20, FY = 60;   // 영상 틀의 장면 좌표(320x180)와 무대 배율
+const FW = 320, FH = 180, FS = 1.25, FX = 20, FY = 56;   // 영상 틀의 장면 좌표(320x180)와 무대 배율
 const MW = 64, MH = 36, MFPS = 10, MSEC = 6;            // 프레임 차 자: 가로 64px 회색, 초당 10장, 6초 창
 const PXCM = 160 / SHELF_CM, SHELF_TOP = 122;
 const SUBS = ['65인치와 85인치는 20인치 차이인데', '화면 면적은 약 71% 커집니다', '그래서 인치 숫자만 보고 주문하면'];
@@ -99,8 +99,8 @@ function room(x) {
 function dimLine(x, x0, x1, y, label, a) {
   x.save(); x.globalAlpha = a; x.strokeStyle = PAL.accent; x.fillStyle = PAL.accent; x.lineWidth = 1;
   x.beginPath(); x.moveTo(x0, y); x.lineTo(x1, y); x.moveTo(x0, y - 3); x.lineTo(x0, y + 3); x.moveTo(x1, y - 3); x.lineTo(x1, y + 3); x.stroke();
-  x.font = `700 9px ${MONO}`; const tw = TXT ? x.measureText(label).width : 60; x.fillStyle = 'rgba(27,29,34,.82)'; rr(x, (x0 + x1) / 2 - tw / 2 - 3, y - 14, tw + 6, 11, 2); x.fill();
-  T(x, label, (x0 + x1) / 2, y - 5, 9, '#ff9a86', 700, 'center', MONO); x.restore();
+  x.font = `700 10px ${MONO}`; const tw = TXT ? x.measureText(label).width : 60; x.fillStyle = 'rgba(27,29,34,.82)'; rr(x, (x0 + x1) / 2 - tw / 2 - 3, y - 16, tw + 6, 13, 2); x.fill();
+  T(x, label, (x0 + x1) / 2, y - 6, 10, '#ff9a86', 700, 'center', MONO); x.restore();
 }
 function scene(x, t, L, full) {    // 장면 좌표 320x180 에 그린다. 바깥에서 배율과 클립을 건다
   if (L === 0) {
@@ -118,8 +118,8 @@ function scene(x, t, L, full) {    // 장면 좌표 320x180 에 그린다. 바�
     }
     if (L >= 2 && s.k > 0.02) { x.save(); x.strokeStyle = 'rgba(241,241,238,.75)'; x.setLineDash([3, 2]); x.lineWidth = 1; x.strokeRect(cx - fromW / 2 + 0.5, top0 + 0.5, fromW - 1, fromH - 1); x.restore(); }
     if (L >= 3 && pop > 0) {
-      const top = base - 4 - s.h; dimLine(x, cx - s.w / 2, cx + s.w / 2, Math.max(15, top - 8), `폭 ${Math.round(cm(FROM_INCH))} → ${Math.round(cm(TO_INCH))}cm`, pop);
-      x.save(); x.globalAlpha = pop; T(x, `면적 ×${((TO_INCH / FROM_INCH) ** 2).toFixed(2)}`, cx - s.w / 2 + 6, top + 14, 10, '#ffd9d2', 700, 'left', MONO); x.restore();
+      const top = base - 4 - s.h; dimLine(x, cx - s.w / 2, cx + s.w / 2, Math.max(19, top - 8), `폭 ${Math.round(cm(FROM_INCH))} → ${Math.round(cm(TO_INCH))}cm`, pop);
+      x.save(); x.globalAlpha = pop; T(x, `면적 ×${((TO_INCH / FROM_INCH) ** 2).toFixed(2)}`, cx - s.w / 2 + 6, Math.max(top + 14, 36), 10, '#ffd9d2', 700, 'left', MONO); x.restore();
     }
   }
   const sub = SUBS[Math.floor(t / 2) % SUBS.length];   // 자막은 어느 방식에서나 같다
@@ -153,7 +153,7 @@ const demo = {
     const mc = document.createElement('canvas'); mc.width = MW; mc.height = MH;
     const M = [0, 1, 2, 3, 4].map((L) => measure(Math.min(L, 3), mc));   // 4단계의 영상 틀은 3단계와 같다
     const tag = el('div', null, sp);   // 이름표(tag-tr): 오른쪽 위, 직각에 가까운 모서리, 왼쪽 3px 강조 줄
-    Object.assign(tag.style, { position: 'absolute', right: '14px', top: '12px', zIndex: '4', padding: '5px 10px 5px 9px', borderRadius: '2px', borderLeft: `3px solid ${PAL.accent}`, background: PAL.surface, color: PAL.ink, font: "600 12px/1.2 'IBM Plex Sans KR',sans-serif", whiteSpace: 'nowrap', boxShadow: '0 1px 0 rgba(17,17,17,.14)' });
+    Object.assign(tag.style, { position: 'absolute', right: '14px', top: '12px', zIndex: '4', padding: '.4em .8em .4em .7em', borderRadius: '2px', borderLeft: `3px solid ${PAL.accent}`, background: PAL.surface, color: PAL.ink, font: "600 12px/1.2 'IBM Plex Sans KR',sans-serif", whiteSpace: 'nowrap', boxShadow: '0 1px 0 rgba(17,17,17,.14)' });
     return { main, tag, M };
   },
   render(s, t, a, lv) {
@@ -167,26 +167,23 @@ const demo = {
     const fw = FW * FS, fh = FH * FS;
     layers(x, FX, FY, fw, fh, 6, '#1b1d22', [[8, 7, 0.04], [4, 3, 0.07], [1, 1, 0.12]]);
     x.save(); rr(x, FX, FY, fw, fh, 6); x.clip(); x.translate(FX, FY); x.scale(FS, FS); scene(x, t, L, true); x.restore();
-    T(x, L === 0 ? '영상 한 장면(6초)  제목+카드+자막, 위에 장식 움직임' : '영상 한 장면(6초)  같은 자막, 바뀐 것은 화면', FX, FY - 7, 10, MUTED2, 500, 'left', MONO);
-    // 오른쪽: 코드가 세는 숫자 넷
+    T(x, L === 0 ? '영상 한 장면(6초)  제목+카드+자막, 위에 장식 움직임' : '영상 한 장면(6초)  같은 자막, 바뀐 것은 화면', FX, FY - 8, 11, MUTED2, 500, 'left', MONO);
+    // 오른쪽: 코드가 세는 숫자 넷(카드 없이 줄과 큰 숫자)
     const m = s.M[L], ch = qtyChanged(L), na = newArea(L), sh = sharePct(L >= 4 ? STRIP.after : STRIP.before);
-    const RX = 396, RW = 224, rows = [
-      ['프레임 차 (10fps·64px 회색)', m.mean.toFixed(2), `저변화(<${STILL_BELOW}) ${m.low.toFixed(0)}%`, PAL.ink],
+    const RX = 442, RW = 178, rows = [
+      ['프레임 차', m.mean.toFixed(2), `저변화 ${m.low.toFixed(0)}%`, PAL.ink],
       ['값이 달라진 설명 항목', `${ch}/3`, '대각선, 폭, 면적', ch === 3 ? GOOD : BAD],
-      ['글자 없이 보이는 변화', `${na.toFixed(1)}%`, '틀 대비 새로 덮인 면적', na > 0 ? GOOD : BAD],
-      ['해설 슬라이드형 구간', `${sh.toFixed(0)}%`, `허용 ${SLIDE_LIMIT}% 이하 [추정]`, sh <= SLIDE_LIMIT ? GOOD : BAD],
+      ['글자 없이 보이는 변화', `${na.toFixed(1)}%`, '새로 덮인 면적', na > 0 ? GOOD : BAD],
+      ['해설 슬라이드형 구간', `${sh.toFixed(0)}%`, `허용 ${SLIDE_LIMIT}% 이하`, sh <= SLIDE_LIMIT ? GOOD : BAD],
     ];
     rows.forEach(([nm, val, note, col], i) => {
-      const Y = FY + i * 50;
-      layers(x, RX, Y, RW, 44, 6, PAL.surface, [[2, 1, 0.07]]); x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, RX + 0.5, Y + 0.5, RW - 1, 43, 6); x.stroke();
-      T(x, nm, RX + 10, Y + 15, 10.5, MUTED2, 600); T(x, note, RX + 10, Y + 34, 10, MUTED2, 500, 'left', MONO); T(x, val, RX + RW - 10, Y + 36, 24, col, 400, 'right', HAN);
+      const Y = FY + i * 56;
+      x.fillStyle = PAL.line; x.fillRect(RX, Y, RW, 1);
+      T(x, nm, RX, Y + 18, 12, MUTED2, 600); T(x, note, RX, Y + 46, 11, MUTED2, 500, 'left', MONO); T(x, val, RX + RW, Y + 48, 26, col, 400, 'right', HAN);
     });
-    // 해설 슬라이드형 비율 게이지(눈금은 허용선)
-    const gX = RX + 10, gY = FY + 3 * 50 + 39, gW = RW - 20; x.fillStyle = 'rgba(17,17,17,.12)'; rr(x, gX, gY, gW, 3, 1.5); x.fill();
-    x.fillStyle = sh <= SLIDE_LIMIT ? GOOD : BAD; rr(x, gX, gY, Math.max(2, gW * sh / 100), 3, 1.5); x.fill(); x.fillStyle = PAL.ink; x.fillRect(gX + gW * SLIDE_LIMIT / 100 - 0.5, gY - 2, 1, 7);
     // 아래: 한 편의 구간표
-    const SX = 20, SW = 600, SY = 292, k = L >= 4 ? E.inOutC(seg(t, 0.2, 1.4)) : 0;
-    T(x, `한 편 ${TOTAL_S}초(7:23)의 구간표. 칸 위치는 예시이고 슬라이드형 합계만 기록값`, SX, SY - 8, 10, MUTED2, 500, 'left', MONO);
+    const SX = 20, SW = 600, SY = 310, k = L >= 4 ? E.inOutC(seg(t, 0.2, 1.4)) : 0;
+    T(x, `한 편 ${TOTAL_S}초(7:23)의 구간표. 칸 위치는 예시이고 슬라이드형 합계만 기록값`, SX, SY - 9, 11, MUTED2, 500, 'left', MONO);
     [[STRIP.before, 1 - k], [STRIP.after, k]].forEach(([arr, al]) => {
       if (al <= 0.01) return; let p = SX; x.save(); x.globalAlpha = al;
       arr.forEach(([kind, sec]) => { const w = SW * sec / TOTAL_S; x.fillStyle = kind === 'slide' ? '#2a2c31' : PAL.accent; x.fillRect(p, SY, Math.max(0, w - 1), 22); p += w; });

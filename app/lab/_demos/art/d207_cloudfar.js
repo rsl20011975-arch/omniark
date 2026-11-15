@@ -219,7 +219,7 @@ const demo = {
     const cap = el('div', null, sp, '');   // 이름표(caption-bl): 왼쪽 아래, 배경 없음, 위에 1px 선
     box(cap, { position: 'absolute', left: '12px', top: '332px', height: '27px', width: '616px', borderTop: `1px solid ${PAL.line}`, font: "400 12px/27px 'JetBrains Mono','IBM Plex Sans KR',monospace", color: PAL.muted, whiteSpace: 'nowrap', overflow: 'hidden' });
     const hud = el('div', null, sp);
-    box(hud, { position: 'absolute', left: '10px', top: '10px', padding: '6px 9px', borderRadius: '3px', background: 'rgba(255,255,255,.9)', border: `1px solid ${PAL.line}`, font: "500 11px/1.55 'JetBrains Mono',monospace", color: PAL.ink, whiteSpace: 'pre' });
+    box(hud, { position: 'absolute', left: '10px', top: '10px', padding: '10px 12px', borderRadius: '3px', background: 'rgba(255,255,255,.9)', border: `1px solid ${PAL.line}`, font: "500 11px/1.55 'JetBrains Mono',monospace", color: PAL.ink, whiteSpace: 'pre' });
     return Object.assign(S, { ctx, hud, cap });
   },
   render(s, t, a, lv) {

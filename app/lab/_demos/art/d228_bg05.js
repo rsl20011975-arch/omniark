@@ -19,12 +19,6 @@ const HERO = 170, ROWS = [220, 294, 368], CH = 62, CW = 79, PAGE_H = 454, MAXSC 
 const NAMES = ['식빵', '바게트', '크루아상', '단팥빵', '소금빵', '쿠키'], PRICE = ['4,500', '3,800', '3,200', '2,500', '2,800', '2,000'];
 const CARDS = NAMES.map((n, i) => ({ n, p: PRICE[i], col: i % 2, x: 12 + (i % 2) * (CW + 8), y: ROWS[(i / 2) | 0] }));
 const STEP = ['animation 만 지워서 카드가 투명', '끝 상태로 바로 보이기', '큰 움직임·반복 움직임 끄기', '대체: 이동 없이 짧은 페이드'];
-const NOTE = [
-  ['시작값이 투명이라 animation 만 지우면', '투명한 채 남는다. 내용이 안 보이면', '스크롤 편 합격선 실패 [지시]'],
-  ['reduce 블록 안에서 opacity 1,', 'translate 0 인 끝 상태를 직접 적는다', '이 사이트 원본 CSS 도 같은 방식 [기록]'],
-  [`배경 속도 ${PARALLAX_ON}배 → ${PARALLAX_REDUCED}배(글자와 같은 속도)`, '반복 화살표는 animation: none', 'MDN: 큰 물체의 이동은 전정 자극 [공식]'],
-  [`떠오르기 ${RISE}px 대신 불투명도 ${FADE_S}초`, 'MDN 예시도 이동을 불투명도로 바꾼다 [공식]', '스크롤 편 합격선(바로 다 보임)과 달라 선택 사항'],
-];
 
 const scrollAt = (t) => MAXSC * E.inOutC(seg(t, 1.0, 4.6));
 // 카드가 화면 안에 들어오는 시각(리빌이 시작되는 시각)을 스크롤 곡선에서 미리 구한다
@@ -69,7 +63,7 @@ function drawCard(x, c, s) {
   x.fillStyle = '#fff'; rr(x, 0, 0, CW, CH, 8); x.fill();
   const g = x.createLinearGradient(0, 0, 0, 30); g.addColorStop(0, '#e8c28a'); g.addColorStop(1, '#c98f55');
   x.save(); rr(x, 0, 0, CW, CH, 8); x.clip(); x.fillStyle = g; x.fillRect(0, 0, CW, 30); x.fillStyle = 'rgba(255,255,255,.28)'; x.beginPath(); x.ellipse(CW * 0.32, 12, 18, 9, 0, 0, 7); x.fill(); x.restore();
-  T(x, c.n, 8, 46, 11, '#1d1a16', 700); T(x, `${c.p}원`, 8, 58, 9.5, '#6b5a4a', 600, 'left', MONO);
+  T(x, c.n, 8, 46, 11, '#1d1a16', 700); T(x, `${c.p}원`, 8, 58, 10, '#6b5a4a', 600, 'left', MONO);
   x.restore();
 }
 function drawPage(x, X, L, t) {
@@ -98,7 +92,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const tag = el('div', null, sp);
-    Object.assign(tag.style, { position: 'absolute', right: '12px', top: '10px', padding: '6px 10px 6px 9px', borderRadius: '2px', background: PAL.surface, color: PAL.ink, borderLeft: `3px solid ${PAL.accent}`, boxShadow: `inset 0 0 0 1px ${PAL.line}, 0 4px 12px rgba(40,10,4,.35)`, font: "600 12px/1.2 'IBM Plex Sans KR',sans-serif", whiteSpace: 'nowrap', zIndex: '4' });
+    Object.assign(tag.style, { position: 'absolute', right: '12px', top: '10px', padding: '.55em .8em .55em .75em', borderRadius: '2px', background: PAL.surface, color: PAL.ink, borderLeft: `3px solid ${PAL.accent}`, boxShadow: `inset 0 0 0 1px ${PAL.line}, 0 4px 12px rgba(40,10,4,.35)`, font: "600 12px/1.2 'IBM Plex Sans KR',sans-serif", whiteSpace: 'nowrap', zIndex: '4' });
     return { main, tag };
   },
   render(s, t, a, lv) {
@@ -110,28 +104,23 @@ const demo = {
     x.save(); x.globalCompositeOperation = 'overlay'; x.globalAlpha = 0.1;
     for (let gx0 = 0; gx0 < 640; gx0 += 128) for (let gy0 = 0; gy0 < 360; gy0 += 128) x.drawImage(GRAIN, gx0, gy0, 128, 128);
     x.restore();
-    T(x, '움직임 줄이기: 꺼짐', FX[0], 34, 12, PAL.ink, 700); T(x, '켜짐', FX[1], 34, 12, PAL.accent, 700);
-    T(x, '(기본 모션)', FX[0] + 98, 34, 10, PAL.muted, 500);
+    T(x, '움직임 줄이기 꺼짐', FX[0], 34, 12, PAL.ink, 700); T(x, '움직임 줄이기 켜짐', FX[1], 34, 12, PAL.accent, 700);
     drawPage(x, FX[0], -1, t); drawPage(x, FX[1], L, t);
 
     // 두 화면을 같은 자로 잰 값(시간을 훑어 코드가 계산)
-    const m0 = measure(-1), m1 = measure(L), PX = 412, PW = 216;
-    card(x, PX, 44, PW, 146);
-    T(x, '같은 자로 잰 값', PX + 12, 62, 11, PAL.ink, 700);
-    T(x, '꺼짐', PX + 146, 62, 9.5, PAL.muted, 600, 'right'); T(x, '켜짐', PX + PW - 12, 62, 9.5, PAL.accent, 700, 'right');
-    const rows = [['끝에 보이는 카드', `${m0.seen}/6`, `${m1.seen}/6`, m1.seen < 6], ['카드 이동 최대(px)', `${m0.move.toFixed(0)}`, `${m1.move.toFixed(0)}`, false], ['배경이 따로 움직임(px)', `${m0.bg.toFixed(0)}`, `${m1.bg.toFixed(0)}`, false], ['반복 움직임(개)', `${m0.loop}`, `${m1.loop}`, false]];
+    const m0 = measure(-1), m1 = measure(L), PX = 410, PW = 220, C0 = PX + 150, C1 = PX + PW - 14;
+    card(x, PX, 56, PW, 236);
+    T(x, '같은 자로 잰 값', PX + 14, 84, 14, PAL.ink, 700);
+    T(x, '꺼짐', C0, 108, 11, PAL.muted, 600, 'right'); T(x, '켜짐', C1, 108, 11, PAL.accent, 700, 'right');
+    const rows = [['끝에 보이는 카드', `${m0.seen}/6`, `${m1.seen}/6`, m1.seen < 6], ['카드 이동 최대', `${m0.move.toFixed(0)}px`, `${m1.move.toFixed(0)}px`, false], ['배경 따로 움직임', `${m0.bg.toFixed(0)}px`, `${m1.bg.toFixed(0)}px`, false], ['반복 움직임', `${m0.loop}개`, `${m1.loop}개`, false]];
     rows.forEach(([k, v0, v1, bad], i) => {
-      const Y = 82 + i * 19; T(x, k, PX + 12, Y, 10, PAL.ink, 600);
-      T(x, v0, PX + 146, Y, 10.5, PAL.muted, 700, 'right', MONO); T(x, v1, PX + PW - 12, Y, 10.5, bad ? '#ffb4a0' : PAL.accent, 700, 'right', MONO);
+      const Y = 136 + i * 28; T(x, k, PX + 14, Y, 12, PAL.ink, 600);
+      T(x, v0, C0, Y, 13, PAL.muted, 700, 'right', MONO); T(x, v1, C1, Y, 13, bad ? '#ffb4a0' : PAL.accent, 700, 'right', MONO);
     });
     const pass = m1.seen === 6;
-    T(x, '합격선: 내용이 다 보이는가', PX + 12, 170, 10, PAL.ink, 600);
-    T(x, pass ? '통과' : '실패', PX + PW - 12, 170, 11, pass ? PAL.accent : '#ffb4a0', 800, 'right');
-    T(x, '꺼짐 쪽은 기준 화면이라 비교용이다', PX + 12, 184, 9, PAL.muted, 500);
-    card(x, PX, 200, PW, 106);
-    T(x, `${L ? L + '단계' : '연출 전'} · ${STEP[L]}`, PX + 12, 218, 10.5, PAL.accent, 700);
-    NOTE[L].forEach((ln, i) => T(x, ln, PX + 12, 238 + i * 17, 9.5, i === 2 ? PAL.muted : PAL.ink, i === 2 ? 500 : 600));
-    T(x, '수치 기준(몇 px 부터 큰 움직임인가)은 MDN 에 없다', PX + 12, 296, 8.5, PAL.muted, 500);
+    x.fillStyle = PAL.line; x.fillRect(PX + 14, 252, PW - 28, 1);
+    T(x, '합격선: 내용이 다 보임', PX + 14, 274, 12, PAL.ink, 600);
+    T(x, pass ? '통과' : '실패', C1, 274, 14, pass ? PAL.accent : '#ffb4a0', 800, 'right');
     s.tag.textContent = STEP[L];
   },
 };

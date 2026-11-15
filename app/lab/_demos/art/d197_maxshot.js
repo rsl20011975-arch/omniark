@@ -126,20 +126,20 @@ const demo = {
     const bg = el('div', null, sp);
     box(bg, { position: 'absolute', inset: '0', background: `linear-gradient(160deg,${PAL.bg0},${PAL.bg1})` });
     const fr = el('div', null, sp);
-    box(fr, { position: 'absolute', left: '14px', top: '18px', width: '372px', height: '209px', borderRadius: '6px', overflow: 'hidden', boxShadow: '0 10px 24px rgba(40,10,5,.5), 0 0 0 1px ' + PAL.line });
-    const cv = el('canvas', null, fr); cv.width = OUT_W; cv.height = 720; box(cv, { width: '372px', height: '209px', display: 'block' });
+    box(fr, { position: 'absolute', left: '14px', top: '14px', width: '396px', height: '223px', borderRadius: '10px', overflow: 'hidden', boxShadow: '0 10px 24px rgba(40,10,5,.5), 0 0 0 1px ' + PAL.line });
+    const cv = el('canvas', null, fr); cv.width = OUT_W; cv.height = 720; box(cv, { width: '396px', height: '223px', display: 'block' });
     const ov = el('canvas', null, sp); ov.width = 1280; ov.height = 720; box(ov, { position: 'absolute', left: '0', top: '0', width: '640px', height: '360px' });
-    const tx = (txt, o) => { const e = el('div', null, sp, txt); box(e, Object.assign({ position: 'absolute', whiteSpace: 'nowrap', font: "500 11px/1.25 'JetBrains Mono',monospace", color: PAL.muted }, o)); return e; };
+    const tx = (txt, o) => { const e = el('div', null, sp, txt); box(e, Object.assign({ position: 'absolute', whiteSpace: 'nowrap', font: "500 12px/1.25 'JetBrains Mono',monospace", color: PAL.muted }, o)); return e; };
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '24px', top: '28px', padding: '5px 11px', borderRadius: '999px', background: rgba(PAL.bg1, .88), color: PAL.ink, border: '1px solid ' + PAL.line, font: "600 12px/1 'IBM Plex Sans KR',sans-serif" });
+    box(pill, { position: 'absolute', left: '24px', top: '24px', padding: '.5em 1em', borderRadius: '999px', background: rgba(PAL.bg1, .88), color: PAL.ink, border: '1px solid ' + PAL.line, font: "600 12px/1 'IBM Plex Sans KR',sans-serif" });
     const t = {
-      head: tx('정지 비율(10fps, 64px 자)', { left: '402px', top: '20px', color: PAL.ink, font: "600 12px/1 'IBM Plex Sans KR',sans-serif" }),
-      live: tx('', { left: '14px', top: '298px', color: PAL.ink }),
-      lab: tx('', { left: '14px', top: '320px', whiteSpace: 'normal', width: '372px', font: "500 11px/1.4 'IBM Plex Sans KR',sans-serif" }),
-      info: tx('', { left: '402px', top: '240px', whiteSpace: 'normal', width: '226px', color: PAL.ink, font: "500 11px/1.5 'IBM Plex Sans KR',sans-serif" }),
+      head: tx('정지 비율', { left: '430px', top: '20px', color: PAL.ink, font: "600 13px/1 'IBM Plex Sans KR',sans-serif" }),
+      big: tx('', { left: '428px', top: '40px', color: PAL.accent, font: "700 52px/1 'IBM Plex Sans KR',sans-serif" }),
+      info: tx('', { left: '430px', top: '118px', whiteSpace: 'pre-line', color: PAL.ink, font: "500 12px/1.75 'IBM Plex Sans KR',sans-serif" }),
+      live: tx('', { left: '14px', top: '306px', color: PAL.ink }),
+      lab: tx('', { left: '14px', top: '328px', font: "500 12px/1.4 'IBM Plex Sans KR',sans-serif" }),
     };
-    const rows = NAMES.map((n, i) => ({ lab: tx(SHORT[i], { left: '402px', top: (44 + i * 40) + 'px', font: "500 11px/1 'IBM Plex Sans KR',sans-serif" }), val: tx('', { left: '584px', top: (44 + i * 40) + 'px', color: PAL.ink }) }));
-    return { src, an, cv, ctx: cv.getContext('2d'), ov: ov.getContext('2d'), pill, t, rows };
+    return { src, an, cv, ctx: cv.getContext('2d'), ov: ov.getContext('2d'), pill, t };
   },
   render(s, t, a, lv) {
     const L = !a ? 0 : (lv == null ? 4 : lv);
@@ -147,32 +147,24 @@ const demo = {
     g.drawImage(s.src, cx, cy, cw, ch, 0, 0, OUT_W, 720);
     s.pill.textContent = NAMES[L];
     const o = s.ov; o.clearRect(0, 0, 1280, 720);
-    const bx = 28, bw = 744, by = 496, bh = 40;   // 샷 띠(0~HOLD_LEN초)
+    const bx = 28, bw = 1224, by = 520, bh = 44;   // 샷 띠(0~HOLD_LEN초)
     o.fillStyle = rgba(PAL.bg1, .8); o.fillRect(bx, by, bw, bh); o.strokeStyle = PAL.line; o.lineWidth = 2; o.strokeRect(bx, by, bw, bh);
     const blocks = L <= 1 ? [{ a: 0, b: HOLD_LEN, k: 0 }] : SHOTS;
     blocks.forEach((sh) => {
       const x0 = bx + sh.a / HOLD_LEN * bw, x1 = bx + sh.b / HOLD_LEN * bw, pull = L >= 3 && sh.k % 2 === 1;
       o.fillStyle = L === 0 ? rgba(PAL.muted, .25) : pull ? PAL.muted : PAL.accent; o.fillRect(x0 + 3, by + 6, x1 - x0 - 6, bh - 12);
-      o.fillStyle = PAL.accent2; o.font = "600 22px 'IBM Plex Sans KR',sans-serif"; o.textBaseline = 'middle';
-      o.fillText(L === 0 ? '멈춤' : pull ? '당기기' : '밀기', x0 + 14, by + bh / 2 + 1);
+      o.fillStyle = PAL.accent2; o.font = "600 24px 'IBM Plex Sans KR',sans-serif"; o.textBaseline = 'middle';
+      o.fillText(L === 0 ? '멈춤' : pull ? '당기기' : '밀기', x0 + 16, by + bh / 2 + 1);
     });
-    o.fillStyle = PAL.muted; o.font = "500 18px 'JetBrains Mono',monospace"; o.textBaseline = 'top';
-    (L <= 1 ? [0, HOLD_LEN] : [...SHOTS.map((x) => x.a), HOLD_LEN]).forEach((x) => { const px = bx + x / HOLD_LEN * bw; o.fillText(x.toFixed(1), Math.min(px, bx + bw - 34), by + bh + 6); });
+    o.fillStyle = PAL.muted; o.font = "500 22px 'JetBrains Mono',monospace"; o.textBaseline = 'top';
+    (L <= 1 ? [0, HOLD_LEN] : [...SHOTS.map((x) => x.a), HOLD_LEN]).forEach((x) => { const px = bx + x / HOLD_LEN * bw; o.fillText(x.toFixed(1), Math.min(px, bx + bw - 40), by + bh + 8); });
     o.fillStyle = PAL.ink; o.fillRect(bx + t / HOLD_LEN * bw - 2, by - 8, 4, bh + 16);
     const sh = shotAt(t), pull = L >= 3 && sh.k % 2 === 1, ratio = v.s * OUT_W / SRC_W;
     s.t.live.textContent = L === 0 ? `멈춤 ${t.toFixed(1)}초째  배율 1.00` : `${L <= 1 ? '샷 1/1' : `샷 ${sh.k + 1}/${SHOTS.length}`} ${pull ? '당기기' : '밀기'}  배율 ${v.s.toFixed(2)}  원본 1px → 화면 ${ratio.toFixed(2)}px${ratio > 1.005 ? ' (흐림)' : ''}`;
     s.t.lab.textContent = L <= 1 ? '샷 경계가 없다' : `샷 길이 ${SHOTS.map((x) => (x.b - x.a).toFixed(1)).join(' + ')} = ${HOLD_LEN.toFixed(1)}초`;
-    s.rows.forEach((rw, i) => {
-      const on = i <= L, m = on ? s.an(i) : null, y = (58 + i * 40) * 2, x0 = 402 * 2, w = 190 * 2;
-      rw.lab.style.visibility = rw.val.style.visibility = on ? 'visible' : 'hidden';
-      if (!on) return;
-      rw.val.textContent = m.still.toFixed(0) + '%';
-      o.fillStyle = rgba(PAL.bg1, .8); o.fillRect(x0, y, w, 14);
-      o.fillStyle = i === L ? PAL.accent : rgba(PAL.muted, .85); o.fillRect(x0, y, m.still / 100 * w, 14);
-    });
     const m = s.an(L);
-    s.t.info.textContent = `이 구성(${NAMES[L]})\n가장 길게 이어진 정지 ${m.best.toFixed(1)}초\n샷 경계의 프레임 차 ${L <= 1 ? '없음' : m.cutMax.toFixed(1) + ' (컷 기준 ' + CUT_THR + ')'}\n프레임 차 25 이상인 칸 ${m.cuts}개`;
-    s.t.info.style.whiteSpace = 'pre-line';
+    s.t.big.textContent = m.still.toFixed(0) + '%';
+    s.t.info.textContent = `가장 길게 이어진 정지 ${m.best.toFixed(1)}초\n샷 경계의 프레임 차 ${L <= 1 ? '없음' : m.cutMax.toFixed(1)}\n(컷으로 세는 기준은 ${CUT_THR} 이상)`;
   },
 };
 export default demo;

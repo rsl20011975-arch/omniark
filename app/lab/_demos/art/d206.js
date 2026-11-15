@@ -81,8 +81,8 @@ function thumb(x, i, X, Y, W, H) {     // 정지 사진 느낌의 작은 이미�
 function T(x, s, X, Y, size, col, w, al, font) { x.font = `${w || 500} ${size}px ${font || SANS}`; x.fillStyle = col; x.textAlign = al || 'left'; x.fillText(s, X, Y); }
 function card(x, X, Y, W, H) { x.save(); x.shadowColor = 'rgba(29,26,22,.12)'; x.shadowBlur = 8; x.shadowOffsetY = 2; x.fillStyle = PAL.surface; x.beginPath(); x.roundRect(X, Y, W, H, 5); x.fill(); x.restore(); x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.roundRect(X, Y, W, H, 5); x.stroke(); }
 function chip(x, s, X, Y, kind, al) {
-  const [bg, fg] = KIND[kind] || [rgba('#6b6458', 0.12), PAL.muted]; x.font = `600 10.5px ${MONO}`; const w = x.measureText(s).width + 14;
-  x.save(); x.globalAlpha = al == null ? 1 : al; x.fillStyle = bg; x.beginPath(); x.roundRect(X, Y, w, 17, 8.5); x.fill(); x.strokeStyle = rgba(fg, 0.5); x.lineWidth = 1; x.stroke(); T(x, s, X + 7, Y + 12, 10.5, fg, 600, 'left', MONO); x.restore(); return w;
+  const [bg, fg] = KIND[kind] || [rgba('#6b6458', 0.12), PAL.muted]; x.font = `600 11px ${MONO}`; const w = x.measureText(s).width + 14;
+  x.save(); x.globalAlpha = al == null ? 1 : al; x.fillStyle = bg; x.beginPath(); x.roundRect(X, Y, w, 17, 8.5); x.fill(); x.strokeStyle = rgba(fg, 0.5); x.lineWidth = 1; x.stroke(); T(x, s, X + 7, Y + 12, 11, fg, 600, 'left', MONO); x.restore(); return w;
 }
 const P = (t, a, d) => seg(t, a, a + d);
 
@@ -105,61 +105,50 @@ const demo = {
     x.save(); x.globalCompositeOperation = 'multiply'; x.globalAlpha = 0.08; for (let gx0 = 0; gx0 < 640; gx0 += 160) for (let gy0 = 0; gy0 < 360; gy0 += 90) x.drawImage(GRAIN, gx0, gy0, 160, 90); x.restore();
     const written = (i) => L >= 2 && t >= T_WRITE[i];
     const known = (i) => written(i) && IMGS[i].rec;
-    // 왼쪽: 이미지 목록
-    T(x, '이미지 4장', 20, 24, 10.5, PAL.muted, 500, 'left', MONO);
+    // 왼쪽: 표 한 장(이미지, 권리, 장부, 공개 영상 여부)이 이 화면의 주인공
+    card(x, 20, 30, 322, 262);
+    T(x, '이미지 4장', 32, 24, 11, PAL.muted, 500, 'left', MONO);
+    let rows = 0, unk = 0;
     IMGS.forEach((im, i) => {
-      const Y = 32 + i * 59, ap = E.outC(P(t, 0.1 + i * 0.12, 0.45)); x.save(); x.globalAlpha = ap; x.translate(0, (1 - ap) * 10);
-      thumb(x, im.scene, 20, Y, 84, 47);
-      T(x, im.file, 114, Y + 15, 12, PAL.ink, 600, 'left', MONO);
-      if (written(i)) {
-        const k = P(t, T_WRITE[i] + 0.1, 0.4); chip(x, rightsOf(im), 114, Y + 24, rightsOf(im), E.outC(k));
-        if (usable(im) && L >= 3) T(x, '영상에 쓸 수 있음', 114, Y + 54, 10, '#1f4a73', 500);
-      } else chip(x, L >= 2 ? '확인 중' : '출처 모름', 114, Y + 24, null, 1);
+      const Y = 36 + i * 63, ap = E.outC(P(t, 0.1 + i * 0.12, 0.45)), tr = T_WRITE[i] + 0.6;
+      const out = !usable(im) && L >= 4, sh = L >= 4 ? E.outC(P(t, T_DROP, 0.5)) : 0;
+      if (i) { x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(30, Y - 1.5); x.lineTo(332, Y - 1.5); x.stroke(); }
+      x.save(); x.globalAlpha = ap * (out ? 1 - 0.55 * sh : 1); x.translate(0, (1 - ap) * 10);
+      thumb(x, im.scene, 30, Y + 7, 80, 45);
+      T(x, im.file, 122, Y + 24, 13, PAL.ink, 600, 'left', MONO);
+      if (written(i)) chip(x, rightsOf(im), 122, Y + 33, rightsOf(im), E.outC(P(t, T_WRITE[i] + 0.1, 0.4)));
+      else chip(x, L >= 2 ? '확인 중' : '출처 모름', 122, Y + 33, null, 1);
+      if (L >= 3 && t >= tr) {
+        const k = E.outC(P(t, tr, 0.35)); x.globalAlpha *= k; rows++; if (!im.rec) unk++;
+        const gone = out && sh > 0.6;
+        T(x, L >= 4 && t >= T_DROP ? (usable(im) ? '영상에 쓴다' : '제외') : (im.rec ? '장부에 올림' : '기록 없음'), 332, Y + 47, 12, L >= 4 && t >= T_DROP ? (usable(im) ? '#1f4a73' : '#b53a1f') : (im.rec ? PAL.muted : '#b53a1f'), 600, 'right');
+        if (gone) { x.strokeStyle = '#b53a1f'; x.lineWidth = 1.6; x.beginPath(); x.moveTo(120, Y + 20); x.lineTo(120 + 100 * sh, Y + 20); x.stroke(); }
+      }
       x.restore();
     });
     // 오른쪽 위: 사이드카 JSON 카드
-    card(x, 330, 20, 290, 130);
+    card(x, 356, 30, 264, 144);
     let cur = -1; for (let i = 0; i < 4; i++) if (written(i)) cur = i;
-    T(x, cur < 0 ? '사이드카 JSON' : IMGS[cur].file.replace('.png', '.json') + '  (예시 기록)', 342, 38, 10.5, PAL.muted, 500, 'left', MONO);
+    T(x, cur < 0 ? '사이드카 JSON' : IMGS[cur].file.replace('.png', '.json') + '  (예시 기록)', 368, 50, 11, PAL.muted, 500, 'left', MONO);
     if (cur < 0) {
-      T(x, L >= 2 ? '곧 이미지 옆에 써진다' : '사이드카 없음', 342, 80, 13, PAL.ink, 600);
-      T(x, '파일만 봐서는 누가 어떻게', 342, 102, 11.5, PAL.muted, 500); T(x, '만든 이미지인지 알 수 없다', 342, 118, 11.5, PAL.muted, 500);
+      T(x, L >= 2 ? '곧 이미지 옆에 써진다' : '사이드카 없음', 368, 92, 14, PAL.ink, 600);
+      T(x, '파일만 봐서는 누가 어떻게', 368, 118, 12, PAL.muted, 500); T(x, '만든 이미지인지 알 수 없다', 368, 135, 12, PAL.muted, 500);
     } else if (!IMGS[cur].rec) {
       const k = E.outC(P(t, T_WRITE[cur], 0.4)); x.save(); x.globalAlpha = k;
-      T(x, `${IMGS[cur].file.replace('.png', '.json')} 없음`, 342, 80, 14, '#b53a1f', 700, 'left', MONO);
-      T(x, '만든 곳, 방식, 날짜, 권리를', 342, 102, 11.5, PAL.ink, 500); T(x, '적은 기록이 없어 unknown', 342, 118, 11.5, PAL.ink, 500); x.restore();
+      T(x, `${IMGS[cur].file.replace('.png', '.json')} 없음`, 368, 92, 15, '#b53a1f', 700, 'left', MONO);
+      T(x, '만든 곳, 방식, 날짜, 권리를', 368, 118, 12, PAL.ink, 500); T(x, '적은 기록이 없어 unknown', 368, 135, 12, PAL.ink, 500); x.restore();
     } else {
       const rc = IMGS[cur].rec, lines = ['{', `  "factory": "${rc.factory}",`, `  "method": "${rc.method}",`, `  "date": "${rc.date}",`, `  "rights": "${rc.rights}"`, '}'];
       lines.forEach((ln, j) => {
         const k = E.outC(P(t, T_WRITE[cur] + j * 0.07, 0.3)), isR = j === 4; x.save(); x.globalAlpha = k;
-        T(x, ln, 342 + (1 - k) * 8, 58 + j * 15, 11.5, isR ? '#1f4a73' : PAL.ink, isR ? 700 : 500, 'left', MONO); x.restore();
+        T(x, ln, 368 + (1 - k) * 8, 72 + j * 17, 11, isR ? '#1f4a73' : PAL.ink, isR ? 700 : 500, 'left', MONO); x.restore();
       });
     }
-    // 오른쪽 아래: 장부 표
-    card(x, 330, 158, 290, 118);
-    T(x, '장부(assets)', 342, 176, 10.5, PAL.muted, 500, 'left', MONO); T(x, '권리', 470, 176, 10.5, PAL.muted, 500, 'left', MONO); T(x, '공개 영상', 596, 176, 10.5, PAL.muted, 500, 'right', MONO);
-    x.strokeStyle = PAL.line; x.beginPath(); x.moveTo(340, 182.5); x.lineTo(610, 182.5); x.stroke();
-    let rows = 0, unk = 0, ok = 0;
-    IMGS.forEach((im, i) => {
-      const tr = T_WRITE[i] + 0.6; if (!(L >= 3 && t >= tr)) return;
-      const Y = 197 + rows * 17, k = E.outC(P(t, tr, 0.35)); rows++;
-      x.save(); x.globalAlpha = k; T(x, im.file, 342, Y, 11, PAL.ink, 500, 'left', MONO);
-      T(x, rightsOf(im), 470, Y, 11, KIND[rightsOf(im)][1], 700, 'left', MONO);
-      T(x, usable(im) ? '쓴다' : (L >= 4 && t >= T_DROP ? '뺀다' : '아직'), 596, Y, 11, usable(im) ? '#1f4a73' : '#b53a1f', 600, 'right'); x.restore();
-      if (!im.rec) unk++; if (usable(im)) ok++;
-    });
-    if (L >= 3) T(x, `장부 ${IMGS.filter((im, i) => im.rec && t >= T_WRITE[i] + 0.6).length}줄, 기록 없음 ${unk}장`, 342, 269, 10.5, PAL.muted, 500, 'left', MONO);
-    // 아래: 공개 영상에 들어가는 이미지 줄
-    T(x, '공개 영상에 들어가는 이미지', 20, 292, 10.5, PAL.muted, 500, 'left', MONO);
-    const sh = L >= 4 ? E.outC(P(t, T_DROP, 0.5)) : 0, cnt = IMGS.filter((im) => usable(im)).length;
-    T(x, L >= 4 && t >= T_DROP + 0.2 ? `${IMGS.length}장 중 ${cnt}장 사용` : `${IMGS.length}장 사용`, 620, 292, 10.5, L >= 4 && t >= T_DROP ? '#1f4a73' : PAL.muted, 600, 'right', MONO);
-    IMGS.forEach((im, i) => {
-      const SX = 20 + i * 150, out = !usable(im) && L >= 4, dy = out ? sh * 12 : 0, al = out ? 1 - 0.65 * sh : 1;
-      x.save(); x.globalAlpha = al; x.translate(0, dy); thumb(x, im.scene, SX, 298, 46, 26); T(x, im.file, SX + 54, 309, 10.5, PAL.ink, 600, 'left', MONO); x.restore();
-      const gone = out && sh > 0.6;
-      T(x, gone ? `제외 ${rightsOf(im)}` : (L >= 2 && t >= T_WRITE[i] ? rightsOf(im) : '출처 모름'), SX + 54, 321 + dy, 10, gone ? '#b53a1f' : PAL.muted, out ? 700 : 500, 'left', MONO);
-      if (out && sh > 0.2) { x.strokeStyle = '#b53a1f'; x.lineWidth = 1.6; x.beginPath(); x.moveTo(SX - 2, 311 + dy); x.lineTo(SX - 2 + 140 * sh, 311 + dy); x.stroke(); }
-    });
+    // 오른쪽 아래: 장부 줄 수와 공개 영상에 쓰는 장수
+    const cnt = IMGS.filter((im) => usable(im)).length, fin = L >= 4 && t >= T_DROP + 0.2;
+    if (L >= 3 && rows > 0) T(x, `장부 ${IMGS.filter((im, i) => im.rec && t >= T_WRITE[i] + 0.6).length}줄, 기록 없음 ${unk}장`, 356, 204, 12, PAL.muted, 500, 'left', MONO);
+    T(x, '공개 영상', 356, 240, 11, PAL.muted, 500, 'left', MONO);
+    T(x, fin ? `${IMGS.length}장 중 ${cnt}장 사용` : `${IMGS.length}장 사용`, 356, 276, 26, fin ? '#1f4a73' : PAL.ink, 700, 'left', SANS);
     // 이름표(caption-bl): 왼쪽 아래, 배경 없이 mono 12px muted, 위에 1px 선
     const cap = ['연출 전: 이미지만 있고 출처 칸이 모두 모름', '1단계: 출처를 적지 않은 이미지 4장', '2단계: 만드는 순간 사이드카 JSON 한 줄', '3단계: 사이드카를 장부 표에 한 줄씩 올림', '4단계: 장부 기준으로 공개 영상에서 걸러냄'][L];
     x.font = `500 12px ${MONO}`; const cw = Math.min(600, x.measureText(cap).width);

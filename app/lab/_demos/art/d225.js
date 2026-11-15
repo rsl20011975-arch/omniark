@@ -105,7 +105,7 @@ function loadCard(x, t, a, good) {
   if (!good) {
     if (!arrived) T(x, 'Loading...', X + PW / 2, PY + HD + 34, 11, BAD_TXT, 500, 'center');
     else for (let r = 0; r < LOAD_ROWS; r++) { x.fillStyle = 'rgba(176,149,163,.28)'; x.beginPath(); x.arc(X + 26, bodyY + 4 + r * ROW_H + 13, 10, 0, 7); x.fill(); T(x, `예시 주문 ${names[r]}`, X + 44, bodyY + 4 + r * ROW_H + 17, 10.5, PAL.ink, 600); }
-    T(x, `총 ${LOAD_ROWS}건`, X + 14, footerY(true, arrived) + 8, 9.5, PAL.muted, 600, 'left', MONO);
+    T(x, `총 ${LOAD_ROWS}건`, X + 14, footerY(true, arrived) + 8, 10, PAL.muted, 600, 'left', MONO);
     return;
   }
   const fade = E.outC(seg(t, LOAD_END, LOAD_END + 0.3)), sk = 1 - fade, sweep = ((t / 1.1) % 1);
@@ -120,10 +120,10 @@ function loadCard(x, t, a, good) {
     x.save(); x.globalAlpha = a * e;
     const ag = x.createRadialGradient(X + 23, y + 10, 1, X + 26, y + 13, 11); ag.addColorStop(0, '#ffc2d6'); ag.addColorStop(1, '#b5476e'); x.fillStyle = ag; x.beginPath(); x.arc(X + 26, y + 13 + (1 - e) * 5, 10, 0, 7); x.fill();
     T(x, `예시 주문 ${names[r]}`, X + 44, y + 17 + (1 - e) * 5, 10.5, PAL.ink, 600);
-    x.fillStyle = 'rgba(255,208,160,.2)'; rr(x, X + PW - 54, y + 8 + (1 - e) * 5, 40, 16, 8); x.fill(); T(x, '준비 중', X + PW - 34, y + 19.5 + (1 - e) * 5, 9, PAL.accent2, 600, 'center'); x.restore();
+    x.fillStyle = 'rgba(255,208,160,.2)'; rr(x, X + PW - 54, y + 8 + (1 - e) * 5, 40, 16, 8); x.fill(); T(x, '준비 중', X + PW - 34, y + 19.5 + (1 - e) * 5, 10, PAL.accent2, 600, 'center'); x.restore();
   }
-  x.save(); x.globalAlpha = a * (0.5 + 0.5 * seg(t, 0.2, 0.7)); T(x, `총 ${LOAD_ROWS}건`, X + 14, footerY(false, true) + 8, 9.5, PAL.muted, 600, 'left', MONO); x.restore();
-  x.save(); x.globalAlpha = a * sk; T(x, '불러오는 중', X + PW - 14, footerY(false, true) + 8, 9, PAL.muted, 500, 'right'); x.restore();
+  x.save(); x.globalAlpha = a * (0.5 + 0.5 * seg(t, 0.2, 0.7)); T(x, `총 ${LOAD_ROWS}건`, X + 14, footerY(false, true) + 8, 10, PAL.muted, 600, 'left', MONO); x.restore();
+  x.save(); x.globalAlpha = a * sk; T(x, '불러오는 중', X + PW - 14, footerY(false, true) + 8, 10, PAL.muted, 500, 'right'); x.restore();
 }
 function errCard(x, t, a, good) {
   const X = PX[2], cx = X + PW / 2;
@@ -131,7 +131,7 @@ function errCard(x, t, a, good) {
   const k = (d) => E.outC(seg(t, UP[2] + d, UP[2] + d + 0.45)), wk = 0.8 + 0.2 * E.outBack(seg(t, UP[2], UP[2] + 0.6));
   x.save(); x.globalAlpha = a * k(0); warn(x, cx, PY + 70 - (1 - k(0)) * 6, wk); x.restore();
   x.save(); x.globalAlpha = a * k(0.1); T(x, '주문 목록을 불러오지', cx, PY + 118 + (1 - k(0.1)) * 6, 12, PAL.ink, 700, 'center'); T(x, '못했어요', cx, PY + 133 + (1 - k(0.1)) * 6, 12, PAL.ink, 700, 'center'); x.restore();
-  x.save(); x.globalAlpha = a * k(0.18); T(x, '서버가 10초 안에 답하지 않았어요', cx, PY + 150, 9.5, PAL.muted, 500, 'center'); x.restore();
+  x.save(); x.globalAlpha = a * k(0.18); T(x, '서버가 10초 안에 답하지 않았어요', cx, PY + 150, 10, PAL.muted, 500, 'center'); x.restore();
   x.save(); x.globalAlpha = a * k(0.26); btn(x, cx - 34, PY + 162 + (1 - k(0.26)) * 6, 70, 24, '다시 시도', true); btn(x, cx + 42, PY + 162 + (1 - k(0.26)) * 6, 56, 24, '문의하기', false); x.restore();
 }
 
@@ -145,8 +145,8 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const pill = el('div', null, sp);   // 이름표(pill): 왼쪽 위 알약
-    Object.assign(pill.style, { position: 'absolute', left: '14px', top: '9px', display: 'flex', alignItems: 'center', gap: '6px', height: '22px', padding: '0 11px 0 9px', borderRadius: '11px', background: 'rgba(38,18,31,.92)', border: '1px solid rgba(246,233,238,.16)', zIndex: '4', font: "600 11px/1 'IBM Plex Sans KR',sans-serif", color: PAL.ink, whiteSpace: 'nowrap' });
-    const dot = el('span', null, pill); Object.assign(dot.style, { width: '7px', height: '7px', borderRadius: '50%', background: PAL.accent, flex: 'none' });
+    Object.assign(pill.style, { position: 'absolute', left: '14px', top: '10px', display: 'flex', alignItems: 'center', gap: '10px', height: '22px', padding: '0 11px 0 10px', borderRadius: '11px', background: 'rgba(38,18,31,.92)', border: '1px solid rgba(246,233,238,.16)', zIndex: '4', font: "600 11px/1 'IBM Plex Sans KR',sans-serif", color: PAL.ink, whiteSpace: 'nowrap' });
+    const dot = el('span', null, pill); Object.assign(dot.style, { width: '.7em', height: '.7em', borderRadius: '50%', background: PAL.accent, flex: 'none' });
     const txt = el('span', null, pill);
     return { main, txt };
   },
@@ -179,26 +179,28 @@ const demo = {
       x.save(); x.globalAlpha = k; x.strokeStyle = ERR; x.lineWidth = 1.4; x.setLineDash([3, 3]); x.beginPath(); x.moveTo(X, footerY(true, false) + 2); x.lineTo(X, footerY(true, true) + 2); x.stroke(); x.setLineDash([]);
       T(x, `+${sh}px`, X - 5, (footerY(true, false) + footerY(true, true)) / 2 + 5, 10, ERR, 700, 'right', MONO); x.restore();
     }
-    // 점검표: 카드에 그려진 값에서 센다
+    // 점검표: 카드에 그려진 값에서 센다. 점수와 '빠진 것'만 보여 준다
     if (L >= 1) {
-      const fadeIn = E.outC(seg(t, 0.15, 0.5)), ty = PY + PH + 18;
+      const fadeIn = E.outC(seg(t, 0.15, 0.5)), ty = PY + PH + 22;
       for (let i = 0; i < 3; i++) {
         const d = desc(i, goodNow[i]), cx0 = PX[i] + 4;
         const cells = [d.msg, d.why, d.act === 2 ? 1 : (d.act === -1 ? -1 : 0), d.shift === 0 ? 1 : 0, d.cr == null ? -1 : (d.cr >= 4.5 ? 1 : 0)];
         const ok = cells.filter((c) => c === 1).length, tot = cells.filter((c) => c !== -1).length;
+        const rows = cells.map((c, r) => r).filter((r) => cells[r] === 0 || (i === 1 && r === 3));
         x.save(); x.globalAlpha = fadeIn;
-        T(x, '점검표', cx0, ty - 4, 10, PAL.ink, 700); T(x, `${ok}/${tot}`, PX[i] + PW - 4, ty - 4, 11, ok === tot ? OKC : PAL.accent, 700, 'right', MONO);
-        x.fillStyle = PAL.line; x.fillRect(cx0, ty + 1, PW - 8, 1);
-        CHK.forEach((nm, r) => {
-          const y = ty + 17 + r * 16;
-          T(x, nm, cx0 + 18, y, 10, cells[r] === -1 ? PAL.muted : PAL.ink, 500); mark(x, cx0 + 6, y - 3.5, cells[r]);
-          if (r === 3) T(x, d.shift === 0 ? '0px' : `${d.shift}px`, PX[i] + PW - 4, y, 10, d.shift === 0 ? OKC : NOC, 700, 'right', MONO);
-          if (r === 4 && d.cr != null) T(x, `${d.cr.toFixed(1)}:1`, PX[i] + PW - 4, y, 10, d.cr >= 4.5 ? OKC : NOC, 700, 'right', MONO);
+        T(x, '점검표', cx0, ty, 11, PAL.ink, 700); T(x, `${ok}/${tot}`, PX[i] + PW - 4, ty + 1, 15, ok === tot ? OKC : PAL.accent, 700, 'right', MONO);
+        x.fillStyle = PAL.line; x.fillRect(cx0, ty + 8, PW - 8, 1);
+        if (!rows.length) { mark(x, cx0 + 6, ty + 23, 1); T(x, '빠진 것 없음', cx0 + 18, ty + 27, 11, OKC, 600); }
+        rows.forEach((r, n) => {
+          const y = ty + 27 + n * 17, c = cells[r];
+          mark(x, cx0 + 6, y - 4, c); T(x, CHK[r], cx0 + 18, y, 11, PAL.ink, 500);
+          if (r === 3) T(x, d.shift === 0 ? '0px' : `${d.shift}px`, PX[i] + PW - 4, y, 11, d.shift === 0 ? OKC : NOC, 700, 'right', MONO);
+          if (r === 4) T(x, `${d.cr.toFixed(1)}:1`, PX[i] + PW - 4, y, 11, NOC, 700, 'right', MONO);
         });
         x.restore();
       }
     }
-    T(x, '예시 화면 · 가상 데이터(실제 주문 아님)', 626, 354, 9, PAL.muted, 500, 'right');
+    T(x, '예시 화면 · 가상 데이터(실제 주문 아님)', 626, 354, 10, PAL.muted, 500, 'right');
     s.txt.textContent = STEP[L === 0 ? 0 : Math.min(L, 1 + (t >= UP[1] ? 1 : 0) + (t >= UP[2] ? 1 : 0))];
   },
 };

@@ -105,7 +105,7 @@ function drawWindow(x, t, L) {
     drawIcon(x, ic);
     if (L >= 2) { x.save(); x.strokeStyle = 'rgba(20,90,65,.45)'; x.lineWidth = 1; x.setLineDash([3, 3]); x.strokeRect(ic.x + 0.5, ic.y + 0.5, ic.w - 1, ic.h - 1); x.restore(); }
   });
-  if (L < 2) { const a0 = lay.icons[0], a1 = lay.icons[1]; T(x, `${Math.round(a0.w)}×${Math.round(a0.h)}, 중심 간격 ${Math.round(a1.x + a1.w / 2 - a0.x - a0.w / 2)}px`, a1.x + a1.w, HEADER_H - 5, 9, C.bad, 700, 'right', MONO); }
+  if (L < 2) { const a0 = lay.icons[0], a1 = lay.icons[1]; T(x, `${Math.round(a0.w)}×${Math.round(a0.h)}, 중심 간격 ${Math.round(a1.x + a1.w / 2 - a0.x - a0.w / 2)}px`, a1.x + a1.w, HEADER_H - 5, 10, C.bad, 700, 'right', MONO); }
   if (L >= 1 && tg && tg.fixed) drawRing(x, tg, age);
   x.restore();
   x.strokeStyle = 'rgba(232,241,234,.28)'; x.lineWidth = 1; rr(x, WIN.x + 0.5, WIN.y + 0.5, WIN.w - 1, WIN.h - 1, 12); x.stroke();
@@ -139,53 +139,56 @@ const demo = {
     // 최종 상태에서 코드가 재는 값
     const fail24 = lay.all.filter((c) => !pass24(c, lay.all)).length, below44 = lay.all.filter((c) => Math.min(c.w, c.h) < 44).length;
     const fTop = ROW0 + ROW_STEP - Math.max(0, ROW0 + ROW_STEP - pad), cover = coverOf(fTop, lay.ch);
-    const PX = 376, PW = 256;
+    // 오른쪽: 지금 단계의 점검 카드 한 장만 보인다
+    const PX = 380, PW = 252, PY = 58, PH = 200;
+    const stage = t < 1.8 ? 1 : (t < 4.4 ? 2 : 3);
+    const cardAlpha = (k) => {
+      const inA = k === 1 ? E.outC(seg(t, 0.15, 0.55)) : E.outC(seg(t, k === 2 ? 1.8 : 4.4, (k === 2 ? 1.8 : 4.4) + 0.45));
+      const outA = (k < L) ? E.outC(seg(t, k === 1 ? 1.8 : 4.4, (k === 1 ? 1.8 : 4.4) + 0.3)) : 0;
+      return (L >= k ? inA : 0) * (1 - outA);
+    };
+    const rowTxt = (k, v, Y, col) => { T(x, k, PX + 16, Y, 12, PAL.ink, 600); T(x, v, PX + PW - 16, Y, 14, col, 700, 'right', MONO); };
     if (L === 0) {
-      card(x, PX, 10, PW, 124);
-      T(x, '지금 화면을 재면', PX + 12, 28, 11, PAL.ink, 700);
-      T(x, 'outline: none, 20px 아이콘, 고정 헤더', PX + 12, 42, 9.5, PAL.muted, 500);
-      [['보이는 포커스 링', `0 / ${STOPS.length}곳`], ['24px 미만 눌리는 칸', `${fail24}개`], ['포커스 칸이 헤더에 가린 비율', `${(cover * 100).toFixed(0)}%`]].forEach(([k, v], i) => {
-        const Y = 64 + i * 20; T(x, k, PX + 12, Y, 10.5, PAL.ink, 600); T(x, v, PX + PW - 12, Y, 12, '#ff9b7a', 700, 'right', MONO);
-      });
-      T(x, 'Tab 을 눌러도 어디에 있는지 알 수 없다', PX + 12, 126, 9.5, PAL.muted, 500);
-      card(x, PX, 146, PW, 124);
-      T(x, `Tab 이동 순서 ${STOPS.length}곳`, PX + 12, 164, 11, PAL.ink, 700);
-      const nm = { i1: '검색 아이콘', i2: '메뉴 아이콘', f0: '받는 사람 칸', f1: '연락처 칸', pay: '결제하기 버튼' };
-      STOPS.forEach((st, i) => { const Y = 182 + i * 14, on = t >= st.t; T(x, `${i + 1}`, PX + 12, Y, 10, PAL.muted, 600, 'left', MONO); T(x, nm[st.id], PX + 28, Y, 10, PAL.ink, 600); T(x, on ? '링 없음' : '', PX + PW - 12, Y, 10, '#ff9b7a', 700, 'right'); });
-    } else {
-      card(x, PX, 10, PW, 84);
-      T(x, '포커스 링', PX + 12, 28, 11, PAL.ink, 700);
-      T(x, '[기록] 제작자 CSS 의 값', PX + PW - 12, 28, 9.5, PAL.muted, 500, 'right');
-      const o = RING_GAP, w0 = 320, h0 = lay.ch, area = (w0 + 2 * (o + RING_W)) * (h0 + 2 * (o + RING_W)) - (w0 + 2 * o) * (h0 + 2 * o), base = w0 * h0 - (w0 - 4) * (h0 - 4);
-      T(x, `두께 ${RING_W}px, 칸에서 ${RING_GAP}px 띄움`, PX + 12, 46, 10.5, PAL.ink, 600, 'left', MONO);
-      T(x, `바탕과 색 대비 ${contrast(C.ring, C.bg).toFixed(1)} : 1`, PX + 12, 62, 10.5, PAL.accent, 700, 'left', MONO);
-      T(x, `링 면적 = 2px 둘레 면적의 ${(area / base).toFixed(2)}배`, PX + 12, 78, 10.5, PAL.accent, 700, 'left', MONO);
+      card(x, PX, PY, PW, PH);
+      T(x, '지금 화면을 재면', PX + 16, PY + 28, 14, PAL.ink, 700);
+      T(x, 'outline: none, 20px 아이콘, 고정 헤더', PX + 16, PY + 48, 10, PAL.muted, 500);
+      [['보이는 포커스 링', `0 / ${STOPS.length}곳`], ['24px 미만 눌리는 칸', `${fail24}개`], ['헤더에 가린 비율', `${(cover * 100).toFixed(0)}%`]].forEach(([k, v], i) => rowTxt(k, v, PY + 86 + i * 32, '#ff9b7a'));
+      T(x, 'Tab 을 눌러도 어디에 있는지 알 수 없다', PX + 16, PY + 182, 10, PAL.muted, 500);
     }
-    if (L >= 2) {
-      const k = E.outC(seg(t, 1.0, 1.8)), Y0 = 102;
-      x.save(); x.globalAlpha = k; card(x, PX, Y0, PW, 122);
-      T(x, '눌리는 칸 크기', PX + 12, Y0 + 17, 11, PAL.ink, 700);
-      T(x, '24 [공식 AA] · 44 [공식 해설에서 언급]', PX + PW - 12, Y0 + 17, 8.5, PAL.muted, 500, 'right');
-      ['크기', '24↑', '44↑'].forEach((n, i) => T(x, n, PX + 128 + i * 40 + 34, Y0 + 32, 9.5, PAL.muted, 500, 'right'));
-      [['아이콘', lay.icons[0]], ['입력칸', lay.fields[0]], ['버튼', lay.pay]].forEach(([n, c], i) => {
-        const Y = Y0 + 50 + i * 17, ok24 = pass24(c, lay.all), ok44 = Math.min(c.w, c.h) >= 44;
-        T(x, n, PX + 12, Y, 10, PAL.ink, 600);
-        T(x, `${Math.round(c.w)}×${Math.round(c.h)}`, PX + 128 + 34, Y, 10, PAL.ink, 600, 'right', MONO);
-        T(x, ok24 ? '통과' : '미달', PX + 128 + 40 + 34, Y, 10, ok24 ? '#8fe0a8' : '#ff9b7a', 700, 'right');
-        T(x, ok44 ? '통과' : '미달', PX + 128 + 80 + 34, Y, 10, ok44 ? '#8fe0a8' : PAL.accent2, 700, 'right');
-      });
-      T(x, `24px 미만 ${fail24}개, 44px 미만 ${below44}개 (칸 ${lay.all.length}개 중)`, PX + 12, Y0 + 109, 9.5, PAL.accent, 600);
+    if (cardAlpha(1) > 0.004) {
+      x.save(); x.globalAlpha = cardAlpha(1); card(x, PX, PY, PW, PH);
+      T(x, '포커스 링', PX + 16, PY + 28, 14, PAL.ink, 700);
+      const o = RING_GAP, w0 = 320, h0 = lay.ch, area = (w0 + 2 * (o + RING_W)) * (h0 + 2 * (o + RING_W)) - (w0 + 2 * o) * (h0 + 2 * o), base = w0 * h0 - (w0 - 4) * (h0 - 4);
+      T(x, `두께 ${RING_W}px, 칸에서 ${RING_GAP}px 띄움`, PX + 16, PY + 52, 12, PAL.ink, 600, 'left', MONO);
+      rowTxt('바탕과 색 대비', `${contrast(C.ring, C.bg).toFixed(1)} : 1`, PY + 92, PAL.accent);
+      rowTxt('링 면적', `${(area / base).toFixed(2)}배`, PY + 124, PAL.accent);
+      T(x, '기준은 2px 둘레 면적, 대비는 3 : 1 이상', PX + 16, PY + 182, 10, PAL.muted, 500);
       x.restore();
     }
-    if (L >= 3) {
-      const k = E.outC(seg(t, 4.4, 5.4)), Y0 = 232, vis = fTop;
-      x.save(); x.globalAlpha = k; card(x, PX, Y0, PW, 118);
-      T(x, `고정 헤더 ${HEADER_H}px 가림 점검`, PX + 12, Y0 + 17, 11, PAL.ink, 700);
-      T(x, `scroll-padding-top ${pad}px`, PX + 12, Y0 + 40, 10.5, PAL.ink, 600, 'left', MONO);
-      T(x, `포커스 칸 윗변 = 화면 위에서 ${Math.round(vis)}px`, PX + 12, Y0 + 57, 10.5, PAL.ink, 600, 'left', MONO);
-      T(x, `헤더에 가린 비율 ${(cover * 100).toFixed(0)}%`, PX + 12, Y0 + 74, 12, cover > 0 ? '#ff9b7a' : '#8fe0a8', 700, 'left', MONO);
-      T(x, cover >= 1 ? '완전히 가림: 2.4.11 [공식 AA] 불통과' : cover > 0 ? '일부만 가림: AA 는 통과, 다 보이지는 않음' : '가리지 않음', PX + 12, Y0 + 92, 9.5, PAL.muted, 600);
-      T(x, `72 = 헤더 ${HEADER_H} + 16 은 정한 값 [추정]`, PX + 12, Y0 + 107, 9, PAL.muted, 500);
+    if (cardAlpha(2) > 0.004) {
+      x.save(); x.globalAlpha = cardAlpha(2); card(x, PX, PY, PW, PH);
+      T(x, '눌리는 칸 크기', PX + 16, PY + 28, 14, PAL.ink, 700);
+      ['크기', '24↑', '44↑'].forEach((n, i) => T(x, n, PX + 128 + i * 40 + 34, PY + 54, 11, PAL.muted, 500, 'right'));
+      [['아이콘', lay.icons[0]], ['입력칸', lay.fields[0]], ['버튼', lay.pay]].forEach(([n, c], i) => {
+        const Y = PY + 84 + i * 26, ok24 = pass24(c, lay.all), ok44 = Math.min(c.w, c.h) >= 44;
+        T(x, n, PX + 16, Y, 12, PAL.ink, 600);
+        T(x, `${Math.round(c.w)}×${Math.round(c.h)}`, PX + 128 + 34, Y, 12, PAL.ink, 600, 'right', MONO);
+        T(x, ok24 ? '통과' : '미달', PX + 128 + 40 + 34, Y, 12, ok24 ? '#8fe0a8' : '#ff9b7a', 700, 'right');
+        T(x, ok44 ? '통과' : '미달', PX + 128 + 80 + 34, Y, 12, ok44 ? '#8fe0a8' : PAL.accent2, 700, 'right');
+      });
+      T(x, `24px 미만 ${fail24}개, 44px 미만 ${below44}개`, PX + 16, PY + 174, 12, PAL.accent, 700);
+      T(x, `칸 ${lay.all.length}개를 모두 잰 결과`, PX + 16, PY + 190, 10, PAL.muted, 500);
+      x.restore();
+    }
+    if (cardAlpha(3) > 0.004) {
+      x.save(); x.globalAlpha = cardAlpha(3); card(x, PX, PY, PW, PH);
+      T(x, `고정 헤더 ${HEADER_H}px 가림 점검`, PX + 16, PY + 28, 14, PAL.ink, 700);
+      T(x, `scroll-padding-top ${pad}px`, PX + 16, PY + 52, 12, PAL.ink, 600, 'left', MONO);
+      rowTxt('칸 윗변, 화면 위에서', `${Math.round(fTop)}px`, PY + 86, PAL.ink);
+      rowTxt('헤더에 가린 비율', `${(cover * 100).toFixed(0)}%`, PY + 114, cover > 0 ? '#ff9b7a' : '#8fe0a8');
+      rowTxt('44px 미만 칸', `${below44}개`, PY + 142, below44 > 0 ? PAL.accent2 : '#8fe0a8');
+      T(x, cover >= 1 ? '완전히 가림: 2.4.11 불통과' : cover > 0 ? '일부만 가림: 통과지만 다 보이지는 않음' : '가리지 않음', PX + 16, PY + 168, 11, PAL.muted, 600);
+      T(x, `72 = 헤더 ${HEADER_H} + 여유 16, 정한 값`, PX + 16, PY + 188, 10, PAL.muted, 500);
       x.restore();
     }
     s.pill.textContent = L === 2 ? `눌리는 칸 ${MIN_H}px` : STEP[L];

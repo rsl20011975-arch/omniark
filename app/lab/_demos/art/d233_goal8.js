@@ -56,7 +56,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const pill = el('div', null, sp);
-    Object.assign(pill.style, { position: 'absolute', right: '10px', top: '8px', padding: '3px 11px', borderRadius: '999px', background: PAL.surface, border: `1px solid ${PAL.line}`, color: PAL.ink, font: "600 11px/1.4 'IBM Plex Sans KR',sans-serif", zIndex: '4', whiteSpace: 'nowrap' });
+    Object.assign(pill.style, { position: 'absolute', right: '10px', top: '10px', padding: '.25em 11px', borderRadius: '999px', background: PAL.surface, border: `1px solid ${PAL.line}`, color: PAL.ink, font: "600 11px/1.4 'IBM Plex Sans KR',sans-serif", zIndex: '4', whiteSpace: 'nowrap' });
     return { main, pill };
   },
   render(s, t, a, lv) {
@@ -70,17 +70,17 @@ const demo = {
     x.restore();
 
     T(x, '롱폼 길이는 무엇이 정하나', 24, 26, 14, PAL.ink, 700);
-    T(x, L === 0 ? '목표 길이를 먼저 정한 화면' : '값마다 [측정]·[공식]·[추정] 표시', 24, 40, 9.5, PAL.muted, 500, 'left', MONO);
+    T(x, L === 0 ? '목표 길이를 먼저 정한 화면' : '시장 분포와 우리 네 편을 한 축에 놓는다', 24, 40, 10, PAL.muted, 500, 'left', MONO);
 
     const tickAxis = (Y, maxM, alpha) => {
       x.save(); x.globalAlpha = alpha; x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(X0, Y + .5); x.lineTo(xm(maxM), Y + .5); x.stroke();
-      for (let m = 0; m <= maxM; m += 2) { x.beginPath(); x.moveTo(xm(m) + .5, Y); x.lineTo(xm(m) + .5, Y + 4); x.stroke(); T(x, m === 0 ? '0분' : String(m), xm(m), Y + 14, 9, PAL.muted, 500, 'center', MONO); }
+      for (let m = 0; m <= maxM; m += 2) { x.beginPath(); x.moveTo(xm(m) + .5, Y); x.lineTo(xm(m) + .5, Y + 4); x.stroke(); T(x, m === 0 ? '0분' : String(m), xm(m), Y + 14, 10, PAL.muted, 500, 'center', MONO); }
       x.restore();
     };
 
     if (L === 0) {   // 연출 전: 목표 먼저, 모자란 곳은 채움
       const ep = EPS[0], fill0 = TARGET_BEFORE * 60 - ep.tot, grow = E.outC(seg(t, 0.2, 1.4)), fk = E.inOutC(seg(t, 1.2, 3.0));
-      T(x, `목표 ${TARGET_BEFORE}분 [근거 없음]`, X0, 76, 11, PAL.ink, 700);
+      T(x, `목표 ${TARGET_BEFORE}분, 근거 없이 정한 값`, X0, 76, 11, PAL.ink, 700);
       const bx = xm(0), bw = xm(TARGET_BEFORE) - bx;
       x.fillStyle = 'rgba(242,239,233,.06)'; x.fillRect(bx, 88, bw, 40);
       segBar(x, ep.sc, bx, 88, 40, grow);
@@ -95,7 +95,7 @@ const demo = {
       card(x, 24, 220, 592, 110);
       T(x, '이 화면에 없는 것', 38, 240, 11.5, PAL.ink, 700);
       ['시장 가전 롱폼 121편은 몇 분이었나', '8분이라는 숫자는 무엇의 조건인가', '내 편은 몇 개 장면의 합이었나', '목표 10분은 어디서 나온 값인가'].forEach((ln, i) => T(x, ln, 38, 260 + i * 15, 10.5, PAL.muted, 500));
-      T(x, '길이를 먼저 박으면 모자란 만큼을 되풀이로 채우게 된다 [추정]', 38, 322, 10.5, PAL.accent2, 700);
+      T(x, '길이를 먼저 박으면 모자란 만큼을 되풀이로 채우기 쉽다(추정)', 38, 322, 10.5, PAL.accent2, 700);
     } else {
       // 1단계: 시장 분포 막대
       const base = 168, hmax = 92, nb = Math.ceil(AX_MAX / BIN_W), cnt = new Array(nb).fill(0);
@@ -105,8 +105,8 @@ const demo = {
       // 조사 밖 구간
       hatch(x, xm(0), 62, xm(FILT_LO) - xm(0), base - 62, 'rgba(154,149,140,.55)', 6);
       hatch(x, xm(FILT_HI), 62, xm(AX_MAX) - xm(FILT_HI), base - 62, 'rgba(154,149,140,.55)', 6);
-      T(x, '필터 밖', xm(FILT_LO / 2), 112, 9.5, PAL.muted, 600, 'center');
-      T(x, '(4분 미만)', xm(FILT_LO / 2), 124, 9, PAL.muted, 500, 'center');
+      T(x, '필터 밖', xm(FILT_LO / 2), 112, 10, PAL.muted, 600, 'center');
+      T(x, '(4분 미만)', xm(FILT_LO / 2), 124, 10, PAL.muted, 500, 'center');
       // 가운데 절반 띠와 막대
       x.fillStyle = 'rgba(90,209,200,.13)'; x.fillRect(xm(Q1), 62, xm(Q3) - xm(Q1), base - 62);
       cnt.forEach((c, i) => {
@@ -115,7 +115,6 @@ const demo = {
         const g = x.createLinearGradient(0, base - bh, 0, base); g.addColorStop(0, '#7be3da'); g.addColorStop(1, '#3da79f');
         x.fillStyle = g; x.fillRect(bx + 1, base - bh, bw - 2, bh);
         x.fillStyle = 'rgba(255,255,255,.22)'; x.fillRect(bx + 1, base - bh, bw - 2, 1.2);
-        if (BIN_W === 1 && hIn > 0.9) T(x, String(c), bx + bw / 2, base - bh - 3, 8.5, PAL.muted, 600, 'center', MONO);
       });
       x.strokeStyle = PAL.ink; x.lineWidth = 1.4; x.beginPath(); x.moveTo(xm(MED) + .5, 64); x.lineTo(xm(MED) + .5, base); x.stroke();
       tickAxis(base, AX_MAX, 1);
@@ -132,17 +131,17 @@ const demo = {
         x.save(); x.globalAlpha = lk;
         T(x, `8분 이상 ${OVER8}/${MKT.length}편 (${(100 * OVER8 / MKT.length).toFixed(0)}%)`, X1, 56, 10.5, PAL.accent2, 700, 'right');
         x.restore();
-        T(x, `중간 광고 ${MID_MIN}분 [공식]`, mxp + 4, 196, 9.5, PAL.accent2, 700);
-        T(x, '자체 제작 롱폼 4편: 장면을 이어 붙인 길이 [측정]', X0, 208, 10.5, PAL.ink, 700);
+        T(x, `중간 광고 ${MID_MIN}분`, mxp + 4, 196, 10, PAL.accent2, 700);
+        T(x, '자체 제작 롱폼 4편: 장면을 이어 붙인 길이', X0, 208, 10.5, PAL.ink, 700);
         EPS.forEach((ep, i) => {
           const Y = 214 + i * 19, gr = E.outC(seg(t, 2.3 + i * 0.18, 3.4 + i * 0.18));
-          T(x, `편 ${i + 1}`, 10, Y + 10.5, 9.5, PAL.muted, 600, 'left', MONO);
+          T(x, `편 ${i + 1}`, 10, Y + 10.5, 10, PAL.muted, 600, 'left', MONO);
           segBar(x, ep.sc, xm(0), Y, 13, gr);
-          x.save(); x.globalAlpha = gr; T(x, `${mmss(ep.tot)} · 장면 ${ep.sc.length}개`, 306, Y + 10.5, 9.5, PAL.ink, 600, 'left', MONO); x.restore();
+          x.save(); x.globalAlpha = gr; T(x, `${mmss(ep.tot)} · 장면 ${ep.sc.length}개`, 306, Y + 10.5, 10, PAL.ink, 600, 'left', MONO); x.restore();
         });
         const lg = E.outC(seg(t, 3.4, 4.0));
         x.save(); x.globalAlpha = lg;
-        [['h', '앞머리'], ['c', '장 표지'], ['b', '본문'], ['e', '끝']].forEach((q, i) => { x.fillStyle = SEGCOL[q[0]]; x.fillRect(X0 + i * 66, 300, 9, 9); T(x, q[1], X0 + i * 66 + 13, 308, 9.5, PAL.muted, 500); });
+        [['h', '앞머리'], ['c', '장 표지'], ['b', '본문'], ['e', '끝']].forEach((q, i) => { x.fillStyle = SEGCOL[q[0]]; x.fillRect(X0 + i * 66, 300, 9, 9); T(x, q[1], X0 + i * 66 + 13, 308, 10, PAL.muted, 500); });
         x.restore();
       }
       // 3단계: 가정한 목표 길이와의 차이
@@ -152,11 +151,11 @@ const demo = {
           const Y = 214 + i * 19, gap = GOAL_MIN * 60 - ep.tot;
           if (gap > 0) { x.save(); x.globalAlpha = k; hatch(x, xm(ep.tot / 60), Y, (gxp - xm(ep.tot / 60)) * k, 13, PAL.accent2, 4); x.restore(); }
           x.save(); x.globalAlpha = k;
-          T(x, gap > 0 ? `${gap.toFixed(0)}초 모자람` : `${(-gap).toFixed(0)}초 넘음`, 440, Y + 10.5, 9.5, gap > 0 ? PAL.accent2 : PAL.accent, 700, 'left', MONO);
+          T(x, gap > 0 ? `${gap.toFixed(0)}초 모자람` : `${(-gap).toFixed(0)}초 넘음`, 440, Y + 10.5, 10, gap > 0 ? PAL.accent2 : PAL.accent, 700, 'left', MONO);
           x.restore();
         });
         x.save(); x.globalAlpha = k; x.strokeStyle = PAL.ink; x.lineWidth = 1.2; x.beginPath(); x.moveTo(gxp + .5, 210); x.lineTo(gxp + .5, 292); x.stroke();
-        T(x, `가정 ${GOAL_MIN}분`, gxp + 4, 295, 9, PAL.ink, 700, 'left', MONO); x.restore();
+        T(x, `가정 ${GOAL_MIN}분`, gxp + 4, 295, 10, PAL.ink, 700, 'left', MONO); x.restore();
         x.save(); x.globalAlpha = k; card(x, 300, 296, 316, 54);
         T(x, '빗금 = 목표까지 새 내용이 더 있어야 하는 초', 310, 313, 10, PAL.ink, 700);
         T(x, '채우기 전에 질문 목록이 끝났는지부터 센다', 310, 328, 10, PAL.muted, 500);

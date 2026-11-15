@@ -108,7 +108,7 @@ function table(x, v, L, t) {
 }
 function barsCard(x) {   // 1단계: 실제 CSS 에서 센 4의 배수 비율
   panel(x, 326, 204, 296, 140);
-  T(x, '실제 CSS 에서 센 4의 배수 비율 [측정]', 338, 222, 11, PAL.muted, 500, 'left', MONO);
+  T(x, '실제 CSS 에서 센 4의 배수 비율', 338, 222, 11, PAL.muted, 500, 'left', MONO);
   CSSM.forEach(([n, tot, m4], i) => {
     const Y = 230 + i * 21, f = m4 / tot;
     T(x, n, 338, Y + 11, 11, PAL.ink, 500);
@@ -135,12 +135,12 @@ function scaleCard(x, v, al) {   // 2단계: 칸 아홉 개 눈금과 지금 값
 function fourCard(x, t, al) {   // 3단계: 네 곳 눈금 겹치기
   x.save(); x.globalAlpha = al; panel(x, 326, 204, 296, 140);
   T(x, '네 곳의 간격 눈금(선형 축, 0에서 100px)', 338, 222, 11, PAL.muted, 500, 'left', MONO);
-  const X0 = 432, W = 176, Y0 = 238;
+  const X0 = 422, W = 188, Y0 = 240;
   common.forEach((v) => { rr(x, axl(v, X0, W) - 5, Y0 - 2, 10, SRC.length * 20 + 2, 3); x.fillStyle = rgba(PAL.accent, .2); x.fill(); T(x, String(v), axl(v, X0, W), Y0 - 5, 10, OK, 700, 'center', MONO); });
   SRC.forEach((s, i) => {
     const Y = Y0 + i * 20, p = E.outC(seg(t, 3.9 + i * 0.14, 4.5 + i * 0.14));
     x.save(); x.globalAlpha = al * p; x.translate(0, (1 - p) * 5);
-    T(x, s.n, 338, Y + 13, 11, PAL.ink, 600); T(x, s.g, 420, Y + 13, 9, PAL.muted, 600, 'right');
+    T(x, s.n, 338, Y + 13, 11, PAL.ink, 600); T(x, s.g, 410, Y + 13, 10, PAL.muted, 600, 'right');
     x.strokeStyle = PAL.line; x.lineWidth = 1; x.beginPath(); x.moveTo(X0, Y + 16.5); x.lineTo(X0 + W, Y + 16.5); x.stroke();
     s.v.forEach((n) => { if (n > AXMAX) return; rr(x, axl(n, X0, W) - 0.8, Y + 4, 1.6, 12, 0.8); x.fillStyle = common.includes(n) ? PAL.ink : PAL.muted; x.fill(); });
     if (s.v.some((n) => n > AXMAX)) { const X = X0 + W + 6; x.strokeStyle = PAL.muted; x.lineWidth = 1.5; x.beginPath(); x.moveTo(X, Y + 7); x.lineTo(X + 4, Y + 10); x.lineTo(X, Y + 13); x.stroke(); }
@@ -165,7 +165,7 @@ const demo = {
     const lab = el('div', null, sp);   // 이름표(vertical): 왼쪽 가장자리 세로쓰기, 번호는 muted, 지금 항목은 ink
     Object.assign(lab.style, { position: 'absolute', left: '10px', top: '22px', writingMode: 'vertical-rl', letterSpacing: '.06em', whiteSpace: 'nowrap', lineHeight: '12px', zIndex: '4' });
     const idx = el('span', null, lab), pill = el('span', null, lab);
-    Object.assign(idx.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '8px' });
+    Object.assign(idx.style, { color: PAL.muted, font: "500 12px/1 'JetBrains Mono',monospace", marginBottom: '.7em' });
     Object.assign(pill.style, { color: PAL.ink, font: "600 12px/1 'IBM Plex Sans KR',sans-serif" });
     return { main, idx, pill };
   },

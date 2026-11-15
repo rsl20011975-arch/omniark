@@ -71,7 +71,7 @@ function thumb(x, X, Y, i, sec, k, tag, hit) {
   const w = 76, h = 43; x.save(); x.globalAlpha = Math.min(1, k * 1.5); x.translate(X + w / 2, Y + h / 2); const s = 0.8 + 0.2 * E.outBack(k); x.scale(s, s); x.translate(-X - w / 2, -Y - h / 2);
   [1, 2, 3].forEach((q) => { x.fillStyle = 'rgba(0,0,0,0.1)'; rr(x, X - q, Y + q, w + 2 * q, h + q, 4 + q); x.fill(); });
   art(x, X, Y, w, h, i); if (hit) { x.fillStyle = 'rgba(255,226,122,.5)'; rr(x, X, Y, w, h, 3); x.fill(); x.strokeStyle = PAL.accent; x.lineWidth = 2; rr(x, X - 1, Y - 1, w + 2, h + 2, 4); x.stroke(); T(x, '정지 안', X + w / 2, Y + h / 2 + 4, 11, '#1d1a16', 800, 'center'); }
-  T(x, `${tag}${mmss(sec)}`, X + w / 2, Y + h + 11, 9, PAL.ink, 600, 'center', MONO);
+  T(x, `${tag}${mmss(sec)}`, X + w / 2, Y + h + 12, 10, PAL.ink, 600, 'center', MONO);
   x.restore();
 }
 function inStill(sec, segs) { return segs.some(([a, b]) => sec >= a && sec <= b); }
@@ -87,7 +87,7 @@ const demo = {
     for (let q = 0; q < gd.data.length; q += 4) { const v = r() * 255; gd.data[q] = gd.data[q + 1] = gd.data[q + 2] = v; gd.data[q + 3] = 255; }
     gx.putImageData(gd, 0, 0); GRAIN = gc;
     const vert = el('div', null, sp);   // 이름표(vertical): 왼쪽 가장자리 세로쓰기, 지금 단계만 밝게
-    Object.assign(vert.style, { position: 'absolute', left: '8px', top: '14px', writingMode: 'vertical-rl', font: "600 12px 'IBM Plex Sans KR',sans-serif", letterSpacing: '2px', whiteSpace: 'nowrap', zIndex: '4' });
+    Object.assign(vert.style, { position: 'absolute', left: '10px', top: '14px', writingMode: 'vertical-rl', font: "600 12px 'IBM Plex Sans KR',sans-serif", letterSpacing: '2px', whiteSpace: 'nowrap', zIndex: '4' });
     const items = STEPS.map((n) => { const s2 = el('span', null, vert); s2.textContent = n; Object.assign(s2.style, { display: 'inline-block', marginInlineEnd: '12px' }); return s2; });
     return { main, items };
   },
@@ -105,24 +105,24 @@ const demo = {
     const row1 = L === 0 ? [[0, 0, ''], [1, 1, ''], [2, TOTAL / 2, ''], [6, TOTAL - 1, '']] : FIRST30.map((q, i) => [i, q, '']);
     const row2 = L >= 2 ? rp.map((q, i) => [i + 1, q, `장${i + 1} `]) : [];
     const samples = row1.map((q) => q[1]).concat(row2.map((q) => q[1])), hits = samples.filter((q) => inStill(q, G.segs)).length;
-    T(x, L === 0 ? '확인 프레임: 0.0초, 1.0초, 가운데, 끝' : `앞 30초 장면표(${FIRST30.length}장)`, BX, 14, 9.5, PAL.muted, 500, 'left', MONO);
+    T(x, L === 0 ? '확인 프레임: 0.0초, 1.0초, 가운데, 끝' : `앞 30초 장면표(${FIRST30.length}장)`, BX, 13, 10.5, PAL.muted, 500, 'left', MONO);
     row1.forEach(([i, q, tg], k) => thumb(x, BX + k * 84.5, 18, i, q, L >= 2 ? 1 : E.outC(seg(t, 0.1 + k * 0.07, 0.5 + k * 0.07)), tg, inStill(q, G.segs)));
     if (L === 0) {
       const ok = row1.every((q) => !inStill(q[1], G.segs));
-      x.fillStyle = 'rgba(29,26,22,.7)'; rr(x, BX + 4 * 84.5 + 6, 22, 238, 36, 6); x.fill();
-      T(x, ok ? '네 장 모두 정상으로 보임' : '정지가 보임', BX + 4 * 84.5 + 16, 38, 11, PAL.accent, 700);
-      T(x, '그래서 ‘다 봤다’고 보고한다', BX + 4 * 84.5 + 16, 52, 9.5, PAL.ink, 500);
+      x.fillStyle = 'rgba(29,26,22,.7)'; rr(x, BX + 4 * 84.5 + 6, 22, 238, 40, 6); x.fill();
+      T(x, ok ? '네 장 모두 정상으로 보임' : '정지가 보임', BX + 4 * 84.5 + 16, 40, 12, PAL.accent, 700);
+      T(x, '그래서 ‘다 봤다’고 보고한다', BX + 4 * 84.5 + 16, 55, 10.5, PAL.ink, 500);
     }
     if (L >= 2) {
-      T(x, `챕터 대표 프레임(챕터 시작 ${REP_AT}초 뒤)`, BX, 84, 9.5, PAL.muted, 500, 'left', MONO);
+      T(x, `챕터 대표 프레임(챕터 시작 ${REP_AT}초 뒤)`, BX, 84, 10.5, PAL.muted, 500, 'left', MONO);
       row2.forEach(([i, q, tg], k) => thumb(x, BX + k * 84.5, 88, i, q, L === 2 ? E.outC(seg(t, 0.1 + k * 0.08, 0.5 + k * 0.08)) : 1, tg, inStill(q, G.segs)));
     }
 
     // 프레임 차이 띠
-    const BY = 158, BH = 46;
-    T(x, '프레임 차이, 4fps 가짜 신호', BX, 152, 9.5, PAL.muted, 500, 'left', MONO);
+    const BY = 165, BH = 42;
+    T(x, '프레임 차이, 4fps 가짜 신호', BX, 158, 10.5, PAL.muted, 500, 'left', MONO);
     x.fillStyle = 'rgba(29,26,22,.62)'; rr(x, BX, BY, BW, BH, 5); x.fill();
-    if (L === 0) T(x, '움직임은 재지 않음', BX + BW / 2, BY + 27, 11, PAL.muted, 600, 'center');
+    if (L === 0) T(x, '움직임은 재지 않음', BX + BW / 2, BY + 25, 12, PAL.muted, 600, 'center');
     else {
       const rev = L >= 3 ? E.outC(seg(t, 0.2, 1.6)) : 1, lim = L >= 3 ? BX + rev * BW : BX + 30 / TOTAL * BW;
       for (let c = 0; c < BW; c += 1) {
@@ -135,13 +135,13 @@ const demo = {
         x.fillRect(px0, BY + BH - 4 - hh, 1, hh);
       }
       if (L >= 3) G.segs.forEach(([a2, b2]) => { x.fillStyle = 'rgba(255,226,122,.42)'; x.fillRect(tx(a2), BY - 12, tx(b2) - tx(a2), BH + 18); });
-      if (L >= 3) G.segs.forEach(([a2, b2]) => T(x, `정지 ${(b2 - a2).toFixed(1)}초`, tx(a2) + 2, BY - 3, 9, '#1d1a16', 800, 'left', MONO));
-      if (L < 3) { x.fillStyle = 'rgba(29,26,22,.55)'; x.fillRect(lim, BY + 1, BX + BW - lim, BH - 2); T(x, '재지 않은 구간', lim + 8, BY + 27, 9.5, PAL.muted, 600); }
+      if (L >= 3) G.segs.forEach(([a2, b2]) => T(x, `정지 ${(b2 - a2).toFixed(1)}초`, tx(a2) + 2, BY - 2, 10.5, '#1d1a16', 800, 'left', MONO));
+      if (L < 3) { x.fillStyle = 'rgba(29,26,22,.55)'; x.fillRect(lim, BY + 1, BX + BW - lim, BH - 2); T(x, '재지 않은 구간', lim + 8, BY + 25, 10.5, PAL.muted, 600); }
       if (L >= 2) CHAPS.forEach((q) => { x.fillStyle = 'rgba(255,244,236,.22)'; x.fillRect(tx(q), BY, 1, BH); });
       samples.forEach((q) => { const sx = tx(q), hit = inStill(q, G.segs); x.fillStyle = hit ? WARM : PAL.ink; x.fillRect(sx - 0.5, BY - 1, 1.5, BH + 2); x.beginPath(); x.moveTo(sx - 3, BY + BH + 5); x.lineTo(sx + 3, BY + BH + 5); x.lineTo(sx, BY + BH); x.fill(); });
     }
-    for (let m = 0; m <= 5; m++) T(x, `${m}:00`, tx(m * 60), BY + BH + 15, 8.5, PAL.muted, 500, 'center', MONO);
-    if (L >= 2) T(x, `눈금 ${samples.length}개 중 정지 구간 안 ${hits}개`, BX + BW, 152, 9.5, PAL.ink, 600, 'right', MONO);
+    for (let m = 0; m <= 5; m++) T(x, `${m}:00`, tx(m * 60), BY + BH + 16, 10, PAL.muted, 500, 'center', MONO);
+    if (L >= 2) T(x, `눈금 ${samples.length}개 중 정지 구간 안 ${hits}개`, BX + BW, 158, 10.5, PAL.ink, 600, 'right', MONO);
 
     // 점검 도구 5칸
     const cells = [
@@ -151,30 +151,29 @@ const demo = {
       { n: '컷 간격', v: `${G.cut.toFixed(1)}초`, th: '20초 이하', ok: G.cut <= 20 },
       { n: '통합 음량', v: LUFS_IN.toFixed(1), th: '-14 ±1.5', ok: Math.abs(LUFS_IN + 14) <= 1.5 },
     ], pass = cells.filter((c) => c.ok).length, CW = (BW - 32) / 5;
-    T(x, '점검 도구가 세는 5칸', BX, 235, 9.5, PAL.muted, 500, 'left', MONO);
-    if (L >= 3) T(x, `5칸 중 ${pass}칸 통과`, BX + BW, 235, 9.5, PAL.ink, 600, 'right', MONO);
+    T(x, '점검 도구가 세는 5칸', BX, 242, 10.5, PAL.muted, 500, 'left', MONO);
+    if (L >= 3) T(x, `5칸 중 ${pass}칸 통과`, BX + BW, 242, 11, PAL.ink, 600, 'right', MONO);
     cells.forEach((c, i) => {
-      const cx = BX + i * (CW + 8), cy = 240, vis = L >= 3, k = vis ? E.outC(seg(t, 0.5 + i * 0.12, 1.0 + i * 0.12)) : 0;
-      x.save(); x.globalAlpha = vis ? 0.25 + 0.75 * k : 0.5; x.fillStyle = vis ? 'rgba(29,26,22,.78)' : 'rgba(29,26,22,.3)'; rr(x, cx, cy, CW, 46, 6); x.fill();
-      if (vis) { x.fillStyle = c.ok ? 'rgba(255,226,122,.26)' : 'rgba(150,20,12,.6)'; rr(x, cx, cy, CW, 46, 6); x.fill(); }
-      if (!vis) { x.setLineDash([3, 3]); x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, cx + 0.5, cy + 0.5, CW - 1, 45, 6); x.stroke(); x.setLineDash([]); }
-      T(x, c.n, cx + 8, cy + 13, 10, PAL.ink, 600);
-      if (vis) { const col = c.ok ? PAL.accent : WARM; T(x, c.v, cx + 8, cy + 30, 13, col, 700, 'left', MONO); mark(x, cx + CW - 14, cy + 25, c.ok, col); T(x, c.th, cx + 8, cy + 41, 8.5, PAL.muted, 500, 'left', MONO); }
-      else T(x, '—', cx + 8, cy + 30, 13, PAL.muted, 600, 'left', MONO);
+      const cx = BX + i * (CW + 8), cy = 247, vis = L >= 3, k = vis ? E.outC(seg(t, 0.5 + i * 0.12, 1.0 + i * 0.12)) : 0;
+      x.save(); x.globalAlpha = vis ? 0.25 + 0.75 * k : 0.5; x.fillStyle = vis ? 'rgba(29,26,22,.78)' : 'rgba(29,26,22,.3)'; rr(x, cx, cy, CW, 44, 6); x.fill();
+      if (vis) { x.fillStyle = c.ok ? 'rgba(255,226,122,.26)' : 'rgba(150,20,12,.6)'; rr(x, cx, cy, CW, 44, 6); x.fill(); }
+      if (!vis) { x.setLineDash([3, 3]); x.strokeStyle = PAL.line; x.lineWidth = 1; rr(x, cx + 0.5, cy + 0.5, CW - 1, 43, 6); x.stroke(); x.setLineDash([]); }
+      T(x, c.n, cx + 8, cy + 16, 11, PAL.ink, 600);
+      if (vis) { const col = c.ok ? PAL.accent : WARM; T(x, c.v, cx + 8, cy + 36, 15, col, 700, 'left', MONO); mark(x, cx + CW - 15, cy + 29, c.ok, col); }
+      else T(x, '—', cx + 8, cy + 36, 15, PAL.muted, 600, 'left', MONO);
       x.restore();
     });
     // 사람 몫 4칸
     const hum = ['소리를 듣는다', '앞 30초 약속한 결과', '글자가 읽히는가', '전환이 어색한가'];
-    T(x, '도구가 못 세는 칸', BX, 296, 9.5, PAL.muted, 500, 'left', MONO);
+    T(x, '도구가 못 세는 칸', BX, 307, 10.5, PAL.muted, 500, 'left', MONO);
     hum.forEach((n, i) => {
-      const cw = (BW - 24) / 4, cx = BX + i * (cw + 8), cy = 301, vis = L >= 4, k = vis ? E.outC(seg(t, 0.2 + i * 0.12, 0.7 + i * 0.12)) : 0;
-      x.save(); x.globalAlpha = vis ? 0.3 + 0.7 * k : 0.5; x.fillStyle = vis ? 'rgba(29,26,22,.78)' : 'rgba(29,26,22,.3)'; rr(x, cx, cy, cw, 36, 6); x.fill();
-      x.setLineDash([3, 3]); x.strokeStyle = vis ? PAL.accent : PAL.line; x.lineWidth = 1; rr(x, cx + 0.5, cy + 0.5, cw - 1, 35, 6); x.stroke(); x.setLineDash([]);
-      T(x, n, cx + 8, cy + 14, 10, PAL.ink, 600);
-      T(x, vis ? '미판정 → 사람' : '—', cx + 8, cy + 28, 9.5, vis ? PAL.accent : PAL.muted, 700, 'left', MONO);
+      const cw = (BW - 24) / 4, cx = BX + i * (cw + 8), cy = 313, vis = L >= 4, k = vis ? E.outC(seg(t, 0.2 + i * 0.12, 0.7 + i * 0.12)) : 0;
+      x.save(); x.globalAlpha = vis ? 0.3 + 0.7 * k : 0.5; x.fillStyle = vis ? 'rgba(29,26,22,.78)' : 'rgba(29,26,22,.3)'; rr(x, cx, cy, cw, 40, 6); x.fill();
+      x.setLineDash([3, 3]); x.strokeStyle = vis ? PAL.accent : PAL.line; x.lineWidth = 1; rr(x, cx + 0.5, cy + 0.5, cw - 1, 39, 6); x.stroke(); x.setLineDash([]);
+      T(x, n, cx + 8, cy + 16, 11, PAL.ink, 600);
+      T(x, vis ? '미판정 → 사람' : '—', cx + 8, cy + 32, 11, vis ? PAL.accent : PAL.muted, 700, 'left', MONO);
       x.restore();
     });
-    T(x, '보고에는 잰 것, 못 잰 것, 사람 몫을 나눠 적는다', BX, 352, 9.5, PAL.muted, 500);
     s.items.forEach((it, i) => { it.style.color = i === L ? PAL.ink : PAL.muted; it.style.fontWeight = i === L ? '700' : '500'; it.style.opacity = i === L ? '1' : '0.8'; });
   },
 };

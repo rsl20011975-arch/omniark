@@ -144,7 +144,7 @@ const demo = {
       return { w: inner, bar: null, d };
     });
     const pill = el('div', null, sp);
-    box(pill, { position: 'absolute', left: '28px', top: '9px', padding: '6px 12px', borderRadius: '999px', background: PAL.surface, color: PAL.ink, boxShadow: `inset 0 0 0 1px ${PAL.line}, 0 3px 10px rgba(0,0,0,.4)`, font: "600 12px/1 'IBM Plex Sans KR',sans-serif", zIndex: 6 });
+    box(pill, { position: 'absolute', left: '28px', top: '10px', padding: '.5em 1em', borderRadius: '999px', background: PAL.surface, color: PAL.ink, boxShadow: `inset 0 0 0 1px ${PAL.line}, 0 3px 10px rgba(0,0,0,.4)`, font: "600 12px/1 'IBM Plex Sans KR',sans-serif", zIndex: 6 });
     const track = el('div', null, sp);
     box(track, { position: 'absolute', left: '28px', top: '299px', width: '584px', height: '2px', borderRadius: '1px', background: PAL.line });
     const ticks = CUES.map((c, i) => {
@@ -158,7 +158,7 @@ const demo = {
     const head = el('div', null, sp);
     box(head, { position: 'absolute', top: '288px', width: '2px', height: '24px', borderRadius: '1px', background: PAL.ink, boxShadow: '0 0 0 1px rgba(23,22,21,.8)' });
     const cap = el('div', null, sp);
-    box(cap, { position: 'absolute', left: '28px', top: '334px', width: '584px', paddingTop: '6px', borderTop: `1px solid ${PAL.line}`, font: "400 11px/1.2 'JetBrains Mono',monospace", color: PAL.muted });
+    box(cap, { position: 'absolute', left: '28px', top: '334px', width: '584px', paddingTop: '10px', borderTop: `1px solid ${PAL.line}`, font: "400 11px/1.2 'JetBrains Mono',monospace", color: PAL.muted });
     const still = [0, 1, 2, 3, 4].map(stillness), pk = peakScale();
     return { cards, pill, ticks, head, cap, still, pk };
   },
