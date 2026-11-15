@@ -42,7 +42,7 @@ export default async function FieldPage({ params }: Props) {
         </nav>
         <span className="kicker ko">{f.group === "기초" ? "기초 요소" : f.group === "연출" ? "연출" : "제작 참고"} · 분야</span>
         <h1>{f.name}</h1>
-        <p className="lead">{f.desc}. 용어를 고르면 데모와 지시문이 있습니다.</p>
+        <p className="lead">{f.desc}. 용어를 고르면 데모와 지시문이 있다.</p>
         <TermBrowser terms={terms} />
       </div>
     </div>

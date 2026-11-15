@@ -13,7 +13,7 @@
     "웹·앱",
     "영상"
   ],
-  "oneLine": "평평한 화면 요소를 돌리고 앞뒤로 밀어서 입체 공간에 놓인 물체처럼 보이게 합니다. 원근(perspective), 회전(rotateX/Y), 앞뒤 이동(translateZ), 입체 유지(preserve-3d) 네 가지가 한 세트입니다",
+  "oneLine": "평평한 화면 요소를 돌리고 앞뒤로 밀어서 입체 공간에 놓인 물체처럼 보이게 한다. 원근(perspective), 회전(rotateX/Y), 앞뒤 이동(translateZ), 입체 유지(preserve-3d) 네 가지가 한 세트이다",
   "preview": null,
   "keywords": [
     "CSS 3D",
@@ -73,7 +73,7 @@
       },
       {
         "state": "확인",
-        "text": "preserve-3d 는 자식을 3D 공간에 그대로 놓고, 기본값 flat 은 자식을 평면에 납작하게 합니다. overflow, opacity, filter 등이 걸리면 flat 으로 바뀔 수 있으니 주의하라고 적혀 있습니다.",
+        "text": "preserve-3d 는 자식을 3D 공간에 그대로 놓고, 기본값 flat 은 자식을 평면에 납작하게 한다. overflow, opacity, filter 등이 걸리면 flat 으로 바뀔 수 있으니 주의하라고 적혀 있다.",
         "title": "MDN — transform-style",
         "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-style"
       },
@@ -85,7 +85,7 @@
       },
       {
         "state": "확인",
-        "text": "요소를 보는 쪽(양수)이나 먼 쪽(음수)으로 옮깁니다. 눈에 보이게 하려면 perspective 가 필요하다고 합니다.",
+        "text": "요소를 보는 쪽(양수)이나 먼 쪽(음수)으로 옮긴다. 눈에 보이게 하려면 perspective 가 필요하다고 한다.",
         "title": "MDN — translateZ()",
         "url": "https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/translateZ"
       }
@@ -106,18 +106,18 @@
     ],
     "vs": {
       "bad": "카드와 큐브가 3D로 돌아가게 해줘",
-      "badResult": "원근과 입체 유지 값이 빠진 채로, 면이 납작하게 겹치거나 깊이가 느껴지지 않는 결과가 나오곤 합니다",
+      "badResult": "원근과 입체 유지 값이 빠진 채로, 면이 납작하게 겹치거나 깊이가 느껴지지 않는 결과가 나오곤 한다",
       "good": "부모 perspective: 600px, 큐브 preserve-3d, rotateX -22° · rotateY 25°→135° 2.4초",
       "goodResult": "큐브가 원근 600px 안에서 2.4초 동안 25°에서 135°까지 돌고, 층 카드 3장이 앞뒤로 벌어지는 화면"
     },
     "tips": [
       {
         "id": "strong",
-        "title": "입체감이 너무 약해요",
+        "title": "입체감이 너무 약하다",
         "situation": "원근이 약해 큐브가 평평한 도형처럼 보일 때",
         "from": "perspective: 600px",
         "to": "perspective: 250px",
-        "effect": "원근 거리가 600px에서 250px로 가까워져 큐브의 가까운 면은 훨씬 크게, 먼 면은 훨씬 작게 보입니다. 값을 더 줄이면 가까운 모서리가 화면 밖으로 터져 나옵니다. 왜곡도 심해집니다."
+        "effect": "원근 거리가 600px에서 250px로 가까워져 큐브의 가까운 면은 훨씬 크게, 먼 면은 훨씬 작게 보인다. 값을 더 줄이면 가까운 모서리가 화면 밖으로 터져 나온다. 왜곡도 심해진다."
       },
       {
         "id": "wide",
@@ -125,28 +125,28 @@
         "situation": "층 카드 사이 깊이 차이가 작아 보일 때",
         "from": "translateZ 로 각각 -40px, 0, +40px",
         "to": "translateZ 로 각각 -90px, 0, +90px",
-        "effect": "층 사이 간격이 40px에서 90px로 벌어져 버튼은 카드보다 훨씬 앞에, 배경판은 훨씬 뒤에 놓이지만, 너무 크게 벌리면 층이 서로 떨어진 별개의 물체처럼 보입니다."
+        "effect": "층 사이 간격이 40px에서 90px로 벌어져 버튼은 카드보다 훨씬 앞에, 배경판은 훨씬 뒤에 놓이지만, 너무 크게 벌리면 층이 서로 떨어진 별개의 물체처럼 보인다."
       }
     ],
     "steps": [
       {
-        "t": "모든 것이 평면입니다",
-        "d": "큐브는 앞면 정사각형 하나, 층 카드는 겹쳐 보이는 한 장뿐입니다. 3D 값이 하나도 들어가지 않았습니다.",
+        "t": "모든 것이 평면이다",
+        "d": "큐브는 앞면 정사각형 하나, 층 카드는 겹쳐 보이는 한 장뿐이다. 3D 값이 하나도 들어가지 않았다.",
         "code": "cube.style.transform = 'none';\nscene.style.perspective = 'none';"
       },
       {
-        "t": "rotateX/rotateY 와 preserve-3d 로 입체를 만듭니다",
-        "d": "가로축(X)과 세로축(Y)으로 돌리고, 자식이 입체를 유지하도록 preserve-3d 를 줍니다. 원근이 아직 없어서 멀리 있는 면도 가까운 면과 같은 크기로 보입니다.",
+        "t": "rotateX/rotateY 와 preserve-3d 로 입체를 만든다",
+        "d": "가로축(X)과 세로축(Y)으로 돌리고, 자식이 입체를 유지하도록 preserve-3d 를 준다. 원근이 아직 없어서 멀리 있는 면도 가까운 면과 같은 크기로 보인다.",
         "code": "cube.style.transformStyle = 'preserve-3d';\ncube.style.transform = `rotateX(-22deg) rotateY(${ry}deg)`;"
       },
       {
-        "t": "부모에 perspective 를 줍니다",
-        "d": "perspective: 600px 를 부모에 주면 멀리 있는 면이 작아지고 가까운 면이 커져 깊이가 생깁니다. 값이 작을수록 원근이 강합니다.",
+        "t": "부모에 perspective 를 준다",
+        "d": "perspective: 600px 를 부모에 주면 멀리 있는 면이 작아지고 가까운 면이 커져 깊이가 생긴다. 값이 작을수록 원근이 강하다.",
         "code": "scene.style.perspective = '600px';   // 부모에 준다"
       },
       {
-        "t": "translateZ 로 층을 앞뒤로 벌립니다",
-        "d": "층마다 translateZ 를 달리 주면 같은 자리에 있던 카드들이 앞뒤로 떨어집니다. 앞으로 나온 층(+)은 커지고, 뒤로 간 층(-)은 작아집니다.",
+        "t": "translateZ 로 층을 앞뒤로 벌린다",
+        "d": "층마다 translateZ 를 달리 주면 같은 자리에 있던 카드들이 앞뒤로 떨어진다. 앞으로 나온 층(+)은 커지고, 뒤로 간 층(-)은 작아진다.",
         "code": "layers[0].style.transform = 'translateZ(-40px)';\nlayers[1].style.transform = 'translateZ(0px)';\nlayers[2].style.transform = 'translateZ(40px)';"
       }
     ],
@@ -154,37 +154,37 @@
       {
         "w": "원근",
         "en": "perspective",
-        "m": "보는 사람과 화면 사이 거리를 정해, 멀리 있는 것을 작게 보이게 하는 값입니다. 부모 요소에 주고, 숫자가 작을수록 원근이 강합니다.",
+        "m": "보는 사람과 화면 사이 거리를 정해, 멀리 있는 것을 작게 보이게 하는 값이다. 부모 요소에 주고, 숫자가 작을수록 원근이 강하다.",
         "say": "“부모에 perspective: 600px 를 줘서 원근감 있게”"
       },
       {
         "w": "입체 유지",
         "en": "transform-style: preserve-3d",
-        "m": "이것이 없으면 큐브의 면이 겹쳐 납작해집니다. 자식 요소가 평면으로 눌리지 않고 3D 공간에 서 있게 하는 값.",
+        "m": "이것이 없으면 큐브의 면이 겹쳐 납작해진다. 자식 요소가 평면으로 눌리지 않고 3D 공간에 서 있게 하는 값.",
         "say": "큐브에 preserve-3d, 면이 입체로 서게"
       },
       {
         "w": "X축 회전",
         "en": "rotateX",
-        "m": "가로 축을 기준으로 앞뒤로 젖히는 회전. 위쪽이 뒤로 눕거나 앞으로 나옵니다.",
+        "m": "가로 축을 기준으로 앞뒤로 젖히는 회전. 위쪽이 뒤로 눕거나 앞으로 나온다.",
         "say": "“rotateX(-22deg) 로 위에서 내려다보는 각도”"
       },
       {
         "w": "Y축 회전",
         "en": "rotateY",
-        "m": "카드를 뒤집을 때 쓰는, 세로 축 기준의 좌우 회전입니다.",
+        "m": "카드를 뒤집을 때 쓰는, 세로 축 기준의 좌우 회전이다.",
         "say": "rotateY 25°에서 135°까지, 2.4초"
       },
       {
         "w": "앞뒤 이동",
         "en": "translateZ",
-        "m": "요소를 보는 사람 쪽(+)이나 먼 쪽(-)으로 옮기는 값입니다. 원근이 있을 때만 크기 차이로 드러납니다.",
+        "m": "요소를 보는 사람 쪽(+)이나 먼 쪽(-)으로 옮기는 값이다. 원근이 있을 때만 크기 차이로 드러난다.",
         "say": "“버튼은 translateZ(40px) 로 앞으로 빼줘”"
       },
       {
         "w": "소실점",
         "en": "perspective-origin",
-        "m": "멀어지는 선들이 모이는 점으로, 기본은 가운데. 옮기면 보는 위치가 바뀐 것처럼 보입니다.",
+        "m": "멀어지는 선들이 모이는 점으로, 기본은 가운데. 옮기면 보는 위치가 바뀐 것처럼 보인다.",
         "say": "소실점을 왼쪽 위로"
       }
     ],

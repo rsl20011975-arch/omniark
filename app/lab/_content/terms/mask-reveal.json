@@ -50,19 +50,19 @@
     "refs": [
       {
         "state": "확인",
-        "text": "Criterion 에세이는 평범하게 조판된 글자 위로 세로 띠가 가로질러 지나가는 Saul Bass 타이틀을 분석하며, 큰 효과 없이 애니메이션·타이포·리듬만으로 역동성을 만든다고 설명합니다.",
+        "text": "Criterion 에세이는 평범하게 조판된 글자 위로 세로 띠가 가로질러 지나가는 Saul Bass 타이틀을 분석하며, 큰 효과 없이 애니메이션·타이포·리듬만으로 역동성을 만든다고 설명한다.",
         "title": "Criterion — Credit Where It’s Due: The Father of the Title Sequence",
         "url": "https://www.criterion.com/current/posts/6937-credit-where-it-s-due-the-father-of-the-title-sequence"
       },
       {
         "state": "확인",
-        "text": "Codrops는 무료가 된 GSAP 플러그인(SplitText 등)으로 만든 텍스트 연출 데모 5개를 공개했습니다.",
+        "text": "Codrops는 무료가 된 GSAP 플러그인(SplitText 등)으로 만든 텍스트 연출 데모 5개를 공개했다.",
         "title": "Codrops — From SplitText to MorphSVG: 5 Creative Demos (2025.05.14)",
         "url": "https://tympanus.net/codrops/2025/05/14/from-splittext-to-morphsvg-5-creative-demos-using-free-gsap-plugins/"
       },
       {
         "state": "추정",
-        "text": "원본 영화 타이틀은 광학 합성 방식이었습니다. 이 예제의 clip-path 구현은 같은 시각 효과를 웹에서 재현하는 방법 중 하나입니다.",
+        "text": "원본 영화 타이틀은 광학 합성 방식이었다. 이 예제의 clip-path 구현은 같은 시각 효과를 웹에서 재현하는 방법 중 하나다.",
         "title": null,
         "url": null
       }
@@ -90,19 +90,19 @@
     "tips": [
       {
         "id": "slower",
-        "title": "드러나는 게 너무 빨라요",
+        "title": "드러나는 게 너무 빠르다",
         "situation": "막대가 순식간에 지나가서 글자를 읽기도 전에 끝날 때",
         "from": "0.4~1.6초: 막대가 왼쪽→오른쪽으로 이동하고",
         "to": "0.4~2.4초: 막대가 왼쪽→오른쪽으로 이동하고 (뒤 순서도 0.8초씩 늦춰줘)",
-        "effect": "글자가 드러나는 시간이 1.2초에서 2초로 길어집니다. 막대가 사라지는 때와 아래 문장, 밑줄도 같이 늦춰야 순서가 어긋나지 않습니다."
+        "effect": "글자가 드러나는 시간이 1.2초에서 2초로 길어진다. 막대가 사라지는 때와 아래 문장, 밑줄도 같이 늦춰야 순서가 어긋나지 않는다."
       },
       {
         "id": "nobar",
-        "title": "막대가 거슬려요",
+        "title": "막대가 거슬리는데?",
         "situation": "깔끔하게 글자만 드러나게 하고 싶을 때",
         "from": "높이 140px·폭 6px의 민트색 세로 막대만 보인다 … 막대는 위아래로 줄어들며 사라진다",
         "to": "막대 없이 글자만 가려진 부분이 왼쪽→오른쪽으로 드러나게 해줘",
-        "effect": "막대가 없어지고 글자 경계만 지나갑니다. 가리는 방식(clip-path)은 같고 막대라는 보조 장식만 빠집니다."
+        "effect": "막대가 없어지고 글자 경계만 지나간다. 가리는 방식(clip-path)은 같고 막대라는 보조 장식만 빠진다."
       }
     ],
     "steps": [],

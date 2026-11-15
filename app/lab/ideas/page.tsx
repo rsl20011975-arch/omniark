@@ -23,7 +23,7 @@ export default function IdeasPage() {
         <span className="kicker ko">영상 소재 · {items.length}개</span>
         <h1>이 기술로 만들 수 있는 영상 소재 {items.length}개</h1>
         <p className="lead">
-          {sub} 소재마다 아래 실습을 먼저 돌려 보면, 영상에 들어갈 장면을 그대로 만들 수 있습니다. 길이와 형식은 제안이니 내 채널에 맞게 바꿔 쓰세요.
+          {sub} 소재마다 아래 실습을 먼저 돌려 보면, 영상에 들어갈 장면을 그대로 만들 수 있다. 길이와 형식은 제안이니 내 채널에 맞게 바꿔 쓰면 된다.
         </p>
       </header>
       <ul className="ideagrid">
@@ -42,7 +42,7 @@ export default function IdeasPage() {
           </li>
         ))}
       </ul>
-      <p className="cfoot">조회수나 성과는 예측하지 않습니다. 소재는 출발점이고, 실제 반응은 올려 본 뒤에야 알 수 있습니다.</p>
+      <p className="cfoot">조회수나 성과는 예측하지 않는다. 소재는 출발점이고, 실제 반응은 올려 본 뒤에야 알 수 있다.</p>
     </div>
   );
 }

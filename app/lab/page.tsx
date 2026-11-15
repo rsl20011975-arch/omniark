@@ -31,7 +31,7 @@ export default function LabHubPage() {
           <div>
             <span className="kicker">Visual Lab <b>시각 용어 사전</b></span>
             <h1>AI에게 “예쁘게”라고 말하지 마세요. <em>이름으로 시키세요.</em></h1>
-            <p className="lead">화면·영상·문서에 들어가는 시각 용어를 데모로 직접 보고, 그대로 붙여 넣을 지시문까지 한 번에 가져가세요.</p>
+            <p className="lead">화면·영상·문서에 들어가는 시각 용어를 데모로 직접 보고, 그대로 붙여 넣을 지시문까지 한 번에 가져갈 수 있다.</p>
             <div style={{ marginTop: 32, maxWidth: 560 }}>
               <LabSearch placeholder="이름을 몰라도 돼요 — 보이는 대로 적어 보세요" />
             </div>
@@ -52,7 +52,7 @@ export default function LabHubPage() {
       {rows.length > 0 && (
         <section className="sec">
           <h2>이런 화면이라면, 이 이름</h2>
-          <p className="sub">이름을 모르는 사람이 가장 많이 막히는 곳입니다. 본 것을 말로 적으면 이름으로 이어 드립니다.</p>
+          <p className="sub">이름을 모르는 사람이 가장 많이 막히는 곳이다. 본 것을 말로 적으면 이름으로 이어 준다.</p>
           <div className="lookup">
             <div className="h"><span>이렇게 보이면</span><span /><span>이 이름으로 시키세요</span></div>
             {rows.map((r) => (
@@ -69,22 +69,22 @@ export default function LabHubPage() {
       <section className="sec">
         <div className="sec-h">
           <div><span className="kicker ko">더 깊이</span><h2>용어 말고도 이렇게 찾아보세요</h2></div>
-          <p>용어 사전에 들어가기 전에, 시킬 수 있는 요소 전체를 훑거나 바로 붙여 넣을 문장·영상부터 가져갈 수 있습니다.</p>
+          <p>용어 사전에 들어가기 전에, 시킬 수 있는 요소 전체를 훑거나 바로 붙여 넣을 문장·영상부터 가져갈 수 있다.</p>
         </div>
         <div className="fgrid three">
           <Link href="/lab/elements" className="fcard">
             <h3>요소 사전</h3>
-            <p className="d">AI에게 이름으로 시킬 수 있는 연출 요소 {el.chips}개를 {el.cats}개 분류로 나눴습니다. 직접 확인한 것 {el.ok}개, 아직 확인하지 않은 것 {unconfirmed(el)}개를 구분해 적었습니다.</p>
+            <p className="d">AI에게 이름으로 시킬 수 있는 연출 요소 {el.chips}개를 {el.cats}개 분류로 나눴다. 직접 확인한 것 {el.ok}개, 아직 확인하지 않은 것 {unconfirmed(el)}개를 구분해 적었다.</p>
             <div className="ct"><span>요소 {el.chips}개 보기</span><ArrowIcon /></div>
           </Link>
           <Link href="/lab/prompts" className="fcard">
             <h3>지시 문장</h3>
-            <p className="d">길이·장면·등장 순서·강조·카메라·리듬·금지·검수까지, 그대로 복사해 붙여 넣는 문장 {prompts().items.length}개입니다.</p>
+            <p className="d">길이·장면·등장 순서·강조·카메라·리듬·금지·검수까지, 그대로 복사해 붙여 넣는 문장 {prompts().items.length}개이다.</p>
             <div className="ct"><span>문장 {prompts().items.length}개 보기</span><ArrowIcon /></div>
           </Link>
           <Link href="/lab/clips" className="fcard">
             <h3>예시 영상</h3>
-            <p className="d">실제로 만든 롱폼에서 요소 하나씩 잘라 낸 4~9초 영상 {clips().items.length}개와 58초 완성 영상입니다.</p>
+            <p className="d">실제로 만든 롱폼에서 요소 하나씩 잘라 낸 4~9초 영상 {clips().items.length}개와 58초 완성 영상이다.</p>
             <div className="ct"><span>영상 {clips().items.length}개 보기</span><ArrowIcon /></div>
           </Link>
         </div>
@@ -109,7 +109,7 @@ export default function LabHubPage() {
       <section className="sec">
         <div className="sec-h">
           <div><span className="kicker ko">분야 지도</span><h2>어디서부터 찾아볼까요</h2></div>
-          <p>데모와 지시문을 직접 시험한 용어만 공개합니다. 시험이 끝나지 않은 분야는 열지 않습니다.</p>
+          <p>데모와 지시문을 직접 시험한 용어만 공개한다. 시험이 끝나지 않은 분야는 열지 않는다.</p>
         </div>
         {(["기초", "연출", "제작"] as const).map((g) => (
           <Fragment key={g}>
@@ -144,7 +144,7 @@ export default function LabHubPage() {
         <section className="sec">
           <div className="sec-h">
             <div><span className="kicker ko">색인</span><h2>가나다 색인</h2></div>
-            <p>지금 열려 있는 용어 전체입니다. 데모와 지시문을 시험한 것만 올립니다.</p>
+            <p>지금 열려 있는 용어 전체이다. 데모와 지시문을 시험한 것만 올린다.</p>
           </div>
           <div className="idx">
             {initials.map((k) => (

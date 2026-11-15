@@ -7,7 +7,7 @@ import { LAB_FONTS, zipSize } from "../_lib/fonts";
 export const metadata: Metadata = {
   title: "Visual Lab 에서 쓴 글꼴 5종 — 무료 내려받기(OFL)",
   description:
-    "Visual Lab 페이지와 데모에 쓴 글꼴 5종(Wanted Sans, Instrument Serif, 검은고딕, IBM Plex Sans KR, JetBrains Mono)을 공식 파일 그대로 내려받을 수 있습니다. 모두 SIL Open Font License 1.1로 상업 작업에도 무료입니다.",
+    "Visual Lab 페이지와 데모에 쓴 글꼴 5종(Wanted Sans, Instrument Serif, 검은고딕, IBM Plex Sans KR, JetBrains Mono)을 공식 파일 그대로 내려받을 수 있다. 모두 SIL Open Font License 1.1로 상업 작업에도 무료이다.",
   alternates: { canonical: "/lab/fonts" },
 };
 
@@ -23,7 +23,7 @@ export default function FontsPage() {
         <h1>이 사전에 쓴 글꼴 {LAB_FONTS.length}종</h1>
         <p className="lead">
           데모를 따라 만들 때 같은 글꼴을 쓰면 화면이 똑같이 나옵니다. 모두 공식 배포 파일 그대로이며, SIL Open Font License 1.1이라 영상·웹·인쇄 같은
-          상업 작업에도 무료로 쓸 수 있습니다. 내려받은 .ttf 파일을 더블클릭해 ‘설치’를 누르면 됩니다.
+          상업 작업에도 무료로 쓸 수 있다. 내려받은 .ttf 파일을 더블클릭해 ‘설치’를 누르면 된다.
         </p>
       </header>
       <ul className="fontgrid">
@@ -45,8 +45,8 @@ export default function FontsPage() {
         ))}
       </ul>
       <p className="cfoot">
-        OFL 조건: 글꼴 파일만 따로 판매할 수는 없고, 글꼴 파일 자체를 고쳐 다시 배포할 때는 같은 라이선스로 원래 이름을 쓰지 않아야 합니다. 이 글꼴로 만든 영상·이미지·문서에는
-        제한이 없습니다. 이 사이트는 글꼴을 외부 서비스에서 불러오지 않고 직접 내보냅니다.
+        OFL 조건: 글꼴 파일만 따로 판매할 수는 없고, 글꼴 파일 자체를 고쳐 다시 배포할 때는 같은 라이선스로 원래 이름을 쓰지 않아야 한다. 이 글꼴로 만든 영상·이미지·문서에는
+        제한이 없다. 이 사이트는 글꼴을 외부 서비스에서 불러오지 않고 직접 내보낸다.
       </p>
     </div>
   );

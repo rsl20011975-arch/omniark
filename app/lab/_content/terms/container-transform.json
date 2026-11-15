@@ -43,19 +43,19 @@
     "refs": [
       {
         "state": "확인",
-        "text": "Material Design 모션 시스템은 전환 패턴으로 컨테이너 트랜스폼, 공유 축, 페이드 스루, 페이드 4가지를 정의합니다.",
+        "text": "Material Design 모션 시스템은 전환 패턴으로 컨테이너 트랜스폼, 공유 축, 페이드 스루, 페이드 4가지를 정의한다.",
         "title": "Material Design — The motion system",
         "url": "https://material.io/design/motion/the-motion-system.html"
       },
       {
         "state": "확인",
-        "text": "Material Components for Android 문서는 MaterialContainerTransform으로 카드→상세화면 같은 전환을 구현한다고 설명합니다.",
+        "text": "Material Components for Android 문서는 MaterialContainerTransform으로 카드→상세화면 같은 전환을 구현한다고 설명한다.",
         "title": "Material Components Android — Motion.md",
         "url": "https://github.com/material-components/material-components-android/blob/master/docs/theming/Motion.md"
       },
       {
         "state": "추정",
-        "text": "‘실제 앱에서는 더 짧게’는 일반적인 경험칙입니다. 공식 지속시간 값은 이번에 확인하지 못했습니다.",
+        "text": "‘실제 앱에서는 더 짧게’는 일반적인 경험칙이다. 공식 지속시간 값은 이번에 확인하지 못했다.",
         "title": null,
         "url": null
       }
@@ -83,19 +83,19 @@
     "tips": [
       {
         "id": "slower",
-        "title": "카드가 펼쳐지는 게 너무 빨라요",
+        "title": "카드가 펼쳐지는 게 너무 빠르다",
         "situation": "어떤 카드가 커진 건지 눈으로 따라가기 어려울 때",
         "from": "0.6~1.5초: 선택한 카드의 테두리 상자가 화면 전체로 커진다",
         "to": "0.6~2.2초 (설명 문장·버튼 등장도 그만큼 늦춰줘)",
-        "effect": "카드가 커지는 시간이 0.9초에서 1.6초로 길어집니다. 설명·버튼은 카드가 다 커진 뒤에 나오도록 늦춥니다."
+        "effect": "카드가 커지는 시간이 0.9초에서 1.6초로 길어진다. 설명·버튼은 카드가 다 커진 뒤에 나오도록 늦춘다."
       },
       {
         "id": "dim",
-        "title": "다른 카드가 사라져서 어디서 왔는지 모르겠어요",
+        "title": "다른 카드가 사라져서 어디서 왔는지 모르겠는데?",
         "situation": "목록으로 돌아올 곳을 보여 주고 싶을 때",
         "from": "같은 시간 동안 다른 카드는 94% 크기로 줄며 사라진다",
         "to": "같은 시간 동안 다른 카드는 94% 크기로 줄며 반쯤만 흐려진다",
-        "effect": "카드가 커지는 0.6~1.5초 동안, 나머지 카드가 더 진하게 남아 목록 속에서 커진다는 맥락이 유지됩니다. 카드가 화면을 다 채우면 가려져 보이지 않습니다."
+        "effect": "카드가 커지는 0.6~1.5초 동안, 나머지 카드가 더 진하게 남아 목록 속에서 커진다는 맥락이 유지된다. 카드가 화면을 다 채우면 가려져 보이지 않는다."
       }
     ],
     "steps": [],

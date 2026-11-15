@@ -36,7 +36,7 @@ export default function RulesPage() {
 
       <section className="blk" id="paste">
         <h2><i>01</i>새 AI 세션에 붙여 넣기</h2>
-        <p className="sub">아래 글 전체가 규칙입니다. 새 대화를 열면 이 글을 먼저 붙여 넣거나, 이 주소(<Link href="/lab/rules/raw">/lab/rules/raw</Link>)를 읽게 하세요.</p>
+        <p className="sub">아래 글 전체가 규칙이다. 새 대화를 열면 이 글을 먼저 붙여 넣거나, 이 주소(<Link href="/lab/rules/raw">/lab/rules/raw</Link>)를 읽게 한다.</p>
         <CodeBlock text={rulesText()} />
       </section>
 
@@ -60,7 +60,7 @@ export default function RulesPage() {
 
       <section className="blk" id="rules">
         <h2><i>03</i>영상 연출 규칙</h2>
-        <p className="sub">규칙마다 증거 등급이 붙어 있습니다: {Object.entries(GRADE_NOTE).map(([k, v]) => `${k}(${v})`).join(" · ")}.</p>
+        <p className="sub">규칙마다 증거 등급이 붙어 있다: {Object.entries(GRADE_NOTE).map(([k, v]) => `${k}(${v})`).join(" · ")}.</p>
         {RULE_GROUPS.map((g) => {
           const list = rulesOf(r.rules, g.id);
           if (!list.length) return null;
@@ -107,7 +107,7 @@ export default function RulesPage() {
         <ul className="uselist">{r.bans.map((b) => <li key={b}>{b}</li>)}</ul>
       </section>
 
-      <p className="cfoot">이 규칙은 제작 기록에서 모았고, 효과가 확인되지 않은 값은 그렇게 표시했습니다. 시청 성과는 예측하지 않습니다.</p>
+      <p className="cfoot">이 규칙은 제작 기록에서 모았고, 효과가 확인되지 않은 값은 그렇게 표시했다. 시청 성과는 예측하지 않는다.</p>
     </div>
   );
 }

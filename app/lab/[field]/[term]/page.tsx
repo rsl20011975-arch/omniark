@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!t) return { title: "페이지를 찾을 수 없습니다", robots: { index: false } };
   return {
     title: `${t.name} (${t.en})`,
-    description: `${t.oneLine}. 연출 전·후를 직접 돌려 보고, 그대로 붙여 넣을 지시문을 가져가세요.`,
+    description: `${t.oneLine}. 연출 전·후를 직접 돌려 보고, 그대로 붙여 넣을 지시문을 가져간다.`,
     alternates: { canonical: termPath(t) },
     robots: LAB_INDEXABLE ? undefined : { index: false, follow: false },
     openGraph: { type: "article", title: `${t.name} (${t.en})`, description: t.oneLine, locale: "ko_KR" },
@@ -89,7 +89,7 @@ export default async function TermPage({ params }: Props) {
             <DemoWorkbench>
             <section className="blk" id="demo">
               <h2><i>01</i>직접 돌려 보기</h2>
-              <p className="sub">‘연출 전’은 대충 시켰을 때를 가정해 만든 화면이고 실제 AI 결과와 다를 수 있습니다.</p>
+              <p className="sub">‘연출 전’은 대충 시켰을 때를 가정해 만든 화면이고 실제 AI 결과와 다를 수 있다.</p>
               <DemoSlot demo={d.demo} label={t.name} tipTitle={Object.fromEntries(d.tips.map((x) => [x.id, x.title]))} />
             </section>
 
@@ -108,7 +108,7 @@ export default async function TermPage({ params }: Props) {
             {d.tips.length > 0 && (
             <section className="blk" id="tips">
               <h2><i>{nTips}</i>응용 팁</h2>
-              <p className="sub">팁은 데모에서 값만 바꿔 같은 장면과 비교한 것입니다. AI가 같은 결과를 내는지는 직접 해 보셔야 합니다.</p>
+              <p className="sub">팁은 데모에서 값만 바꿔 같은 장면과 비교한 것이다. AI가 같은 결과를 내는지는 직접 해 봐야 안다.</p>
               <TipsPanel tips={d.tips} />
             </section>
             )}
@@ -163,7 +163,7 @@ export default async function TermPage({ params }: Props) {
 
             <section className="blk" id="src">
               <h2><i>{nSrc}</i>근거와 확인 범위</h2>
-              <p className="sub">‘확인’은 출처 문서에서 사실로 확인한 내용, ‘추정’은 결과물을 보고 추론한 내용, ‘원본 없음’은 흔히 쓰이지만 대표 원본 사례를 확인하지 못해 성공 사례로 제시하지 않은 기법입니다.</p>
+              <p className="sub">‘확인’은 출처 문서에서 사실로 확인한 내용, ‘추정’은 결과물을 보고 추론한 내용, ‘원본 없음’은 흔히 쓰이지만 대표 원본 사례를 확인하지 못해 성공 사례로 제시하지 않은 기법이다.</p>
               <ul className="refs">
                 {d.refs.map((r) => (
                   <li key={r.text}>

@@ -48,19 +48,19 @@
     "refs": [
       {
         "state": "확인",
-        "text": "CSS-Tricks는 Apple 제품 페이지의 스크롤 연동 애니메이션을 canvas에 프레임 이미지를 그리는 방식으로 재현합니다. 패럴랙스와는 다른 방식이지만 공간을 연출하는 참고 사례입니다.",
+        "text": "CSS-Tricks는 Apple 제품 페이지의 스크롤 연동 애니메이션을 canvas에 프레임 이미지를 그리는 방식으로 재현한다. 패럴랙스와는 다른 방식이지만 공간을 연출하는 참고 사례다.",
         "title": "CSS-Tricks — Let’s Make One of Those Fancy Scrolling Animations Used on Apple Product Pages",
         "url": "https://css-tricks.com/?p=308477"
       },
       {
         "state": "확인",
-        "text": "geyer.dev 분석에 따르면 AirPods Pro 애니메이션은 PNG 65장, 총 15.2MB로 구성되어 있었습니다.",
+        "text": "geyer.dev 분석에 따르면 AirPods Pro 애니메이션은 PNG 65장, 총 15.2MB로 구성되어 있었다.",
         "title": "geyer.dev — CSS image sequence animations (AirPods Pro 분석)",
         "url": "https://geyer.dev/blog/css-image-sequence-animations"
       },
       {
         "state": "추정",
-        "text": "레이어 이동 비율은 제가 정한 값입니다. 다큐에서 흔히 보이는 ‘사진이 입체로 움직이는’ 효과가 이런 레이어 분리 방식으로 만들어진다는 것은 결과물을 보고 한 추정입니다.",
+        "text": "레이어 이동 비율은 제작 때 정한 값이다. 다큐에서 흔히 보이는 ‘사진이 입체로 움직이는’ 효과가 이런 레이어 분리 방식으로 만들어진다는 것은 결과물을 보고 한 추정이다.",
         "title": null,
         "url": null
       }
@@ -88,19 +88,19 @@
     "tips": [
       {
         "id": "deeper",
-        "title": "깊이감이 약해요",
+        "title": "깊이감이 약하다",
         "situation": "산과 나무가 같은 평면에 붙어 있는 것처럼 보일 때",
         "from": "앞 나무 1.3",
         "to": "앞 나무 2.2",
-        "effect": "맨 앞 나무가 더 빨리 지나가서 먼 산과의 속도 차이가 커집니다. 레이어 사이 속도 차이가 클수록 입체감이 강해집니다."
+        "effect": "맨 앞 나무가 더 빨리 지나가서 먼 산과의 속도 차이가 커진다. 레이어 사이 속도 차이가 클수록 입체감이 강해진다."
       },
       {
         "id": "haze",
-        "title": "먼 산이 가깝게 느껴져요",
+        "title": "먼 산이 가깝게 느껴질 때",
         "situation": "먼 산과 중간 언덕이 앞쪽 언덕과 같은 거리처럼 보일 때",
         "from": "먼 레이어일수록 색을 하늘색 쪽으로 옅게(대기 원근)",
         "to": "먼 산과 중간 언덕의 색을 하늘빛에 더 가깝게(더 옅게) 칠해줘",
-        "effect": "먼 산과 중간 언덕이 하늘빛에 가까워져, 멀리 있는 것처럼 보입니다. 먼 것일수록 옅게 칠하는 것이 거리감을 만드는 기본 방법입니다."
+        "effect": "먼 산과 중간 언덕이 하늘빛에 가까워져, 멀리 있는 것처럼 보인다. 먼 것일수록 옅게 칠하는 것이 거리감을 만드는 기본 방법이다."
       }
     ],
     "steps": [],

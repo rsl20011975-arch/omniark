@@ -87,7 +87,7 @@ export default function TermBrowser({ terms }: { terms: Term[] }) {
       {shown.length === 0 && (
         <div className="empty">
           <p className="empty-t">조건에 맞는 용어가 아직 없어요</p>
-          <p className="empty-d">용어는 데모와 지시문을 직접 시험한 것만 공개합니다. 조건을 바꿔 보세요.</p>
+          <p className="empty-d">용어는 데모와 지시문을 직접 시험한 것만 공개한다. 조건을 바꿔 보면 된다.</p>
           <button type="button" className="btn ghost" onClick={reset}>필터 모두 지우기</button>
         </div>
       )}

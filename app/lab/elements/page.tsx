@@ -7,7 +7,7 @@ import { clips, elements, unconfirmed } from "../_lib/catalog";
 export const metadata: Metadata = {
   title: "요소 사전 — AI에게 시킬 수 있는 연출 요소 448개",
   description:
-    "시간·이징·전환·카메라·타이포·데이터·3D·소리까지, AI에게 이름으로 시킬 수 있는 연출 요소 448개. 직접 확인한 것과 아직 확인하지 않은 것을 나눠 적었습니다.",
+    "시간·이징·전환·카메라·타이포·데이터·3D·소리까지, AI에게 이름으로 시킬 수 있는 연출 요소 448개. 직접 확인한 것과 아직 확인하지 않은 것을 나눠 적었다.",
   alternates: { canonical: "/lab/elements" },
 };
 
@@ -24,7 +24,7 @@ export default function ElementsPage() {
         <span className="kicker ko">요소 사전 · {counts.cats}개 분류</span>
         <h1>AI에게 이름으로 시킬 수 있는 연출 요소 {counts.chips}개</h1>
         <p className="lead">
-          칩 하나가 요소 하나입니다. 초록 칩은 데모로 직접 확인한 것({counts.ok}개), 점선 칩은 아직 확인하지 않은 것({unconfirmed(counts)}개)입니다.
+          칩 하나가 요소 하나이다. 초록 칩은 데모로 직접 확인한 것({counts.ok}개), 점선 칩은 아직 확인하지 않은 것({unconfirmed(counts)}개)이다.
           칩 안의 ‘실습 번호’를 누르면 그 요소를 돌려 볼 수 있는 용어 페이지로 이어집니다.
         </p>
         <dl className="cstats">
